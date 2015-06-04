@@ -1,0 +1,4 @@
+# compiled python
+__pycache__
+# large sample data files
+data/
