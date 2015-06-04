@@ -6,125 +6,134 @@ import ply.lex as lex
 reserved = {
     'if': 'IF',
     'else': 'ELSE',
+    'elseif': 'ELSEIF',
+    'then': 'THEN',
     'while': 'WHILE',
     'call': 'CALL',
     'macro': 'MACRO',
     'end': 'END',
     'return': 'RETURN',
+    'exit': 'EXIT',
+    'include': 'INCLUDE',
+    'true': 'TRUE',
+    'false': 'FALSE',
+    'for': 'FOR',
+    'continue': 'CONTINUE',
+    'break': 'BREAK',
+    'echo': 'ECHO',
+    'default': 'DEFAULT',
+    'as': 'AS',
+    'foreach': 'FOR',
+    # special variable names
+    'this': 'THIS',
+    'cms': 'CMS'
 }
 
 tokens = ['START_UTL',
           'END_UTL',
           'ID',
           'NUMBER',
-          'COMMENT_START',
-          'COMMENT_END',
           'COMMENT',
-          'RPAREN',
           'LPAREN',
+          'RPAREN',
+          'LBRACKET',
+          'RBRACKET',
           'COLON',
           'COMMA',
           'ASSIGN',
+          'NULL',
           'MODULUS',
           'EQ',
           'NEQ',
           'AND',
           'OR',
+          'NOT',
           'SEMI',
           'DOT',
-          'STRING'] + list(reserved.values())
-
+          'RANGE',
+          'FILTER',
+          'STRING'] + list(set(reserved.values()))
 
 t_START_UTL = r'\[%-?'
 t_END_UTL = r'-?%]'
 
+# "Identifier scoping is implemented only for macros. All other block
+# constructs and included files operate in the same scope as the
+# parent file. For macro scoping an identifier will first be sought
+# for within the macro, and failing that the containing scope will be
+# fallen back upon. A global scope exists and is accessible from all
+# scoping levels (including exclusive). Global scope is normally used
+# only for predefined filters and identifiers."
+
 
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
-    t.type = reserved.get(t.value, 'ID')    # Check for reserved words
+    # case-insensitive check for reserved words
+    t.type = reserved.get(t.value.lower(), 'ID')
     return t
 
-in_comment = False
 
-
-def t_COMMENT_START(t):
-    r'/\*'
-    global in_comment
-    in_comment = True
-    pass
-
-
-def t_COMMENT_END(t):
-    r'\*/'
-    global in_comment
-    in_comment = False
-    pass
-
-
+# comment (ignore)
+# PROBLEMS: comments *can* be nested
+#          delimiters outside template ([% .. %])
+#          should be ignored
 def t_COMMENT(t):
-    r'/\*.*\*/'
+    r'(/\*(.|\n)*?\*/)'
     pass
 
 
 def t_NUMBER(t):
-    r'\d+(\.\d*)?'
+    r'\d+(\.\d+)?'
     t.value = float(t.value)
     return t
 
-literals = ['+', '-', '*', '/']
-t_RPAREN = r'[(]'
+literals = ['+', '-', '*', '/', '+=', '-=', '*=', '/=']
 t_LPAREN = r'[)]'
+t_RPAREN = r'[(]'
+t_LBRACKET = r'\['
+t_RBRACKET = r']'
 t_COLON = r':'
 t_COMMA = r','
 t_ASSIGN = r'='
-t_MODULUS = r'%'
-t_EQ = r'=='
-t_NEQ = r'!='
-t_AND = r'&&'
-t_OR = r'\|\|'
+t_MODULUS = r'%|mod'
+t_EQ = r'==|is'
+t_NEQ = r'!=|is not'
+t_AND = r'&&|and'
+t_OR = r'\|\||or'
 t_SEMI = r';'
 t_DOT = r'\.'
+t_NULL = r'null'
+t_NOT = r'!|not'
+t_RANGE = r'\.\.'
+t_FILTER = r'\|'
 
 string_re = r"'([^']*)'|" + r'"([^"]*)"'
 
 
+# attributes of t param:
+# t.type: the token type (as a string)
+# t.value: the lexeme (the actual text matched)
+# t.lineno: the current line number
+# t.lexpos: the position of the token relative to the beginning of
+#     the input text
+# t.lexer: the Lexer object
+
+# print attributes that are 'interesting' and not too long
+# for x in dir(t.lexer):
+#     # not method, special name
+#     if (type(getattr(t.lexer, x)) != type(t.lexer.clone)
+#             and not x.startswith('_')
+#             and x not in ['lexdata', 'lexre', 'lexretext',
+#                           'lexstaterenames', 'lexstateretext',
+#                           'lextokens', 'lexstatere',
+#                           'lextokens_all']):
+#         print("{}: {}".format(x, getattr(t.lexer, x)))
+
 def t_STRING(t):
-    r'\'([^\']*)\'|"([^"]*)"'
-    # t.type: the token type (as a string), t.value: the lexeme (the
-    # actual text matched), t.lineno: the current line number, and
-    # t.lexpos: the position of the token relative to the beginning of
-    # the input text, t.lexer: the Lexer object that produced the
-    # token
-
-    # t.lexer has: begin(), clone(), current_state(), input(),
-    # lexdata, lexeoff, lexerrorf(), lexignore, lexlen, lexliterals,
-    # lexmatch, lexmodule, lexoptimize, lexpos, lexre, lexreflags,
-    # lexretext, lexstate, lexstateeoff, lexstateerrorf,
-    # lexstateignore, lexstateinfo, lexstatere, lexstaterenames,
-    # lexstateretext, lexstatestack, lextokens, lextokens_all, lineno,
-    # next(), pop_state(), push_state(), readtab(), skip(), token(),
-    # writetab()
-
-    # print attributes that are 'interesting' and not too long
-    # for x in dir(t.lexer):
-    #     if (type(getattr(t.lexer, x)) != type(t.lexer.clone)
-    #             and not x.startswith('_')
-    #             and x not in ['lexdata', 'lexre', 'lexretext',
-    #                           'lexstaterenames', 'lexstateretext',
-    #                           'lextokens', 'lexstatere',
-    #                           'lextokens_all']):
-
-    #         print("{}: {}".format(x, getattr(t.lexer, x)))
-
-    # don't entirely understand how it's doing the match object
-    # but we want the second match that's not None
-    first_match = None
-    for str in t.lexer.lexmatch.groups():
-        if str and first_match:
-            t.value = str
-            break
-        elif str:
-            first_match = str
+    r'"(?P<dq>[^"]*)"|\'(?P<sq>[^\']*)\''
+    dq = t.lexer.lexmatch.group('dq')
+    sq = t.lexer.lexmatch.group('sq')
+    t.value = dq if dq else sq
     return t
 
 

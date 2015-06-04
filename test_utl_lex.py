@@ -17,6 +17,9 @@ macro core_base_library_subscriptionAssetsList();
     /* get asset types for subscription from standard */
     subscriptionAssets = core_base_library_getCustomProperty('varName':'subscription_assets','varDefault':'article,edition,page');
 
+    /* array w/multiple types */
+    fred = [1, 2.3, 'hello', false, "goodbye", null]
+
      /* manage mobile asset subscription types (list, none, or defer to standard) */
      if cms.system.mobile || cms.request.param('mode') == 'jqm';
          something = 5 * 7/(8+2)-23
