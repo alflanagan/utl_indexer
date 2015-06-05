@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
 
-import sys
 import ply.lex as lex
+
+states = (
+    # our initial state is always non-UTL, switch on '[%'
+    ('utl', 'inclusive'),
+)
 
 reserved = {
     'if': 'IF',
@@ -24,10 +28,25 @@ reserved = {
     'default': 'DEFAULT',
     'as': 'AS',
     'foreach': 'FOR',
+    'null': 'NULL',
     # special variable names
     'this': 'THIS',
     'cms': 'CMS'
 }
+
+# does UTL support all these? From PHP docs
+PHP_operators = [r'\[', r'\*\*', r'\+\+', r'--', r'~', r'(int)',
+                 r'(float)', '(string)', '(array)', '(object)',
+                 '(bool)', '@', 'instanceof', '!', r'\*', '/', '%',
+                 r'\+', '-', r'\.', '<<', '>>', '<', '<=', '>', '>=',
+                 '==', '!=', '===', '!==', '<>', '&&', r'\|\|', r'\?',
+                 ':', '=>', 'and', 'xor', 'or', ',', 'is', 'is not',
+                 r'\.\.']
+
+assignment_ops = ['=', r'\+=', '-=', r'\*=', r'\*\*=', '/=', r'\.=',
+                  '%=', '&=', r'\|=', r'\^=', '<<=', '>>=']
+
+# '&', '^', '|',
 
 tokens = ['START_UTL',
           'END_UTL',
@@ -39,23 +58,60 @@ tokens = ['START_UTL',
           'LBRACKET',
           'RBRACKET',
           'COLON',
-          'COMMA',
-          'ASSIGN',
-          'NULL',
-          'MODULUS',
-          'EQ',
-          'NEQ',
-          'AND',
-          'OR',
-          'NOT',
+          'OP',
+          'ASSIGNOP',
           'SEMI',
-          'DOT',
           'RANGE',
           'FILTER',
-          'STRING'] + list(set(reserved.values()))
+          'STRING',
+          'DOCUMENT'] + list(set(reserved.values()))
 
-t_START_UTL = r'\[%-?'
-t_END_UTL = r'-?%]'
+# ======== Tokens that switch state ==========================
+
+
+def t_ANY_START_UTL(t):
+    r'\[%-?'
+    # use push_state() to handle nested [% %]
+    t.lexer.push_state('utl')
+
+
+def t_ANY_END_UTL(t):
+    r'-?%]'
+    try:
+        t.lexer.pop_state()
+    except IndexError:
+        # attempt to end without beginning code
+        print("Lexical error at line {}: unmatched '%]'".format(t.lexer.lineno))
+
+# ======== INITIAL state =====================================
+# everything up to START_UTL gets put in one token
+t_DOCUMENT = r'[^[]+'
+
+
+# this gives us
+# LexToken(DOCUMENT,'some text',..
+# LexToken(DOCUMENT,'[',...
+# LexToken(DOCUMENT,'more text',...
+# which is not ideal, but workable
+# parser will have to paste them together
+def t_LBRACKET(t):
+    r'\['
+    # must detect START_UTL
+    if t.lexer.lexdata[t.lexer.lexpos + 1] != '%':
+        t.type = 'DOCUMENT'
+        t.value = '['
+    return t
+
+
+t_utl_LBRACKET = r'\['
+
+
+# Define a rule so we can track line numbers
+def t_utl_newline(t):
+    r'\n+'
+    t.lexer.lineno += len(t.value)
+
+# ======== UTL state =====================================
 
 # "Identifier scoping is implemented only for macros. All other block
 # constructs and included files operate in the same scope as the
@@ -65,49 +121,39 @@ t_END_UTL = r'-?%]'
 # scoping levels (including exclusive). Global scope is normally used
 # only for predefined filters and identifiers."
 
+# A string containing ignored characters (spaces and tabs)
+t_ignore = ' \t'
 
-def t_ID(t):
-    r'[a-zA-Z_][a-zA-Z_0-9]*'
-    # case-insensitive check for reserved words
-    t.type = reserved.get(t.value.lower(), 'ID')
-    return t
+t_utl_LPAREN = r'[)]'
+t_utl_RPAREN = r'[(]'
+t_utl_RBRACKET = r']'
+t_utl_COLON = r':'
 
 
 # comment (ignore)
 # PROBLEMS: comments *can* be nested
 #          delimiters outside template ([% .. %])
 #          should be ignored
-def t_COMMENT(t):
+# probably need another lexer state
+# must come before OP
+def t_utl_COMMENT(t):
     r'(/\*(.|\n)*?\*/)'
     pass
 
 
-def t_NUMBER(t):
-    r'\d+(\.\d+)?'
-    t.value = float(t.value)
+# this will not allow us to handle precedence in expressions
+@lex.TOKEN("|".join(PHP_operators))
+def t_utl_OP(t):
     return t
 
-literals = ['+', '-', '*', '/', '+=', '-=', '*=', '/=']
-t_LPAREN = r'[)]'
-t_RPAREN = r'[(]'
-t_LBRACKET = r'\['
-t_RBRACKET = r']'
-t_COLON = r':'
-t_COMMA = r','
-t_ASSIGN = r'='
-t_MODULUS = r'%|mod'
-t_EQ = r'==|is'
-t_NEQ = r'!=|is not'
-t_AND = r'&&|and'
-t_OR = r'\|\||or'
-t_SEMI = r';'
-t_DOT = r'\.'
-t_NULL = r'null'
-t_NOT = r'!|not'
-t_RANGE = r'\.\.'
-t_FILTER = r'\|'
 
-string_re = r"'([^']*)'|" + r'"([^"]*)"'
+@lex.TOKEN("|".join(assignment_ops))
+def t_utl_ASSIGNOP(t):
+    return t
+
+
+t_utl_SEMI = r';'
+t_utl_FILTER = r'\|'
 
 
 # attributes of t param:
@@ -129,7 +175,21 @@ string_re = r"'([^']*)'|" + r'"([^"]*)"'
 #                           'lextokens_all']):
 #         print("{}: {}".format(x, getattr(t.lexer, x)))
 
-def t_STRING(t):
+
+def t_utl_ID(t):
+    r'[a-zA-Z_][a-zA-Z_0-9]*'
+    # case-insensitive check for reserved words
+    t.type = reserved.get(t.value.lower(), 'ID')
+    return t
+
+
+def t_utl_NUMBER(t):
+    r'\d+(\.\d+)?'
+    t.value = float(t.value)
+    return t
+
+
+def t_utl_STRING(t):
     r'"(?P<dq>[^"]*)"|\'(?P<sq>[^\']*)\''
     dq = t.lexer.lexmatch.group('dq')
     sq = t.lexer.lexmatch.group('sq')
@@ -137,18 +197,15 @@ def t_STRING(t):
     return t
 
 
-# Define a rule so we can track line numbers
-def t_newline(t):
-    r'\n+'
-    t.lexer.lineno += len(t.value)
-
-
 # Error handling rule
-def t_error(t):
-    print("Illegal character '%s'" % t.value[0])
+def t_utl_error(t):
+    print("Illegal character '%s' in template code." % t.value[0])
     t.lexer.skip(1)
 
-# A string containing ignored characters (spaces and tabs)
-t_ignore = ' \t'
+
+# should never happen, but needed to silence warning
+def t_error(t):
+    print("Illegal character '%s' in non-template text." % t.value[0])
+    t.lexer.skip(1)
 
 lexer = lex.lex()
