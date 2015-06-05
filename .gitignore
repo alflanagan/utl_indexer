@@ -1,4 +1,9 @@
 # compiled python
 __pycache__
+
 # large sample data files
 data/
+
+# files created by 'lex' and 'yacc'
+parser.out
+*.lexed
