@@ -3,6 +3,8 @@
 
 import sys
 import os
+import logging
+
 import ply.yacc as yacc
 
 # Get the token map from the lexer.  This is required.
@@ -11,17 +13,18 @@ from ast_node import ASTNode
 
 AST = None
 current_node = None
+symbol_table = {}
 
 
 def p_utldoc(p):
     '''utldoc : assignment
               | assignment DOCUMENT'''
-    print("value of '{}': {}".format(p[1], p[2]))
+    pass
 
 
 def p_assignment(p):
     '''assignment : ID ASSIGN expression'''
-    p[1] = p[3]
+    symbol_table[p[1]] = p[3]
 
 
 def p_expression_plus(p):
@@ -86,4 +89,7 @@ if __name__ == '__main__':
         sys.stderr.write("       Parses a UTL file and outputs info for indexing.\n")
         sys.exit(1)
 
-    print(do_parse(sys.argv[1]))
+    do_parse(sys.argv[1])
+    print("symbol table:")
+    for key in symbol_table:
+        print("{}: {}".format(key, symbol_table[key]))
