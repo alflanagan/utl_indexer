@@ -37,13 +37,12 @@ reserved = {
 # does UTL support all these? From PHP docs
 PHP_operators = [r'\[', r'\*\*', r'\+\+', r'--', r'~', r'(int)',
                  r'(float)', '(string)', '(array)', '(object)',
-                 '(bool)', '@', 'instanceof', '!', r'\*', '/', '%',
-                 r'\+', '-', r'\.', '<<', '>>', '<', '<=', '>', '>=',
-                 '==', '!=', '===', '!==', '<>', '&&', r'\|\|', r'\?',
-                 ':', '=>', 'and', 'xor', 'or', ',', 'is', 'is not',
-                 r'\.\.']
+                 '(bool)', '@', 'instanceof', '!', r'\.', '<<', '>>',
+                 '<', '<=', '>', '>=', '==', '!=', '===', '!==', '<>',
+                 '&&', r'\|\|', r'\?', ':', '=>', 'and', 'xor', 'or',
+                 ',', 'is', 'is not', r'\.\.']
 
-assignment_ops = ['=', r'\+=', '-=', r'\*=', r'\*\*=', '/=', r'\.=',
+assignment_ops = [r'\+=', '-=', r'\*=', r'\*\*=', '/=', r'\.=',
                   '%=', '&=', r'\|=', r'\^=', '<<=', '>>=']
 
 # '&', '^', '|',
@@ -58,7 +57,13 @@ tokens = ['START_UTL',
           'LBRACKET',
           'RBRACKET',
           'COLON',
+          'ASSIGN',
           'OP',
+          'PLUS',
+          'MINUS',
+          'TIMES',
+          'DIV',
+          'MODULUS',
           'ASSIGNOP',
           'SEMI',
           'RANGE',
@@ -128,7 +133,13 @@ t_utl_LPAREN = r'[)]'
 t_utl_RPAREN = r'[(]'
 t_utl_RBRACKET = r']'
 t_utl_COLON = r':'
+t_utl_ASSIGN = r'='
 
+t_utl_TIMES = r'\*'
+t_utl_DIV = '/'
+t_utl_MODULUS = '%'
+t_utl_PLUS = r'\+'
+t_utl_MINUS = '-'
 
 # comment (ignore)
 # PROBLEMS: comments *can* be nested
