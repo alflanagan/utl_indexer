@@ -10,3 +10,9 @@ parser.out
 
 # emacs config file with user-specific settings
 .dir-locals.el
+
+# parser table saved
+parsetab.py
+
+# Wing5 user config file
+*.wpu
