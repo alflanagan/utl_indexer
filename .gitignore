@@ -7,3 +7,6 @@ data/
 # files created by 'lex' and 'yacc'
 parser.out
 *.lexed
+
+# emacs config file with user-specific settings
+.dir-locals.el
