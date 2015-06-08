@@ -101,6 +101,12 @@ class UTLLexer(object):
         """Causes the lexer to skip ahead `count` characters."""
         self.lexer.skip(count)
 
+    def lineno(self):
+        return self.lexer.lineno
+
+    def lexpos(self):
+        return self.lexer.lexpos
+
     # ======== Tokens that switch state ==========================
     def t_ANY_START_UTL(self, t):
         r'\[%-?'
