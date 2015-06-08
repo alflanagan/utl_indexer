@@ -11,11 +11,5 @@ proj.directory-list = [{'dirloc': loc('.'),
                         'recursive': True,
                         'watch_for_changes': True}]
 proj.file-type = 'shared'
-proj.launch-config = {loc('lex_file.py'): ('project',
-        (u'test/test_data/basic_assign.utl',
-         '')),
-                      loc('utl_yacc.py'): ('project',
-        (u'basic_assign.utl\n',
-         ''))}
 testing.auto-test-file-specs = (('glob',
                                  'test/test_*.py'),)
