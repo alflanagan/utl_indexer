@@ -12,7 +12,7 @@
 
 from testplus import unittest_plus
 
-from utl_lib.utl_lex import lexer
+from utl_lib.utl_lex import UTLLexer
 
 
 class LexerTestCase(unittest_plus.TestCasePlus):
@@ -44,23 +44,23 @@ class LexerTestCase(unittest_plus.TestCasePlus):
          /* manage mobile asset subscription types (list, none, or defer to standard) */
          if cms.system.mobile || cms.request.param('mode') == 'jqm';
              something = 5 * 7/(8+2)-23
-    -%]'''
-    #         /* gather the list for mobile */
-    #         subscriptionAssetsMobile = core_base_library_getCustomProperty(
-    #              'varName':'subscription_assets_mobile');
+            /* gather the list for mobile */
+            subscriptionAssetsMobile = core_base_library_getCustomProperty(
+                 'varName':'subscription_assets_mobile');
 
-    #         /* if the list exists and is not defer */
-    #         if subscriptionAssetsMobile != null && subscriptionAssetsMobile != 'defer';
-    #             /* use the mobile list */
-    #             subscriptionAssets = subscriptionAssetsMobile;
-    #         end;
-    #     end;
-    #     return subscriptionAssets;
-    # end;
+            /* if the list exists and is not defer */
+            if subscriptionAssetsMobile != null && subscriptionAssetsMobile != 'defer';
+                /* use the mobile list */
+                subscriptionAssets = subscriptionAssetsMobile;
+            end;
+        end;
+        return subscriptionAssets;
+    end;
 
-    # %]'''
+    %]'''
 
     _EXPECTED = [('DOCUMENT', '\n    '),
+                 ('START_UTL', '[%-'),
                  ('CALL', 'call'),
                  ('CMS', 'cms'),
                  ('OP', '.'),
@@ -99,34 +99,38 @@ class LexerTestCase(unittest_plus.TestCasePlus):
                  ('STRING', 'varName'),
                  ('OP', ':'),
                  ('STRING', 'subscription_assets'),
-                 ('OP', ', '),
+                 ('COMMA', ','),
                  ('STRING', 'varDefault'),
                  ('OP', ':'),
-                 ('STRING', 'article, edition, page'),
+                 ('STRING', 'article,edition,page'),
                  ('LPAREN', ')'),
                  ('SEMI', ';'),
                  ('ID', 'fred'),
                  ('ASSIGN', '='),
                  ('OP', '['),
                  ('NUMBER', 1.0),
-                 ('OP', ', '),
+                 ('COMMA', ','),
                  ('NUMBER', 2.3),
-                 ('OP', ', '),
+                 ('COMMA', ','),
                  ('STRING', 'hello'),
-                 ('OP', ', '),
+                 ('COMMA', ','),
                  ('FALSE', 'false'),
-                 ('OP', ', '),
+                 ('COMMA', ','),
                  ('STRING', 'goodbye'),
-                 ('OP', ', '),
+                 ('COMMA', ','),
                  ('NULL', 'null'),
                  ('RBRACKET', ']'),
-                 ('DOCUMENT', ("\n    OK,  it's weird to put text in the middle of a macro def\n"
-                             "    but you COULD if you wanted to\n    and,  of course,  you"
-                             " can embed ")),
+                 ('END_UTL', '%]'),
+                 ('DOCUMENT', ("\n    OK, it's weird to put text in the middle of a macro def\n"
+                               "    but you COULD if you wanted to\n    and, of course, you"
+                               " can embed ")),
+                 ('START_UTL', '[%'),
                  ('ID', 'something'),
-                 ('DOCUMENT', 'on one line\n    on the other hand,  it could just '),
+                 ('END_UTL', '%]'),
+                 ('DOCUMENT', 'on one line\n    on the other hand, it could just '),
                  ('DOCUMENT', '['),
                  ('DOCUMENT', 'be a left bracket\n    '),
+                 ('START_UTL', '[%'),
                  ('IF', 'if'),
                  ('CMS', 'cms'),
                  ('OP', '.'),
@@ -157,16 +161,52 @@ class LexerTestCase(unittest_plus.TestCasePlus):
                  ('NUMBER', 2.0),
                  ('LPAREN', ')'),
                  ('MINUS', '-'),
-                 ('NUMBER', 23.0), ]
+                 ('NUMBER', 23.0),
+                 ('ID', 'subscriptionAssetsMobile'),
+                 ('ASSIGN', '='),
+                 ('ID', 'core_base_library_getCustomProperty'),
+                 ('RPAREN', '('),
+                 ('STRING', 'varName'),
+                 ('OP', ':'),
+                 ('STRING', 'subscription_assets_mobile'),
+                 ('LPAREN', ')'),
+                 ('SEMI', ';'),
+                 ('IF', 'if'),
+                 ('ID', 'subscriptionAssetsMobile'),
+                 ('OP', '!'),
+                 ('ASSIGN', '='),
+                 ('NULL', 'null'),
+                 ('OP', '&&'),
+                 ('ID', 'subscriptionAssetsMobile'),
+                 ('OP', '!'),
+                 ('ASSIGN', '='),
+                 ('STRING', 'defer'),
+                 ('SEMI', ';'),
+                 ('ID', 'subscriptionAssets'),
+                 ('ASSIGN', '='),
+                 ('ID', 'subscriptionAssetsMobile'),
+                 ('SEMI', ';'),
+                 ('END', 'end'),
+                 ('SEMI', ';'),
+                 ('END', 'end'),
+                 ('SEMI', ';'),
+                 ('RETURN', 'return'),
+                 ('ID', 'subscriptionAssets'),
+                 ('SEMI', ';'),
+                 ('END', 'end'),
+                 ('SEMI', ';'),
+                 ('END_UTL', '%]')]
 
     def test_create(self):
         """Unit test for :py:meth:`utl_lex.Lexer`."""
+        lexer = UTLLexer()
         lexer.input(self._MACRO_DEF)
 
         index = 0
         tok = lexer.token()
         while tok:
             self.assertEqual(tok.type, self._EXPECTED[index][0])
+            self.assertEqual(tok.value, self._EXPECTED[index][1])
             index += 1
             tok = lexer.token()
 

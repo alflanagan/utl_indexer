@@ -1,9 +1,30 @@
 #!/usr/bin/env python3
-
+"""A script to run lexical analysis on a file, and print results."""
 import os
 import sys
 
-from utl_lib.utl_lex import lexer
+from utl_lib.utl_lex import UTLLexer
+
+
+def main(filename, quiet=False):
+    """Lexically analyse a file.
+
+    :param str filename: The name of an existing UTL file.
+
+    :param boolean quiet: If True, errors will be reported to :py:obj:`sys.stderr` but tokens
+        will not be printed.
+    """
+    lexer = UTLLexer()
+
+    with open(filename, 'r') as utl_in:
+        lexer.input(utl_in.read())
+
+    if '--quiet' not in sys.argv:
+        tok = lexer.token()
+        while tok:
+            print(tok)
+            tok = lexer.token()
+
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
@@ -13,12 +34,4 @@ if __name__ == '__main__':
         sys.stderr.write("       With --quiet, reports errors only.\n")
         sys.exit(1)
 
-    with open(sys.argv[1], 'r') as utl_in:
-        lexer.input(utl_in.read())
-
-    if '--quiet' not in sys.argv:
-        while True:
-            tok = lexer.token()
-            if not tok:
-                break      # No more input
-            print(tok)
+    main(sys.argv[1])
