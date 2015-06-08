@@ -1,26 +1,43 @@
 #!/usr/bin/env python3
 """Routines to implement a yacc-like parser for Townnews' UTL template language"""
 
-import sys
-import os
-import logging
-
 import ply.yacc as yacc
 
 # Get the token map from the lexer.  This is required.
-from utl_lex import tokens
-from ast_node import ASTNode
+from utl_lib.utl_lex import UTLLexer
 
-AST = None
 current_node = None
 symbol_table = {}
 
 
 def p_utldoc(p):
-    '''utldoc : assignment
-              | assignment DOCUMENT'''
-    pass
+    '''utldoc :
+              | utldoc document_or_code'''
+    print('utldoc')
 
+def p_document_or_code(p):
+    '''document_or_code : DOCUMENT
+                        | START_UTL assignment END_UTL'''
+    print('document_or_code')
+
+# def p_statement(p):
+    # '''statement : assignment
+                 # | declaration'''
+    # print('statement')
+
+# def p_declaration(p):
+    # '''declaration : MACRO ID LPAREN param_list RPAREN statements END
+                   # | MACRO ID SEMI statements END'''
+
+# def p_param_list(p):
+    # '''param_list : param_decl
+                  # | param_decl COMMA param_list
+                  # | '''
+
+# def p_param_decl(p):
+    # '''param_decl : ID
+                  # | ID ASSIGN expression'''
+    # print('param_decl')
 
 def p_assignment(p):
     '''assignment : ID ASSIGN expression'''
@@ -69,27 +86,14 @@ def p_factor_expr(p):
 
 # Error rule for syntax errors
 def p_error(p):
-    print("Syntax error in input!")
+    badline = p.lexer.lexdata.split('\n')[p.lineno-1]
+    print("Syntax error in input line!")
+    print(badline)
+    print("{}^".format(' ' * (p.lexpos - 1)))
 
 
-def do_parse(filename):
-    """Open a file, parse it, return resulting parse."""
-    parser = yacc.yacc()
 
-    with open(filename, 'r') as utl_in:
-        result = parser.parse(utl_in.read())
+def parser():
+    tokens = UTLLexer.tokens
+    return yacc.yacc()
 
-    return result
-
-
-if __name__ == '__main__':
-
-    if len(sys.argv) < 2:
-        sys.stderr.write("Usage: {} utl_file\n".format(os.path.basename(sys.argv[0])))
-        sys.stderr.write("       Parses a UTL file and outputs info for indexing.\n")
-        sys.exit(1)
-
-    do_parse(sys.argv[1])
-    print("symbol table:")
-    for key in symbol_table:
-        print("{}: {}".format(key, symbol_table[key]))
