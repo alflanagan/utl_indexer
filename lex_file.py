@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
-from utl_lex import lexer
 import os
 import sys
 
+from utl_lib.utl_lex import lexer
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from utl_lex import lexer
+from utl_lib.utl_lex import lexer
 
 # Test it out
 # pylint: disable=E501
