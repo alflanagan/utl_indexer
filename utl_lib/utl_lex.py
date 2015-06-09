@@ -24,27 +24,28 @@ class UTLLexer(object):
     )
 
     reserved = {
-        'if': 'IF',
+        'as': 'AS',
+        'break': 'BREAK',
+        'call': 'CALL',
+        'continue': 'CONTINUE',
+        'default': 'DEFAULT',
+        'each': 'EACH',
+        'echo': 'ECHO',
         'else': 'ELSE',
         'elseif': 'ELSEIF',
-        'then': 'THEN',
-        'while': 'WHILE',
-        'call': 'CALL',
-        'macro': 'MACRO',
         'end': 'END',
-        'return': 'RETURN',
         'exit': 'EXIT',
-        'include': 'INCLUDE',
-        'true': 'TRUE',
         'false': 'FALSE',
         'for': 'FOR',
-        'continue': 'CONTINUE',
-        'break': 'BREAK',
-        'echo': 'ECHO',
-        'default': 'DEFAULT',
-        'as': 'AS',
         'foreach': 'FOR',
+        'if': 'IF',
+        'include': 'INCLUDE',
+        'macro': 'MACRO',
         'null': 'NULL',
+        'return': 'RETURN',
+        'then': 'THEN',
+        'true': 'TRUE',
+        'while': 'WHILE',
     }
 
     # does UTL support all these? From PHP docs
@@ -163,7 +164,7 @@ class UTLLexer(object):
     t_utl_LPAREN = r'[)]'
     t_utl_RPAREN = r'[(]'
     t_utl_RBRACKET = r']'
-    t_utl_COLON = r':'
+    t_utl_COLON = r':'   # bar = ['key1': 'value', 'key2': 'value']
     t_utl_ASSIGN = r'='
 
     t_utl_TIMES = r'\*'
