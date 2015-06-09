@@ -1,0 +1,5 @@
+[%
+  if (7 == 15);
+     print('something');
+  end;
+%]
