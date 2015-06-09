@@ -3,37 +3,55 @@
 
 import sys
 import os
+import argparse
+
 
 from utl_lib.utl_lex import UTLLexer
-from utl_lib.utl_yacc import parser
+from utl_lib.utl_yacc import UTLParser
 
 
-def do_parse(filename):
+def get_args():
+    parser = argparse.ArgumentParser(description="Parses a UTL file.")
+    parser.add_argument('utl_file', type=argparse.FileType('r'),
+                        help="A UTL template file.")
+    parser.add_argument('--show-lex', action='store_true',
+                        help="Show lexical analysis prior to parsing.")
+    parser.add_argument('--debug', action='store_true',
+                        help="Print debugging info of parse process.")
+    return parser.parse_args()
+
+
+def do_parse(program_text, debug):
     """Open a file, parse it, return resulting parse."""
 
-    with open(filename, 'r') as utl_in:
-        parser().parse(utl_in.read(), tracking=True, lexer=UTLLexer().lexer)
+    myparser = UTLParser()
+    results = myparser.parse(program_text, debug=debug)
+    print(results)
+    for node in myparser.asts:
+        print(node)
+    print('{0} Symbols {0}'.format('=' * 12))
+    for symbol_name in myparser.symbol_table:
+        print('{}: {}'.format(symbol_name, myparser.symbol_table[symbol_name]))
 
 
-def show_lex(filename):
-    '''Run lexical analysis on file `filename`, print out token list.'''
+def show_lex(program_text):
+    '''Run lexical analysis on stream, print out token list.'''
     new_lexer = UTLLexer()
-    with open(filename, 'r') as utl_in:
-        new_lexer.input(utl_in.read())
+    new_lexer.input(program_text)
     tok = new_lexer.token()
     while tok:
         print(tok)
         tok = new_lexer.token()
 
 
+def main(args):
+    utl_text = args.utl_file.read()
+
+    if args.show_lex:
+        show_lex(utl_text)
+
+    do_parse(utl_text, args.debug)
+
+
 if __name__ == '__main__':
-
-    if len(sys.argv) < 2:
-        sys.stderr.write("Usage: {} utl_file [--show-lex]\n".format(os.path.basename(sys.argv[0])))
-        sys.stderr.write("       Parses a UTL file and outputs info for indexing.\n")
-        sys.exit(1)
-
-    if '--show-lex' in sys.argv:
-        show_lex(sys.argv[1])
-
-    do_parse(sys.argv[1])
+    main(get_args())
