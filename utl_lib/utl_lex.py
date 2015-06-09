@@ -45,9 +45,6 @@ class UTLLexer(object):
         'as': 'AS',
         'foreach': 'FOR',
         'null': 'NULL',
-        # special variable names
-        'this': 'THIS',
-        'cms': 'CMS'
     }
 
     # does UTL support all these? From PHP docs
