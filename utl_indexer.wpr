@@ -4,6 +4,19 @@
 # Wing IDE project file                                          #
 ##################################################################
 [project attributes]
+debug.named-entry-points = (1,
+                            {'parse_file': ({},
+        {'auto-show': False,
+         'launch-id': ('project',
+                       (u'test/test_data/basic_assign.utl',
+                        '')),
+         'loc': loc('parse_file.py')}),
+                             u'parse_ifs': ({},
+        {'auto-show': False,
+         'launch-id': ('project',
+                       (u'test/test_data/if_stmts.utl',
+                        '')),
+         'loc': loc('parse_file.py')})})
 proj.directory-list = [{'dirloc': loc('.'),
                         'excludes': (),
                         'filter': u'*',
