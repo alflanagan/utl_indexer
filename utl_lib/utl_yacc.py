@@ -20,6 +20,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
         "Contents of each document (i.e. non-UTL) section."
         self.tokens = UTLLexer.tokens
         self.parser = yacc.yacc(module=self)
+        self.asts = []
 
 # grammar for UTL sections. loosely based on PHP grammar
 # http://lxr.php.net/xref/PHP_TRUNK/Zend/zend_language_parser.y

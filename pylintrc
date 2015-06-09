@@ -1,0 +1,19 @@
+# omitting all parts of rc file we don't change. to get a complete
+# RC file, run 'pylint --generate-rcfile'
+[MESSAGES CONTROL]
+
+disable=no-self-use,locally-disabled,too-many-arguments
+
+[REPORTS]
+# Tells whether to display a full report or only the messages
+reports=no
+
+[FORMAT]
+# some of the rules can get pretty long, and it checks docstrings
+max-line-length=120
+
+[BASIC]
+
+# Good variable names which should always be accepted, separated by a comma
+good-names=i,j,k,ex,Run,_,p
+
