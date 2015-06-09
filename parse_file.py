@@ -7,7 +7,7 @@ import argparse
 
 
 from utl_lib.utl_lex import UTLLexer
-from utl_lib.utl_yacc import UTLParser
+from utl_lib.utl_yacc_mini import UTLParser
 
 
 def get_args():
@@ -27,8 +27,6 @@ def do_parse(program_text, debug):
     myparser = UTLParser()
     results = myparser.parse(program_text, debug=debug)
     print(results)
-    for node in myparser.asts:
-        print(node)
     print('{0} Symbols {0}'.format('=' * 12))
     for symbol_name in myparser.symbol_table:
         print('{}: {}'.format(symbol_name, myparser.symbol_table[symbol_name]))
