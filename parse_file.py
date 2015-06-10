@@ -8,6 +8,7 @@ import argparse
 
 from utl_lib.utl_lex import UTLLexer
 from utl_lib.utl_yacc_mini import UTLParser
+from utl_lib.ast_node import ASTNodeFormatter
 
 
 def get_args():
@@ -26,10 +27,7 @@ def do_parse(program_text, debug):
 
     myparser = UTLParser()
     results = myparser.parse(program_text, debug=debug)
-    print(results)
-    print('{0} Symbols {0}'.format('=' * 12))
-    for symbol_name in myparser.symbol_table:
-        print('{}: {}'.format(symbol_name, myparser.symbol_table[symbol_name]))
+    print(ASTNodeFormatter(results).format())
 
 
 def show_lex(program_text):
