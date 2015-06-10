@@ -37,54 +37,55 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
         return self.parser.parse(input_text, this_lexer, debug, tracking, tokenfunc)
 
     def p_utldoc(self, p):  # pylint: disable=unused-argument
-        '''utldoc : document_or_code
-                  | utldoc document_or_code'''
+        '''utldoc : utldoc document_or_code
+                  | document_or_code'''
         self.parsed = True
-        p[0] = ASTNode('root')
+        if len(p) == 2:
+            # p[1] is 'statement_list'
+            p[0] =  ASTNode('root', False, {}, [p[1]])
+        else:
+            # p[1] is 'root'
+            p[1].add_children(p[2:])
+            p[0] = p[1]
 
     def p_document_or_code(self, p):
-        '''document_or_code : document
+        '''document_or_code : DOCUMENT
                             | START_UTL statement_list END_UTL'''
         # attributes of p:
         # error, lexer, lexpos, lexspan, lineno, linespan, parser, set_lineno, slice, stack
-        pass
-
-    def p_document(self, p):
-        '''document : DOCUMENT'''
-        self.documents.append(p[1])
-        pass
+        if len(p) == 2:
+            newnode = ASTNode('document', True, {'text': p[1]})
+        else:
+            newnode = p[2]
+        p[0] = newnode
 
     def p_statement_list(self, p):
-        '''statement_list : statement_list SEMI statement SEMI
-                          | statement SEMI'''
-        pass
+        '''statement_list : statement_list statement
+                          | statement'''
+        p[0] = ASTNode('statement_list', False, {}, p[1:])
 
     def p_statement(self, p):
         '''statement : expr SEMI
                      | assignment SEMI'''
-        pass
+        p[0] = ASTNode('statement', False, {}, [p[1]])
 
-    def p_expr_array_ref(self, p):
+    def p_expr(self, p):
         '''expr : expr PLUS term
                 | expr MINUS term
                 | term
                 | FILTER method_call
-                '''
-        if isinstance(p[1], float):
-            p[0] = p[1]
-        elif p[1] in self.symbol_table:
-            p[0] = self.symbol_table[p[1]]
 
+                '''
+        p[0] = ASTNode('expr', False)
 
     # convenience rule to explicitly state production to nothing
     def p_empty(self, p):
         '''empty :'''
         pass
 
-
     def p_param_list(self, p):
         '''param_list : param_decl
-                      | param_decl COMMA param_list
+                      | param_list COMMA param_decl
                       | empty'''
         pass
 
@@ -95,11 +96,10 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
 
     def p_assignment(self, p):
         '''assignment : ID ASSIGN expr'''
-        self.symbol_table[p[1]] = p[3]
+        p[0] = ASTNode('assignment', False)
 
     def p_method_call(self, p):
-        '''method_call : ID
-                       | ID RPAREN param_list LPAREN'''
+        '''method_call : ID LPAREN param_list RPAREN'''
         pass
 
     def p_term(self, p):
@@ -107,28 +107,23 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
                 | term DIV factor
                 | term MODULUS factor
                 | factor'''
-        if len(p) == 3:
-            pass
-        else:
-            p[0] = p[1]
+        pass
 
     def p_factor(self, p):
         '''factor : NUMBER
-                  | LPAREN expr RPAREN
                   | ID LBRACKET expr RBRACKET
-                  | ID'''
-        if isinstance(p[1], float):
-            p[0] = p[1]  # NUMBER
-        elif p[1].type == 'LPAREN':
-            p[0] = p[2]
-        elif p[1] in self.symbol_table:
-            p[0] = self.symbol_table[p[1]]
-        else:
-            p[0] = '*not found*'
-
+                  | ID
+                  | LPAREN expr RPAREN
+                  | method_call'''
+        pass
 
     # Error rule for syntax errors
     def p_error(self, p):  # pylint: disable=missing-docstring
         badline = p.lexer.lexdata.split('\n')[p.lineno-1]
-        print("Syntax error in input line {} at '{}'!".format(p.lineno, p.value))
+        lineoffset = p.lexer.lexdata.rfind('\n', 0, p.lexer.lexpos)
+        if lineoffset == -1:  # we're on first line
+            lineoffset = 0
+        lineoffset = p.lexer.lexpos - lineoffset
+        print("Syntax error in input line {} after '{}'!".format(p.lineno, p.value))
         print(badline)
+        print("{}^".format(' ' * (lineoffset - 1)))
