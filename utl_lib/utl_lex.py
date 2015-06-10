@@ -48,16 +48,11 @@ class UTLLexer(object):
         'while': 'WHILE',
     }
 
-    # does UTL support all these? From PHP docs
-    PHP_operators = [r'\*\*', r'\+\+', r'--', r'~', r'(int)',
-                     r'(float)', '(string)', '(array)', '(object)',
-                     '(bool)', '@', 'instanceof', '!', r'\.', '<<', '>>',
-                     '<', '<=', '>', '>=', '==', '!=', '===', '!==', '<>',
-                     '&&', r'\|\|', r'\?', 'and', 'xor', 'or',
-                     'is', 'is not', r'\.\.']
+    # UTL doesn't support all of the PHP operators
+    operators = ['!', r'\.', '<', '<=', '>', '>=', '==', '!=', '&&', r'\|\|', 'and',
+                 'or', 'is', 'is not', r'\.\.']
 
-    assignment_ops = [r'\+=', '-=', r'\*=', r'\*\*=', '/=', r'\.=',
-                      '%=', '&=', r'\|=', r'\^=', '<<=', '>>=']
+    assignment_ops = [r'\+=', '-=', r'\*=', '/=', '%=', ]
 
     tokens = ['START_UTL',
               'END_UTL',
@@ -185,7 +180,7 @@ class UTLLexer(object):
         pass
 
     # this will not allow us to handle precedence in expressions
-    @lex.TOKEN("|".join(PHP_operators))
+    @lex.TOKEN("|".join(operators))
     def t_utl_OP(self, t):  # pylint: disable=missing-docstring
         return t
 
@@ -227,7 +222,6 @@ class UTLLexer(object):
         r'\d+(\.\d+)?'
         t.value = float(t.value)
         return t
-
 
     def t_utl_STRING(self, t):
         r'"(?P<dq>[^"]*)"|\'(?P<sq>[^\']*)\''
