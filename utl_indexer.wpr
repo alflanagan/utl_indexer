@@ -5,7 +5,7 @@
 ##################################################################
 [project attributes]
 debug.named-entry-points = (1,
-                            {'parse_file': ({},
+                            {'parse_file': ({'key-binding-debug': 'F12'},
         {'auto-show': False,
          'launch-id': ('project',
                        (u'test/test_data/basic_assign.utl',
