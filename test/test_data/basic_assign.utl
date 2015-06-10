@@ -1,9 +1,10 @@
 [%
   fred = 5;
+  a + b;
   sally = 12 * 6;
   barney = fred * 3;
   a = 3;
   b = fred;
-  c = a * a + b * b;
-  d = a * (a + b) * b;
+  c = a * (a + b) * b;
+  d = a * a + b;
 %]
