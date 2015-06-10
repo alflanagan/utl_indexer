@@ -49,11 +49,11 @@ class UTLLexer(object):
     }
 
     # does UTL support all these? From PHP docs
-    PHP_operators = [r'\[', r'\*\*', r'\+\+', r'--', r'~', r'(int)',
+    PHP_operators = [r'\*\*', r'\+\+', r'--', r'~', r'(int)',
                      r'(float)', '(string)', '(array)', '(object)',
                      '(bool)', '@', 'instanceof', '!', r'\.', '<<', '>>',
                      '<', '<=', '>', '>=', '==', '!=', '===', '!==', '<>',
-                     '&&', r'\|\|', r'\?', ':', '=>', 'and', 'xor', 'or',
+                     '&&', r'\|\|', r'\?', 'and', 'xor', 'or',
                      'is', 'is not', r'\.\.']
 
     assignment_ops = [r'\+=', '-=', r'\*=', r'\*\*=', '/=', r'\.=',
@@ -161,8 +161,8 @@ class UTLLexer(object):
     # A string containing ignored characters (spaces and tabs)
     t_ignore = ' \t'
 
-    t_utl_LPAREN = r'[)]'
-    t_utl_RPAREN = r'[(]'
+    t_utl_LPAREN = r'[(]'
+    t_utl_RPAREN = r'[)]'
     t_utl_RBRACKET = r']'
     t_utl_COLON = r':'   # bar = ['key1': 'value', 'key2': 'value']
     t_utl_ASSIGN = r'='
