@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""Module of classes used to implement an Abstract Syntax Tree structure."""
 
 
 class ASTNode(object):
@@ -23,6 +24,11 @@ class ASTNode(object):
         self.attributes = {} if attrs is None else attrs
 
     def add_child(self, child):
+        '''Add child to the list of children of this node. `child` will become the first child,
+        as the parser provides them in reverse order.
+
+        :param ASTNode child: A child node.
+        '''
         # we might have passed a generator to __init__(), or even a set
         self.children = list(self.children)
         child.parent = self
@@ -30,6 +36,12 @@ class ASTNode(object):
         self.children.insert(0, child)
 
     def add_children(self, iterator):
+        '''Add each item in iterator to the list of children. Items should be nodes. Note that
+        the nodes will be inserted into the beginning of the list, and end up in reverse order
+        of the iterator.
+
+        :param list iterator: Iterator producing :py:class:`utl_lib.ast_node.ASTNode` objects.
+        '''
         # we might have passed a generator to __init__(), or even a set
         self.children = list(self.children)
         for child in iterator:
@@ -60,12 +72,23 @@ class ASTNode(object):
                                                     child_list)
 
 
-class ASTNodeFormatter(object):
+class ASTNodeFormatter(object):  # pylint: disable=too-few-public-methods
+    """Helper class that can traverse an AST and pretty-print it.
 
+    :param ASTNode root_node: The root node of the tree to be printed. May be supplied to
+        :py:meth:`~utl_lib.ast_node.ASTNodeFormatter.format` instead.
+    """
+    # TODO: abstract class for "classes that walk an AST"
     def __init__(self, root_node):
         self.root = root_node
 
     def format(self, from_node=None):
+        """Walks the tree with root `from_node`, printing it out in a format which, if not
+        pretty, is at least comprehensible. `from_node` defaults to the root node set at object
+        init.
+
+        :param ASTNode from_node: Root of an AST to be printed.
+        """
         if from_node is None:
             from_node = self.root
         result = str(from_node)

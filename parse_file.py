@@ -1,10 +1,7 @@
 #!/usr/bin/env python3
 """Routines to implement a yacc-like parser for Townnews' UTL template language"""
 
-import sys
-import os
 import argparse
-
 
 from utl_lib.utl_lex import UTLLexer
 from utl_lib.utl_yacc_mini import UTLParser
@@ -12,6 +9,7 @@ from utl_lib.ast_node import ASTNodeFormatter
 
 
 def get_args():
+    """Parses command-line arguments, returns namespace with values."""
     parser = argparse.ArgumentParser(description="Parses a UTL file.")
     parser.add_argument('utl_file', type=argparse.FileType('r'),
                         help="A UTL template file.")
@@ -41,6 +39,7 @@ def show_lex(program_text):
 
 
 def main(args):
+    """Main function. Optionally prints lexical analysis, then prints parse tree."""
     utl_text = args.utl_file.read()
 
     if args.show_lex:

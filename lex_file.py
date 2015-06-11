@@ -19,7 +19,7 @@ def main(filename, quiet=False):
     with open(filename, 'r') as utl_in:
         lexer.input(utl_in.read())
 
-    if '--quiet' not in sys.argv:
+    if not quiet:
         tok = lexer.token()
         while tok:
             print(tok)
@@ -34,4 +34,4 @@ if __name__ == '__main__':
         sys.stderr.write("       With --quiet, reports errors only.\n")
         sys.exit(1)
 
-    main(sys.argv[1])
+    main(sys.argv[1], '--quiet' in sys.argv)

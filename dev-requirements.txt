@@ -1,3 +1,4 @@
 Sphinx
 coverage
 pylint
+pep8
