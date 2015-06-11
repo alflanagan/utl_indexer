@@ -1,10 +1,12 @@
 [%
-  fred = 5;
   a + b;
-  sally = 12 * 6;
+  5 - 7;
+  "barney rubble" | html;
+  sally = 12 / 6;
   barney = fred * 3;
   a = 3;
   b = fred;
+  wilma = e[12];
   c = a * (a + b) * b;
-  d = a * a + b;
+  d = a * a + b * b;
 %]
