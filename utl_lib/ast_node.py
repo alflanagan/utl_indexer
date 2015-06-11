@@ -26,7 +26,8 @@ class ASTNode(object):
         # we might have passed a generator to __init__(), or even a set
         self.children = list(self.children)
         child.parent = self
-        self.children.append(child)
+        # because we're an LR parser, we see "first" child last
+        self.children.insert(0, child)
 
     def add_children(self, iterator):
         # we might have passed a generator to __init__(), or even a set
@@ -64,10 +65,12 @@ class ASTNodeFormatter(object):
     def __init__(self, root_node):
         self.root = root_node
 
-    def format(self):
-        result = str(self.root)
-        for child in self.root.children:
-            lines = ASTNodeFormatter(child).format().split('\n')
+    def format(self, from_node=None):
+        if from_node is None:
+            from_node = self.root
+        result = str(from_node)
+        for child in from_node.children:
+            lines = self.format(child).split('\n') if child else ['**error**']
             for line in lines:
                 result += '\n    ' + line
         return result
