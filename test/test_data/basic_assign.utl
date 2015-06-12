@@ -9,4 +9,5 @@
   wilma = e[12];
   c = a * (a + b) * b;
   d = a * a + b * b;
+  e = a % b - b % c;
 %]
