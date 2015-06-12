@@ -22,7 +22,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
         self.parser = yacc.yacc(module=self)
 
     precedence = (
-        ('left', 'PLUS', 'MINUS'),
+        ('left', 'PLUS', 'MINUS', 'OP'),
         ('left', 'TIMES', 'DIV', 'MODULUS'),
     )
 
@@ -84,6 +84,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
                 | term
                 | expr FILTER method_call
                 | expr FILTER ID
+                | expr OP expr
 
                 '''
         if len(p) == 4:

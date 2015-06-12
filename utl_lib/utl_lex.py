@@ -107,7 +107,6 @@ class UTLLexer(object):
         t.lexer.push_state('utl')
         return t
 
-
     def t_ANY_END_UTL(self, t):
         r'-?%]'
         try:
@@ -135,7 +134,6 @@ class UTLLexer(object):
             t.value = '['
         return t
 
-
     # ======== UTL state =====================================
     t_utl_LBRACKET = r'\['
 
@@ -143,7 +141,6 @@ class UTLLexer(object):
     def t_utl_newline(self, t):
         r'\n+'
         t.lexer.lineno += len(t.value)
-
 
     # "Identifier scoping is implemented only for macros. All other block
     # constructs and included files operate in the same scope as the
@@ -184,7 +181,6 @@ class UTLLexer(object):
     def t_utl_OP(self, t):  # pylint: disable=missing-docstring
         return t
 
-
     @lex.TOKEN("|".join(assignment_ops))
     def t_utl_ASSIGNOP(self, t):  # pylint: disable=missing-docstring
         return t
@@ -210,7 +206,6 @@ class UTLLexer(object):
     #                           'lextokens', 'lexstatere',
     #                           'lextokens_all']):
     #         print("{}: {}".format(x, getattr(t.lexer, x)))
-
 
     def t_utl_ID(self, t):
         r'[a-zA-Z_][a-zA-Z_0-9]*'

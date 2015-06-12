@@ -4,6 +4,7 @@
   "barney rubble" | html;
   sally = 12 / 6;
   barney = fred * 3;
+  abool = 3 == 4;
   a = 3;
   b = fred;
   wilma = e[12];
