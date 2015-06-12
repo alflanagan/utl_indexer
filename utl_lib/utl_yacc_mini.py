@@ -89,8 +89,8 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
         if len(p) == 4:
             if isinstance(p[3], str):
                 assert p[1] and p[2]
-                new_id = ASTNode('id', True, {'name': p[3],}, [])
-                p[0] = ASTNode('expr', False, {'operator': p[2],}, [p[1], new_id])
+                new_id = ASTNode('id', True, {'name': p[3]}, [])
+                p[0] = ASTNode('expr', False, {'operator': p[2]}, [p[1], new_id])
             else:
                 assert p[1] and p[2] and p[3]
                 p[0] = ASTNode('expr', False, {"operator": p[2]}, [p[1], p[3]])
@@ -121,19 +121,19 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
         '''param_decl : ID
                       | assignment'''
         if isinstance(p[1], str):
-            p[0] = ASTNode('param_decl', True, {'name': p[1],})
+            p[0] = ASTNode('param_decl', True, {'name': p[1]})
         else:
             assert p[1].symbol == 'assignment'
-            p[0] = ASTNode('param_decl', False, {'name': p[1].attributes['target'],},
+            p[0] = ASTNode('param_decl', False, {'name': p[1].attributes['target']},
                            p[1].children)
 
     def p_assignment(self, p):
         '''assignment : ID ASSIGN expr'''
-        p[0] = ASTNode('assignment', False, {'target': p[1],}, [p[3]])
+        p[0] = ASTNode('assignment', False, {'target': p[1]}, [p[3]])
 
     def p_method_call(self, p):
         '''method_call : ID LPAREN param_list RPAREN'''
-        p[0] = ASTNode('call', False, {'name': p[1],}, p[3])
+        p[0] = ASTNode('call', False, {'name': p[1]}, p[3])
 
     def p_term(self, p):
         '''term : term TIMES factor
@@ -143,7 +143,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
         if len(p) == 2:
             p[0] = ASTNode('term', False, {}, [p[1]])
         else:
-            p[0] = ASTNode('term', False, {'operator': p[2],}, [p[1], p[3]])
+            p[0] = ASTNode('term', False, {'operator': p[2]}, [p[1], p[3]])
 
     def p_factor(self, p):
         '''factor : literal
@@ -162,21 +162,21 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
     def p_literal(self, p):
         '''literal : NUMBER
                    | STRING'''
-        p[0] = ASTNode('literal', True, {'value': p[1],}, [])
+        p[0] = ASTNode('literal', True, {'value': p[1]}, [])
 
-    #exists because it's easier than trying to identify ID in p_factor()
+    # exists because it's easier than trying to identify ID in p_factor()
     def p_id_ref(self, p):
         '''id_ref : ID LBRACKET expr RBRACKET
                   | ID'''
         if len(p) == 2:
-            p[0] = ASTNode('identifier', True, {'name': p[1],})
+            p[0] = ASTNode('identifier', True, {'name': p[1]})
         else:
             assert p[2] == "[" and p[4] == "]"
-            p[0] = ASTNode('array-ref', False, {'name': p[1],}, [p[3]])
+            p[0] = ASTNode('array-ref', False, {'name': p[1]}, [p[3]])
 
     def p_simple_if_stmt(self, p):
         '''simple_if_stmt : IF LPAREN expr RPAREN SEMI statement_list END'''
-        p[0] = ASTNode('if', False, {'condition': p[3],}, [p[6]])
+        p[0] = ASTNode('if', False, {'condition': p[3]}, [p[6]])
 
     # Error rule for syntax errors
     def p_error(self, p):  # pylint: disable=missing-docstring
