@@ -41,7 +41,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
                   | document_or_code'''
         self.parsed = True
         if len(p) == 2:
-            assert p[1].symbol == 'statement_list'
+            assert p[1].symbol in ('statement_list', 'document')
             p[0] = ASTNode('root', False, {}, [p[1]])
         else:
             assert p[1].symbol == 'root'
@@ -73,7 +73,8 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
 
     def p_statement(self, p):
         '''statement : expr SEMI
-                     | assignment SEMI'''
+                     | assignment SEMI
+                     | simple_if_stmt SEMI'''
         assert p[1].symbol in ['expr', 'assignment']
         p[0] = ASTNode('statement', False, {}, [p[1]])
 
@@ -172,6 +173,10 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
         else:
             assert p[2] == "[" and p[4] == "]"
             p[0] = ASTNode('array-ref', False, {'name': p[1],}, [p[3]])
+
+    def p_simple_if_stmt(self, p):
+        '''simple_if_stmt : IF LPAREN expr RPAREN SEMI statement_list END'''
+        p[0] = ASTNode('if', False, {'condition': p[3],}, [p[6]])
 
     # Error rule for syntax errors
     def p_error(self, p):  # pylint: disable=missing-docstring
