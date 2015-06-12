@@ -1,0 +1,5 @@
+[% fred();
+barney(3);
+wilma('betty');
+pebbles('mom': 'betty', 5);
+%]
