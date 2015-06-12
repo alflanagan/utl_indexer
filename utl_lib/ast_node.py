@@ -24,15 +24,25 @@ class ASTNode(object):
         self.attributes = {} if attrs is None else attrs
 
     def add_child(self, child):
-        '''Add child to the list of children of this node. `child` will become the first child,
-        as the parser provides them in reverse order.
+        '''Add child to the list of children of this node. `child` will become the last child,
+        making this appropriate for right-expanding rules like: a : a b
 
         :param ASTNode child: A child node.
         '''
         # we might have passed a generator to __init__(), or even a set
         self.children = list(self.children)
         child.parent = self
-        # because we're an LR parser, we see "first" child last
+        self.children.append(child)
+
+    def add_first_child(self, child):
+        '''Add child to the list of children of this node. `child` will become the first child,
+        making this appropriate for left-expanding rules like: a : b a
+
+        :param ASTNode child: A child node.
+        '''
+        # we might have passed a generator to __init__(), or even a set
+        self.children = list(self.children)
+        child.parent = self
         self.children.insert(0, child)
 
     def add_children(self, iterator):
