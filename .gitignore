@@ -16,3 +16,5 @@ parsetab.py
 
 # Wing5 user config file
 *.wpu
+.coverage
+pylintrc
