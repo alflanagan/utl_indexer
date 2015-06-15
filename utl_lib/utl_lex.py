@@ -94,10 +94,14 @@ class UTLLexer(object):
         """Causes the lexer to skip ahead `count` characters."""
         self.lexer.skip(count)
 
+    # note: can't use @property because of the way lexer is dynamically constructed
     def lineno(self):
+        ''':returns int: the current line number of the text being analyzed.'''
         return self.lexer.lineno
 
+    # note: can't use @property because of the way lexer is dynamically constructed
     def lexpos(self):
+        ''':returns int: the current position (in characters) in the text.'''
         return self.lexer.lexpos
 
     # ======== Tokens that switch state ==========================
@@ -105,16 +109,17 @@ class UTLLexer(object):
         r'\[%-?'
         # use push_state() to handle nested [% %]
         t.lexer.push_state('utl')
+        # parser needs token to detect syntax errors (e.g. '[% [% %]')
         return t
 
     def t_ANY_END_UTL(self, t):
         r'-?%]'
         try:
             t.lexer.pop_state()
-            return t
+            return t  # parser needs token to detect syntax errors
         except IndexError:
             # attempt to end without beginning code
-            print("Lexical error at line {}: unmatched '%]'".format(t.lexer.lineno))
+            raise UTLLexerError("Lexical error at line {}: unmatched '%]'".format(t.lexer.lineno))
 
     # ======== INITIAL state =====================================
     # everything up to START_UTL gets put in one token
@@ -226,15 +231,17 @@ class UTLLexer(object):
         return t
 
     # Error handling rule
-    def t_utl_error(self, t):
-        """Callback for character errors in UTL code.
+    def t_utl_error(self, t):  # pragma: no cover
+        """Callback for character errors in UTL code. Currently, bad input matches to DOCUMENT
+        instead, so we have to catch with parser (which should give error if DOCUMENT occurs
+        after START_UTL).
 
-        :raises UTLLexerError(): always. Handlers will want to call
+        :raises UTLLexerError: always. Handlers will want to call
             :py:meth:`~utl_lex.UTLLexer.skip` if parsing is to be continued.
         """
         raise UTLLexerError("Illegal character '%s' in template code." % t.value[0])
 
-    def t_error(self, t):
+    def t_error(self, t):  # pragma: no cover
         """Report error in DOCUMENT (currently, no errors are defined.)
 
         :raises UTLLexerError: always."""
