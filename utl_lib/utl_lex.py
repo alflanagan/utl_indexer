@@ -49,7 +49,7 @@ class UTLLexer(object):
     }
 
     # UTL doesn't support all of the PHP operators
-    operators = ['!', r'\.', '<', '<=', '>', '>=', '==', '!=', '&&', r'\|\|', 'and',
+    operators = ['!', r'\.\.', r'\.', '<', '<=', '>', '>=', '==', '!=', '&&', r'\|\|', 'and',
                  'or', 'is', 'is not']
 
     assignment_ops = [r'\+=', '-=', r'\*=', '/=', '%=', ]
@@ -74,7 +74,6 @@ class UTLLexer(object):
               'MODULUS',
               'ASSIGNOP',
               'SEMI',
-              'RANGE',
               'FILTER',
               'STRING',
               'DOCUMENT'] + list(set(reserved.values()))

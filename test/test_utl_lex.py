@@ -56,6 +56,9 @@ class LexerTestCase(unittest_plus.TestCasePlus):
         end;
         return subscriptionAssets;
     end;
+    for 1..10;
+        echo 'fred';
+    end;
 
     %]'''
 
@@ -195,6 +198,16 @@ class LexerTestCase(unittest_plus.TestCasePlus):
                  ('SEMI', ';'),
                  ('END', 'end'),
                  ('SEMI', ';'),
+                 ('FOR', 'for'),
+                 ('NUMBER', 1.0),
+                 ('OP', '..'),
+                 ('NUMBER', 10.0),
+                 ('SEMI', ';'),
+                 ('ECHO', 'echo'),
+                 ('STRING', 'fred'),
+                 ('SEMI', ';'),
+                 ('END', 'end'),
+                 ('SEMI', ';'),
                  ('END_UTL', '%]')]
 
     def test_create(self):
@@ -235,7 +248,8 @@ class LexerTestCase(unittest_plus.TestCasePlus):
                     14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 15, 15, 15, 15, 15, 15, 15, 15, 15, 17,
                     17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 18, 18, 18, 18, 18,
                     18, 18, 18, 18, 18, 18, 18, 18, 20, 20, 20, 20, 21, 21, 21, 21, 21, 24, 24, 24, 24, 24,
-                    24, 24, 24, 24, 24, 24, 26, 26, 26, 26, 27, 27, 28, 28, 29, 29, 29, 30, 30, 32]
+                    24, 24, 24, 24, 24, 24, 26, 26, 26, 26, 27, 27, 28, 28, 29, 29, 29, 30, 30, 31, 31, 31,
+                    31, 31, 32, 32, 32, 33, 33, 35]
         lexer = UTLLexer()
         lexer.input(self._MACRO_DEF)
         self.assertEqual(lexer.lineno(), 1)
@@ -259,7 +273,7 @@ class LexerTestCase(unittest_plus.TestCasePlus):
                     948, 971, 974, 976, 978, 980, 981, 982, 983, 984, 985, 986, 987, 989, 1071, 1073, 1109,
                     1110, 1137, 1138, 1166, 1167, 1168, 1238, 1263, 1265, 1266, 1271, 1274, 1299, 1301,
                     1302, 1310, 1311, 1388, 1390, 1415, 1416, 1432, 1433, 1445, 1446, 1461, 1480, 1481,
-                    1489, 1490, 1498]
+                    1489, 1490, 1498, 1500, 1502, 1504, 1505, 1518, 1525, 1526, 1534, 1535, 1543]
 
         lexer = UTLLexer()
         lexer.input(self._MACRO_DEF)
