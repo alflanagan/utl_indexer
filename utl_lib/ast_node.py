@@ -98,9 +98,9 @@ class ASTNode(object):
             attrs = ''
             for key in self.attributes:
                 if attrs:
-                    attrs += ', {}: "{}"'.format(key, repr(self.attributes[key]))
+                    attrs += ', {}: {}'.format(key, repr(self.attributes[key]))
                 else:
-                    attrs = '{}: "{}"'.format(key, repr(self.attributes[key]))
+                    attrs = '{}: {}'.format(key, repr(self.attributes[key]))
             result += " {%s}" % attrs
         return result
 
