@@ -2,6 +2,7 @@
 """Routines to implement a yacc-like parser for Townnews' UTL template language"""
 
 import argparse
+import sys
 
 from utl_lib.utl_lex import UTLLexer
 from utl_lib.utl_yacc_mini import UTLParser
@@ -25,7 +26,10 @@ def do_parse(program_text, debug):
 
     myparser = UTLParser()
     results = myparser.parse(program_text, debug=debug)
-    print(ASTNodeFormatter(results).format())
+    if results:
+        print(ASTNodeFormatter(results).format())
+    else:
+        sys.stderr.write('Parse FAILED!\n')
 
 
 def show_lex(program_text):
