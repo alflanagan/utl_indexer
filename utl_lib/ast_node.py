@@ -17,22 +17,56 @@ class ASTNode(object):
     """
 
     def __init__(self, symbol_name, is_term, attrs=None, children=None):
-        self.children = [] if children is None else children
+        self.children = []
+        if children:
+            for child in children:
+                self.add_child(child)
         self.parent = None  # set by parent in add_child
         self.symbol = symbol_name
         self.terminal = is_term
         self.attributes = {} if attrs is None else attrs
 
+    def __eq__(self, other):
+        '''Deep equality test, useful for testing.'''
+        if not isinstance(other, ASTNode):
+            return False
+        if (self.symbol != other.symbol
+                or self.terminal != other.terminal
+                or set(self.attributes.keys()) != set(other.attributes.keys())):
+            return False
+        for key in self.attributes:
+            if self.attributes[key] != other.attributes[key]:
+                return False
+        if len(self.children) != len(other.children):
+            return False
+        for i in range(len(self.children)):
+            if self.children[i] != other.children[i]:
+                return False
+        return True
+
     def add_child(self, child):
         '''Add child to the list of children of this node. `child` will become the last child,
         making this appropriate for right-expanding rules like: a : a b
+
+        Note: If child has no parent node, it is added directly to our children. If child
+        already has a parent node, a copy is made, then added. This prevents cases where a node
+        would have a child whose parent is not that node.
 
         :param ASTNode child: A child node.
         '''
         # we might have passed a generator to __init__(), or even a set
         self.children = list(self.children)
+        if child.parent:
+            child = child.copy()
         child.parent = self
         self.children.append(child)
+
+    def copy(self):
+        """Returns a new instance of :py:class:`utl_lib.ast_node.ASTNode` whose attributes have
+        the same values as this.
+        """
+        return ASTNode(self.symbol, self.terminal, self.attributes.copy(),
+                       [kid.copy() for kid in self.children])
 
     def add_first_child(self, child):
         '''Add child to the list of children of this node. `child` will become the first child,
