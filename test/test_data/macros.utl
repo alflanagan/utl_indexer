@@ -1,0 +1,16 @@
+[% macro fred;
+  a = b + 3;
+  echo;
+  echo a;
+  end;
+  wlma = 3 * 28;
+
+macro useless();
+  echo "useless";
+  end;
+
+macro still_useless(arg1);
+  echo arg1;
+  end;
+  
+  %]

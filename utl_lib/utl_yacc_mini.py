@@ -72,8 +72,16 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
     def p_statement(self, p):
         '''statement : expr SEMI
                      | assignment SEMI
-                     | simple_if_stmt SEMI'''
+                     | simple_if_stmt SEMI
+                     | return_stmt SEMI
+                     | macro_defn SEMI
+                     | echo_stmt SEMI'''
         p[0] = ASTNode('statement', False, {}, [p[1]])
+
+    def p_echo_stmt(self, p):
+        '''echo_stmt : ECHO
+                     | ECHO expr'''
+        p[0] = ASTNode('echo', False, {}, [] if len(p)==2 else[p[2]])
 
     def p_expr(self, p):
         '''expr : expr PLUS term
@@ -100,7 +108,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
                       | param_list COMMA param_decl
                       | param_decl '''
         if len(p) == 1:
-            p[0] = ASTNode('param_list', True)
+            pass
         elif len(p) == 2:
             p[0] = ASTNode('param_list', False, {}, [p[1]])
         else:
@@ -191,6 +199,26 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
     def p_simple_if_stmt(self, p):
         '''simple_if_stmt : IF LPAREN expr RPAREN SEMI statement_list END'''
         p[0] = ASTNode('if', False, {'condition': p[3]}, [p[6]])
+
+    def p_return_stmt(self, p):
+        '''return_stmt : RETURN expr'''
+        assert p[2].symbol == 'expr'
+        p[0] = ASTNode('return', False, {}, [p[2]])
+
+    def p_macro_defn(self, p):
+        '''macro_defn : macro_decl SEMI statement_list END'''
+        p[0] = ASTNode('macro-defn',
+                       False,
+                       {'name': p[1].attributes['name'],},
+                       [p[1], p[3]])
+
+    def p_macro_decl(self, p):
+        '''macro_decl : MACRO ID
+                      | MACRO ID LPAREN param_list RPAREN
+        '''
+        p[0] = ASTNode('macro-decl', True, {'name': p[2]},
+                       # don't add param_list if it's empty
+                       [] if len(p) < 5 or not p[4] else [p[4]])
 
     # Error rule for syntax errors
     def p_error(self, p):  # pylint: disable=missing-docstring
