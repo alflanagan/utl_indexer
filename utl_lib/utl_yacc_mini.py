@@ -37,15 +37,15 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
         return self.parser.parse(input_text, this_lexer, debug, tracking, tokenfunc)
 
     def p_utldoc(self, p):  # pylint: disable=unused-argument
-        '''utldoc : utldoc document_or_code
-                  | document_or_code'''
+        '''utldoc : document_or_code
+                  | utldoc document_or_code'''
         self.parsed = True
         if len(p) == 2:
             assert p[1].symbol in ('statement_list', 'document')
             p[0] = ASTNode('utldoc', False, {}, [p[1]])
         else:
             assert p[1].symbol == 'utldoc'
-            p[1].add_children(p[2:])
+            p[1].add_child(p[2])
             p[0] = p[1]
 
     def p_document_or_code(self, p):
@@ -75,13 +75,20 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
                      | simple_if_stmt SEMI
                      | return_stmt SEMI
                      | macro_defn SEMI
-                     | echo_stmt SEMI'''
+                     | document
+                     | echo_stmt SEMI
+                     | for_stmt SEMI'''
         p[0] = ASTNode('statement', False, {}, [p[1]])
+
+    def p_document(self, p):
+        '''document : END_UTL DOCUMENT START_UTL
+                    | END_UTL DOCUMENT'''
+        p[0] = ASTNode('document', True, {'text': p[2]})
 
     def p_echo_stmt(self, p):
         '''echo_stmt : ECHO
                      | ECHO expr'''
-        p[0] = ASTNode('echo', False, {}, [] if len(p)==2 else[p[2]])
+        p[0] = ASTNode('echo', False, {}, [] if len(p) == 2 else[p[2]])
 
     def p_expr(self, p):
         '''expr : expr PLUS term
@@ -198,7 +205,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
 
     def p_simple_if_stmt(self, p):
         '''simple_if_stmt : IF LPAREN expr RPAREN SEMI statement_list END'''
-        p[0] = ASTNode('if', False, {'condition': p[3]}, [p[6]])
+        p[0] = ASTNode('if', False, {}, [p[3], p[6]])
 
     def p_return_stmt(self, p):
         '''return_stmt : RETURN expr'''
@@ -209,7 +216,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
         '''macro_defn : macro_decl SEMI statement_list END'''
         p[0] = ASTNode('macro-defn',
                        False,
-                       {'name': p[1].attributes['name'],},
+                       {'name': p[1].attributes['name']},
                        [p[1], p[3]])
 
     def p_macro_decl(self, p):
@@ -219,6 +226,22 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
         p[0] = ASTNode('macro-decl', True, {'name': p[2]},
                        # don't add param_list if it's empty
                        [] if len(p) < 5 or not p[4] else [p[4]])
+
+    def p_for_stmt(self, p):
+        '''for_stmt : FOR expr AS ID SEMI statement_list END
+                    | FOR expr SEMI statement_list END
+                    | FOR EACH expr AS ID SEMI statement_list END
+                    | FOR EACH expr SEMI statement_list END'''
+        if isinstance(p[2], str) and p[2].lower() == 'each':
+            if isinstance(p[4], str) and p[4].lower() == 'as':
+                p[0] = ASTNode('for', False, {'name': p[5]}, [p[3], p[7]])
+            else:
+                p[0] = ASTNode('for', False, {'name': None}, [p[3], p[5]])
+        else:
+            if isinstance(p[3], str) and p[3].lower() == 'as':
+                p[0] = ASTNode('for', False, {'name': p[4]}, [p[2], p[6]])
+            else:
+                p[0] = ASTNode('for', False, {'name': None}, [p[2], p[4]])
 
     # Error rule for syntax errors
     def p_error(self, p):  # pylint: disable=missing-docstring
