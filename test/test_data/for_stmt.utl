@@ -1,6 +1,7 @@
 [% for array_data as item; %]
       stuff happens
-[% end; %]
+      [% continue;
+ end; %]
 [% for 1..10; %]
   more stuff happens
 [% end; %]
@@ -8,7 +9,7 @@
   even more stuff
 [% end; %]
 [%  for each array_data as item; %]
-  even more stuff
+  even more [% break; %] stuff
 [% end; %]
 [% /* for array_data as alpha, beta;
     c += alpha * beta;

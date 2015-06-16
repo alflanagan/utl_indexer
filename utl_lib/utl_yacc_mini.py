@@ -49,7 +49,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
             p[0] = p[1]
 
     def p_document_or_code(self, p):
-        '''document_or_code : DOCUMENT
+        '''document_or_code : doc
                             | START_UTL statement_list END_UTL'''
         # attributes of p:
         # error, lexer, lexpos, lexspan, lineno, linespan, parser, set_lineno, slice, stack
@@ -75,14 +75,28 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
                      | simple_if_stmt SEMI
                      | return_stmt SEMI
                      | macro_defn SEMI
-                     | document
+                     | document_start
                      | echo_stmt SEMI
-                     | for_stmt SEMI'''
-        p[0] = ASTNode('statement', False, {}, [p[1]])
+                     | for_stmt SEMI
+                     | BREAK SEMI
+                     | CONTINUE SEMI'''
+        if isinstance(p[1], str):
+            if p[1].lower() == 'continue':
+                p[0] = ASTNode('statement', False, {}, [ASTNode('continue', True)])
+            elif p[1].lower() == 'break':
+                p[0] = ASTNode('statement', False, {}, [ASTNode('break', True)])
+        else:
+            p[0] = ASTNode('statement', False, {}, [p[1]])
 
-    def p_document(self, p):
-        '''document : END_UTL DOCUMENT START_UTL
-                    | END_UTL DOCUMENT'''
+    def p_document_start(self, p):
+        '''document_start : doc START_UTL
+                          | doc
+                          | DOCUMENT'''
+        # this rule exists to "eat" START_UTL, so just pass document
+        p[0] = p[1]
+
+    def p_doc(self, p):
+        '''doc : END_UTL DOCUMENT'''
         p[0] = ASTNode('document', True, {'text': p[2]})
 
     def p_echo_stmt(self, p):
@@ -157,7 +171,8 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
             p[0] = ASTNode('arg', False, {}, [p[1]])
 
     def p_assignment(self, p):
-        '''assignment : ID ASSIGN expr'''
+        '''assignment : ID ASSIGN expr
+                      | ID ASSIGNOP expr'''
         p[0] = ASTNode('assignment', False, {'target': p[1]}, [p[3]])
 
     def p_method_call(self, p):
@@ -177,6 +192,9 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
     def p_factor(self, p):
         '''factor : literal
                   | id_ref
+                  | FALSE
+                  | TRUE
+                  | NULL
                   | LPAREN expr RPAREN
                   | method_call'''
         # odd to have string here, but "5" can auto-convert to 5.0, so it's legal
