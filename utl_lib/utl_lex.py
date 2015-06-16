@@ -122,13 +122,17 @@ class UTLLexer(object):
 
     # ======== INITIAL state =====================================
     # everything up to START_UTL gets put in one token
-    t_DOCUMENT = r'[^[]+'
     # this gives us
     # LexToken(DOCUMENT,'some text',..
     # LexToken(DOCUMENT,'[',...
     # LexToken(DOCUMENT,'more text',...
     # which is not ideal, but workable
     # parser will have to paste them together
+    def t_DOCUMENT(self, t):
+        r'[^[]+'
+        t.lexer.lineno += t.value.count('\n')
+        return t
+
 
     def t_LBRACKET(self, t):
         r'\['
@@ -178,7 +182,7 @@ class UTLLexer(object):
     # must come before OP
     def t_utl_COMMENT(self, t):
         r'(/\*(.|\n)*?\*/)'
-        pass
+        t.lexer.lineno += t.value.count('\n')
 
     # this will not allow us to handle precedence in expressions
     @lex.TOKEN("|".join(operators))

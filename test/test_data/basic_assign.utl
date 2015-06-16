@@ -3,7 +3,9 @@
   5 - 7;
   "barney rubble" | html;
   sally = 12 / 6;
-  barney = fred * 3;
+  barney = fred * 3; %]
+ here's some text
+ [%
   abool = 3 == 4;
   a = 3;
   b = fred;
