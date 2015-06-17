@@ -8,7 +8,7 @@ from utl_lib.utl_lex import UTLLexer
 from utl_lib.ast_node import ASTNode
 
 
-
+# drastically simplified to aid debugging
 class UTLParser(object):  # pylint: disable=too-many-public-methods
     """Represents the current state of parsing a UTL code source, and generated AST."""
 
@@ -20,12 +20,9 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
         "Contents of each document (i.e. non-UTL) section."
         self.tokens = UTLLexer.tokens
         self.parser = yacc.yacc(module=self)
-        self.asts = []
 
-# grammar for UTL sections. loosely based on PHP grammar
-# http://lxr.php.net/xref/PHP_TRUNK/Zend/zend_language_parser.y
     precedence = (
-        ('left', 'PLUS', 'MINUS'),
+        ('left', 'PLUS', 'MINUS', 'OP'),
         ('left', 'TIMES', 'DIV', 'MODULUS'),
     )
 
@@ -43,231 +40,234 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
         '''utldoc : document_or_code
                   | utldoc document_or_code'''
         self.parsed = True
-        self.asts.append(ASTNode('utldoc'))
+        if len(p) == 2:
+            assert p[1].symbol in ('statement_list', 'document')
+            p[0] = ASTNode('utldoc', False, {}, [p[1]])
+        else:
+            assert p[1].symbol == 'utldoc'
+            p[1].add_child(p[2])
+            p[0] = p[1]
 
     def p_document_or_code(self, p):
-        '''document_or_code : document
-                            | START_UTL top_statement END_UTL'''
+        '''document_or_code : doc
+                            | START_UTL statement_list END_UTL'''
         # attributes of p:
         # error, lexer, lexpos, lexspan, lineno, linespan, parser, set_lineno, slice, stack
-        self.asts.append(ASTNode('document_or_code'))
-
-    def p_document(self, p):
-        '''document : DOCUMENT'''
-        self.documents.append(p.lexspan)
-        self.asts.append(ASTNode('document[{}]'.format(len(self.documents) - 1)))
-
-    def p_top_statement(self, p):
-        '''top_statement : statement SEMI
-                         | macro_declaration_statement SEMI
-                         | ID SEMI
-                         | top_statement SEMI top_statement'''
-        pass
-
-    def p_statement(self, p):
-        '''statement : if_stmt
-                     | WHILE LPAREN expr RPAREN statement_list END SEMI
-                     | for_stmt
-                     | array_decl
-                     | BREAK optional_expr SEMI
-                     | CONTINUE optional_expr SEMI
-                     | ECHO echo_expr_list SEMI
-                     | expr SEMI
-                     | SEMI
-                     | COMMENT
-                     | include_stmt SEMI
-                     | assignment SEMI
-                     | CALL method_call SEMI
-                     | RETURN optional_expr SEMI
-                     | EXIT
-                     '''
-        pass
-
-    def p_array_decl(self, p):
-        '''array_decl : ID LBRACKET values_list RBRACKET'''
-        pass
-
-    def p_values_list(self, p):
-        '''values_list : values_list COMMA expr
-                       | values_list COMMA ID COLON expr
-                       | empty'''
-        pass
-
-    def p_expr_array_ref(self, p):
-        '''expr : ID LBRACKET expr RBRACKET'''
-        pass
-
-    def p_for_for(self, p):
-        '''for_for : FOR
-                   | FOR EACH'''
-        pass
-
-    def p_for_stmt(self, p):
-        '''for_stmt : for_for expr SEMI
-                    | for_for expr AS ID SEMI
-                    | for_for expr AS ID COMMA ID SEMI'''
-        pass
-
-    def p_echo_expr_list(self, p):
-        '''echo_expr_list : echo_expr_list COMMA echo_expr
-                          | echo_expr'''
-        pass
-
-    def p_echo_expr(self, p):
-        '''echo_expr : expr'''
-        pass
-
-    def p_optional_expr(self, p):
-        '''optional_expr : empty
-                         | expr'''
-        pass
-
-    def p_simple_if_stmt(self, p):
-        '''simple_if_stmt : IF LPAREN expr RPAREN SEMI statement_list END SEMI'''
-        if_node = ASTNode('if')
-        # expr should be one child
-        # statement_list should be another
-        self.asts.append(if_node)
-
-    def p_if_stmt_elseif(self, p):
-        '''if_stmt_elseif : simple_if_stmt
-                          | if_stmt_elseif ELSEIF LPAREN expr RPAREN statement_list END SEMI'''
-        pass
-
-    def p_if_stmt(self, p):
-        '''if_stmt : if_stmt_elseif SEMI
-                   | if_stmt_elseif ELSE statement_list END SEMI
-                   | IF expr THEN statement SEMI'''
-        pass
+        if len(p) == 2:
+            p[0] = ASTNode('document', True, {'text': p[1]})
+        else:
+            assert p[2].symbol == 'statement_list'
+            p[0] = p[2]
 
     def p_statement_list(self, p):
-        '''statement_list : statement_list SEMI statement SEMI
-                          | statement SEMI'''
-        pass
+        '''statement_list : statement_list statement
+                          | statement'''
+        if len(p) == 2:
+            p[0] = ASTNode('statement_list', False, {}, [p[1]])
+        else:
+            assert p[1].symbol == 'statement_list'
+            p[1].add_child(p[2])
+            p[0] = p[1]
 
-    # probably a better idea to insert missing semis
-    # def p_optional_semi(self, p):
-        # '''optional_semi : SEMI
-                         # | empty'''
-        # pass
+    def p_statement(self, p):
+        '''statement : expr SEMI
+                     | assignment SEMI
+                     | simple_if_stmt SEMI
+                     | return_stmt SEMI
+                     | macro_defn SEMI
+                     | document_start
+                     | echo_stmt SEMI
+                     | for_stmt SEMI
+                     | BREAK SEMI
+                     | CONTINUE SEMI'''
+        if isinstance(p[1], str):
+            if p[1].lower() == 'continue':
+                p[0] = ASTNode('statement', False, {}, [ASTNode('continue', True)])
+            elif p[1].lower() == 'break':
+                p[0] = ASTNode('statement', False, {}, [ASTNode('break', True)])
+        else:
+            p[0] = ASTNode('statement', False, {}, [p[1]])
 
-    # convenience rule to explicitly state production to nothing
-    def p_empty(self, p):
-        '''empty :'''
-        pass
+    def p_document_start(self, p):
+        '''document_start : doc START_UTL
+                          | doc
+                          | DOCUMENT'''
+        # this rule exists to "eat" START_UTL, so just pass document
+        p[0] = p[1]
 
+    def p_doc(self, p):
+        '''doc : END_UTL DOCUMENT'''
+        p[0] = ASTNode('document', True, {'text': p[2]})
 
-    def p_macro_declaration_statement(self, p):
-        '''macro_declaration_statement : MACRO ID LPAREN param_list RPAREN SEMI statement_list END SEMI
-                                       | MACRO ID statement_list END SEMI'''
-        pass
+    def p_echo_stmt(self, p):
+        '''echo_stmt : ECHO
+                     | ECHO expr'''
+        p[0] = ASTNode('echo', False, {}, [] if len(p) == 2 else[p[2]])
+
+    def p_expr(self, p):
+        '''expr : expr PLUS term
+                | expr MINUS term
+                | term
+                | expr FILTER method_call
+                | expr FILTER ID
+                | expr OP expr
+
+                '''
+        if len(p) == 4:
+            if isinstance(p[3], str):
+                assert p[1] and p[2]
+                new_id = ASTNode('id', True, {'name': p[3]}, [])
+                p[0] = ASTNode('expr', False, {'operator': p[2]}, [p[1], new_id])
+            else:
+                assert p[1] and p[2] and p[3]
+                p[0] = ASTNode('expr', False, {"operator": p[2]}, [p[1], p[3]])
+        else:
+            p[0] = ASTNode('expr', False, {}, p[1:])
 
     def p_param_list(self, p):
-        '''param_list : param_decl
-                      | param_decl COMMA param_list
-                      | '''
-        pass
+        '''param_list :
+                      | param_list COMMA param_decl
+                      | param_decl '''
+        if len(p) == 1:
+            pass
+        elif len(p) == 2:
+            p[0] = ASTNode('param_list', False, {}, [p[1]])
+        else:
+            assert p[1].symbol == 'param_list'
+            assert p[3].symbol == 'param_decl'
+            p[1].add_child(p[3])
+            p[0] = p[1]
 
     def p_param_decl(self, p):
         '''param_decl : ID
                       | assignment'''
-        pass
+        if isinstance(p[1], str):
+            p[0] = ASTNode('param_decl', True, {'name': p[1]})
+        else:
+            assert p[1].symbol == 'assignment'
+            p[0] = ASTNode('param_decl', False, {'name': p[1].attributes['target']},
+                           p[1].children)
+
+    def p_arg_list(self, p):
+        '''arg_list :
+                    | arg
+                    | arg_list COMMA arg'''
+        if len(p) == 1:
+            p[0] = ASTNode('arg_list', True, {}, [])
+        elif len(p) == 2:
+            p[0] = ASTNode('arg_list', False, {}, [p[1]])
+        else:
+            assert p[1].symbol == "arg_list"
+            p[1].add_child(p[3])
+            p[0] = p[1]
+
+    def p_arg(self, p):
+        '''arg : expr
+               | STRING COLON expr'''
+        if len(p) == 4:
+            assert p[2] == ':'
+            p[0] = ASTNode('arg', False, {'keyword': p[1]}, [p[3]])
+        else:
+            p[0] = ASTNode('arg', False, {}, [p[1]])
 
     def p_assignment(self, p):
-        '''assignment : ID ASSIGN expr SEMI
-                      | ID ASSIGNOP expr SEMI
-                      | DEFAULT ASSIGN expr SEMI'''
-        self.symbol_table[p[1]] = p[3]
-
-    def p_expr_op(self, p):
-        '''expr : expr OP expr'''
-        print("Found unhandled operator: {}".format(p[2].value))
-
-    def p_expr_plus(self, p):
-        '''expr : expr PLUS term'''
-        plus_node = ASTNode('+')
-        plus_node.add_children([p[1], p[3]])
-        self.asts.append(plus_node)
-        p[0] = p[1] + p[3]
-
-    def p_expr_id(self, p):
-        '''expr : ID'''
-        p[0] = self.symbol_table[p[1]]
-        id_node = ASTNode('symbol')
-        id_node.attributes['name'] = p[1]
-        id_node.attributes['value'] = self.symbol_table.get(p[1], '*not found*')
-        self.asts.append(id_node)
-
-    def p_expr_minus(self, p):
-        '''expr : expr MINUS term'''
-        p[0] = p[1] - p[3]
-
-    def p_expr_term(self, p):
-        '''expr : term'''
-        p[0] = p[1]
-
-    def p_expr_null(self, p):
-        '''expr : NULL'''
-        p[0] = None
-
-    def p_expr_true(self, p):
-        '''expr : TRUE'''
-        p[0] = True
-
-    def p_expr_false(self, p):
-        '''expr : FALSE'''
-        p[0] = False
-
-    def p_expr_range(self, p):
-        '''expr : expr RANGE expr'''
-        pass
-
-    def p_expr_filter(self, p):
-        '''expr : expr FILTER method_call'''
-        pass
+        '''assignment : ID ASSIGN expr
+                      | ID ASSIGNOP expr'''
+        p[0] = ASTNode('assignment', False, {'target': p[1]}, [p[3]])
 
     def p_method_call(self, p):
-        '''method_call : ID
-                       | ID RPAREN param_list LPAREN'''
-        pass
+        '''method_call : ID LPAREN arg_list RPAREN'''
+        p[0] = ASTNode('method_call', False, {'name': p[1]}, [p[3]])
 
-    def p_term_times(self, p):
-        '''term : term TIMES factor'''
-        p[0] = p[1] * p[3]
+    def p_term(self, p):
+        '''term : term TIMES factor
+                | term DIV factor
+                | term MODULUS factor
+                | factor'''
+        if len(p) == 2:
+            p[0] = ASTNode('term', False, {}, [p[1]])
+        else:
+            p[0] = ASTNode('term', False, {'operator': p[2]}, [p[1], p[3]])
 
+    def p_factor(self, p):
+        '''factor : literal
+                  | id_ref
+                  | FALSE
+                  | TRUE
+                  | NULL
+                  | LPAREN expr RPAREN
+                  | method_call'''
+        # odd to have string here, but "5" can auto-convert to 5.0, so it's legal
+        if len(p) == 2:
+            assert p[1]
+            p[0] = ASTNode('factor', False, {}, [p[1]])
+        else:
+            assert p[1] == '(' and p[3] == ')'
+            assert p[2]
+            p[0] = ASTNode('paren_group', False, {}, [p[2]])
 
-    def p_term_div(self, p):
-        'term : term DIV factor'
-        p[0] = p[1] / p[3]
+    def p_literal(self, p):
+        '''literal : NUMBER
+                   | STRING'''
+        p[0] = ASTNode('literal', True, {'value': p[1]}, [])
 
+    # exists because it's easier than trying to identify ID in p_factor()
+    def p_id_ref(self, p):
+        '''id_ref : ID LBRACKET expr RBRACKET
+                  | ID'''
+        if len(p) == 2:
+            p[0] = ASTNode('identifier', True, {'name': p[1]})
+        else:
+            assert p[2] == "[" and p[4] == "]"
+            p[0] = ASTNode('array-ref', False, {'name': p[1]}, [p[3]])
 
-    def p_term_mod(self, p):
-        '''term : term MODULUS factor'''
-        pass
+    def p_simple_if_stmt(self, p):
+        '''simple_if_stmt : IF LPAREN expr RPAREN SEMI statement_list END'''
+        p[0] = ASTNode('if', False, {}, [p[3], p[6]])
 
-    def p_term_factor(self, p):
-        'term : factor'
-        p[0] = p[1]
+    def p_return_stmt(self, p):
+        '''return_stmt : RETURN expr'''
+        assert p[2].symbol == 'expr'
+        p[0] = ASTNode('return', False, {}, [p[2]])
 
+    def p_macro_defn(self, p):
+        '''macro_defn : macro_decl SEMI statement_list END'''
+        p[0] = ASTNode('macro-defn',
+                       False,
+                       {'name': p[1].attributes['name']},
+                       [p[1], p[3]])
 
-    def p_factor_num(self, p):
-        'factor : NUMBER'
-        p[0] = p[1]
+    def p_macro_decl(self, p):
+        '''macro_decl : MACRO ID
+                      | MACRO ID LPAREN param_list RPAREN
+        '''
+        p[0] = ASTNode('macro-decl', True, {'name': p[2]},
+                       # don't add param_list if it's empty
+                       [] if len(p) < 5 or not p[4] else [p[4]])
 
-    def p_factor_expr(self, p):
-        'factor : LPAREN expr RPAREN'
-        p[0] = p[2]
-
-    def p_factor_id(self, p):
-        '''factor : ID'''
-        p[0] = self.symbol_table[p[1]]
-
-    def p_include(self, p):
-        '''include_stmt : INCLUDE STRING'''
-        p[0] = p[2]
+    def p_for_stmt(self, p):
+        '''for_stmt : FOR expr AS ID SEMI statement_list END
+                    | FOR expr SEMI statement_list END
+                    | FOR EACH expr AS ID SEMI statement_list END
+                    | FOR EACH expr SEMI statement_list END'''
+        if isinstance(p[2], str) and p[2].lower() == 'each':
+            if isinstance(p[4], str) and p[4].lower() == 'as':
+                p[0] = ASTNode('for', False, {'name': p[5]}, [p[3], p[7]])
+            else:
+                p[0] = ASTNode('for', False, {'name': None}, [p[3], p[5]])
+        else:
+            if isinstance(p[3], str) and p[3].lower() == 'as':
+                p[0] = ASTNode('for', False, {'name': p[4]}, [p[2], p[6]])
+            else:
+                p[0] = ASTNode('for', False, {'name': None}, [p[2], p[4]])
 
     # Error rule for syntax errors
     def p_error(self, p):  # pylint: disable=missing-docstring
         badline = p.lexer.lexdata.split('\n')[p.lineno-1]
-        print("Syntax error in input line {} at '{}'!".format(p.lineno, p.value))
+        lineoffset = p.lexer.lexdata.rfind('\n', 0, p.lexer.lexpos)
+        if lineoffset == -1:  # we're on first line
+            lineoffset = 0
+        lineoffset = p.lexer.lexpos - lineoffset
+        print("Syntax error in input line {} after '{}'!".format(p.lineno, p.value))
         print(badline)
+        print("{}^".format(' ' * (lineoffset - 1)))

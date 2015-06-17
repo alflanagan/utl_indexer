@@ -5,7 +5,7 @@ import argparse
 import sys
 
 from utl_lib.utl_lex import UTLLexer
-from utl_lib.utl_yacc_mini import UTLParser
+from utl_lib.utl_yacc import UTLParser
 from utl_lib.ast_node import ASTNodeFormatter
 
 
