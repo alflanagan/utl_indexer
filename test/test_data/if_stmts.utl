@@ -2,4 +2,10 @@
   if (7 == 15);
      print('something');
   end;
+  if (a == 3);
+     print('hello');
+  else;
+     print('goodbye');
+  end;
 %]
+some document text

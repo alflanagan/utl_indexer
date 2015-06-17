@@ -2,6 +2,11 @@
 """Module of classes used to implement an Abstract Syntax Tree structure."""
 
 
+class ASTNodeError(Exception):
+    '''Exceptions raised by misuse of an ASTNode object.'''
+    pass
+
+
 class ASTNode(object):
     """A node in the AST tree.
 
@@ -17,6 +22,8 @@ class ASTNode(object):
     """
 
     def __init__(self, symbol_name, is_term, attrs=None, children=None):
+        if not symbol_name:
+            raise ASTNodeError('ASTNode must have a valid name')
         self.children = []
         if children:
             for child in children:
@@ -53,7 +60,11 @@ class ASTNode(object):
         would have a child whose parent is not that node.
 
         :param ASTNode child: A child node.
+
+        :raises ASTNodeError: if child is not an ASTNode
         '''
+        if not isinstance(child, ASTNode):
+            raise ASTNodeError('Invalid child for AST Node: {}'.format(child))
         # we might have passed a generator to __init__(), or even a set
         self.children = list(self.children)
         if child.parent:
