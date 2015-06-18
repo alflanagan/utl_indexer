@@ -8,7 +8,7 @@ class ASTNodeError(Exception):
 
 
 class ASTNode(object):
-    """A node in the AST tree.
+    """A node in the AST.
 
     :param str symbol_name: A name for the node, usually related to the rule that produced it.
 

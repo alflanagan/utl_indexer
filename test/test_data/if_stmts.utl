@@ -4,6 +4,8 @@
   end;
   if (a == 3);
      print('hello');
+  elseif (a == 5);
+     scream_in_panic(7, 12, 2);
   else;
      print('goodbye');
   end;

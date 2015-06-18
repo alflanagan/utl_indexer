@@ -25,7 +25,8 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
         for tok in self.filtered_tokens:
             self.tokens.remove(tok)
         self.parser = yacc.yacc(module=self)
-        self.lexer = UTLLexer()
+        self.utl_lexer = UTLLexer()
+        self.lexer = self.utl_lexer.lexer
         self.documents = []
 
     precedence = (
@@ -34,12 +35,13 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
     )
 
     def _filtered_token(self):
-        tok = self.lexer.token()
+        """Like :py:meth:`token()` but does not pass on tokens in `self.filtered_tokens`."""
+        tok = self.utl_lexer.token()
         # since DOCUMENT can occur virtually anywhere, it doesn't fit into the parse tree well
         while tok and tok.type in self.filtered_tokens:
             # if tok.type == 'DOCUMENT':
                 # self.documents.append(tok)
-            tok = self.lexer.token()
+            tok = self.utl_lexer.token()
         return tok
 
     def parse(self, input_text=None, debug=False, tracking=False):
@@ -70,9 +72,8 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
     def p_statement(self, p):
         '''statement : expr SEMI
                      | assignment SEMI
-                     | simple_if_stmt SEMI
+                     | if_stmt SEMI
                      | abbrev_if_stmt SEMI
-                     | if_else_stmt SEMI
                      | return_stmt SEMI
                      | macro_defn SEMI
                      | echo_stmt SEMI
@@ -214,13 +215,29 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
             assert p[2] == "[" and p[4] == "]"
             p[0] = ASTNode('array-ref', False, {'name': p[1]}, [p[3]])
 
-    def p_simple_if_stmt(self, p):
-        '''simple_if_stmt : IF LPAREN expr RPAREN SEMI statement_list END'''
-        p[0] = ASTNode('if', False, {}, [p[3], p[6]])
+    def p_if_stmt(self, p):
+        '''if_stmt : IF LPAREN expr RPAREN SEMI statement_list elseif_stmts else_stmt END'''
+        # p[3] should always be non-None
+        the_kids = [kid for kid in [p[3], p[6], p[7], p[8]] if kid is not None]
+        p[0] = ASTNode('if', False, {}, the_kids)
 
-    def p_if_else_stmt(self, p):
-        '''if_else_stmt : IF LPAREN expr RPAREN SEMI statement_list  ELSE SEMI statement_list END'''
-        p[0] = ASTNode('if', False, {}, [p[3], p[6], p[9]])
+    def p_elseif_stmts(self, p):
+        '''elseif_stmts : elseif_stmts elseif_stmt
+                        |'''
+        if len(p) == 3:
+            elseif_stmts = p[1] if p[1] else ASTNode('elseif_stmts', False, {}, [])
+            elseif_stmts.add_child(p[2])
+            p[0] = elseif_stmts
+
+    def p_elseif_stmt(self, p):
+        '''elseif_stmt : ELSEIF LPAREN expr RPAREN SEMI statement_list'''
+        p[0] = ASTNode('elseif', False, {}, [p[3], p[6]])
+
+    def p_else_stmt(self, p):
+        '''else_stmt : ELSE statement_list
+                     |'''
+        if len(p) > 1:
+            p[0] = ASTNode('else', False, {}, [p[1]])
 
     def p_return_stmt(self, p):
         '''return_stmt : RETURN expr'''
@@ -258,7 +275,6 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
             else:
                 p[0] = ASTNode('for', False, {'name': None}, [p[2], p[4]])
 
-
     def p_include_stmt(self, p):
         '''include_stmt : INCLUDE STRING'''
         p[0] = ASTNode('include', True, {'file': p[2]})
@@ -269,11 +285,12 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
 
     # Error rule for syntax errors
     def p_error(self, p):  # pylint: disable=missing-docstring
-        badline = p.lexer.lexdata.split('\n')[p.lineno-1]
-        lineoffset = p.lexer.lexdata.rfind('\n', 0, p.lexer.lexpos)
+        the_lexer = p.lexer
+        badline = the_lexer.lexdata.split('\n')[p.lineno-1]
+        lineoffset = the_lexer.lexdata.rfind('\n', 0, the_lexer.lexpos)
         if lineoffset == -1:  # we're on first line
             lineoffset = 0
-        lineoffset = p.lexer.lexpos - lineoffset
+        lineoffset = the_lexer.lexpos - lineoffset
         print("Syntax error in input line {} after '{}'!".format(p.lineno, p.value))
         print(badline)
         print("{}^".format(' ' * (lineoffset - 1)))
