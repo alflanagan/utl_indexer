@@ -2,62 +2,60 @@
 """Routines to implement a yacc-like parser for Townnews' UTL template language"""
 
 import ply.yacc as yacc
-import ply.lex as lex
 
 from utl_lib.utl_lex import UTLLexer
 from utl_lib.ast_node import ASTNode
 
 
-# drastically simplified to aid debugging
 class UTLParser(object):  # pylint: disable=too-many-public-methods
-    """Represents the current state of parsing a UTL code source, and generated AST."""
+    """Represents the current state of parsing a UTL code source, and generated AST.
+
+    AST generation is temporary measure for development. Eventually you'll define a handler
+    class, which will have methods for each production to generate AST, or get information about
+    specific constructs, or generate code (FORTH, anyone?). The intent is to separate the parse
+    from the rest of the process, so it can be reused.
+
+    """
 
     def __init__(self):
-        self.current_node = None
-        self.symbol_table = {}
         self.parsed = False
-        self.documents = []
-        "Contents of each document (i.e. non-UTL) section."
-        self.tokens = UTLLexer.tokens
+        self.tokens = UTLLexer.tokens[:]  # make copy, so we can .remove() tokens
+        # Some tokens get processed out before parsing
+        self.filtered_tokens = ['COMMENT', 'START_UTL', 'END_UTL']
+        for tok in self.filtered_tokens:
+            self.tokens.remove(tok)
         self.parser = yacc.yacc(module=self)
+        self.lexer = UTLLexer()
+        self.documents = []
 
     precedence = (
         ('left', 'PLUS', 'MINUS', 'OP'),
         ('left', 'TIMES', 'DIV', 'MODULUS'),
     )
 
-    def parse(self, input_text=None, lexer=None, debug=False, tracking=False, tokenfunc=None):
+    def _filtered_token(self):
+        tok = self.lexer.token()
+        # since DOCUMENT can occur virtually anywhere, it doesn't fit into the parse tree well
+        while tok and tok.type in self.filtered_tokens:
+            # if tok.type == 'DOCUMENT':
+                # self.documents.append(tok)
+            tok = self.lexer.token()
+        return tok
+
+    def parse(self, input_text=None, debug=False, tracking=False):
         """Parses the code in `input_text`, returns result.
 
         lexer defaults to the `lexer` of a new instance of
         :py:class:`~utl_lib.utl_lex.UTLLexer`.
 
         """
-        this_lexer = lexer if lexer else UTLLexer().lexer
-        return self.parser.parse(input_text, this_lexer, debug, tracking, tokenfunc)
+        return self.parser.parse(input=input_text, lexer=self.lexer, debug=debug,
+                                 tracking=tracking, tokenfunc=self._filtered_token)
 
     def p_utldoc(self, p):  # pylint: disable=unused-argument
-        '''utldoc : document_or_code
-                  | utldoc document_or_code'''
+        '''utldoc : statement_list'''
         self.parsed = True
-        if len(p) == 2:
-            assert p[1].symbol in ('statement_list', 'document')
-            p[0] = ASTNode('utldoc', False, {}, [p[1]])
-        else:
-            assert p[1].symbol == 'utldoc'
-            p[1].add_child(p[2])
-            p[0] = p[1]
-
-    def p_document_or_code(self, p):
-        '''document_or_code : doc
-                            | START_UTL statement_list END_UTL'''
-        # attributes of p:
-        # error, lexer, lexpos, lexspan, lineno, linespan, parser, set_lineno, slice, stack
-        if len(p) == 2:
-            p[0] = ASTNode('document', True, {'text': p[1]})
-        else:
-            assert p[2].symbol == 'statement_list'
-            p[0] = p[2]
+        p[0] = ASTNode('utldoc', False, {}, [p[1]])
 
     def p_statement_list(self, p):
         '''statement_list : statement_list statement
@@ -73,32 +71,25 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
         '''statement : expr SEMI
                      | assignment SEMI
                      | simple_if_stmt SEMI
+                     | abbrev_if_stmt SEMI
                      | if_else_stmt SEMI
                      | return_stmt SEMI
                      | macro_defn SEMI
-                     | document_start
                      | echo_stmt SEMI
                      | for_stmt SEMI
+                     | include_stmt SEMI
                      | BREAK SEMI
-                     | CONTINUE SEMI'''
-        if isinstance(p[1], str):
+                     | CONTINUE SEMI
+                     | DOCUMENT'''
+        if len(p) == 2:
+            p[0] = ASTNode('document', True, {'text': p[1]})
+        elif isinstance(p[1], str):
             if p[1].lower() == 'continue':
                 p[0] = ASTNode('statement', False, {}, [ASTNode('continue', True)])
             elif p[1].lower() == 'break':
                 p[0] = ASTNode('statement', False, {}, [ASTNode('break', True)])
         else:
             p[0] = ASTNode('statement', False, {}, [p[1]])
-
-    def p_document_start(self, p):
-        '''document_start : doc START_UTL
-                          | doc
-                          | DOCUMENT'''
-        # this rule exists to "eat" START_UTL, so just pass document
-        p[0] = p[1]
-
-    def p_doc(self, p):
-        '''doc : END_UTL DOCUMENT'''
-        p[0] = ASTNode('document', True, {'text': p[2]})
 
     def p_echo_stmt(self, p):
         '''echo_stmt : ECHO
@@ -266,6 +257,15 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
                 p[0] = ASTNode('for', False, {'name': p[4]}, [p[2], p[6]])
             else:
                 p[0] = ASTNode('for', False, {'name': None}, [p[2], p[4]])
+
+
+    def p_include_stmt(self, p):
+        '''include_stmt : INCLUDE STRING'''
+        p[0] = ASTNode('include', True, {'file': p[2]})
+
+    def p_abbrev_if_stmt(self, p):
+        '''abbrev_if_stmt : IF expr THEN statement'''
+        p[0] = ASTNode('if', False, {}, [p[2], p[4]])
 
     # Error rule for syntax errors
     def p_error(self, p):  # pylint: disable=missing-docstring
