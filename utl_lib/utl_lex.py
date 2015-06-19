@@ -49,7 +49,7 @@ class UTLLexer(object):
     }
 
     # UTL doesn't support all of the PHP operators
-    operators = ['!', r'\.\.', r'\.', '<', '<=', '>', '>=', '==', '!=', '&&', r'\|\|', 'and',
+    operators = [r'\.\.', r'\.', '<', '<=', '>', '>=', '==', '!=', '&&', r'\|\|', 'and',
                  'or', 'is', 'is not']
 
     assignment_ops = [r'\+=', '-=', r'\*=', '/=', '%=', ]
@@ -76,7 +76,8 @@ class UTLLexer(object):
               'SEMI',
               'FILTER',
               'STRING',
-              'DOCUMENT'] + list(set(reserved.values()))
+              'DOCUMENT',
+              'NOT'] + list(set(reserved.values()))
 
     def __init__(self, **kwargs):
         self.lexer = lex.lex(module=self, **kwargs)
@@ -173,6 +174,7 @@ class UTLLexer(object):
     t_utl_PLUS = r'\+'
     t_utl_MINUS = '-'
     t_utl_COMMA = ','  # may be operator, may be separator
+    t_utl_NOT = '!'
 
     # comment (ignore)
     # PROBLEMS: comments *can* be nested

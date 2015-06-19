@@ -1,13 +1,15 @@
 [%
-  if (7 == 15);
+  if !cms.component.load("core_services_manager"); echo "<!-- error loading Services Component -->"; end;
+/*  if (7 == 15);
      print('something');
   end;
-  if (a == 3);
+  if a == 3;
      print('hello');
   elseif (a == 5);
      scream_in_panic(7, 12, 2);
   else;
      print('goodbye');
   end;
+  */
 %]
 some document text

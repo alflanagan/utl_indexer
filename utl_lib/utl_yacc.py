@@ -30,6 +30,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
         self.documents = []
 
     precedence = (
+        ('right', 'NOT'),
         ('left', 'PLUS', 'MINUS', 'OP'),
         ('left', 'TIMES', 'DIV', 'MODULUS'),
     )
@@ -104,7 +105,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
                 | expr FILTER method_call
                 | expr FILTER ID
                 | expr OP expr
-
+                | NOT expr
                 '''
         if len(p) == 4:
             assert p[2]
@@ -113,7 +114,9 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
                 p[0] = ASTNode('expr', False, {'operator': p[2]}, [p[1], new_id])
             else:
                 p[0] = ASTNode('expr', False, {"operator": p[2]}, [p[1], p[3]])
-        else:
+        elif len(p) == 3:  # NOT expr
+            p[0] = ASTNode('expr', False, {"operator": p[1]}, [p[2]])
+        else:  # term
             p[0] = ASTNode('expr', False, {}, p[1:])
 
     def p_param_list(self, p):
@@ -216,9 +219,9 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
             p[0] = ASTNode('array-ref', False, {'name': p[1]}, [p[3]])
 
     def p_if_stmt(self, p):
-        '''if_stmt : IF LPAREN expr RPAREN SEMI statement_list elseif_stmts else_stmt END'''
+        '''if_stmt : IF expr SEMI statement_list elseif_stmts else_stmt END'''
         # p[3] should always be non-None
-        the_kids = [kid for kid in [p[3], p[6], p[7], p[8]] if kid is not None]
+        the_kids = [kid for kid in [p[2], p[4], p[5], p[6]] if kid is not None]
         p[0] = ASTNode('if', False, {}, the_kids)
 
     def p_elseif_stmts(self, p):
@@ -230,8 +233,8 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
             p[0] = elseif_stmts
 
     def p_elseif_stmt(self, p):
-        '''elseif_stmt : ELSEIF LPAREN expr RPAREN SEMI statement_list'''
-        p[0] = ASTNode('elseif', False, {}, [p[3], p[6]])
+        '''elseif_stmt : ELSEIF expr SEMI statement_list'''
+        p[0] = ASTNode('elseif', False, {}, [p[2], p[4]])
 
     def p_else_stmt(self, p):
         '''else_stmt : ELSE SEMI statement_list
