@@ -2,4 +2,6 @@
 barney(3);
 wilma('betty');
 pebbles('mom': 'betty', 5);
+call barney(3);
+call pebbles('mom': 'betty', 5);
 %]

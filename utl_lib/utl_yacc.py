@@ -86,6 +86,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
                      | for_stmt end_stmt
                      | include_stmt end_stmt
                      | while_stmt end_stmt
+                     | call_stmt end_stmt
                      | BREAK end_stmt
                      | CONTINUE end_stmt
                      | EXIT end_stmt
@@ -183,8 +184,13 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
 
     def p_assignment(self, p):
         '''assignment : ID ASSIGN expr
-                      | ID ASSIGNOP expr'''
-        p[0] = ASTNode('assignment', False, {'target': p[1]}, [p[3]])
+                      | ID ASSIGNOP expr
+                      | DEFAULT ID ASSIGN expr
+                      | DEFAULT ID ASSIGNOP expr'''
+        if len(p) == 4:
+            p[0] = ASTNode('assignment', False, {'target': p[1], 'default': False}, [p[3]])
+        else:
+            p[0] = ASTNode('assignment', False, {'target': p[2], 'default': True}, [p[4]])
 
     def p_method_call(self, p):
         '''method_call : ID LPAREN arg_list RPAREN'''
@@ -310,6 +316,10 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
     def p_while_stmt(self, p):
         '''while_stmt : WHILE expr statement_list END'''
         p[0] = ASTNode('while', False, {}, p[2:3])
+
+    def p_call_stmt(self, p):
+        '''call_stmt : CALL method_call'''
+        p[0] = ASTNode('call', False, {}, [p[2]])
 
     # Error rule for syntax errors
     def p_error(self, p):  # pylint: disable=missing-docstring

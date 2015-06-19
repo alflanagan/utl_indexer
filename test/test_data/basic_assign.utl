@@ -13,4 +13,7 @@
   c = a * (a + b) * b;
   d = a * a + b * b;
   e = a % b - b % c;
+  default a = 3;
+  default b += fred;
+  default e = a % b - b % c;
 %]
