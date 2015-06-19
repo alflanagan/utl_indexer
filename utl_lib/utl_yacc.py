@@ -31,6 +31,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
         self.utl_lexer = UTLLexer()
         self.lexer = self.utl_lexer.lexer
         self.documents = []
+        self.print_tokens = False
 
     precedence = (
         ('right', 'NOT'),
@@ -43,15 +44,18 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
         tok = self.utl_lexer.token()
         while tok and tok.type in self.filtered_tokens:
             tok = self.utl_lexer.token()
+        if self.print_tokens:
+            print(tok)
         return tok
 
-    def parse(self, input_text=None, debug=False, tracking=False):
+    def parse(self, input_text=None, debug=False, tracking=False, print_tokens=False):
         """Parses the code in `input_text`, returns result.
 
         lexer defaults to the `lexer` of a new instance of
         :py:class:`~utl_lib.utl_lex.UTLLexer`.
 
         """
+        self.print_tokens = print_tokens
         return self.parser.parse(input=input_text, lexer=self.lexer, debug=debug,
                                  tracking=tracking, tokenfunc=self._filtered_token)
 
@@ -205,7 +209,10 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
                   | method_call'''
         # odd to have string here, but "5" can auto-convert to 5.0, so it's legal
         if len(p) == 2:
-            p[0] = ASTNode('factor', False, {}, [p[1]])
+            if isinstance(p[1], ASTNode):
+                p[0] = ASTNode('factor', False, {}, [p[1]])
+            else:
+                p[0] = ASTNode('factor', True, {'value': p[1]}, [])
         else:
             assert p[1] == '(' and p[3] == ')'
             p[0] = ASTNode('paren_group', False, {}, [p[2]])
@@ -228,28 +235,30 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
             p[0] = ASTNode('array-ref', False, {'name': p[1]}, [p[3]])
 
     def p_if_stmt(self, p):
-        '''if_stmt : IF expr end_stmt statement_list elseif_stmts else_stmt END'''
-        # p[3] should always be non-None
-        the_kids = [kid for kid in [p[2], p[4], p[5], p[6]] if kid is not None]
+        '''if_stmt : IF expr statement_list elseif_stmts else_stmt END'''
+        # p[2] should always be present
+        the_kids = [kid for kid in [p[2], p[3], p[4], p[5]] if kid is not None]
         p[0] = ASTNode('if', False, {}, the_kids)
 
     def p_elseif_stmts(self, p):
         '''elseif_stmts : elseif_stmts elseif_stmt
                         |'''
-        if len(p) == 3:
+        if len(p) == 3 and (p[1] or p[2]):
             elseif_stmts = p[1] if p[1] else ASTNode('elseif_stmts', False, {}, [])
             elseif_stmts.add_child(p[2])
             p[0] = elseif_stmts
 
     def p_elseif_stmt(self, p):
-        '''elseif_stmt : ELSEIF expr end_stmt statement_list'''
+        '''elseif_stmt : ELSEIF expr statement_list'''
         p[0] = ASTNode('elseif', False, {}, [p[2], p[4]])
 
     def p_else_stmt(self, p):
-        '''else_stmt : ELSE end_stmt statement_list
+        '''else_stmt : ELSE statement_list
                      |'''
-        if len(p) > 1:
+        if len(p) == 4:
             p[0] = ASTNode('else', False, {}, [p[3]])
+        elif len(p) == 3:
+            p[0] = ASTNode('else', False, {}, [p[2]])
 
     def p_return_stmt(self, p):
         '''return_stmt : RETURN expr'''
@@ -297,12 +306,17 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
 
     # Error rule for syntax errors
     def p_error(self, p):  # pylint: disable=missing-docstring
-        the_lexer = p.lexer
-        badline = the_lexer.lexdata.split('\n')[p.lineno-1]
-        lineoffset = the_lexer.lexdata.rfind('\n', 0, the_lexer.lexpos)
-        if lineoffset == -1:  # we're on first line
-            lineoffset = 0
-        lineoffset = the_lexer.lexpos - lineoffset
-        print("Syntax error in input line {} after '{}'!".format(p.lineno, p.value))
-        print(badline)
-        print("{}^".format(' ' * (lineoffset - 1)))
+        if p is None:
+            print("Syntax error at end of document!")
+            print("Remaining symbol stack is:")
+            print(self.parser.symstack)
+        else:
+            the_lexer = p.lexer
+            badline = the_lexer.lexdata.split('\n')[p.lineno-1]
+            lineoffset = the_lexer.lexdata.rfind('\n', 0, the_lexer.lexpos)
+            if lineoffset == -1:  # we're on first line
+                lineoffset = 0
+            lineoffset = the_lexer.lexpos - lineoffset
+            print("Syntax error in input line {} after '{}'!".format(p.lineno, p.value))
+            print(badline)
+            print("{}^".format(' ' * (lineoffset - 1)))

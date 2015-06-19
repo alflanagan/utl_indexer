@@ -4,7 +4,6 @@
 import argparse
 import sys
 
-from utl_lib.utl_lex import UTLLexer
 from utl_lib.utl_yacc import UTLParser
 from utl_lib.ast_node import ASTNodeFormatter
 
@@ -21,35 +20,22 @@ def get_args():
     return parser.parse_args()
 
 
-def do_parse(program_text, debug):
+def do_parse(program_text, debug, print_tokens):
     """Open a file, parse it, return resulting parse."""
 
     myparser = UTLParser()
-    results = myparser.parse(program_text, debug=debug)
+    results = myparser.parse(program_text, debug=debug, print_tokens=print_tokens)
     if results:
         print(ASTNodeFormatter(results).format())
     else:
         sys.stderr.write('Parse FAILED!\n')
 
 
-def show_lex(program_text):
-    '''Run lexical analysis on stream, print out token list.'''
-    new_lexer = UTLLexer()
-    new_lexer.input(program_text)
-    tok = new_lexer.token()
-    while tok:
-        print(tok)
-        tok = new_lexer.token()
-
-
 def main(args):
     """Main function. Optionally prints lexical analysis, then prints parse tree."""
     utl_text = args.utl_file.read()
 
-    if args.show_lex:
-        show_lex(utl_text)
-
-    do_parse(utl_text, args.debug)
+    do_parse(utl_text, args.debug, args.show_lex)
 
 
 if __name__ == '__main__':

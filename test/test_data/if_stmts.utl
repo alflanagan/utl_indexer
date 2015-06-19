@@ -1,6 +1,7 @@
 <div id="blox-left-col" class="grid_[% grid_set_blox_med_span %][% if cms.site.custom.alpha_omega == 'true' %] alpha[% end %]">
 <div id="blox-front" class="blox-content">
 [%
+
   if !cms.component.load("core_services_manager"); echo "<!-- error loading Services Component -->"; end;
   if (7 == 15);
      print('something');
@@ -12,4 +13,9 @@
   else;
      print('goodbye');
   end;
+  if fred == wilma %]
+          </div>
+  [%    else if pixel_sub_grid_on == true %]
+    </dt>
+    [% end
 %]
