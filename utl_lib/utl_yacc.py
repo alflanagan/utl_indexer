@@ -250,7 +250,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
 
     def p_elseif_stmt(self, p):
         '''elseif_stmt : ELSEIF expr statement_list'''
-        p[0] = ASTNode('elseif', False, {}, [p[2], p[4]])
+        p[0] = ASTNode('elseif', False, {}, [p[2], p[3]])
 
     def p_else_stmt(self, p):
         '''else_stmt : ELSE statement_list
