@@ -68,9 +68,9 @@ class LexerTestCase(unittest_plus.TestCasePlus):
                  ('START_UTL', '[%-', 2),
                  ('CALL', 'call', 4),
                  ('ID', 'cms', 4),
-                 ('OP', '.', 4),
+                 ('DOT', '.', 4),
                  ('ID', 'component', 4),
-                 ('OP', '.', 4),
+                 ('DOT', '.', 4),
                  ('ID', 'load', 4),
                  ('LPAREN', '(', 4),
                  ('STRING', 'core_base_editorial', 4),
@@ -78,9 +78,9 @@ class LexerTestCase(unittest_plus.TestCasePlus):
                  ('SEMI', ';', 4),
                  ('CALL', 'call', 5),
                  ('ID', 'cms', 5),
-                 ('OP', '.', 5),
+                 ('DOT', '.', 5),
                  ('ID', 'component', 5),
-                 ('OP', '.', 5),
+                 ('DOT', '.', 5),
                  ('ID', 'load', 5),
                  ('LPAREN', '(', 5),
                  ('STRING', 'core_base_user', 5),
@@ -138,15 +138,15 @@ class LexerTestCase(unittest_plus.TestCasePlus):
                  ('START_UTL', '[%', 23),
                  ('IF', 'if', 25),
                  ('ID', 'cms', 25),
-                 ('OP', '.', 25),
+                 ('DOT', '.', 25),
                  ('ID', 'system', 25),
-                 ('OP', '.', 25),
+                 ('DOT', '.', 25),
                  ('ID', 'mobile', 25),
                  ('OP', '||', 25),
                  ('ID', 'cms', 25),
-                 ('OP', '.', 25),
+                 ('DOT', '.', 25),
                  ('ID', 'request', 25),
-                 ('OP', '.', 25),
+                 ('DOT', '.', 25),
                  ('ID', 'param', 25),
                  ('LPAREN', '(', 25),
                  ('STRING', 'mode', 25),
@@ -223,7 +223,7 @@ class LexerTestCase(unittest_plus.TestCasePlus):
         """Unit test for :py:meth:`utl_lex.Lexer`."""
         lexer = UTLLexer()
         lexer.input(self._MACRO_DEF)
-
+        self.assertEqual(lexer.lexdata, self._MACRO_DEF.replace('else if', 'elseif'))
         index = 0
         tok = lexer.token()
         while tok:
@@ -250,7 +250,7 @@ class LexerTestCase(unittest_plus.TestCasePlus):
         self.assertEqual(tok.type, 'CALL')
         lexer.skip(4)  # ' cms'
         tok = lexer.token()
-        self.assertEqual(tok.type, 'OP')
+        self.assertEqual(tok.type, 'DOT')
         self.assertEqual(tok.value, '.')
         lexer.skip(10)  # 'component.'
         self.assertEqual(repr(lexer.token()), "LexToken(ID,'load',4,33)")
@@ -285,11 +285,11 @@ class LexerTestCase(unittest_plus.TestCasePlus):
 
         lexer = UTLLexer()
         lexer.input(self._MACRO_DEF)
-        self.assertEqual(lexer.lexpos(), 0)
+        self.assertEqual(lexer.lexpos, 0)
         index = 0
         tok = lexer.token()
         while tok:
-            self.assertEqual(lexer.lexpos(), expected[index])
+            self.assertEqual(lexer.lexpos, expected[index])
             tok = lexer.token()
             index += 1
         self.assertEqual(index, len(expected))  # make sure we checked all positions

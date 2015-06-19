@@ -50,7 +50,7 @@ class UTLLexer(object):
     }
 
     # UTL doesn't support all of the PHP operators
-    operators = [r'\.\.', r'\.', '<', '<=', '>', '>=', '==', '&&', r'\|\|', 'and',
+    operators = [r'\.\.', '<', '<=', '>', '>=', '==', '&&', r'\|\|', 'and',
                  'or', 'is', 'is not']
 
     assignment_ops = [r'\+=', '-=', r'\*=', '/=', '%=', ]
@@ -78,7 +78,8 @@ class UTLLexer(object):
               'FILTER',
               'STRING',
               'DOCUMENT',
-              'NOT'] + list(set(reserved.values()))
+              'NOT',
+              'DOT'] + list(set(reserved.values()))
 
     def __init__(self, **kwargs):
         self.lexer = lex.lex(module=self, **kwargs)
@@ -102,10 +103,17 @@ class UTLLexer(object):
         ''':returns int: the current line number of the text being analyzed.'''
         return self.lexer.lineno
 
-    # note: can't use @property because of the way lexer is dynamically constructed
+    @property
     def lexpos(self):
         ''':returns int: the current position (in characters) in the text.'''
-        return self.lexer.lexpos
+        # lex attempts to access this unbound, but it doesn't have to do anything then
+        if hasattr(self, 'lexer'):
+            return self.lexer.lexpos
+
+    @property
+    def lexdata(self):
+        if hasattr(self, 'lexer'):
+            return self.lexer.lexdata
 
     # ======== Tokens that switch state ==========================
     def t_ANY_START_UTL(self, t):
@@ -178,6 +186,7 @@ class UTLLexer(object):
     t_utl_MINUS = '-'
     t_utl_COMMA = ','  # may be operator, may be separator
     t_utl_NOT = '!'
+    t_utl_DOT = r'\.'
 
     # comment (ignore)
     # PROBLEMS: comments *can* be nested
