@@ -85,8 +85,10 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
                      | echo_stmt end_stmt
                      | for_stmt end_stmt
                      | include_stmt end_stmt
+                     | while_stmt end_stmt
                      | BREAK end_stmt
                      | CONTINUE end_stmt
+                     | EXIT end_stmt
                      | DOCUMENT
                      | end_stmt'''
         if len(p) == 2:
@@ -97,6 +99,8 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
                 p[0] = ASTNode('statement', False, {}, [ASTNode('continue', True)])
             elif p[1].lower() == 'break':
                 p[0] = ASTNode('statement', False, {}, [ASTNode('break', True)])
+            elif p[1].lower() == 'exit':
+                p[0] = ASTNode('statement', False, {}, [ASTNode('exit', True)])
         else:
             p[0] = ASTNode('statement', False, {}, [p[1]])
 
@@ -107,8 +111,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
 
     def p_echo_stmt(self, p):
         '''echo_stmt : ECHO
-                     | ECHO expr
-                     | expr'''
+                     | ECHO expr'''
         p[0] = ASTNode('echo', False, {}, [] if len(p) == 2 else[p[2]])
 
     def p_expr(self, p):
@@ -303,6 +306,10 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
     def p_abbrev_if_stmt(self, p):
         '''abbrev_if_stmt : IF expr THEN statement'''
         p[0] = ASTNode('if', False, {}, [p[2], p[4]])
+
+    def p_while_stmt(self, p):
+        '''while_stmt : WHILE expr statement_list END'''
+        p[0] = ASTNode('while', False, {}, p[2:3])
 
     # Error rule for syntax errors
     def p_error(self, p):  # pylint: disable=missing-docstring
