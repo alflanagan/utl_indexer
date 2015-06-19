@@ -21,7 +21,10 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
         self.parsed = False
         self.tokens = UTLLexer.tokens[:]  # make copy, so we can .remove() tokens
         # Some tokens get processed out before parsing
-        self.filtered_tokens = ['COMMENT', 'START_UTL', 'END_UTL']
+        # can't handle DOCUMENT as regular statement because it can occur anywhere
+        # START_UTL is implicit when we get UTL token
+        # but we need END_UTL since it may close a statment
+        self.filtered_tokens = ['COMMENT', 'START_UTL']
         for tok in self.filtered_tokens:
             self.tokens.remove(tok)
         self.parser = yacc.yacc(module=self)
@@ -38,10 +41,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
     def _filtered_token(self):
         """Like :py:meth:`token()` but does not pass on tokens in `self.filtered_tokens`."""
         tok = self.utl_lexer.token()
-        # since DOCUMENT can occur virtually anywhere, it doesn't fit into the parse tree well
         while tok and tok.type in self.filtered_tokens:
-            # if tok.type == 'DOCUMENT':
-                # self.documents.append(tok)
             tok = self.utl_lexer.token()
         return tok
 
@@ -64,27 +64,30 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
         '''statement_list : statement_list statement
                           | statement'''
         if len(p) == 2:
-            p[0] = ASTNode('statement_list', False, {}, [p[1]])
+            p[0] = ASTNode('statement_list', False, {}, [p[1]] if p[1] else [])
         else:
             assert p[1].symbol == 'statement_list'
-            p[1].add_child(p[2])
+            if p[2]:
+                p[1].add_child(p[2])
             p[0] = p[1]
 
     def p_statement(self, p):
-        '''statement : expr SEMI
-                     | assignment SEMI
-                     | if_stmt SEMI
-                     | abbrev_if_stmt SEMI
-                     | return_stmt SEMI
-                     | macro_defn SEMI
-                     | echo_stmt SEMI
-                     | for_stmt SEMI
-                     | include_stmt SEMI
-                     | BREAK SEMI
-                     | CONTINUE SEMI
-                     | DOCUMENT'''
+        '''statement : expr end_stmt
+                     | assignment end_stmt
+                     | if_stmt end_stmt
+                     | abbrev_if_stmt end_stmt
+                     | return_stmt end_stmt
+                     | macro_defn end_stmt
+                     | echo_stmt end_stmt
+                     | for_stmt end_stmt
+                     | include_stmt end_stmt
+                     | BREAK end_stmt
+                     | CONTINUE end_stmt
+                     | DOCUMENT
+                     | end_stmt'''
         if len(p) == 2:
-            p[0] = ASTNode('document', True, {'text': p[1]})
+            if isinstance(p[1], str):
+                p[0] = ASTNode('document', True, {'text': p[1]})
         elif isinstance(p[1], str):
             if p[1].lower() == 'continue':
                 p[0] = ASTNode('statement', False, {}, [ASTNode('continue', True)])
@@ -93,9 +96,15 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
         else:
             p[0] = ASTNode('statement', False, {}, [p[1]])
 
+    def p_end_stmt(self, p):
+        '''end_stmt : SEMI
+                    | END_UTL'''
+        pass
+
     def p_echo_stmt(self, p):
         '''echo_stmt : ECHO
-                     | ECHO expr'''
+                     | ECHO expr
+                     | expr'''
         p[0] = ASTNode('echo', False, {}, [] if len(p) == 2 else[p[2]])
 
     def p_expr(self, p):
@@ -219,7 +228,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
             p[0] = ASTNode('array-ref', False, {'name': p[1]}, [p[3]])
 
     def p_if_stmt(self, p):
-        '''if_stmt : IF expr SEMI statement_list elseif_stmts else_stmt END'''
+        '''if_stmt : IF expr end_stmt statement_list elseif_stmts else_stmt END'''
         # p[3] should always be non-None
         the_kids = [kid for kid in [p[2], p[4], p[5], p[6]] if kid is not None]
         p[0] = ASTNode('if', False, {}, the_kids)
@@ -233,11 +242,11 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
             p[0] = elseif_stmts
 
     def p_elseif_stmt(self, p):
-        '''elseif_stmt : ELSEIF expr SEMI statement_list'''
+        '''elseif_stmt : ELSEIF expr end_stmt statement_list'''
         p[0] = ASTNode('elseif', False, {}, [p[2], p[4]])
 
     def p_else_stmt(self, p):
-        '''else_stmt : ELSE SEMI statement_list
+        '''else_stmt : ELSE end_stmt statement_list
                      |'''
         if len(p) > 1:
             p[0] = ASTNode('else', False, {}, [p[3]])
@@ -248,7 +257,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
         p[0] = ASTNode('return', False, {}, [p[2]])
 
     def p_macro_defn(self, p):
-        '''macro_defn : macro_decl SEMI statement_list END'''
+        '''macro_defn : macro_decl end_stmt statement_list END'''
         p[0] = ASTNode('macro-defn',
                        False,
                        {'name': p[1].attributes['name']},
@@ -263,10 +272,10 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
                        [] if len(p) < 5 or not p[4] else [p[4]])
 
     def p_for_stmt(self, p):
-        '''for_stmt : FOR expr AS ID SEMI statement_list END
-                    | FOR expr SEMI statement_list END
-                    | FOR EACH expr AS ID SEMI statement_list END
-                    | FOR EACH expr SEMI statement_list END'''
+        '''for_stmt : FOR expr AS ID end_stmt statement_list END
+                    | FOR expr end_stmt statement_list END
+                    | FOR EACH expr AS ID end_stmt statement_list END
+                    | FOR EACH expr end_stmt statement_list END'''
         if isinstance(p[2], str) and p[2].lower() == 'each':
             if isinstance(p[4], str) and p[4].lower() == 'as':
                 p[0] = ASTNode('for', False, {'name': p[5]}, [p[3], p[7]])
