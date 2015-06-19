@@ -56,7 +56,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
 
         """
         self.print_tokens = print_tokens
-        return self.parser.parse(input=input_text, lexer=self.lexer, debug=debug,
+        return self.parser.parse(input=input_text, lexer=self.utl_lexer, debug=debug,
                                  tracking=tracking, tokenfunc=self._filtered_token)
 
     def p_utldoc(self, p):  # pylint: disable=unused-argument
