@@ -72,7 +72,7 @@ class LexerTestCase(unittest_plus.TestCasePlus):
                  ('ID', 'load', 4),
                  ('LPAREN', '(', 4),
                  ('STRING', 'core_base_editorial', 4),
-                 ('RPAREN', ')', 4),
+                 ('RPAREN', ')', 4),  # 10
                  ('SEMI', ';', 4),
                  ('CALL', 'call', 5),
                  ('ID', 'cms', 5),
@@ -82,7 +82,7 @@ class LexerTestCase(unittest_plus.TestCasePlus):
                  ('ID', 'load', 5),
                  ('LPAREN', '(', 5),
                  ('STRING', 'core_base_user', 5),
-                 ('RPAREN', ')', 5),
+                 ('RPAREN', ')', 5),  # 20
                  ('SEMI', ';', 5),
                  ('MACRO', 'macro', 10),
                  ('ID', 'core_base_library_subscriptionAssetsList', 10),
@@ -92,7 +92,7 @@ class LexerTestCase(unittest_plus.TestCasePlus):
                  ('ID', 'something', 12),
                  ('ASSIGN', '=', 12),
                  ('NUMBER', 5.0, 12),
-                 ('TIMES', '*', 12),
+                 ('TIMES', '*', 12),  # 30
                  ('NUMBER', 3.0, 12),
                  ('SEMI', ';', 12),
                  ('ID', 'subscriptionAssets', 13),
@@ -164,7 +164,7 @@ class LexerTestCase(unittest_plus.TestCasePlus):
                  ('NUMBER', 2.0, 26),
                  ('RPAREN', ')', 26),
                  ('MINUS', '-', 26),
-                 ('NUMBER', 23.0, 26),
+                 ('NUMBER', 23.0, 26),  # 100
                  ('ID', 'subscriptionAssetsMobile', 28),
                  ('ASSIGN', '=', 28),
                  ('ID', 'core_base_library_getCustomProperty', 28),
@@ -174,17 +174,17 @@ class LexerTestCase(unittest_plus.TestCasePlus):
                  ('STRING', 'subscription_assets_mobile', 29),
                  ('RPAREN', ')', 29),
                  ('SEMI', ';', 29),
-                 ('IF', 'if', 32),
+                 ('IF', 'if', 32),  # 110
                  ('ID', 'subscriptionAssetsMobile', 32),
-                 ('OP', '!', 32),
+                 ('NOT', '!', 32),
                  ('ASSIGN', '=', 32),
                  ('NULL', 'null', 32),
                  ('OP', '&&', 32),
                  ('ID', 'subscriptionAssetsMobile', 32),
-                 ('OP', '!', 32),
+                 ('NOT', '!', 32),
                  ('ASSIGN', '=', 32),
                  ('STRING', 'defer', 32),
-                 ('SEMI', ';', 32),
+                 ('SEMI', ';', 32),  # 120
                  ('ID', 'subscriptionAssets', 34),
                  ('ASSIGN', '=', 34),
                  ('ID', 'subscriptionAssetsMobile', 34),
@@ -194,7 +194,7 @@ class LexerTestCase(unittest_plus.TestCasePlus):
                  ('END', 'end', 36),
                  ('SEMI', ';', 36),
                  ('RETURN', 'return', 37),
-                 ('ID', 'subscriptionAssets', 37),
+                 ('ID', 'subscriptionAssets', 37),  # 130
                  ('SEMI', ';', 37),
                  ('END', 'end', 38),
                  ('SEMI', ';', 38),
@@ -204,11 +204,11 @@ class LexerTestCase(unittest_plus.TestCasePlus):
                  ('NUMBER', 10.0, 39),
                  ('SEMI', ';', 39),
                  ('ECHO', 'echo', 40),
-                 ('STRING', 'fred', 40),
+                 ('STRING', 'fred', 40),  # 140
                  ('SEMI', ';', 40),
                  ('END', 'end', 41),
                  ('SEMI', ';', 41),
-                 ('END_UTL', '%]', 43)]
+                 ('END_UTL', '%]', 43)]  # 144
 
     def test_create(self):
         """Unit test for :py:meth:`utl_lex.Lexer`."""
@@ -218,8 +218,13 @@ class LexerTestCase(unittest_plus.TestCasePlus):
         index = 0
         tok = lexer.token()
         while tok:
-            self.assertEqual(tok.type, self._EXPECTED[index][0])
-            self.assertEqual(tok.value, self._EXPECTED[index][1])
+            try:
+                self.assertEqual(tok.type, self._EXPECTED[index][0])
+                self.assertEqual(tok.value, self._EXPECTED[index][1])
+            except AssertionError as ase:
+                #ase.args = tuple(list(ase.args) + [" on token #{}".format(index)])
+                ase.args = (ase.args[0] + "at token index " + str(index) + '\n', )
+                raise
             index += 1
             tok = lexer.token()
 
