@@ -234,10 +234,10 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
         p[0] = ASTNode('elseif', False, {}, [p[3], p[6]])
 
     def p_else_stmt(self, p):
-        '''else_stmt : ELSE statement_list
+        '''else_stmt : ELSE SEMI statement_list
                      |'''
         if len(p) > 1:
-            p[0] = ASTNode('else', False, {}, [p[1]])
+            p[0] = ASTNode('else', False, {}, [p[3]])
 
     def p_return_stmt(self, p):
         '''return_stmt : RETURN expr'''
