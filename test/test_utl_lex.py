@@ -52,6 +52,8 @@ class LexerTestCase(unittest_plus.TestCasePlus):
             if subscriptionAssetsMobile != null && subscriptionAssetsMobile != 'defer';
                 /* use the mobile list */
                 subscriptionAssets = subscriptionAssetsMobile;
+            else if a == b;
+                do_something_else;
             end;
         end;
         return subscriptionAssets;
@@ -189,26 +191,33 @@ class LexerTestCase(unittest_plus.TestCasePlus):
                  ('ASSIGN', '=', 34),
                  ('ID', 'subscriptionAssetsMobile', 34),
                  ('SEMI', ';', 34),
-                 ('END', 'end', 35),
+                 ('ELSEIF', 'elseif', 35),
+                 ('ID', 'a', 35),
+                 ('OP', '==', 35),
+                 ('ID', 'b', 35),
                  ('SEMI', ';', 35),
-                 ('END', 'end', 36),
+                 ('ID', 'do_something_else', 36),  # 130
                  ('SEMI', ';', 36),
-                 ('RETURN', 'return', 37),
-                 ('ID', 'subscriptionAssets', 37),  # 130
+                 ('END', 'end', 37),
                  ('SEMI', ';', 37),
                  ('END', 'end', 38),
                  ('SEMI', ';', 38),
-                 ('FOR', 'for', 39),
-                 ('NUMBER', 1.0, 39),
-                 ('OP', '..', 39),
-                 ('NUMBER', 10.0, 39),
-                 ('SEMI', ';', 39),
-                 ('ECHO', 'echo', 40),
-                 ('STRING', 'fred', 40),  # 140
+                 ('RETURN', 'return', 39),
+                 ('ID', 'subscriptionAssets', 39),
+                 ('SEMI', ';', 39),  # 140
+                 ('END', 'end', 40),
                  ('SEMI', ';', 40),
-                 ('END', 'end', 41),
+                 ('FOR', 'for', 41),
+                 ('NUMBER', 1.0, 41),
+                 ('OP', '..', 41),
+                 ('NUMBER', 10.0, 41),
                  ('SEMI', ';', 41),
-                 ('END_UTL', '%]', 43)]  # 144
+                 ('ECHO', 'echo', 42),
+                 ('STRING', 'fred', 42),
+                 ('SEMI', ';', 42),  # 150
+                 ('END', 'end', 43),
+                 ('SEMI', ';', 43),
+                 ('END_UTL', '%]', 45)]  # 153
 
     def test_create(self):
         """Unit test for :py:meth:`utl_lex.Lexer`."""
@@ -270,9 +279,9 @@ class LexerTestCase(unittest_plus.TestCasePlus):
                     788, 790, 891, 895, 896, 902, 903, 909, 912, 916, 917, 924, 925, 930, 931, 937,
                     938, 941, 947, 948, 971, 974, 976, 978, 980, 981, 982, 983, 984, 985, 986, 987,
                     989, 1071, 1073, 1109, 1110, 1137, 1138, 1166, 1167, 1168, 1238, 1263, 1265,
-                    1266, 1271, 1274, 1299, 1301, 1302, 1310, 1311, 1388, 1390, 1415, 1416, 1432,
-                    1433, 1445, 1446, 1461, 1480, 1481, 1489, 1490, 1498, 1500, 1502, 1504, 1505,
-                    1518, 1525, 1526, 1534, 1535, 1543]
+                    1266, 1271, 1274, 1299, 1301, 1302, 1310, 1311, 1388, 1390, 1415, 1416, 1435,
+                    1437, 1440, 1442, 1443, 1477, 1478, 1494, 1495, 1507, 1508, 1523, 1542, 1543,
+                    1551, 1552, 1560, 1562, 1564, 1566, 1567, 1580, 1587, 1588, 1596, 1597, 1605]
 
         lexer = UTLLexer()
         lexer.input(self._MACRO_DEF)

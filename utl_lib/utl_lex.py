@@ -2,6 +2,7 @@
 """A module to do lexical analysis of UTL documents."""
 
 import ply.lex as lex
+import re
 
 
 class UTLLexerError(RuntimeError):
@@ -84,6 +85,8 @@ class UTLLexer(object):
 
     def input(self, s):
         """Push new input `s` to the lexer."""
+        # lexer doesn't handle equivalence well
+        s, _ = re.subn(r'else\s+if', 'elseif', s)
         self.lexer.input(s)
 
     def token(self):
@@ -116,7 +119,7 @@ class UTLLexer(object):
         r'-?%]'
         try:
             t.lexer.pop_state()
-            return t  # parser needs token to detect syntax errors
+            return t  # parser needs token to detect end of statement
         except IndexError:
             # attempt to end without beginning code
             raise UTLLexerError("Lexical error at line {}: unmatched '%]'".format(t.lexer.lineno))
