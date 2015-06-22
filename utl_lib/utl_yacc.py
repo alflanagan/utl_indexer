@@ -17,7 +17,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
 
     """
 
-    def __init__(self):
+    def __init__(self, debug=True):
         self.parsed = False
         self.tokens = UTLLexer.tokens[:]  # make copy, so we can .remove() tokens
         # Some tokens get processed out before parsing
@@ -27,7 +27,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
         self.filtered_tokens = ['COMMENT', 'START_UTL']
         for tok in self.filtered_tokens:
             self.tokens.remove(tok)
-        self.parser = yacc.yacc(module=self)
+        self.parser = yacc.yacc(module=self, debug=debug)
         self.utl_lexer = UTLLexer()
         self.lexer = self.utl_lexer.lexer
         self.documents = []

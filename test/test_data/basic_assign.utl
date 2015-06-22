@@ -3,6 +3,7 @@
   5 - 7;
   "barney rubble" | html;
   sally = 12 / 6;
+  empty = "";
   barney = fred * 3; %]
  here's some text
  [%
