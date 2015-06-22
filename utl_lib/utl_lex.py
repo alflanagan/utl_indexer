@@ -245,6 +245,8 @@ class UTLLexer(object):
         dq = t.lexer.lexmatch.group('dq')
         sq = t.lexer.lexmatch.group('sq')
         t.value = dq if dq else sq
+        # group() returns None for empty string, so...
+        t.value = t.value or ''
         return t
 
     # Error handling rule

@@ -61,7 +61,7 @@ class LexerTestCase(unittest_plus.TestCasePlus):
     for 1..10;
         echo 'fred';
     end;
-
+    empty = "";
     %]'''
 
     _EXPECTED = [('DOCUMENT', '\n    ', 2),  # token, text, line
@@ -217,6 +217,10 @@ class LexerTestCase(unittest_plus.TestCasePlus):
                  ('SEMI', ';', 42),  # 150
                  ('END', 'end', 43),
                  ('SEMI', ';', 43),
+                 ('ID', 'empty', 44),
+                 ('ASSIGN', '=', 44),
+                 ('STRING', '', 44),
+                 ('SEMI', ';', 44),
                  ('END_UTL', '%]', 45)]  # 153
 
     def test_create(self):
@@ -281,7 +285,8 @@ class LexerTestCase(unittest_plus.TestCasePlus):
                     989, 1071, 1073, 1109, 1110, 1137, 1138, 1166, 1167, 1168, 1238, 1263, 1265,
                     1266, 1271, 1274, 1299, 1301, 1302, 1310, 1311, 1388, 1390, 1415, 1416, 1435,
                     1437, 1440, 1442, 1443, 1477, 1478, 1494, 1495, 1507, 1508, 1523, 1542, 1543,
-                    1551, 1552, 1560, 1562, 1564, 1566, 1567, 1580, 1587, 1588, 1596, 1597, 1605]
+                    1551, 1552, 1560, 1562, 1564, 1566, 1567, 1580, 1587, 1588, 1596, 1597, 1607,
+                    1609, 1612, 1613, 1620]
 
         lexer = UTLLexer()
         lexer.input(self._MACRO_DEF)
