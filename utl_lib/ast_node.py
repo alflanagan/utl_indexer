@@ -152,3 +152,56 @@ class ASTNodeFormatter(object):  # pylint: disable=too-few-public-methods
             for line in lines:
                 result += '\n    ' + line
         return result
+
+
+class ASTNodeJSONFormatter(object):  # pylint: disable=too-few-public-methods
+    """Helper class that can print an AST as JSON data.
+
+    :param ASTNode root_node: The root node of the tree to be printed. May be supplied to
+        :py:meth:`~utl_lib.ast_node.ASTNodeFormatter.format` instead.
+    """
+    # TODO: abstract class for "classes that walk an AST"
+    def __init__(self, root_node):
+        self.root = root_node
+
+    @staticmethod
+    def _json_safe(text):
+        '''Safely convert a python string to a format suitable for JSON'''
+        if isinstance(text, int) or isinstance(text, float):
+            if isinstance(text, bool):
+                # yes, bool is a subclass of int. Sigh
+                return "true" if text else "false"
+            # these types are fine as is
+            return text
+        my_repr = repr(text)  # it's quoted
+        if my_repr.startswith("'"):
+            # escape double quotes
+            my_repr.replace('"', '\\"')
+            # replace single quotes
+            my_repr = '"' + my_repr[1:-1] + '"'
+        return my_repr
+
+    def format(self, from_node=None):
+        """Walks the tree with root `from_node`, printing it out in a format which, if not
+        pretty, is at least comprehensible. `from_node` defaults to the root node set at object
+        init.
+
+        :param ASTNode from_node: Root of an AST to be printed.
+        """
+        if from_node is None:
+            from_node = self.root
+        assert isinstance(from_node, ASTNode)
+        result = '{"name": "' + str(from_node.symbol) + '"'
+        if from_node.attributes:
+            result += ',\n"attributes": {'
+            for key in from_node.attributes:
+                result += '"{}": {},\n'.format(key, self._json_safe(from_node.attributes[key]))
+            result = result[:-2]  # remove final ,\n
+            result += '}'
+        if from_node.children:
+            result += ',\n"children": ['
+            for child in from_node.children:
+                result += self.format(child) + ','
+            result = result[:-1] + ']'
+        result += '}'
+        return result

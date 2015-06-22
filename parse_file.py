@@ -5,7 +5,7 @@ import argparse
 import sys
 
 from utl_lib.utl_yacc import UTLParser
-from utl_lib.ast_node import ASTNodeFormatter
+from utl_lib.ast_node import ASTNodeFormatter, ASTNodeJSONFormatter
 
 
 def get_args():
@@ -17,16 +17,21 @@ def get_args():
                         help="Show lexical analysis prior to parsing.")
     parser.add_argument('--debug', action='store_true',
                         help="Print debugging info of parse process.")
+    parser.add_argument('--json', action='store_true',
+                        help="Format output as JSON (default: human-readable)")
     return parser.parse_args()
 
 
-def do_parse(program_text, debug, print_tokens):
+def do_parse(program_text, args):
     """Open a file, parse it, return resulting parse."""
 
     myparser = UTLParser()
-    results = myparser.parse(program_text, debug=debug, print_tokens=print_tokens)
+    results = myparser.parse(program_text, debug=args.debug, print_tokens=args.show_lex)
     if results:
-        print(ASTNodeFormatter(results).format())
+        if args.json:
+            print(ASTNodeJSONFormatter(results).format())
+        else:
+            print(ASTNodeFormatter(results).format())
     else:
         sys.stderr.write('Parse FAILED!\n')
 
@@ -35,7 +40,7 @@ def main(args):
     """Main function. Optionally prints lexical analysis, then prints parse tree."""
     utl_text = args.utl_file.read()
 
-    do_parse(utl_text, args.debug, args.show_lex)
+    do_parse(utl_text, args)
 
 
 if __name__ == '__main__':
