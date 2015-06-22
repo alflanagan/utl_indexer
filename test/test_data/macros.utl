@@ -3,13 +3,14 @@
   echo;
   echo a;
   end;
-  wlma = 3 * 28;
+  really.really.quite.useless('php');
+  wilma(1, 2, 3);
 
-macro useless();
+macro fairly.useless();
   echo "useless";
   end;
 
-macro still_useless(arg1);
+macro really.really.quite.useless(arg1);
   echo arg1;
   end;
   

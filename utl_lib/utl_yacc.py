@@ -120,7 +120,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
                 | expr MINUS term
                 | term
                 | expr FILTER method_call
-                | expr FILTER ID
+                | expr FILTER full_id
                 | expr OP expr
                 | NOT expr
                 '''
@@ -183,19 +183,27 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
             p[0] = ASTNode('arg', False, {}, [p[1]])
 
     def p_assignment(self, p):
-        '''assignment : ID ASSIGN expr
-                      | ID ASSIGNOP expr
-                      | DEFAULT ID ASSIGN expr
-                      | DEFAULT ID ASSIGNOP expr'''
+        '''assignment : full_id ASSIGN expr
+                      | full_id ASSIGNOP expr
+                      | DEFAULT full_id ASSIGN expr
+                      | DEFAULT full_id ASSIGNOP expr'''
         if len(p) == 4:
             p[0] = ASTNode('assignment', False, {'target': p[1], 'default': False}, [p[3]])
         else:
             p[0] = ASTNode('assignment', False, {'target': p[2], 'default': True}, [p[4]])
 
     def p_method_call(self, p):
-        '''method_call : ID LPAREN arg_list RPAREN'''
+        '''method_call : full_id LPAREN arg_list RPAREN'''
         assert p[1]
         p[0] = ASTNode('method_call', False, {'name': p[1]}, [p[3]])
+
+    def p_full_id(self, p):
+        '''full_id : ID
+                   | full_id DOT ID'''
+        if len(p) == 2:
+            p[0] = p[1]
+        else:
+            p[0] = p[1] + p[2] + p[3]
 
     def p_term(self, p):
         '''term : term TIMES factor
@@ -210,7 +218,8 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
 
     def p_factor(self, p):
         '''factor : literal
-                  | id_ref
+                  | full_id
+                  | array_ref
                   | FALSE
                   | TRUE
                   | NULL
@@ -232,16 +241,9 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
         assert p[1] is not None
         p[0] = ASTNode('literal', True, {'value': p[1]}, [])
 
-    # exists because it's easier than trying to identify ID in p_factor()
-    def p_id_ref(self, p):
-        '''id_ref : ID LBRACKET expr RBRACKET
-                  | ID'''
-        if len(p) == 2:
-            assert p[1]
-            p[0] = ASTNode('identifier', True, {'name': p[1]})
-        else:
-            assert p[2] == "[" and p[4] == "]"
-            p[0] = ASTNode('array-ref', False, {'name': p[1]}, [p[3]])
+    def p_array_ref(self, p):
+        '''array_ref : full_id LBRACKET expr RBRACKET'''
+        p[0] = ASTNode('array_ref', False, {'name': p[1]}, [p[3]])
 
     def p_if_stmt(self, p):
         '''if_stmt : IF expr statement_list elseif_stmts else_stmt END'''
@@ -282,8 +284,8 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods
                        [p[1], p[3]])
 
     def p_macro_decl(self, p):
-        '''macro_decl : MACRO ID
-                      | MACRO ID LPAREN param_list RPAREN
+        '''macro_decl : MACRO full_id
+                      | MACRO full_id LPAREN param_list RPAREN
         '''
         p[0] = ASTNode('macro-decl', True, {'name': p[2]},
                        # don't add param_list if it's empty
