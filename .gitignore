@@ -18,3 +18,7 @@ parsetab.py
 *.wpu
 .coverage
 pylintrc
+# emacs temp files
+\#*
+# node.js modules directory (useful tools)
+node_modules/

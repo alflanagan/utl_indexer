@@ -151,7 +151,7 @@ class ASTNodeFormatter(object):  # pylint: disable=too-few-public-methods
             lines = self.format(child).split('\n') if child else ['**error**']
             for line in lines:
                 result += '\n    ' + line
-        return result
+        return result.replace('"', r'\\"')
 
 
 class ASTNodeJSONFormatter(object):  # pylint: disable=too-few-public-methods
@@ -195,7 +195,11 @@ class ASTNodeJSONFormatter(object):  # pylint: disable=too-few-public-methods
         if from_node.attributes:
             result += ',\n"attributes": {'
             for key in from_node.attributes:
-                result += '"{}": {},\n'.format(key, self._json_safe(from_node.attributes[key]))
+                value = from_node.attributes[key]
+                if isinstance(value, ASTNode):
+                    result += '"{}": {},\n'.format(key, self.format(value))
+                else:
+                    result += '"{}": {},\n'.format(key, self._json_safe(value))
             result = result[:-2]  # remove final ,\n
             result += '}'
         if from_node.children:

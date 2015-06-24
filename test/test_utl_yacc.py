@@ -9,29 +9,61 @@
 
 """
 # pylint: disable=too-few-public-methods
-
+import os
 import json
+from html import unescape  # since we escape entities in DOCUMENT text
 from testplus import unittest_plus
 
-from utl_lib.ast_node import ASTNode, ASTNodeError
+from utl_lib.ast_node import ASTNode
 from utl_lib.utl_yacc import UTLParser
+from utl_lib.handler_ast import UTLParseHandlerAST
 
 
 class UTLParserTestCase(unittest_plus.TestCasePlus):
     """Unit tests for class :py:class:`~utl_lib.utl_yacc.UTLParser`."""
 
-    def assertMatchesJSON(self, node, expected):
-        """Asserts that the ASTNode tree with top node `node` matches the JSON data structure in
-        `expected`, given our algorithm for creating JSON from an ASTNode.
+    data_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'test_data')
+
+    @classmethod
+    def data_file(cls, filename):
+        """Returns a full path for test data file named `filename`."""
+        return os.path.join(cls.data_dir, filename)
+
+    def assertMatchesJSON(self, node, expected):  # pylint: disable=invalid-name
+        """Asserts that the :py:class:`~utl_lib.ast_node.ASTNode` tree with top node `node`
+        matches the JSON data structure in `expected`, given our algorithm for creating JSON
+        from an :py:class:`~utl_lib.ast_node.ASTNode`.
 
         The purpose of this assert is to allow us to express expected results in a simple,
         readable format.
         """
         self.assertIsInstance(node, ASTNode)
         self.assertIsInstance(expected, dict)
+        # node is symbol + attributes + children
+        # symbol
         self.assertEqual(node.symbol, expected["name"])
-        self.assertDictEqual(node.attributes,
-                             expected['attributes'] if "attributes" in expected else {})
+
+        # attributes
+        try:
+            expected_attrs = expected["attributes"]
+        except KeyError:
+            expected_attrs = {}
+        self.assertSetEqual(set(node.attributes.keys()), set(expected_attrs.keys()))
+        for key in node.attributes:
+            attr = node.attributes[key]
+            if isinstance(attr, ASTNode):  # special case
+                self.assertMatchesJSON(attr, expected_attrs[key])
+            else:
+                # if values are text, either one could be escape()d
+                node_value = node.attributes[key]  # escaped depending on source document
+                if isinstance(node_value, str):
+                    node_value = unescape(node_value)
+                expected_value = expected_attrs[key]  # escaped to make it JSON-safe
+                if isinstance(expected_value, str):
+                    expected_value = unescape(expected_value)
+                self.assertEqual(node_value, expected_value)
+
+        # children
         expected_kids = []
         if "children" in expected:
             expected_kids = [kid['name'] for kid in expected["children"]]
@@ -40,15 +72,49 @@ class UTLParserTestCase(unittest_plus.TestCasePlus):
         for index, child in enumerate(node.children):
             self.assertMatchesJSON(child, expected['children'][index])
 
-    def test_create(self):
-        """Unit test for :py:meth:`utl_lib.utl_yacc.UTLParser`."""
-        parser = UTLParser(debug=False)
-        with open('test_data/basic_assign.utl', 'r') as datain:
+    def test_assigns(self):
+        """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with input of assignment
+        statements.
+
+        """
+        handler = UTLParseHandlerAST()
+        parser = UTLParser([handler], debug=False)
+        with open(self.data_file('basic_assign.utl'), 'r') as datain:
             item1 = parser.parse(datain.read())
-        isinstance(item1, ASTNode)
-        with open('test_data/basic_assign.json', 'r') as bain:
+        with open(self.data_file('basic_assign.json'), 'r') as bain:
             expected = json.load(bain)
         self.assertMatchesJSON(item1, expected)
+
+    def test_calls(self):
+        """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with macro calls."""
+        handler = UTLParseHandlerAST()
+        parser = UTLParser([handler], debug=False)
+        with open(self.data_file('calls.utl'), 'r') as datain:
+            item1 = parser.parse(datain.read())
+        with open(self.data_file('calls.json'), 'r') as bain:
+            expected = json.load(bain)
+        self.assertMatchesJSON(item1, expected)
+
+    def test_for_stmts(self):
+        """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with for statements."""
+        handler = UTLParseHandlerAST()
+        parser = UTLParser([handler], debug=False)
+        with open(self.data_file('for_stmt.utl'), 'r') as datain:
+            item1 = parser.parse(datain.read())
+        with open(self.data_file('for_stmt.json'), 'r') as bain:
+            expected = json.load(bain)
+        self.assertMatchesJSON(item1, expected)
+
+    def test_if_stmts(self):
+        """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with if statements."""
+        handler = UTLParseHandlerAST()
+        parser = UTLParser([handler], debug=False)
+        with open(self.data_file('if_stmts.utl'), 'r') as datain:
+            item1 = parser.parse(datain.read())
+        with open(self.data_file('if_stmts.json'), 'r') as bain:
+            expected = json.load(bain)
+        self.assertMatchesJSON(item1, expected)
+
 
 if __name__ == '__main__':
     unittest_plus.main()

@@ -6,6 +6,7 @@ import sys
 
 from utl_lib.utl_yacc import UTLParser
 from utl_lib.ast_node import ASTNodeFormatter, ASTNodeJSONFormatter
+from utl_lib.handler_ast import UTLParseHandlerAST
 
 
 def get_args():
@@ -25,7 +26,7 @@ def get_args():
 def do_parse(program_text, args):
     """Open a file, parse it, return resulting parse."""
 
-    myparser = UTLParser()
+    myparser = UTLParser([UTLParseHandlerAST()])
     results = myparser.parse(program_text, debug=args.debug, print_tokens=args.show_lex)
     if results:
         if args.json:

@@ -1,865 +1,236 @@
-{
-    "name": "utldoc",
-    "children": [
-        {
-            "name": "statement_list",
-            "children": [
-                {
-                    "name": "statement",
-                    "children": [
-                        {
-                            "name": "expr",
-                            "attributes": {
-                                "operator": "+"
-                            },
-                            "children": [
-                                {
-                                    "name": "expr",
-                                    "children": [
-                                        {
-                                            "name": "term",
-                                            "children": [
-                                                {
-                                                    "name": "factor",
-                                                    "attributes": {
-                                                        "value": "a"
-                                                    }
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    "name": "term",
-                                    "children": [
-                                        {
-                                            "name": "factor",
-                                            "attributes": {
-                                                "value": "b"
-                                            }
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "name": "statement",
-                    "children": [
-                        {
-                            "name": "expr",
-                            "attributes": {
-                                "operator": "-"
-                            },
-                            "children": [
-                                {
-                                    "name": "expr",
-                                    "children": [
-                                        {
-                                            "name": "term",
-                                            "children": [
-                                                {
-                                                    "name": "factor",
-                                                    "children": [
-                                                        {
-                                                            "name": "literal",
-                                                            "attributes": {
-                                                                "value": 5.0
-                                                            }
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    "name": "term",
-                                    "children": [
-                                        {
-                                            "name": "factor",
-                                            "children": [
-                                                {
-                                                    "name": "literal",
-                                                    "attributes": {
-                                                        "value": 7.0
-                                                    }
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "name": "statement",
-                    "children": [
-                        {
-                            "name": "expr",
-                            "attributes": {
-                                "operator": "|"
-                            },
-                            "children": [
-                                {
-                                    "name": "expr",
-                                    "children": [
-                                        {
-                                            "name": "term",
-                                            "children": [
-                                                {
-                                                    "name": "factor",
-                                                    "children": [
-                                                        {
-                                                            "name": "literal",
-                                                            "attributes": {
-                                                                "value": "barney rubble"
-                                                            }
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    "name": "id",
-                                    "attributes": {
-                                        "name": "html"
-                                    }
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "name": "statement",
-                    "children": [
-                        {
-                            "name": "assignment",
-                            "attributes": {
-                                "target": "sally",
-                                "default": false
-                            },
-                            "children": [
-                                {
-                                    "name": "expr",
-                                    "children": [
-                                        {
-                                            "name": "term",
-                                            "attributes": {
-                                                "operator": "\/"
-                                            },
-                                            "children": [
-                                                {
-                                                    "name": "term",
-                                                    "children": [
-                                                        {
-                                                            "name": "factor",
-                                                            "children": [
-                                                                {
-                                                                    "name": "literal",
-                                                                    "attributes": {
-                                                                        "value": 12.0
-                                                                    }
-                                                                }
-                                                            ]
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "name": "factor",
-                                                    "children": [
-                                                        {
-                                                            "name": "literal",
-                                                            "attributes": {
-                                                                "value": 6.0
-                                                            }
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "name": "statement",
-                    "children": [
-                        {
-                            "name": "assignment",
-                            "attributes": {
-                                "target": "empty",
-                                "default": false
-                            },
-                            "children": [
-                                {
-                                    "name": "expr",
-                                    "children": [
-                                        {
-                                            "name": "term",
-                                            "children": [
-                                                {
-                                                    "name": "factor",
-                                                    "children": [
-                                                        {
-                                                            "name": "literal",
-                                                            "attributes": {
-                                                                "value": ""
-                                                            }
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "name": "statement",
-                    "children": [
-                        {
-                            "name": "assignment",
-                            "attributes": {
-                                "target": "barney",
-                                "default": false
-                            },
-                            "children": [
-                                {
-                                    "name": "expr",
-                                    "children": [
-                                        {
-                                            "name": "term",
-                                            "attributes": {
-                                                "operator": "*"
-                                            },
-                                            "children": [
-                                                {
-                                                    "name": "term",
-                                                    "children": [
-                                                        {
-                                                            "name": "factor",
-                                                            "attributes": {
-                                                                "value": "fred"
-                                                            }
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "name": "factor",
-                                                    "children": [
-                                                        {
-                                                            "name": "literal",
-                                                            "attributes": {
-                                                                "value": 3.0
-                                                            }
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "name": "document",
-                    "attributes": {
-                        "text": "\n here's some text\n "
-                    }
-                },
-                {
-                    "name": "statement",
-                    "children": [
-                        {
-                            "name": "assignment",
-                            "attributes": {
-                                "target": "abool",
-                                "default": false
-                            },
-                            "children": [
-                                {
-                                    "name": "expr",
-                                    "attributes": {
-                                        "operator": "=="
-                                    },
-                                    "children": [
-                                        {
-                                            "name": "expr",
-                                            "children": [
-                                                {
-                                                    "name": "term",
-                                                    "children": [
-                                                        {
-                                                            "name": "factor",
-                                                            "children": [
-                                                                {
-                                                                    "name": "literal",
-                                                                    "attributes": {
-                                                                        "value": 3.0
-                                                                    }
-                                                                }
-                                                            ]
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "name": "expr",
-                                            "children": [
-                                                {
-                                                    "name": "term",
-                                                    "children": [
-                                                        {
-                                                            "name": "factor",
-                                                            "children": [
-                                                                {
-                                                                    "name": "literal",
-                                                                    "attributes": {
-                                                                        "value": 4.0
-                                                                    }
-                                                                }
-                                                            ]
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "name": "statement",
-                    "children": [
-                        {
-                            "name": "assignment",
-                            "attributes": {
-                                "target": "a",
-                                "default": false
-                            },
-                            "children": [
-                                {
-                                    "name": "expr",
-                                    "children": [
-                                        {
-                                            "name": "term",
-                                            "children": [
-                                                {
-                                                    "name": "factor",
-                                                    "children": [
-                                                        {
-                                                            "name": "literal",
-                                                            "attributes": {
-                                                                "value": 3.0
-                                                            }
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "name": "statement",
-                    "children": [
-                        {
-                            "name": "assignment",
-                            "attributes": {
-                                "target": "b",
-                                "default": false
-                            },
-                            "children": [
-                                {
-                                    "name": "expr",
-                                    "children": [
-                                        {
-                                            "name": "term",
-                                            "children": [
-                                                {
-                                                    "name": "factor",
-                                                    "attributes": {
-                                                        "value": "fred"
-                                                    }
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "name": "statement",
-                    "children": [
-                        {
-                            "name": "assignment",
-                            "attributes": {
-                                "target": "wilma",
-                                "default": false
-                            },
-                            "children": [
-                                {
-                                    "name": "expr",
-                                    "children": [
-                                        {
-                                            "name": "term",
-                                            "children": [
-                                                {
-                                                    "name": "factor",
-                                                    "children": [
-                                                        {
-                                                            "name": "array_ref",
-                                                            "attributes": {
-                                                                "name": "e"
-                                                            },
-                                                            "children": [
-                                                                {
-                                                                    "name": "expr",
-                                                                    "children": [
-                                                                        {
-                                                                            "name": "term",
-                                                                            "children": [
-                                                                                {
-                                                                                    "name": "factor",
-                                                                                    "children": [
-                                                                                        {
-                                                                                            "name": "literal",
-                                                                                            "attributes": {
-                                                                                                "value": 12.0
-                                                                                            }
-                                                                                        }
-                                                                                    ]
-                                                                                }
-                                                                            ]
-                                                                        }
-                                                                    ]
-                                                                }
-                                                            ]
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "name": "statement",
-                    "children": [
-                        {
-                            "name": "assignment",
-                            "attributes": {
-                                "target": "c",
-                                "default": false
-                            },
-                            "children": [
-                                {
-                                    "name": "expr",
-                                    "children": [
-                                        {
-                                            "name": "term",
-                                            "attributes": {
-                                                "operator": "*"
-                                            },
-                                            "children": [
-                                                {
-                                                    "name": "term",
-                                                    "attributes": {
-                                                        "operator": "*"
-                                                    },
-                                                    "children": [
-                                                        {
-                                                            "name": "term",
-                                                            "children": [
-                                                                {
-                                                                    "name": "factor",
-                                                                    "attributes": {
-                                                                        "value": "a"
-                                                                    }
-                                                                }
-                                                            ]
-                                                        },
-                                                        {
-                                                            "name": "paren_group",
-                                                            "children": [
-                                                                {
-                                                                    "name": "expr",
-                                                                    "attributes": {
-                                                                        "operator": "+"
-                                                                    },
-                                                                    "children": [
-                                                                        {
-                                                                            "name": "expr",
-                                                                            "children": [
-                                                                                {
-                                                                                    "name": "term",
-                                                                                    "children": [
-                                                                                        {
-                                                                                            "name": "factor",
-                                                                                            "attributes": {
-                                                                                                "value": "a"
-                                                                                            }
-                                                                                        }
-                                                                                    ]
-                                                                                }
-                                                                            ]
-                                                                        },
-                                                                        {
-                                                                            "name": "term",
-                                                                            "children": [
-                                                                                {
-                                                                                    "name": "factor",
-                                                                                    "attributes": {
-                                                                                        "value": "b"
-                                                                                    }
-                                                                                }
-                                                                            ]
-                                                                        }
-                                                                    ]
-                                                                }
-                                                            ]
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "name": "factor",
-                                                    "attributes": {
-                                                        "value": "b"
-                                                    }
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "name": "statement",
-                    "children": [
-                        {
-                            "name": "assignment",
-                            "attributes": {
-                                "target": "d",
-                                "default": false
-                            },
-                            "children": [
-                                {
-                                    "name": "expr",
-                                    "attributes": {
-                                        "operator": "+"
-                                    },
-                                    "children": [
-                                        {
-                                            "name": "expr",
-                                            "children": [
-                                                {
-                                                    "name": "term",
-                                                    "attributes": {
-                                                        "operator": "*"
-                                                    },
-                                                    "children": [
-                                                        {
-                                                            "name": "term",
-                                                            "children": [
-                                                                {
-                                                                    "name": "factor",
-                                                                    "attributes": {
-                                                                        "value": "a"
-                                                                    }
-                                                                }
-                                                            ]
-                                                        },
-                                                        {
-                                                            "name": "factor",
-                                                            "attributes": {
-                                                                "value": "a"
-                                                            }
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "name": "term",
-                                            "attributes": {
-                                                "operator": "*"
-                                            },
-                                            "children": [
-                                                {
-                                                    "name": "term",
-                                                    "children": [
-                                                        {
-                                                            "name": "factor",
-                                                            "attributes": {
-                                                                "value": "b"
-                                                            }
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "name": "factor",
-                                                    "attributes": {
-                                                        "value": "b"
-                                                    }
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "name": "statement",
-                    "children": [
-                        {
-                            "name": "assignment",
-                            "attributes": {
-                                "target": "e",
-                                "default": false
-                            },
-                            "children": [
-                                {
-                                    "name": "expr",
-                                    "attributes": {
-                                        "operator": "-"
-                                    },
-                                    "children": [
-                                        {
-                                            "name": "expr",
-                                            "children": [
-                                                {
-                                                    "name": "term",
-                                                    "attributes": {
-                                                        "operator": "%"
-                                                    },
-                                                    "children": [
-                                                        {
-                                                            "name": "term",
-                                                            "children": [
-                                                                {
-                                                                    "name": "factor",
-                                                                    "attributes": {
-                                                                        "value": "a"
-                                                                    }
-                                                                }
-                                                            ]
-                                                        },
-                                                        {
-                                                            "name": "factor",
-                                                            "attributes": {
-                                                                "value": "b"
-                                                            }
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "name": "term",
-                                            "attributes": {
-                                                "operator": "%"
-                                            },
-                                            "children": [
-                                                {
-                                                    "name": "term",
-                                                    "children": [
-                                                        {
-                                                            "name": "factor",
-                                                            "attributes": {
-                                                                "value": "b"
-                                                            }
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "name": "factor",
-                                                    "attributes": {
-                                                        "value": "c"
-                                                    }
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "name": "statement",
-                    "children": [
-                        {
-                            "name": "assignment",
-                            "attributes": {
-                                "target": "a",
-                                "default": true
-                            },
-                            "children": [
-                                {
-                                    "name": "expr",
-                                    "children": [
-                                        {
-                                            "name": "term",
-                                            "children": [
-                                                {
-                                                    "name": "factor",
-                                                    "children": [
-                                                        {
-                                                            "name": "literal",
-                                                            "attributes": {
-                                                                "value": 3.0
-                                                            }
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "name": "statement",
-                    "children": [
-                        {
-                            "name": "assignment",
-                            "attributes": {
-                                "target": "b",
-                                "default": true
-                            },
-                            "children": [
-                                {
-                                    "name": "expr",
-                                    "children": [
-                                        {
-                                            "name": "term",
-                                            "children": [
-                                                {
-                                                    "name": "factor",
-                                                    "attributes": {
-                                                        "value": "fred"
-                                                    }
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "name": "statement",
-                    "children": [
-                        {
-                            "name": "assignment",
-                            "attributes": {
-                                "target": "e",
-                                "default": true
-                            },
-                            "children": [
-                                {
-                                    "name": "expr",
-                                    "attributes": {
-                                        "operator": "-"
-                                    },
-                                    "children": [
-                                        {
-                                            "name": "expr",
-                                            "children": [
-                                                {
-                                                    "name": "term",
-                                                    "attributes": {
-                                                        "operator": "%"
-                                                    },
-                                                    "children": [
-                                                        {
-                                                            "name": "term",
-                                                            "children": [
-                                                                {
-                                                                    "name": "factor",
-                                                                    "attributes": {
-                                                                        "value": "a"
-                                                                    }
-                                                                }
-                                                            ]
-                                                        },
-                                                        {
-                                                            "name": "factor",
-                                                            "attributes": {
-                                                                "value": "b"
-                                                            }
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "name": "term",
-                                            "attributes": {
-                                                "operator": "%"
-                                            },
-                                            "children": [
-                                                {
-                                                    "name": "term",
-                                                    "children": [
-                                                        {
-                                                            "name": "factor",
-                                                            "attributes": {
-                                                                "value": "b"
-                                                            }
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "name": "factor",
-                                                    "attributes": {
-                                                        "value": "c"
-                                                    }
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "name": "document",
-                    "attributes": {
-                        "text": "\n"
-                    }
-                }
-            ]
-        }
-    ]
-}
+{"name": "utldoc",
+ "children": [
+     {"name": "statement_list",
+      "children": [
+          {"name": "statement",
+           "children": [
+               {"name": "expr",
+                "attributes": {"operator": "+"},
+                "children": [
+                    {"name": "expr",
+                     "children": [
+                         {"name": "term",
+                          "children": [
+                              {"name": "factor",
+                               "children": [
+                                   {"name": "id",
+                                    "attributes": {"symbol": "a"}}]}]}]},
+                    {"name": "term",
+                     "children": [
+                         {"name": "factor",
+                          "children": [
+                              {"name": "id",
+                               "attributes": {"symbol": "b"}}]}]}]}]},
+          {"name": "statement",
+"children": [{"name": "expr",
+"attributes": {"operator": "-"},
+"children": [{"name": "expr",
+"children": [{"name": "term",
+"children": [{"name": "factor",
+"children": [{"name": "literal",
+"attributes": {"value": 5.0}}]}]}]},{"name": "term",
+"children": [{"name": "factor",
+"children": [{"name": "literal",
+"attributes": {"value": 7.0}}]}]}]}]},{"name": "statement",
+"children": [{"name": "expr",
+"attributes": {"operator": "|"},
+"children": [{"name": "expr",
+"children": [{"name": "term",
+"children": [{"name": "factor",
+"children": [{"name": "literal",
+"attributes": {"value": "barney rubble"}}]}]}]},{"name": "id",
+"attributes": {"symbol": "html"}}]}]},{"name": "statement",
+"children": [{"name": "assignment",
+"attributes": {"target": {"name": "id",
+"attributes": {"symbol": "sally"}},
+"default": false},
+"children": [{"name": "expr",
+"children": [{"name": "term",
+"attributes": {"operator": "/"},
+"children": [{"name": "factor",
+"children": [{"name": "literal",
+"attributes": {"value": 6.0}}]},{"name": "term",
+"children": [{"name": "factor",
+"children": [{"name": "literal",
+"attributes": {"value": 12.0}}]}]}]}]}]}]},{"name": "statement",
+"children": [{"name": "assignment",
+"attributes": {"target": {"name": "id",
+"attributes": {"symbol": "empty"}},
+"default": false},
+"children": [{"name": "expr",
+"children": [{"name": "term",
+"children": [{"name": "factor",
+"children": [{"name": "literal",
+"attributes": {"value": ""}}]}]}]}]}]},{"name": "statement",
+"children": [{"name": "assignment",
+"attributes": {"target": {"name": "id",
+"attributes": {"symbol": "barney"}},
+"default": false},
+"children": [{"name": "expr",
+"children": [{"name": "term",
+"attributes": {"operator": "*"},
+"children": [{"name": "factor",
+"children": [{"name": "literal",
+"attributes": {"value": 3.0}}]},{"name": "term",
+"children": [{"name": "factor",
+"children": [{"name": "id",
+"attributes": {"symbol": "fred"}}]}]}]}]}]}]},{"name": "document",
+"attributes": {"text": "\n here's some text\n "}},{"name": "statement",
+"children": [{"name": "assignment",
+"attributes": {"target": {"name": "id",
+"attributes": {"symbol": "abool"}},
+"default": false},
+"children": [{"name": "expr",
+"attributes": {"operator": "=="},
+"children": [{"name": "expr",
+"children": [{"name": "term",
+"children": [{"name": "factor",
+"children": [{"name": "literal",
+"attributes": {"value": 3.0}}]}]}]},{"name": "expr",
+"children": [{"name": "term",
+"children": [{"name": "factor",
+"children": [{"name": "literal",
+"attributes": {"value": 4.0}}]}]}]}]}]}]},{"name": "statement",
+"children": [{"name": "assignment",
+"attributes": {"target": {"name": "id",
+"attributes": {"symbol": "a"}},
+"default": false},
+"children": [{"name": "expr",
+"children": [{"name": "term",
+"children": [{"name": "factor",
+"children": [{"name": "literal",
+"attributes": {"value": 3.0}}]}]}]}]}]},{"name": "statement",
+"children": [{"name": "assignment",
+"attributes": {"target": {"name": "id",
+"attributes": {"symbol": "b"}},
+"default": false},
+"children": [{"name": "expr",
+"children": [{"name": "term",
+"children": [{"name": "factor",
+"children": [{"name": "id",
+"attributes": {"symbol": "fred"}}]}]}]}]}]},{"name": "statement",
+"children": [{"name": "assignment",
+"attributes": {"target": {"name": "id",
+"attributes": {"symbol": "wilma"}},
+"default": false},
+"children": [{"name": "expr",
+"children": [{"name": "term",
+"children": [{"name": "factor",
+"children": [{"name": "array_ref",
+"attributes": {"name": {"name": "id",
+"attributes": {"symbol": "e"}}},
+"children": [{"name": "expr",
+"children": [{"name": "term",
+"children": [{"name": "factor",
+"children": [{"name": "literal",
+"attributes": {"value": 12.0}}]}]}]}]}]}]}]}]}]},{"name": "statement",
+"children": [{"name": "assignment",
+"attributes": {"target": {"name": "id",
+"attributes": {"symbol": "c"}},
+"default": false},
+"children": [{"name": "expr",
+"children": [{"name": "term",
+"attributes": {"operator": "*"},
+"children": [{"name": "factor",
+"children": [{"name": "id",
+"attributes": {"symbol": "b"}}]},{"name": "term",
+"attributes": {"operator": "*"},
+"children": [{"name": "paren_group",
+"children": [{"name": "expr",
+"attributes": {"operator": "+"},
+"children": [{"name": "expr",
+"children": [{"name": "term",
+"children": [{"name": "factor",
+"children": [{"name": "id",
+"attributes": {"symbol": "a"}}]}]}]},{"name": "term",
+"children": [{"name": "factor",
+"children": [{"name": "id",
+"attributes": {"symbol": "b"}}]}]}]}]},{"name": "term",
+"children": [{"name": "factor",
+"children": [{"name": "id",
+"attributes": {"symbol": "a"}}]}]}]}]}]}]}]},{"name": "statement",
+"children": [{"name": "assignment",
+"attributes": {"target": {"name": "id",
+"attributes": {"symbol": "d"}},
+"default": false},
+"children": [{"name": "expr",
+"attributes": {"operator": "+"},
+"children": [{"name": "expr",
+"children": [{"name": "term",
+"attributes": {"operator": "*"},
+"children": [{"name": "factor",
+"children": [{"name": "id",
+"attributes": {"symbol": "a"}}]},{"name": "term",
+"children": [{"name": "factor",
+"children": [{"name": "id",
+"attributes": {"symbol": "a"}}]}]}]}]},{"name": "term",
+"attributes": {"operator": "*"},
+"children": [{"name": "factor",
+"children": [{"name": "id",
+"attributes": {"symbol": "b"}}]},{"name": "term",
+"children": [{"name": "factor",
+"children": [{"name": "id",
+"attributes": {"symbol": "b"}}]}]}]}]}]}]},{"name": "statement",
+"children": [{"name": "assignment",
+"attributes": {"target": {"name": "id",
+"attributes": {"symbol": "e"}},
+"default": false},
+"children": [{"name": "expr",
+"attributes": {"operator": "-"},
+"children": [{"name": "expr",
+"children": [{"name": "term",
+"attributes": {"operator": "%"},
+"children": [{"name": "factor",
+"children": [{"name": "id",
+"attributes": {"symbol": "b"}}]},{"name": "term",
+"children": [{"name": "factor",
+"children": [{"name": "id",
+"attributes": {"symbol": "a"}}]}]}]}]},{"name": "term",
+"attributes": {"operator": "%"},
+"children": [{"name": "factor",
+"children": [{"name": "id",
+"attributes": {"symbol": "c"}}]},{"name": "term",
+"children": [{"name": "factor",
+"children": [{"name": "id",
+"attributes": {"symbol": "b"}}]}]}]}]}]}]},{"name": "statement",
+"children": [{"name": "assignment",
+"attributes": {"target": {"name": "id",
+"attributes": {"symbol": "a"}},
+"default": true},
+"children": [{"name": "expr",
+"children": [{"name": "term",
+"children": [{"name": "factor",
+"children": [{"name": "literal",
+"attributes": {"value": 3.0}}]}]}]}]}]},{"name": "statement",
+"children": [{"name": "assignment",
+"attributes": {"target": {"name": "id",
+"attributes": {"symbol": "b"}},
+"default": true},
+"children": [{"name": "expr",
+"children": [{"name": "term",
+"children": [{"name": "factor",
+"children": [{"name": "id",
+"attributes": {"symbol": "fred"}}]}]}]}]}]},{"name": "statement",
+"children": [{"name": "assignment",
+"attributes": {"target": {"name": "id",
+"attributes": {"symbol": "e"}},
+"default": true},
+"children": [{"name": "expr",
+"attributes": {"operator": "-"},
+"children": [{"name": "expr",
+"children": [{"name": "term",
+"attributes": {"operator": "%"},
+"children": [{"name": "factor",
+"children": [{"name": "id",
+"attributes": {"symbol": "b"}}]},{"name": "term",
+"children": [{"name": "factor",
+"children": [{"name": "id",
+"attributes": {"symbol": "a"}}]}]}]}]},{"name": "term",
+"attributes": {"operator": "%"},
+"children": [{"name": "factor",
+"children": [{"name": "id",
+"attributes": {"symbol": "c"}}]},{"name": "term",
+"children": [{"name": "factor",
+"children": [{"name": "id",
+"attributes": {"symbol": "b"}}]}]}]}]}]}]},{"name": "document",
+"attributes": {"text": "\n"}}]}]}
