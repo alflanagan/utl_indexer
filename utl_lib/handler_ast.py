@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 """A parse handler to construct an AST from a UTL document."""
 
-from html import escape
-
 from utl_lib.ast_node import ASTNode
 from utl_lib.utl_parse_handler import UTLParseHandler
 # pylint: disable=too-many-public-methods,missing-docstring
@@ -32,7 +30,7 @@ class UTLParseHandlerAST(UTLParseHandler):
     def statement(self, child_or_text, is_document=False):
         if is_document:
             return ASTNode('document', True,
-                           {'text': escape(child_or_text, True) if child_or_text else ''})
+                           {'text': child_or_text if child_or_text else ''})
         if isinstance(child_or_text, str):   # is a keyword
             return ASTNode('statement', False, {}, [ASTNode(child_or_text, True)])
         return ASTNode('statement', False, {}, [child_or_text])
@@ -95,15 +93,15 @@ class UTLParseHandlerAST(UTLParseHandler):
         assert isinstance(my_name, str)
         return ASTNode('method_call', False, {'name': my_name}, [arg_list] if arg_list else [])
 
-    def full_id(self, this_id, prefix):
+    def full_id(self, this_id, suffix):
         if isinstance(this_id, ASTNode):
-            if prefix:
-                my_name = prefix + "." + this_id.attributes["symbol"]
+            if suffix:
+                my_name = this_id.attributes["symbol"] + "." + suffix
             else:
                 my_name = this_id.attributes["symbol"]
         else:
-            if prefix:
-                my_name = prefix + "." + this_id
+            if suffix:
+                my_name = this_id + "." + suffix
             else:
                 my_name = this_id
         return ASTNode("id", True, {"symbol": my_name})
@@ -158,7 +156,7 @@ class UTLParseHandlerAST(UTLParseHandler):
         return ASTNode('macro-defn',
                        False,
                        {'name': macro_decl.attributes['name']},
-                       [macro_decl, statement_list])
+                       [macro_decl, statement_list] if statement_list else [macro_decl])
 
     def macro_decl(self, macro_id, param_list):
         return ASTNode('macro-decl', True, {'name': macro_id},

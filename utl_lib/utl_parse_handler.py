@@ -123,22 +123,17 @@ class UTLParseHandler(object):
         """A method call. `arglist` (the list of arguments) is optional."""
         return None
 
-    def full_id(self, this_id, prefix):
-        """An ID, possibly part of a dotted ID. `prefix`, if present, is the part of the ID
-        which came before the current value.
+    def full_id(self, this_id, suffix):
+        """An ID, possibly part of a dotted ID. `suffix`, if present, is the part of the ID
+        which came before the current value (or after it in the original source code.).
 
-        Input of 'cms.this.block' would thus trigger ``full_id('block', 'cms.this')`` among
-        its productions.
-
-        Unlike most other methods, this one does something (probably) useful without override:
-
-        :returns str: `this_id`, then `prefix`, separated by a period.
+        Input of 'cms.this.block' would thus trigger:
+            full_id('block')
+            full_id('this', ASTNode('id', {'symbol': 'block'}))
+            full_id('cms', ASTNode('id', {'symbol': 'this.block'})
 
         """
-        if prefix:
-            return this_id + "." + prefix
-        else:
-            return this_id
+        return None
 
     def term(self, factor, op, term):   # pylint: disable=C0103
         """A term from an expression, with operator '*', '/', '%', or just a factor.
@@ -212,7 +207,8 @@ class UTLParseHandler(object):
 
     def macro_defn(self, macro_decl, statement_list):
         """A macro definition with declaration `macro_decl` containing statements
-        `statement_list`.
+        `statement_list`. `statement_list` can also be :py:attr:`None`, indicating an empty
+        macro (which is legal).
 
         """
         return None
