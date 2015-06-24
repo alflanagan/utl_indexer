@@ -72,38 +72,33 @@ class UTLParserTestCase(unittest_plus.TestCasePlus):
         for index, child in enumerate(node.children):
             self.assertMatchesJSON(child, expected['children'][index])
 
+    def assertJSONFileMatches(self, utl_filename, json_filename):
+        """Asserts :py:meth:`assertMatchesJSON` on the contents of ``utl_filename`` and
+        ``json_filename``, which must exist in our test data directory.
+
+        """
+        handler = UTLParseHandlerAST()
+        parser = UTLParser([handler], debug=False)
+        with open(self.data_file(utl_filename), 'r') as utlin:
+            item1 = parser.parse(utlin.read())
+        with open(self.data_file(json_filename), 'r') as jsonin:
+            expected = json.load(jsonin)
+        self.assertMatchesJSON(item1, expected)
+
     def test_assigns(self):
         """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with input of assignment
         statements.
 
         """
-        handler = UTLParseHandlerAST()
-        parser = UTLParser([handler], debug=False)
-        with open(self.data_file('basic_assign.utl'), 'r') as datain:
-            item1 = parser.parse(datain.read())
-        with open(self.data_file('basic_assign.json'), 'r') as bain:
-            expected = json.load(bain)
-        self.assertMatchesJSON(item1, expected)
+        self.assertJSONFileMatches('basic_assign.utl', 'basic_assign.json')
 
     def test_calls(self):
         """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with macro calls."""
-        handler = UTLParseHandlerAST()
-        parser = UTLParser([handler], debug=False)
-        with open(self.data_file('calls.utl'), 'r') as datain:
-            item1 = parser.parse(datain.read())
-        with open(self.data_file('calls.json'), 'r') as bain:
-            expected = json.load(bain)
-        self.assertMatchesJSON(item1, expected)
+        self.assertJSONFileMatches('calls.utl', 'calls.json')
 
     def test_for_stmts(self):
         """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with for statements."""
-        handler = UTLParseHandlerAST()
-        parser = UTLParser([handler], debug=False)
-        with open(self.data_file('for_stmt.utl'), 'r') as datain:
-            item1 = parser.parse(datain.read())
-        with open(self.data_file('for_stmt.json'), 'r') as bain:
-            expected = json.load(bain)
-        self.assertMatchesJSON(item1, expected)
+        self.assertJSONFileMatches('for_stmt.utl', 'for_stmt.json')
 
     def test_if_stmts(self):
         """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with if statements."""
@@ -112,6 +107,49 @@ class UTLParserTestCase(unittest_plus.TestCasePlus):
         with open(self.data_file('if_stmts.utl'), 'r') as datain:
             item1 = parser.parse(datain.read())
         with open(self.data_file('if_stmts.json'), 'r') as bain:
+            expected = json.load(bain)
+        self.assertMatchesJSON(item1, expected)
+
+    def test_include_stmts(self):
+        """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with include statements."""
+        handler = UTLParseHandlerAST()
+        parser = UTLParser([handler], debug=False)
+        with open(self.data_file('includes.utl'), 'r') as datain:
+            item1 = parser.parse(datain.read())
+        with open(self.data_file('includes.json'), 'r') as bain:
+            expected = json.load(bain)
+        self.assertMatchesJSON(item1, expected)
+
+    def test_keywords(self):
+        """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with various keywords not
+        otherwise tested.
+
+        """
+        handler = UTLParseHandlerAST()
+        parser = UTLParser([handler], debug=False)
+        with open(self.data_file('keywords.utl'), 'r') as datain:
+            item1 = parser.parse(datain.read())
+        with open(self.data_file('keywords.json'), 'r') as bain:
+            expected = json.load(bain)
+        self.assertMatchesJSON(item1, expected)
+
+    def test_macro(self):
+        """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with macro definitions."""
+        handler = UTLParseHandlerAST()
+        parser = UTLParser([handler], debug=False)
+        with open(self.data_file('macros.utl'), 'r') as datain:
+            item1 = parser.parse(datain.read())
+        with open(self.data_file('macros.json'), 'r') as bain:
+            expected = json.load(bain)
+        self.assertMatchesJSON(item1, expected)
+
+    def test_while(self):
+        """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with a while statement."""
+        handler = UTLParseHandlerAST()
+        parser = UTLParser([handler], debug=False)
+        with open(self.data_file('while.utl'), 'r') as datain:
+            item1 = parser.parse(datain.read())
+        with open(self.data_file('while.json'), 'r') as bain:
             expected = json.load(bain)
         self.assertMatchesJSON(item1, expected)
 

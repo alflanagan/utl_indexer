@@ -3,8 +3,12 @@
   echo;
   echo a;
   end;
-  really.really.quite.useless('php');
-  wilma(1, 2, 3);
+
+really.really.quite.useless('php');
+wilma(1, 2, 3);
+
+macro empty_but_legal;
+end;
 
 macro fairly.useless();
   echo "useless";
@@ -13,5 +17,4 @@ macro fairly.useless();
 macro really.really.quite.useless(arg1);
   echo arg1;
   end;
-  
   %]

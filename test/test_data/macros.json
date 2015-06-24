@@ -1,0 +1,177 @@
+{"name": "utldoc",
+ "children": [
+     {"name": "statement_list",
+      "children": [
+          {"name": "statement",
+           "children": [
+               {"name": "macro-defn",
+                "attributes": {"name": {"name": "id",
+                                        "attributes": {"symbol": "fred"}}},
+                "children": [
+                    {"name": "macro-decl",
+                     "attributes": {"name": {"name": "id",
+                                             "attributes": {"symbol": "fred"}}}},
+                    {"name": "statement_list",
+                     "children": [
+                         {"name": "statement",
+                          "children": [
+                              {"name": "assignment",
+                               "attributes": {"target": {"name": "id",
+                                                         "attributes": {"symbol": "a"}},
+                                              "default": false},
+                               "children": [
+                                   {"name": "expr",
+                                    "attributes": {"operator": "+"},
+                                    "children": [
+                                        {"name": "expr",
+                                         "children": [
+                                             {"name": "term",
+                                              "children": [
+                                                  {"name": "factor",
+                                                   "children": [
+                                                       {"name": "id",
+                                                        "attributes": {"symbol": "b"}}]}]}]},
+                                        {"name": "term",
+                                         "children": [
+                                             {"name": "factor",
+                                              "children": [
+                                                  {"name": "literal",
+                                                   "attributes": {"value": 3.0}}]}]}]}]}]},
+                         {"name": "statement",
+                          "children": [
+                              {"name": "echo",
+                               "children": [
+                                   {"name": "expr",
+                                    "children": [
+                                        {"name": "term",
+                                         "children": [
+                                             {"name": "factor",
+                                              "children": [
+                                                  {"name": "id",
+                                                   "attributes": {"symbol": "a"}}]}]}]}]}]}]}]}]},
+          {"name": "statement",
+           "children": [
+               {"name": "expr",
+                "children": [
+                    {"name": "term",
+                     "children": [
+                         {"name": "factor",
+                          "children": [
+                              {"name": "method_call",
+                               "attributes": {"name": "really.really.quite.useless"},
+                               "children": [
+                                   {"name": "arg_list",
+                                    "children": [
+                                        {"name": "arg",
+                                         "children": [
+                                             {"name": "expr",
+                                              "children": [
+                                                  {"name": "term",
+                                                   "children": [
+                                                       {"name": "factor",
+                                                        "children": [
+                                                            {"name": "literal",
+                                                             "attributes": {"value": "php"}}]}]}]}]}]}]}]}]}]}]},
+          {"name": "statement",
+           "children": [
+               {"name": "expr",
+                "children": [
+                    {"name": "term",
+                     "children": [
+                         {"name": "factor",
+                          "children": [
+                              {"name": "method_call",
+                               "attributes": {"name": "wilma"},
+                               "children": [
+                                   {"name": "arg_list",
+                                    "children": [
+                                        {"name": "arg",
+                                         "children": [
+                                             {"name": "expr",
+                                              "children": [
+                                                  {"name": "term",
+                                                   "children": [
+                                                       {"name": "factor",
+                                                        "children": [
+                                                            {"name": "literal",
+                                                             "attributes": {"value": 1.0}}]}]}]}]},
+                                        {"name": "arg",
+                                         "children": [
+                                             {"name": "expr",
+                                              "children": [
+                                                  {"name": "term",
+                                                   "children": [
+                                                       {"name": "factor",
+                                                        "children": [
+                                                            {"name": "literal",
+                                                             "attributes": {"value": 2.0}}]}]}]}]},
+                                        {"name": "arg",
+                                         "children": [
+                                             {"name": "expr",
+                                              "children": [
+                                                  {"name": "term",
+                                                   "children": [
+                                                       {"name": "factor",
+                                                        "children": [
+                                                            {"name": "literal",
+                                                             "attributes": {"value": 3.0}}]}]}]}]}]}]}]}]}]}]},
+          {"name": "statement",
+           "children": [
+               {"name": "macro-defn",
+                "attributes": {"name": {"name": "id",
+                                        "attributes": {"symbol": "empty_but_legal"}}},
+                "children": [
+                    {"name": "macro-decl",
+                     "attributes": {"name": {"name": "id",
+                                             "attributes": {"symbol": "empty_but_legal"}}}}]}]},
+          {"name": "statement",
+           "children": [
+               {"name": "macro-defn",
+                "attributes": {"name": {"name": "id",
+                                        "attributes": {"symbol": "fairly.useless"}}},
+                "children": [
+                    {"name": "macro-decl",
+                     "attributes": {"name": {"name": "id",
+                                             "attributes": {"symbol": "fairly.useless"}}}},
+                    {"name": "statement_list",
+                     "children": [
+                         {"name": "statement",
+                          "children": [
+                              {"name": "echo",
+                               "children": [
+                                   {"name": "expr",
+                                    "children": [
+                                        {"name": "term",
+                                         "children": [
+                                             {"name": "factor",
+                                              "children": [
+                                                  {"name": "literal",
+                                                   "attributes": {"value": "useless"}}]}]}]}]}]}]}]}]},
+          {"name": "statement",
+           "children": [
+               {"name": "macro-defn",
+                "attributes": {"name": {"name": "id",
+                                        "attributes": {"symbol": "really.really.quite.useless"}}},
+                "children": [
+                    {"name": "macro-decl",
+                     "attributes": {"name": {"name": "id",
+                                             "attributes": {"symbol": "really.really.quite.useless"}}},
+                     "children": [
+                         {"name": "param_list",
+                          "children": [
+                              {"name": "param_decl",
+                               "attributes": {"name": "arg1"}}]}]},
+                    {"name": "statement_list",
+                     "children": [
+                         {"name": "statement",
+                          "children": [
+                              {"name": "echo",
+                               "children": [
+                                   {"name": "expr",
+                                    "children": [
+                                        {"name": "term",
+                                         "children": [
+                                             {"name": "factor",
+                                              "children": [
+                                                  {"name": "id",
+                                                   "attributes": {"symbol": "arg1"}}]}]}]}]}]}]}]}]}]}]}

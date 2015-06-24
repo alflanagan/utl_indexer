@@ -120,9 +120,10 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         '''echo_stmt : ECHO
                      | ECHO expr'''
         for handler in self.handlers:
-            value = handler.echo_stmt(p[2])
-            if p[0] is None:
-                p[0] = value
+            if len(p) > 2:
+                value = handler.echo_stmt(p[2])
+                if p[0] is None:
+                    p[0] = value
 
     def p_expr(self, p):
         '''expr : expr PLUS term
@@ -148,9 +149,10 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                       | param_list COMMA param_decl
                       | param_decl '''
         for handler in self.handlers:
+            value = None  # default for empty list
             if len(p) == 2:
                 value = handler.param_list(p[1], None)
-            else:
+            elif len(p) == 4:
                 value = handler.param_list(p[3], p[1])
             if p[0] is None:
                 p[0] = value
@@ -305,9 +307,14 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                 p[0] = value
 
     def p_macro_defn(self, p):
-        '''macro_defn : macro_decl end_stmt statement_list END'''
+        '''macro_defn : macro_decl end_stmt statement_list END
+                      | macro_decl end_stmt END'''
         for handler in self.handlers:
-            value = handler.macro_defn(p[1], p[3])
+            if len(p) == 4:
+                value = handler.macro_defn(p[1], None)
+            else:
+                assert len(p) == 5
+                value = handler.macro_defn(p[1], p[3])
             if p[0] is None:
                 p[0] = value
 
