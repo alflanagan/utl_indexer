@@ -37,9 +37,9 @@ class ASTNode(object):
         '''Deep equality test, useful for testing.'''
         if not isinstance(other, ASTNode):
             return False
-        if (self.symbol != other.symbol
-                or self.terminal != other.terminal
-                or set(self.attributes.keys()) != set(other.attributes.keys())):
+        if (self.symbol != other.symbol or
+                self.terminal != other.terminal or
+                set(self.attributes.keys()) != set(other.attributes.keys())):
             return False
         for key in self.attributes:
             if self.attributes[key] != other.attributes[key]:
@@ -151,7 +151,7 @@ class ASTNodeFormatter(object):  # pylint: disable=too-few-public-methods
             lines = self.format(child).split('\n') if child else ['**error**']
             for line in lines:
                 result += '\n    ' + line
-        return result.replace('"', r'\\"')
+        return result
 
 
 class ASTNodeJSONFormatter(object):  # pylint: disable=too-few-public-methods
@@ -196,6 +196,9 @@ class ASTNodeJSONFormatter(object):  # pylint: disable=too-few-public-methods
             result += ',\n"attributes": {'
             for key in from_node.attributes:
                 value = from_node.attributes[key]
+                if from_node.symbol == 'document':
+                    # special handling of HTML content
+                    value = value.replace('"', '&quot;')
                 if isinstance(value, ASTNode):
                     result += '"{}": {},\n'.format(key, self.format(value))
                 else:
