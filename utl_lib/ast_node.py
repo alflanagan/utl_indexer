@@ -210,9 +210,9 @@ class ASTNodeJSONFormatter(object):  # pylint: disable=too-few-public-methods
             result = result[:-2]  # remove final ,\n
             result += '}'
         if from_node.children:
-            result += ',\n"children": ['
+            result += ',\n"children": [\n'
             for child in from_node.children:
-                result += self.format(child) + ','
-            result = result[:-1] + ']'
+                result += self.format(child) + ',\n'
+            result = result[:-2] + ']'
         result += '}'
         return result
