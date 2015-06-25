@@ -22,6 +22,7 @@ from testplus import unittest_plus, mock_objects
 from utl_lib.ast_node import ASTNode
 from utl_lib.utl_yacc import UTLParser
 from utl_lib.utl_lex import UTLLexer
+from utl_lib.utl_parse_handler import UTLParseHandler, UTLParseError
 from utl_lib.handler_ast import UTLParseHandlerAST
 
 
@@ -165,55 +166,46 @@ class UTLParserTestCase(unittest_plus.TestCasePlus):
 
     def test_if_stmts(self):
         """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with if statements."""
-        handler = UTLParseHandlerAST()
-        parser = UTLParser([handler], debug=False)
-        with open(self.data_file('if_stmts.utl'), 'r') as datain:
-            item1 = parser.parse(datain.read())
-        with open(self.data_file('if_stmts.json'), 'r') as bain:
-            expected = json.load(bain)
-        self.assertMatchesJSON(item1, expected)
+        self.assertJSONFileMatches('if_stmts.utl', 'if_stmts.json')
 
     def test_include_stmts(self):
         """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with include statements."""
-        handler = UTLParseHandlerAST()
-        parser = UTLParser([handler], debug=False)
-        with open(self.data_file('includes.utl'), 'r') as datain:
-            item1 = parser.parse(datain.read())
-        with open(self.data_file('includes.json'), 'r') as bain:
-            expected = json.load(bain)
-        self.assertMatchesJSON(item1, expected)
+        self.assertJSONFileMatches('includes.utl', 'includes.json')
 
     def test_keywords(self):
         """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with various keywords not
         otherwise tested.
 
         """
-        handler = UTLParseHandlerAST()
-        parser = UTLParser([handler], debug=False)
-        with open(self.data_file('keywords.utl'), 'r') as datain:
-            item1 = parser.parse(datain.read())
-        with open(self.data_file('keywords.json'), 'r') as bain:
-            expected = json.load(bain)
-        self.assertMatchesJSON(item1, expected)
+        self.assertJSONFileMatches('keywords.utl', 'keywords.json')
 
     def test_macro(self):
         """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with macro definitions."""
-        handler = UTLParseHandlerAST()
-        parser = UTLParser([handler], debug=False)
-        with open(self.data_file('macros.utl'), 'r') as datain:
-            item1 = parser.parse(datain.read())
-        with open(self.data_file('macros.json'), 'r') as bain:
-            expected = json.load(bain)
-        self.assertMatchesJSON(item1, expected)
+        self.assertJSONFileMatches('macros.utl', 'macros.json')
 
     def test_while(self):
         """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with a while statement."""
+        self.assertJSONFileMatches('while.utl', 'while.json')
+
+    def test_syntax_error(self):
+        """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with invalid syntax."""
         handler = UTLParseHandlerAST()
         parser = UTLParser([handler], debug=False)
-        with open(self.data_file('while.utl'), 'r') as datain:
-            item1 = parser.parse(datain.read())
-        with open(self.data_file('while.json'), 'r') as bain:
-            expected = json.load(bain)
+        with open(self.data_file('syntax_error.utl'), 'r') as datain:
+            self.assertRaises(UTLParseError, parser.parse, datain.read())
+
+    def test_with_multiple_handlers(self):
+        handler1 = UTLParseHandlerAST()
+        # second handler can't be AST, that one can modify previous results
+        handler2 = UTLParseHandler()  # but doing nothing is fine
+        # FIXME: need a second handler that returns values from productions
+        #     but does not modify existing p[0] values
+        parser = UTLParser([handler1, handler2], debug=False)
+        # results of parse should depend ONLY on handler1
+        with open(self.data_file('macros.utl'), 'r') as utlin:
+            item1 = parser.parse(utlin.read())
+        with open(self.data_file('macros.json'), 'r') as jsonin:
+            expected = json.load(jsonin)
         self.assertMatchesJSON(item1, expected)
 
 

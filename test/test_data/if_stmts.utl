@@ -19,3 +19,4 @@
     </dt>
     [% end
 %]
+[% if 2 == 3 then "hello" %]

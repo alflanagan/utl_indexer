@@ -1,0 +1,3 @@
+[% if a == 3;
+    while; /* oohh, bad */
+    end; %]

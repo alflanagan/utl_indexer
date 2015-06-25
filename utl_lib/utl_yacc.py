@@ -23,7 +23,6 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         self.parsed = False
         self.tokens = UTLLexer.tokens[:]  # make copy, so we can .remove() tokens
         # Some tokens get processed out before parsing
-        # can't handle DOCUMENT as regular statement because it can occur anywhere
         # START_UTL is implicit when we get UTL token
         # but we need END_UTL since it may close a statment
         self.filtered_tokens = ['COMMENT', 'START_UTL']
@@ -89,7 +88,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         '''statement : expr end_stmt
                      | assignment end_stmt
                      | if_stmt end_stmt
-                     | abbrev_if_stmt end_stmt
+                     | abbrev_if_stmt
                      | return_stmt end_stmt
                      | macro_defn end_stmt
                      | echo_stmt end_stmt
@@ -102,9 +101,11 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                      | EXIT end_stmt
                      | DOCUMENT
                      | end_stmt'''
+        # FIXME: get DOCUMENT out of this list, give separate handler
         for handler in self.handlers:
             if p[1]:  # excludes end_stmt
-                value = handler.statement(p[1], len(p) == 2)  # test is True only for DOCUMENT
+                is_doc = len(p) == 2 and isinstance(p[1], str)  # somewhat bogus test
+                value = handler.statement(p[1], is_doc)
                 if p[0] is None:
                     p[0] = value
 
@@ -388,4 +389,4 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
     # Error rule for syntax errors
     def p_error(self, p):  # pylint: disable=missing-docstring
         for handler in self.handlers:
-            handler.error(p)
+            handler.error(p, self.parser)
