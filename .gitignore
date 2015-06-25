@@ -22,3 +22,5 @@ pylintrc
 \#*
 # node.js modules directory (useful tools)
 node_modules/
+# more coverage output
+htmlcov/
