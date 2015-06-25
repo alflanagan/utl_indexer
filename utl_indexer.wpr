@@ -88,7 +88,16 @@ proj.directory-list = [{'dirloc': loc('.'),
                         'recursive': True,
                         'watch_for_changes': True}]
 proj.file-type = 'shared'
-proj.launch-config = {loc('test/test_utl_yacc.py'): ('custom',
+proj.launch-config = {loc('test/test_ast_node.py'): ('project',
+        (u'',
+         'launch-nVVuAOXCGKvHXMpo')),
+                      loc('test/test_utl_lex.py'): ('custom',
+        (u'',
+         'launch-nVVuAOXCGKvHXMpo')),
+                      loc('test/test_utl_yacc.py'): ('custom',
+        (u'',
+         'launch-nVVuAOXCGKvHXMpo')),
+                      loc('utl_lib/utl_yacc.py'): ('project',
         (u'',
          'launch-nVVuAOXCGKvHXMpo'))}
 testing.auto-test-file-specs = (('glob',
