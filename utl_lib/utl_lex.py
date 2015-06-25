@@ -148,10 +148,9 @@ class UTLLexer(object):
 
     def t_LBRACKET(self, t):
         r'\['
-        # must detect START_UTL
-        if t.lexer.lexdata[t.lexer.lexpos + 1] != '%':
-            t.type = 'DOCUMENT'
-            t.value = '['
+        # must detect START_UTL (??)
+        # if t.lexer.lexdata[t.lexer.lexpos + 1] != '%':
+        t.type = 'DOCUMENT'
         return t
 
     # ======== UTL state =====================================
