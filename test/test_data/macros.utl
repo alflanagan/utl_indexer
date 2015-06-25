@@ -17,4 +17,8 @@ macro fairly.useless();
 macro really.really.quite.useless(arg1);
   echo arg1;
   end;
+
+macro multi_arguments(arg1, arg2, arg3=false, arg4);
+  echo arg1 + arg2;
+  end;
   %]

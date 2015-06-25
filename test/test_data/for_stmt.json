@@ -20,7 +20,8 @@
                          {"name": "document",
                           "attributes": {"text": "\n      stuff happens\n      "}},
                          {"name": "statement",
-                          "children": [{"name": "continue"}]}]}]}]},
+                          "children": [
+                              {"name": "continue"}]}]}]}]},
           {"name": "document",
            "attributes": {"text": "\n"}},
           {"name": "statement",
@@ -93,5 +94,23 @@
                               {"name": "break"}]},
                          {"name": "document",
                           "attributes": {"text": "stuff\n"}}]}]}]},
+          {"name": "document",
+           "attributes": {"text": "\n"}},
+          {"name": "statement",
+           "children": [
+               {"name": "for",
+                "children": [
+                    {"name": "expr",
+                     "children": [
+                         {"name": "term",
+                          "children": [
+                              {"name": "factor",
+                               "children": [
+                                   {"name": "id",
+                                    "attributes": {"symbol": "array_data"}}]}]}]},
+                    {"name": "statement_list",
+                     "children": [
+                         {"name": "document",
+                          "attributes": {"text": "\n  do len(array_data) times\n"}}]}]}]},
           {"name": "document",
            "attributes": {"text": "\n"}}]}]}

@@ -11,6 +11,9 @@
 [%  for each array_data as item; %]
   even more [% break; %] stuff
 [% end; %]
+[% for each array_data; %]
+  do len(array_data) times
+[% end; %]
 [% /* for array_data as alpha, beta;
     c += alpha * beta;
     end; */ %]

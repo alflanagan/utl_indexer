@@ -174,4 +174,56 @@
                                              {"name": "factor",
                                               "children": [
                                                   {"name": "id",
-                                                   "attributes": {"symbol": "arg1"}}]}]}]}]}]}]}]}]}]}]}
+                                                   "attributes": {"symbol": "arg1"}}]}]}]}]}]}]}]}]},
+          {"name": "statement",
+           "children": [
+               {"name": "macro-defn",
+                "attributes": {"name": {"name": "id",
+                                        "attributes": {"symbol": "multi_arguments"}}},
+                "children": [
+                    {"name": "macro-decl",
+                     "attributes": {"name": {"name": "id",
+                                             "attributes": {"symbol": "multi_arguments"}}},
+                     "children": [
+                         {"name": "param_list",
+                          "children": [
+                              {"name": "param_decl",
+                               "attributes": {"name": "arg1"}},
+                              {"name": "param_decl",
+                               "attributes": {"name": "arg2"}},
+                              {"name": "param_decl",
+                               "attributes": {"name": {"name": "id",
+                                                       "attributes": {"symbol": "arg3"}}},
+                               "children": [
+                                   {"name": "expr",
+                                    "children": [
+                                        {"name": "term",
+                                         "children": [
+                                             {"name": "factor",
+                                              "children": [
+                                                  {"name": "false"}]}]}]}]},
+                              {"name": "param_decl",
+                               "attributes": {"name": "arg4"}}]}]},
+                    {"name": "statement_list",
+                     "children": [
+                         {"name": "statement",
+                          "children": [
+                              {"name": "echo",
+                               "children": [
+                                   {"name": "expr",
+                                    "attributes": {"operator": "+"},
+                                    "children": [
+                                        {"name": "expr",
+                                         "children": [
+                                             {"name": "term",
+                                              "children": [
+                                                  {"name": "factor",
+                                                   "children": [
+                                                       {"name": "id",
+                                                        "attributes": {"symbol": "arg1"}}]}]}]},
+                                        {"name": "term",
+                                         "children": [
+                                             {"name": "factor",
+                                              "children": [
+                                                  {"name": "id",
+                                                   "attributes": {"symbol": "arg2"}}]}]}]}]}]}]}]}]}]}]}

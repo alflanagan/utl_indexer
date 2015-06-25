@@ -55,7 +55,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         tok = self.utl_lexer.token()
         while tok and tok.type in self.filtered_tokens:
             tok = self.utl_lexer.token()
-        if self.print_tokens:
+        if tok and self.print_tokens:
             print(tok)
         return tok
 
