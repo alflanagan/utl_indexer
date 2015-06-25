@@ -33,8 +33,10 @@ class ASTNode(object):
         self.terminal = is_term
         self.attributes = {} if attrs is None else attrs
 
-    def __eq__(self, other):
+    def __eq__(self, other):  # pylint: disable=R0911
         '''Deep equality test, useful for testing.'''
+        if self is other:  # optimization
+            return True
         if not isinstance(other, ASTNode):
             return False
         if (self.symbol != other.symbol or
@@ -65,6 +67,8 @@ class ASTNode(object):
         '''
         if not isinstance(child, ASTNode):
             raise ASTNodeError('Invalid child for AST Node: {}'.format(child))
+        if child is self:
+            raise ASTNodeError('A node cannot be a child of itself.')
         # we might have passed a generator to __init__(), or even a set
         self.children = list(self.children)
         if child.parent:
@@ -148,7 +152,7 @@ class ASTNodeFormatter(object):  # pylint: disable=too-few-public-methods
             from_node = self.root
         result = str(from_node)
         for child in from_node.children:
-            lines = self.format(child).split('\n') if child else ['**error**']
+            lines = self.format(child).split('\n')
             for line in lines:
                 result += '\n    ' + line
         return result
@@ -176,7 +180,7 @@ class ASTNodeJSONFormatter(object):  # pylint: disable=too-few-public-methods
         my_repr = repr(text)  # it's quoted
         if my_repr.startswith("'"):
             # escape double quotes
-            my_repr.replace('"', '\\"')
+            my_repr = my_repr.replace('"', '\\"')
             # replace single quotes
             my_repr = '"' + my_repr[1:-1] + '"'
         return my_repr
