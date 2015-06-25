@@ -247,16 +247,14 @@ class UTLParseHandler(object):
         """A call statement, with the keyword call preceding a method call."""
         return None
 
-    def error(self, p):
+    def error(self, p, the_parser):
         """Method called when a syntax error occurs. `p` is a production object with the state
         of the parser at the point where the error was detected.
 
         The default method raises UTLParseError with context information.
         """
         if p is None:
-            print("Syntax error at end of document!")
-            print("Remaining symbol stack is:")
-            print(p.parser.symstack)
+            raise UTLParseError("Syntax error at end of document! Symbol stack is {}".format(the_parser.symstack))
         else:
             the_lexer = p.lexer
             badline = the_lexer.lexdata.split('\n')[p.lineno-1]
@@ -264,6 +262,5 @@ class UTLParseHandler(object):
             if lineoffset == -1:  # we're on first line
                 lineoffset = 0
             lineoffset = the_lexer.lexpos - lineoffset
-            print("Syntax error in input line {} after '{}'!".format(p.lineno, p.value))
-            print(badline)
-            print("{}^".format(' ' * (lineoffset - 1)))
+            raise UTLParseError("Syntax error in input line {}, column {} after '{}'!"
+                                "".format(p.lineno, lineoffset, p.value))
