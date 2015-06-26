@@ -192,15 +192,23 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                 p[0] = value
 
     def p_assignment(self, p):
-        '''assignment : full_id ASSIGN expr
-                      | full_id ASSIGNOP expr
-                      | DEFAULT full_id ASSIGN expr
-                      | DEFAULT full_id ASSIGNOP expr'''
+        '''assignment : lhs ASSIGN expr
+                      | lhs ASSIGNOP expr
+                      | DEFAULT lhs ASSIGN expr
+                      | DEFAULT lhs ASSIGNOP expr'''
         for handler in self.handlers:
             if len(p) == 4:
                 value = handler.assignment(p[1], p[3], p[2], False)
             else:
                 value = handler.assignment(p[2], p[4], p[3], True)
+            if p[0] is None:
+                p[0] = value
+
+    def p_lhs(self, p):
+        '''lhs : full_id
+               | array_ref'''
+        for handler in self.handlers:
+            value = handler.lhs(p[1])
             if p[0] is None:
                 p[0] = value
 
@@ -255,9 +263,44 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
 
     def p_literal(self, p):
         '''literal : NUMBER
-                   | STRING'''
+                   | STRING
+                   | array_literal'''
         for handler in self.handlers:
             value = handler.literal(p[1])
+            if p[0] is None:
+                p[0] = value
+
+    def p_array_literal(self, p):
+        '''array_literal : LBRACKET array_elems RBRACKET
+                         | LBRACKET key_value_elems RBRACKET
+                         | LBRACKET RBRACKET'''
+        for handler in self.handlers:
+            if len(p) == 4:
+                value = handler.array_literal(p[2])
+            else:
+                value = handler.array_literal()
+            if p[0] is None:
+                p[0] = value
+
+    def p_array_elems(self, p):
+        '''array_elems : expr
+                       | array_elems COMMA expr'''
+        for handler in self.handlers:
+            if len(p) == 4:
+                value = handler.array_elems(p[3], p[1])
+            else:
+                value = handler.array_elems(p[1])
+            if p[0] is None:
+                p[0] = value
+
+    def p_key_value_elems(self, p):
+        '''key_value_elems : expr COLON expr
+                           | key_value_elems COMMA expr COLON expr'''
+        for handler in self.handlers:
+            if len(p) == 6:
+                value = handler.key_value_elems(p[3], p[5], p[1])
+            else:
+                value = handler.key_value_elems(p[1], p[3])
             if p[0] is None:
                 p[0] = value
 

@@ -22,215 +22,621 @@
                               {"name": "id",
                                "attributes": {"symbol": "b"}}]}]}]}]},
           {"name": "statement",
-"children": [{"name": "expr",
-"attributes": {"operator": "-"},
-"children": [{"name": "expr",
-"children": [{"name": "term",
-"children": [{"name": "factor",
-"children": [{"name": "literal",
-"attributes": {"value": 5.0}}]}]}]},{"name": "term",
-"children": [{"name": "factor",
-"children": [{"name": "literal",
-"attributes": {"value": 7.0}}]}]}]}]},{"name": "statement",
-"children": [{"name": "expr",
-"attributes": {"operator": "|"},
-"children": [{"name": "expr",
-"children": [{"name": "term",
-"children": [{"name": "factor",
-"children": [{"name": "literal",
-"attributes": {"value": "barney rubble"}}]}]}]},{"name": "id",
-"attributes": {"symbol": "html"}}]}]},{"name": "statement",
-"children": [{"name": "assignment",
-"attributes": {"target": {"name": "id",
-"attributes": {"symbol": "sally"}},
-"default": false},
-"children": [{"name": "expr",
-"children": [{"name": "term",
-"attributes": {"operator": "/"},
-"children": [{"name": "factor",
-"children": [{"name": "literal",
-"attributes": {"value": 6.0}}]},{"name": "term",
-"children": [{"name": "factor",
-"children": [{"name": "literal",
-"attributes": {"value": 12.0}}]}]}]}]}]}]},{"name": "statement",
-"children": [{"name": "assignment",
-"attributes": {"target": {"name": "id",
-"attributes": {"symbol": "empty"}},
-"default": false},
-"children": [{"name": "expr",
-"children": [{"name": "term",
-"children": [{"name": "factor",
-"children": [{"name": "literal",
-"attributes": {"value": ""}}]}]}]}]}]},{"name": "statement",
-"children": [{"name": "assignment",
-"attributes": {"target": {"name": "id",
-"attributes": {"symbol": "barney"}},
-"default": false},
-"children": [{"name": "expr",
-"children": [{"name": "term",
-"attributes": {"operator": "*"},
-"children": [{"name": "factor",
-"children": [{"name": "literal",
-"attributes": {"value": 3.0}}]},{"name": "term",
-"children": [{"name": "factor",
-"children": [{"name": "id",
-"attributes": {"symbol": "fred"}}]}]}]}]}]}]},{"name": "document",
-"attributes": {"text": "\n here's some text\n "}},{"name": "statement",
-"children": [{"name": "assignment",
-"attributes": {"target": {"name": "id",
-"attributes": {"symbol": "abool"}},
-"default": false},
-"children": [{"name": "expr",
-"attributes": {"operator": "=="},
-"children": [{"name": "expr",
-"children": [{"name": "term",
-"children": [{"name": "factor",
-"children": [{"name": "literal",
-"attributes": {"value": 3.0}}]}]}]},{"name": "expr",
-"children": [{"name": "term",
-"children": [{"name": "factor",
-"children": [{"name": "literal",
-"attributes": {"value": 4.0}}]}]}]}]}]}]},{"name": "statement",
-"children": [{"name": "assignment",
-"attributes": {"target": {"name": "id",
-"attributes": {"symbol": "a"}},
-"default": false},
-"children": [{"name": "expr",
-"children": [{"name": "term",
-"children": [{"name": "factor",
-"children": [{"name": "literal",
-"attributes": {"value": 3.0}}]}]}]}]}]},{"name": "statement",
-"children": [{"name": "assignment",
-"attributes": {"target": {"name": "id",
-"attributes": {"symbol": "b"}},
-"default": false},
-"children": [{"name": "expr",
-"children": [{"name": "term",
-"children": [{"name": "factor",
-"children": [{"name": "id",
-"attributes": {"symbol": "fred"}}]}]}]}]}]},{"name": "statement",
-"children": [{"name": "assignment",
-"attributes": {"target": {"name": "id",
-"attributes": {"symbol": "wilma"}},
-"default": false},
-"children": [{"name": "expr",
-"children": [{"name": "term",
-"children": [{"name": "factor",
-"children": [{"name": "array_ref",
-"attributes": {"name": {"name": "id",
-"attributes": {"symbol": "e"}}},
-"children": [{"name": "expr",
-"children": [{"name": "term",
-"children": [{"name": "factor",
-"children": [{"name": "literal",
-"attributes": {"value": 12.0}}]}]}]}]}]}]}]}]}]},{"name": "statement",
-"children": [{"name": "assignment",
-"attributes": {"target": {"name": "id",
-"attributes": {"symbol": "c"}},
-"default": false},
-"children": [{"name": "expr",
-"children": [{"name": "term",
-"attributes": {"operator": "*"},
-"children": [{"name": "factor",
-"children": [{"name": "id",
-"attributes": {"symbol": "b"}}]},{"name": "term",
-"attributes": {"operator": "*"},
-"children": [{"name": "paren_group",
-"children": [{"name": "expr",
-"attributes": {"operator": "+"},
-"children": [{"name": "expr",
-"children": [{"name": "term",
-"children": [{"name": "factor",
-"children": [{"name": "id",
-"attributes": {"symbol": "a"}}]}]}]},{"name": "term",
-"children": [{"name": "factor",
-"children": [{"name": "id",
-"attributes": {"symbol": "b"}}]}]}]}]},{"name": "term",
-"children": [{"name": "factor",
-"children": [{"name": "id",
-"attributes": {"symbol": "a"}}]}]}]}]}]}]}]},{"name": "statement",
-"children": [{"name": "assignment",
-"attributes": {"target": {"name": "id",
-"attributes": {"symbol": "d"}},
-"default": false},
-"children": [{"name": "expr",
-"attributes": {"operator": "+"},
-"children": [{"name": "expr",
-"children": [{"name": "term",
-"attributes": {"operator": "*"},
-"children": [{"name": "factor",
-"children": [{"name": "id",
-"attributes": {"symbol": "a"}}]},{"name": "term",
-"children": [{"name": "factor",
-"children": [{"name": "id",
-"attributes": {"symbol": "a"}}]}]}]}]},{"name": "term",
-"attributes": {"operator": "*"},
-"children": [{"name": "factor",
-"children": [{"name": "id",
-"attributes": {"symbol": "b"}}]},{"name": "term",
-"children": [{"name": "factor",
-"children": [{"name": "id",
-"attributes": {"symbol": "b"}}]}]}]}]}]}]},{"name": "statement",
-"children": [{"name": "assignment",
-"attributes": {"target": {"name": "id",
-"attributes": {"symbol": "e"}},
-"default": false},
-"children": [{"name": "expr",
-"attributes": {"operator": "-"},
-"children": [{"name": "expr",
-"children": [{"name": "term",
-"attributes": {"operator": "%"},
-"children": [{"name": "factor",
-"children": [{"name": "id",
-"attributes": {"symbol": "b"}}]},{"name": "term",
-"children": [{"name": "factor",
-"children": [{"name": "id",
-"attributes": {"symbol": "a"}}]}]}]}]},{"name": "term",
-"attributes": {"operator": "%"},
-"children": [{"name": "factor",
-"children": [{"name": "id",
-"attributes": {"symbol": "c"}}]},{"name": "term",
-"children": [{"name": "factor",
-"children": [{"name": "id",
-"attributes": {"symbol": "b"}}]}]}]}]}]}]},{"name": "statement",
-"children": [{"name": "assignment",
-"attributes": {"target": {"name": "id",
-"attributes": {"symbol": "a"}},
-"default": true},
-"children": [{"name": "expr",
-"children": [{"name": "term",
-"children": [{"name": "factor",
-"children": [{"name": "literal",
-"attributes": {"value": 3.0}}]}]}]}]}]},{"name": "statement",
-"children": [{"name": "assignment",
-"attributes": {"target": {"name": "id",
-"attributes": {"symbol": "b"}},
-"default": true},
-"children": [{"name": "expr",
-"children": [{"name": "term",
-"children": [{"name": "factor",
-"children": [{"name": "id",
-"attributes": {"symbol": "fred"}}]}]}]}]}]},{"name": "statement",
-"children": [{"name": "assignment",
-"attributes": {"target": {"name": "id",
-"attributes": {"symbol": "e"}},
-"default": true},
-"children": [{"name": "expr",
-"attributes": {"operator": "-"},
-"children": [{"name": "expr",
-"children": [{"name": "term",
-"attributes": {"operator": "%"},
-"children": [{"name": "factor",
-"children": [{"name": "id",
-"attributes": {"symbol": "b"}}]},{"name": "term",
-"children": [{"name": "factor",
-"children": [{"name": "id",
-"attributes": {"symbol": "a"}}]}]}]}]},{"name": "term",
-"attributes": {"operator": "%"},
-"children": [{"name": "factor",
-"children": [{"name": "id",
-"attributes": {"symbol": "c"}}]},{"name": "term",
-"children": [{"name": "factor",
-"children": [{"name": "id",
-"attributes": {"symbol": "b"}}]}]}]}]}]}]},{"name": "document",
-"attributes": {"text": "\n"}}]}]}
+           "children": [
+               {"name": "expr",
+                "attributes": {"operator": "-"},
+                "children": [
+                    {"name": "expr",
+                     "children": [
+                         {"name": "term",
+                          "children": [
+                              {"name": "factor",
+                               "children": [
+                                   {"name": "literal",
+                                    "attributes": {"value": 5.0}}]}]}]},
+                    {"name": "term",
+                     "children": [
+                         {"name": "factor",
+                          "children": [
+                              {"name": "literal",
+                               "attributes": {"value": 7.0}}]}]}]}]},
+          {"name": "statement",
+           "children": [
+               {"name": "expr",
+                "attributes": {"operator": "|"},
+                "children": [
+                    {"name": "expr",
+                     "children": [
+                         {"name": "term",
+                          "children": [
+                              {"name": "factor",
+                               "children": [
+                                   {"name": "literal",
+                                    "attributes": {"value": "barney rubble"}}]}]}]},
+                    {"name": "id",
+                     "attributes": {"symbol": "html"}}]}]},
+          {"name": "statement",
+           "children": [
+               {"name": "assignment",
+                "attributes": {"target": {"name": "id",
+                                          "attributes": {"symbol": "sally.isfine"}},
+                               "default": false},
+                "children": [
+                    {"name": "expr",
+                     "children": [
+                         {"name": "term",
+                          "attributes": {"operator": "/"},
+                          "children": [
+                              {"name": "factor",
+                               "children": [
+                                   {"name": "literal",
+                                    "attributes": {"value": 6.0}}]},
+                              {"name": "term",
+                               "children": [
+                                   {"name": "factor",
+                                    "children": [
+                                        {"name": "literal",
+                                         "attributes": {"value": 12.0}}]}]}]}]}]}]},
+          {"name": "statement",
+           "children": [
+               {"name": "assignment",
+                "attributes": {"target": {"name": "id",
+                                          "attributes": {"symbol": "sally.fineis"}},
+                               "default": false},
+                "children": [
+                    {"name": "expr",
+                     "children": [
+                         {"name": "term",
+                          "children": [
+                              {"name": "factor",
+                               "children": [
+                                   {"name": "literal",
+                                    "attributes": {"value": "bat"}}]}]}]}]}]},
+          {"name": "statement",
+           "children": [
+               {"name": "expr",
+                "attributes": {"operator": "is "},
+                "children": [
+                    {"name": "expr",
+                     "children": [
+                         {"name": "term",
+                          "children": [
+                              {"name": "factor",
+                               "children": [
+                                   {"name": "id",
+                                    "attributes": {"symbol": "sally"}}]}]}]},
+                    {"name": "expr",
+                     "children": [
+                         {"name": "term",
+                          "children": [
+                              {"name": "factor",
+                               "children": [
+                                   {"name": "id",
+                                    "attributes": {"symbol": "fine"}}]}]}]}]}]},
+          {"name": "statement",
+           "children": [
+               {"name": "assignment",
+                "attributes": {"target": {"name": "id",
+                                          "attributes": {"symbol": "fred.breakthis"}},
+                               "default": false},
+                "children": [
+                    {"name": "expr",
+                     "children": [
+                         {"name": "term",
+                          "children": [
+                              {"name": "factor",
+                               "children": [
+                                   {"name": "literal",
+                                    "attributes": {"value": 0.0}}]}]}]}]}]},
+          {"name": "statement",
+           "children": [
+               {"name": "assignment",
+                "attributes": {"target": {"name": "id",
+                                          "attributes": {"symbol": "fred.thisbreak"}},
+                               "default": false},
+                "children": [
+                    {"name": "expr",
+                     "children": [
+                         {"name": "term",
+                          "children": [
+                              {"name": "factor",
+                               "children": [
+                                   {"name": "literal",
+                                    "attributes": {"value": 2.0}}]}]}]}]}]},
+          {"name": "statement",
+           "children": [
+               {"name": "assignment",
+                "attributes": {"target": {"name": "id",
+                                          "attributes": {"symbol": "empty"}},
+                               "default": false},
+                "children": [
+                    {"name": "expr",
+                     "children": [
+                         {"name": "term",
+                          "children": [
+                              {"name": "factor",
+                               "children": [
+                                   {"name": "literal",
+                                    "attributes": {"value": ""}}]}]}]}]}]},
+          {"name": "statement",
+           "children": [
+               {"name": "assignment",
+                "attributes": {"target": {"name": "id",
+                                          "attributes": {"symbol": "barney"}},
+                               "default": false},
+                "children": [
+                    {"name": "expr",
+                     "children": [
+                         {"name": "term",
+                          "attributes": {"operator": "*"},
+                          "children": [
+                              {"name": "factor",
+                               "children": [
+                                   {"name": "literal",
+                                    "attributes": {"value": 3.0}}]},
+                              {"name": "term",
+                               "children": [
+                                   {"name": "factor",
+                                    "children": [
+                                        {"name": "id",
+                                         "attributes": {"symbol": "fred"}}]}]}]}]}]}]},
+          {"name": "document",
+           "attributes": {"text": "\n here's some text\n "}},
+          {"name": "statement",
+           "children": [
+               {"name": "assignment",
+                "attributes": {"target": {"name": "id",
+                                          "attributes": {"symbol": "abool"}},
+                               "default": false},
+                "children": [
+                    {"name": "expr",
+                     "attributes": {"operator": "=="},
+                     "children": [
+                         {"name": "expr",
+                          "children": [
+                              {"name": "term",
+                               "children": [
+                                   {"name": "factor",
+                                    "children": [
+                                        {"name": "literal",
+                                         "attributes": {"value": 3.0}}]}]}]},
+                         {"name": "expr",
+                          "children": [
+                              {"name": "term",
+                               "children": [
+                                   {"name": "factor",
+                                    "children": [
+                                        {"name": "literal",
+                                         "attributes": {"value": 4.0}}]}]}]}]}]}]},
+          {"name": "statement",
+           "children": [
+               {"name": "assignment",
+                "attributes": {"target": {"name": "id",
+                                          "attributes": {"symbol": "a"}},
+                               "default": false},
+                "children": [
+                    {"name": "expr",
+                     "children": [
+                         {"name": "term",
+                          "children": [
+                              {"name": "factor",
+                               "children": [
+                                   {"name": "literal",
+                                    "attributes": {"value": 3.0}}]}]}]}]}]},
+          {"name": "statement",
+           "children": [
+               {"name": "assignment",
+                "attributes": {"target": {"name": "id",
+                                          "attributes": {"symbol": "b"}},
+                               "default": false},
+                "children": [
+                    {"name": "expr",
+                     "children": [
+                         {"name": "term",
+                          "children": [
+                              {"name": "factor",
+                               "children": [
+                                   {"name": "id",
+                                    "attributes": {"symbol": "fred"}}]}]}]}]}]},
+          {"name": "statement",
+           "children": [
+               {"name": "assignment",
+                "attributes": {"target": {"name": "id",
+                                          "attributes": {"symbol": "wilma"}},
+                               "default": false},
+                "children": [
+                    {"name": "expr",
+                     "children": [
+                         {"name": "term",
+                          "children": [
+                              {"name": "factor",
+                               "children": [
+                                   {"name": "array_ref",
+                                    "attributes": {"name": {"name": "id",
+                                                            "attributes": {"symbol": "e"}}},
+                                    "children": [
+                                        {"name": "expr",
+                                         "children": [
+                                             {"name": "term",
+                                              "children": [
+                                                  {"name": "factor",
+                                                   "children": [
+                                                       {"name": "literal",
+                                                        "attributes": {"value": 12.0}}]}]}]}]}]}]}]}]}]},
+          {"name": "statement",
+           "children": [
+               {"name": "assignment",
+                "attributes": {"target": {"name": "id",
+                                          "attributes": {"symbol": "c"}},
+                               "default": false},
+                "children": [
+                    {"name": "expr",
+                     "children": [
+                         {"name": "term",
+                          "attributes": {"operator": "*"},
+                          "children": [
+                              {"name": "factor",
+                               "children": [
+                                   {"name": "id",
+                                    "attributes": {"symbol": "b"}}]},
+                              {"name": "term",
+                               "attributes": {"operator": "*"},
+                               "children": [
+                                   {"name": "paren_group",
+                                    "children": [
+                                        {"name": "expr",
+                                         "attributes": {"operator": "+"},
+                                         "children": [
+                                             {"name": "expr",
+                                              "children": [
+                                                  {"name": "term",
+                                                   "children": [
+                                                       {"name": "factor",
+                                                        "children": [
+                                                            {"name": "id",
+                                                             "attributes": {"symbol": "a"}}]}]}]},
+                                             {"name": "term",
+                                              "children": [
+                                                  {"name": "factor",
+                                                   "children": [
+                                                       {"name": "id",
+                                                        "attributes": {"symbol": "b"}}]}]}]}]},
+                                   {"name": "term",
+                                    "children": [
+                                        {"name": "factor",
+                                         "children": [
+                                             {"name": "id",
+                                              "attributes": {"symbol": "a"}}]}]}]}]}]}]}]},
+          {"name": "statement",
+           "children": [
+               {"name": "assignment",
+                "attributes": {"target": {"name": "id",
+                                          "attributes": {"symbol": "d"}},
+                               "default": false},
+                "children": [
+                    {"name": "expr",
+                     "attributes": {"operator": "+"},
+                     "children": [
+                         {"name": "expr",
+                          "children": [
+                              {"name": "term",
+                               "attributes": {"operator": "*"},
+                               "children": [
+                                   {"name": "factor",
+                                    "children": [
+                                        {"name": "id",
+                                         "attributes": {"symbol": "a"}}]},
+                                   {"name": "term",
+                                    "children": [
+                                        {"name": "factor",
+                                         "children": [
+                                             {"name": "id",
+                                              "attributes": {"symbol": "a"}}]}]}]}]},
+                         {"name": "term",
+                          "attributes": {"operator": "*"},
+                          "children": [
+                              {"name": "factor",
+                               "children": [
+                                   {"name": "id",
+                                    "attributes": {"symbol": "b"}}]},
+                              {"name": "term",
+                               "children": [
+                                   {"name": "factor",
+                                    "children": [
+                                        {"name": "id",
+                                         "attributes": {"symbol": "b"}}]}]}]}]}]}]},
+          {"name": "statement",
+           "children": [
+               {"name": "assignment",
+                "attributes": {"target": {"name": "id",
+                                          "attributes": {"symbol": "e"}},
+                               "default": false},
+                "children": [
+                    {"name": "expr",
+                     "attributes": {"operator": "-"},
+                     "children": [
+                         {"name": "expr",
+                          "children": [
+                              {"name": "term",
+                               "attributes": {"operator": "%"},
+                               "children": [
+                                   {"name": "factor",
+                                    "children": [
+                                        {"name": "id",
+                                         "attributes": {"symbol": "b"}}]},
+                                   {"name": "term",
+                                    "children": [
+                                        {"name": "factor",
+                                         "children": [
+                                             {"name": "id",
+                                              "attributes": {"symbol": "a"}}]}]}]}]},
+                         {"name": "term",
+                          "attributes": {"operator": "%"},
+                          "children": [
+                              {"name": "factor",
+                               "children": [
+                                   {"name": "id",
+                                    "attributes": {"symbol": "c"}}]},
+                              {"name": "term",
+                               "children": [
+                                   {"name": "factor",
+                                    "children": [
+                                        {"name": "id",
+                                         "attributes": {"symbol": "b"}}]}]}]}]}]}]},
+          {"name": "statement",
+           "children": [
+               {"name": "assignment",
+                "attributes": {"target": {"name": "id",
+                                          "attributes": {"symbol": "a"}},
+                               "default": true},
+                "children": [
+                    {"name": "expr",
+                     "children": [
+                         {"name": "term",
+                          "children": [
+                              {"name": "factor",
+                               "children": [
+                                   {"name": "literal",
+                                    "attributes": {"value": 3.0}}]}]}]}]}]},
+          {"name": "statement",
+           "children": [
+               {"name": "assignment",
+                "attributes": {"target": {"name": "id",
+                                          "attributes": {"symbol": "b"}},
+                               "default": true},
+                "children": [
+                    {"name": "expr",
+                     "children": [
+                         {"name": "term",
+                          "children": [
+                              {"name": "factor",
+                               "children": [
+                                   {"name": "id",
+                                    "attributes": {"symbol": "fred"}}]}]}]}]}]},
+          {"name": "statement",
+           "children": [
+               {"name": "assignment",
+                "attributes": {"target": {"name": "id",
+                                          "attributes": {"symbol": "e"}},
+                               "default": true},
+                "children": [
+                    {"name": "expr",
+                     "attributes": {"operator": "-"},
+                     "children": [
+                         {"name": "expr",
+                          "children": [
+                              {"name": "term",
+                               "attributes": {"operator": "%"},
+                               "children": [
+                                   {"name": "factor",
+                                    "children": [
+                                        {"name": "id",
+                                         "attributes": {"symbol": "b"}}]},
+                                   {"name": "term",
+                                    "children": [
+                                        {"name": "factor",
+                                         "children": [
+                                             {"name": "id",
+                                              "attributes": {"symbol": "a"}}]}]}]}]},
+                         {"name": "term",
+                          "attributes": {"operator": "%"},
+                          "children": [
+                              {"name": "factor",
+                               "children": [
+                                   {"name": "id",
+                                    "attributes": {"symbol": "c"}}]},
+                              {"name": "term",
+                               "children": [
+                                   {"name": "factor",
+                                    "children": [
+                                        {"name": "id",
+                                         "attributes": {"symbol": "b"}}]}]}]}]}]}]},
+          {"name": "statement",
+           "children": [
+               {"name": "assignment",
+                "attributes": {"target": {"name": "id",
+                                          "attributes": {"symbol": "array"}},
+                               "default": false},
+                "children": [
+                    {"name": "expr",
+                     "children": [
+                         {"name": "term",
+                          "children": [
+                              {"name": "factor",
+                               "children": [
+                                   {"name": "literal",
+                                    "children": [
+                                        {"name": "array_literal",
+                                         "children": [
+                                             {"name": "array_elems",
+                                              "children": [
+                                                  {"name": "expr",
+                                                   "children": [
+                                                       {"name": "term",
+                                                        "children": [
+                                                            {"name": "factor",
+                                                             "children": [
+                                                                 {"name": "literal",
+                                                                  "attributes": {"value": 1.0}}]}]}]},
+                                                  {"name": "expr",
+                                                   "children": [
+                                                       {"name": "term",
+                                                        "children": [
+                                                            {"name": "factor",
+                                                             "children": [
+                                                                 {"name": "literal",
+                                                                  "attributes": {"value": 2.0}}]}]}]},
+                                                  {"name": "expr",
+                                                   "children": [
+                                                       {"name": "term",
+                                                        "children": [
+                                                            {"name": "factor",
+                                                             "children": [
+                                                                 {"name": "literal",
+                                                                  "attributes": {"value": "fred"}}]}]}]},
+                                                  {"name": "expr",
+                                                   "children": [
+                                                       {"name": "term",
+                                                        "children": [
+                                                            {"name": "factor",
+                                                             "children": [
+                                                                 {"name": "literal",
+                                                                  "attributes": {"value": 3.0}}]}]}]},
+                                                  {"name": "expr",
+                                                   "attributes": {"operator": "|"},
+                                                   "children": [
+                                                       {"name": "expr",
+                                                        "children": [
+                                                            {"name": "term",
+                                                             "children": [
+                                                                 {"name": "factor",
+                                                                  "children": [
+                                                                      {"name": "method_call",
+                                                                       "attributes": {"name": "wilma"},
+                                                                       "children": [
+                                                                           {"name": "arg_list",
+                                                                            "children": [
+                                                                                {"name": "arg",
+                                                                                 "children": [
+                                                                                     {"name": "expr",
+                                                                                      "children": [
+                                                                                          {"name": "term",
+                                                                                           "children": [
+                                                                                               {"name": "factor",
+                                                                                                "children": [
+                                                                                                    {"name": "literal",
+                                                                                                     "attributes": {"value": 7.0}}]}]}]}]}]}]}]}]}]},
+                                                       {"name": "id",
+                                                        "attributes": {"symbol": "fred"}}]}]}]}]}]}]}]}]}]},
+          {"name": "statement",
+           "children": [
+               {"name": "assignment",
+                "attributes": {"target": {"name": "id",
+                                          "attributes": {"symbol": "obj"}},
+                               "default": false},
+                "children": [
+                    {"name": "expr",
+                     "children": [
+                         {"name": "term",
+                          "children": [
+                              {"name": "factor",
+                               "children": [
+                                   {"name": "literal",
+                                    "children": [
+                                        {"name": "array_literal",
+                                         "children": [
+                                             {"name": "key_value_elems",
+                                              "children": [
+                                                  {"name": "key_value",
+                                                   "children": [
+                                                       {"name": "expr",
+                                                        "children": [
+                                                            {"name": "term",
+                                                             "children": [
+                                                                 {"name": "factor",
+                                                                  "children": [
+                                                                      {"name": "literal",
+                                                                       "attributes": {"value": "one"}}]}]}]},
+                                                       {"name": "expr",
+                                                        "children": [
+                                                            {"name": "term",
+                                                             "children": [
+                                                                 {"name": "factor",
+                                                                  "children": [
+                                                                      {"name": "literal",
+                                                                       "attributes": {"value": 2.0}}]}]}]}]},
+                                                  {"name": "key_value",
+                                                   "children": [
+                                                       {"name": "expr",
+                                                        "children": [
+                                                            {"name": "term",
+                                                             "children": [
+                                                                 {"name": "factor",
+                                                                  "children": [
+                                                                      {"name": "literal",
+                                                                       "attributes": {"value": "two"}}]}]}]},
+                                                       {"name": "expr",
+                                                        "children": [
+                                                            {"name": "term",
+                                                             "children": [
+                                                                 {"name": "factor",
+                                                                  "children": [
+                                                                      {"name": "literal",
+                                                                       "attributes": {"value": 3.0}}]}]}]}]}]}]}]}]}]}]}]}]},
+          {"name": "statement",
+           "children": [
+               {"name": "assignment",
+                "attributes": {"target": {"name": "id",
+                                          "attributes": {"symbol": "obj.one"}},
+                               "default": false},
+                "children": [
+                    {"name": "expr",
+                     "children": [
+                         {"name": "term",
+                          "children": [
+                              {"name": "factor",
+                               "children": [
+                                   {"name": "literal",
+                                    "attributes": {"value": 3.0}}]}]}]}]}]},
+          {"name": "statement",
+           "children": [
+               {"name": "assignment",
+                "attributes": {"target": {"name": "array_ref",
+                                          "attributes": {"name": {"name": "id",
+                                                                  "attributes": {"symbol": "obj"}}},
+                                          "children": [
+                                              {"name": "expr",
+                                               "children": [
+                                                   {"name": "term",
+                                                    "children": [
+                                                        {"name": "factor",
+                                                         "children": [
+                                                             {"name": "literal",
+                                                              "attributes": {"value": "two"}}]}]}]}]},
+                               "default": false},
+                "children": [
+                    {"name": "expr",
+                     "children": [
+                         {"name": "term",
+                          "children": [
+                              {"name": "factor",
+                               "children": [
+                                   {"name": "literal",
+                                    "attributes": {"value": 7.0}}]}]}]}]}]},
+          {"name": "statement",
+           "children": [
+               {"name": "assignment",
+                "attributes": {"target": {"name": "id",
+                                          "attributes": {"symbol": "n"}},
+                               "default": false},
+                "children": [{"name": "expr",
+                              "children": [
+                                  {"name": "term",
+                                   "children": [
+                                       {"name": "factor",
+                                        "children": [
+                                            {"name": "literal",
+                                             "children": [
+                                                 {"name": "array_literal"}]}]}]}]}]}]},
+          {"name": "document",
+           "attributes": {"text": "\n"}}]}]}

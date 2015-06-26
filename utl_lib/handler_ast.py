@@ -82,10 +82,14 @@ class UTLParseHandlerAST(UTLParseHandler):
             return ASTNode('arg', False, {}, [argument_or_key])
 
     def assignment(self, target, expr, op, default):
-        return ASTNode('assignment',
-                       False,
-                       {'target': target, 'default': default},
-                       [expr] if expr else [op])
+        assign_from = [expr] if expr else [op]
+        assert len(target.children) == 1
+        return ASTNode('assignment', False,
+                       {'target': target.children[0], 'default': default}, assign_from)
+
+    def lhs(self, lhs):
+        """An expression which can act as an lvalue, i.e. the result can be assigned to."""
+        return ASTNode('lhs', False, {}, [lhs])
 
     def method_call(self, method_name, arg_list):
         # method_name is an ASTNode('id')
@@ -123,7 +127,34 @@ class UTLParseHandlerAST(UTLParseHandler):
             return ASTNode('paren_group', False, {}, [paren_expr])
 
     def literal(self, value):
-        return ASTNode('literal', True, {'value': value}, [])
+        if isinstance(value, ASTNode):
+            return ASTNode('literal', False, {}, [value])
+        else:
+            # value is known at compile time, happy dance.
+            return ASTNode('literal', True, {'value': value}, [])
+
+    def array_literal(self, elements=None):
+        return ASTNode('array_literal', False, {}, [elements] if elements else [])
+
+    def array_elems(self, expr, array_elems=None):
+        """Elements for a simple array (not key/value pairs)."""
+        if array_elems is None:
+            return ASTNode('array_elems', False, {}, [expr])
+        else:
+            array_elems.add_child(expr)
+            return array_elems
+
+    def key_value_elems(self, key, value, key_value_elems=None):
+        """Elements for an object-type array, with key/value pairs. `key_value_elems`, if
+        present, is the result of reduction of previous elements in the array expression.
+
+        """
+        new_elem = ASTNode('key_value', False, {}, [key, value])
+        if key_value_elems is None:
+            return ASTNode('key_value_elems', False, {}, [new_elem])
+        else:
+            key_value_elems.add_child(new_elem)
+            return key_value_elems
 
     def array_ref(self, name, expr):
         return ASTNode('array_ref', False, {'name': name}, [expr] if expr else [])

@@ -119,6 +119,10 @@ class UTLParseHandler(object):
         """
         return None
 
+    def lhs(self, lhs):
+        """An expression which can act as an lvalue, i.e. the result can be assigned to."""
+        return None
+
     def method_call(self, method_name, arglist):
         """A method call. `arglist` (the list of arguments) is optional."""
         return None
@@ -161,8 +165,26 @@ class UTLParseHandler(object):
         return None
 
     def literal(self, value):
-        """A literal number or string occurring in the source, like '3.0' or 'fred'. Use
-        ``isinstance(value, str)`` to determine type if that is relevant to your app.
+        """A literal number, string, or array occurring in the source, like '3.0' or 'fred'.
+        `value` will be a string, a float, or the result of the array_literal reduction.
+
+        """
+        return None
+
+    def array_literal(self, elements=None):
+        """An array literal, like [1, 2, 3] or [1:2, 3:4, 5:6]. `elements`, if present, is the
+        result of the expansion of the elements inside the [].
+
+        """
+        return None
+
+    def array_elems(self, expr, array_elems=None):
+        """Elements for a simple array (not key/value pairs)."""
+        return None
+
+    def key_value_elems(self, key, value, key_value_elems=None):
+        """Elements for an object-type array, with key/value pairs. `key_value_elems`, if
+        present, is the result of reduction of previous elements in the array expression.
 
         """
         return None
