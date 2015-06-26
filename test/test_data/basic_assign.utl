@@ -2,7 +2,13 @@
   a + b;
   5 - 7;
   "barney rubble" | html;
-  sally = 12 / 6;
+  /* identifier that begins with operator */
+  sally.isfine = 12 / 6;
+  sally.fineis = 'bat';
+  sally is fine;
+  /* keyword as part of identifier */
+  fred.breakthis = 0;
+  fred.thisbreak = 2;
   empty = "";
   barney = fred * 3; %]
  here's some text
@@ -17,4 +23,8 @@
   default a = 3;
   default b += fred;
   default e = a % b - b % c;
+  array = [1, 2, 'fred', 3.0, wilma(7)|fred];
+  obj = ['one':2, 'two':3];
+  obj.one = 3;
+  obj['two'] = 7;
 %]

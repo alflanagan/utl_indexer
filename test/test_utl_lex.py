@@ -303,6 +303,19 @@ class LexerTestCase(unittest_plus.TestCasePlus):
         lexer.input('%]')
         self.assertRaises(UTLLexerError, lexer.token)
 
+    def test_keyword_in_id(self):
+        """Unit tests to verify that IDs which start with a keyword are analysed as IDs."""
+        problem1 = '[% sally.isfine = 3; %]'
+        lexer = UTLLexer()
+        lexer.input(problem1)
+        expected1 = [('START_UTL', '[%'), ('ID', 'sally'), ('DOT', '.'), ('ID', 'isfine'),
+                     ('ASSIGN', '='), ('NUMBER', 3), ('SEMI', ';'), ('END_UTL', '%]')]
+        observed1 = []
+        tok = lexer.token()
+        while tok:
+            observed1.append((tok.type, tok.value))
+            tok = lexer.token()
+        self.assertSequenceEqual(observed1, expected1)
 
 if __name__ == '__main__':
     unittest_plus.main()
