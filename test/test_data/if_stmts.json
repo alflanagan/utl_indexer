@@ -348,6 +348,45 @@
                {"name": "if",
                 "children": [
                     {"name": "expr",
+                     "attributes": {"operator": "!="},
+                     "children": [
+                         {"name": "expr",
+                          "children": [
+                              {"name": "term",
+                               "children": [
+                                   {"name": "factor",
+                                    "children": [
+                                        {"name": "id",
+                                         "attributes": {"symbol": "fred"}}]}]}]},
+                         {"name": "expr",
+                          "children": [
+                              {"name": "term",
+                               "children": [
+                                   {"name": "factor",
+                                    "children": [
+                                        {"name": "id",
+                                         "attributes": {"symbol": "wilma"}}]}]}]}]},
+                    {"name": "statement_list",
+                     "children": [
+                         {"name": "statement",
+                          "children": [
+                              {"name": "echo",
+                               "children": [
+                                   {"name": "expr",
+                                    "children": [
+                                        {"name": "term",
+                                         "children": [
+                                             {"name": "factor",
+                                              "children": [
+                                                  {"name": "literal",
+                                                   "attributes": {"value": "oops"}}]}]}]}]}]}]}]}]},
+          {"name": "document",
+           "attributes": {"text": "\n"}},
+          {"name": "statement",
+           "children": [
+               {"name": "if",
+                "children": [
+                    {"name": "expr",
                      "attributes": {"operator": "=="},
                      "children": [
                          {"name": "expr",

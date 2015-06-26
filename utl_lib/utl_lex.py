@@ -50,8 +50,8 @@ class UTLLexer(object):
     }
 
     # UTL doesn't support all of the PHP operators
-    operators = [r'\.\.', '<', '<=', '>', '>=', '==', '&&', r'\|\|', 'and',
-                 'or', 'is', 'is not']
+    operators = [r'\.\.', '<', '<=', '>', '>=', '==', '!=', '&&', r'\|\|', 'and', 'or', 'is',
+                 'is not']
 
     assignment_ops = [r'\+=', '-=', r'\*=', '/=', '%=', ]
 
@@ -112,6 +112,7 @@ class UTLLexer(object):
 
     @property
     def lexdata(self):
+        ''':returns str: The input data on which the lexer operates.'''
         if hasattr(self, 'lexer'):
             return self.lexer.lexdata
 
@@ -144,7 +145,6 @@ class UTLLexer(object):
         r'[^[]+'
         t.lexer.lineno += t.value.count('\n')
         return t
-
 
     def t_LBRACKET(self, t):
         r'\['
