@@ -383,21 +383,24 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
             return ""
 
     def p_for_stmt(self, p):
-        '''for_stmt : FOR expr AS ID end_stmt statement_list END
-                    | FOR expr end_stmt statement_list END
-                    | FOR EACH expr AS ID end_stmt statement_list END
-                    | FOR EACH expr end_stmt statement_list END'''
+        '''for_stmt : FOR expr as_clause end_stmt statement_list END
+                    | FOR EACH expr as_clause end_stmt statement_list END'''
         for handler in self.handlers:
             if self._ssa(p, 2) == 'each':
-                if self._ssa(p, 4) == 'as':
-                    value = handler.for_stmt(p[3], p[5], p[7])
-                else:
-                    value = handler.for_stmt(p[3], None, p[5])
+                value = handler.for_stmt(p[3], p[4], p[6])
             else:
-                if self._ssa(p, 3) == 'as':
-                    value = handler.for_stmt(p[2], p[4], p[6])
-                else:
-                    value = handler.for_stmt(p[2], None, p[4])
+                value = handler.for_stmt(p[2], p[3], p[5])
+            if p[0] is None:
+                p[0] = value
+
+    def p_as_clause(self, p):
+        '''as_clause :
+                     | AS ID
+                     | AS ID COMMA ID'''
+        for handler in self.handlers:
+            first = p[2] if len(p) > 2 else None
+            second = p[4] if len(p) > 4 else None
+            value = handler.as_clause(first, second)
             if p[0] is None:
                 p[0] = value
 

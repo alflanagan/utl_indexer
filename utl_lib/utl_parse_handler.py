@@ -242,10 +242,18 @@ class UTLParseHandler(object):
         """
         return None
 
-    def for_stmt(self, expr, for_var, statement_list):
+    def for_stmt(self, expr, as_clause, statement_list):
         """A for statement, which executes `statement_list` once for each item in the value of
-        `expr` (assumed to be a collection). If for_var is not :py:attr:`None`, the current item
-        is assigned to a variable of that name for each loop.
+        `expr` (assumed to be a collection). If `as_clause` has one or two children, the current
+        item is assigned to a variable of that name (or the current key, value are assigned to
+        variables of those names) for each loop.
+
+        """
+        return None
+
+    def as_clause(self, var1, var2):
+        """The AS clause of a FOR statement, providing one or two variable names to hold
+        successive values from the collection being iterated.
 
         """
         return None

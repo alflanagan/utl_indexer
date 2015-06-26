@@ -1,116 +1,169 @@
 {"name": "utldoc",
- "children": [
-     {"name": "statement_list",
-      "children": [
-          {"name": "statement",
-           "children": [
-               {"name": "for",
-                "attributes": {"name": "item"},
-                "children": [
-                    {"name": "expr",
-                     "children": [
-                         {"name": "term",
-                          "children": [
-                              {"name": "factor",
-                               "children": [
-                                   {"name": "id",
-                                    "attributes": {"symbol": "array_data"}}]}]}]},
-                    {"name": "statement_list",
-                     "children": [
-                         {"name": "document",
-                          "attributes": {"text": "\n      stuff happens\n      "}},
-                         {"name": "statement",
-                          "children": [
-                              {"name": "continue"}]}]}]}]},
-          {"name": "document",
-           "attributes": {"text": "\n"}},
-          {"name": "statement",
-           "children": [
-               {"name": "for",
-                "children": [
-                    {"name": "expr",
-                     "attributes": {"operator": ".."},
-                     "children": [
-                         {"name": "expr",
-                          "children": [
-                              {"name": "term",
-                               "children": [
-                                   {"name": "factor",
-                                    "children": [
-                                        {"name": "literal",
-                                         "attributes": {"value": 1.0}}]}]}]},
-                         {"name": "expr",
-                          "children": [
-                              {"name": "term",
-                               "children": [
-                                   {"name": "factor",
-                                    "children": [
-                                        {"name": "literal",
-                                         "attributes": {"value": 10.0}}]}]}]}]},
-                    {"name": "statement_list",
-                     "children": [
-                         {"name": "document",
-                          "attributes": {"text": "\n  more stuff happens\n"}}]}]}]},
-          {"name": "document",
-           "attributes": {"text": "\n"}},
-          {"name": "statement",
-           "children": [
-               {"name": "for",
-                "attributes": {"name": "item"},
-                "children": [
-                    {"name": "expr",
-                     "children": [
-                         {"name": "term",
-                          "children": [
-                              {"name": "factor",
-                               "children": [
-                                   {"name": "id",
-                                    "attributes": {"symbol": "array_data"}}]}]}]},
-                    {"name": "statement_list",
-                     "children": [
-                         {"name": "document",
-                          "attributes": {"text": "\n  even more stuff\n"}}]}]}]},
-          {"name": "document",
-           "attributes": {"text": "\n"}},
-          {"name": "statement",
-           "children": [
-               {"name": "for",
-                "attributes": {"name": "item"},
-                "children": [
-                    {"name": "expr",
-                     "children": [
-                         {"name": "term",
-                          "children": [
-                              {"name": "factor",
-                               "children": [
-                                   {"name": "id",
-                                    "attributes": {"symbol": "array_data"}}]}]}]},
-                    {"name": "statement_list",
-                     "children": [
-                         {"name": "document",
-                          "attributes": {"text": "\n  even more "}},
-                         {"name": "statement",
-                          "children": [
-                              {"name": "break"}]},
-                         {"name": "document",
-                          "attributes": {"text": "stuff\n"}}]}]}]},
-          {"name": "document",
-           "attributes": {"text": "\n"}},
-          {"name": "statement",
-           "children": [
-               {"name": "for",
-                "children": [
-                    {"name": "expr",
-                     "children": [
-                         {"name": "term",
-                          "children": [
-                              {"name": "factor",
-                               "children": [
-                                   {"name": "id",
-                                    "attributes": {"symbol": "array_data"}}]}]}]},
-                    {"name": "statement_list",
-                     "children": [
-                         {"name": "document",
-                          "attributes": {"text": "\n  do len(array_data) times\n"}}]}]}]},
-          {"name": "document",
-           "attributes": {"text": "\n"}}]}]}
+"children": [
+    {"name": "statement_list",
+     "children": [
+         {"name": "statement",
+          "children": [
+              {"name": "for",
+               "children": [
+                   {"name": "expr",
+                    "children": [
+                        {"name": "term",
+                         "children": [
+                             {"name": "factor",
+                              "children": [
+                                  {"name": "id",
+                                   "attributes": {"symbol": "array_data"}}]}]}]},
+                   {"name": "as_clause",
+                    "children": [
+                        {"name": "id",
+                         "attributes": {"symbol": "item"}}]},
+                   {"name": "statement_list",
+                    "children": [
+                        {"name": "document",
+                         "attributes": {"text": "\n      stuff happens\n      "}},
+                        {"name": "statement",
+                         "children": [
+                             {"name": "continue"}]}]}]}]},
+         {"name": "document",
+          "attributes": {"text": "\n"}},
+         {"name": "statement",
+          "children": [
+              {"name": "for",
+               "children": [
+                   {"name": "expr",
+                    "attributes": {"operator": ".."},
+                    "children": [
+                        {"name": "expr",
+                         "children": [
+                             {"name": "term",
+                              "children": [
+                                  {"name": "factor",
+                                   "children": [
+                                       {"name": "literal",
+                                        "attributes": {"value": 1.0}}]}]}]},
+                        {"name": "expr",
+                         "children": [
+                             {"name": "term",
+                              "children": [
+                                  {"name": "factor",
+                                   "children": [
+                                       {"name": "literal",
+                                        "attributes": {"value": 10.0}}]}]}]}]},
+                   {"name": "as_clause"},
+                   {"name": "statement_list",
+                    "children": [
+                        {"name": "document",
+                         "attributes": {"text": "\n  more stuff happens\n"}}]}]}]},
+         {"name": "document",
+          "attributes": {"text": "\n"}},
+         {"name": "statement",
+          "children": [
+              {"name": "for",
+               "children": [
+                   {"name": "expr",
+                    "children": [
+                        {"name": "term",
+                         "children": [
+                             {"name": "factor",
+                              "children": [
+                                  {"name": "id",
+                                   "attributes": {"symbol": "array_data"}}]}]}]},
+                   {"name": "as_clause",
+                    "children": [
+                        {"name": "id",
+                         "attributes": {"symbol": "item"}}]},
+                   {"name": "statement_list",
+                    "children": [
+                        {"name": "document",
+                         "attributes": {"text": "\n  even more stuff\n"}}]}]}]},
+         {"name": "document",
+          "attributes": {"text": "\n"}},
+         {"name": "statement",
+          "children": [
+              {"name": "for",
+               "children": [
+                   {"name": "expr",
+                    "children": [
+                        {"name": "term",
+                         "children": [
+                             {"name": "factor",
+                              "children": [
+                                  {"name": "id",
+                                   "attributes": {"symbol": "array_data"}}]}]}]},
+                   {"name": "as_clause",
+                    "children": [
+                        {"name": "id",
+                         "attributes": {"symbol": "item"}}]},
+                   {"name": "statement_list",
+                    "children": [
+                        {"name": "document",
+                         "attributes": {"text": "\n  even more "}},
+                        {"name": "statement",
+                         "children": [
+                             {"name": "break"}]},
+                        {"name": "document",
+                         "attributes": {"text": "stuff\n"}}]}]}]},
+         {"name": "document",
+          "attributes": {"text": "\n"}},
+         {"name": "statement",
+          "children": [
+              {"name": "for",
+               "children": [
+                   {"name": "expr",
+                    "children": [
+                        {"name": "term",
+                         "children": [
+                             {"name": "factor",
+                              "children": [
+                                  {"name": "id",
+                                   "attributes": {"symbol": "array_data"}}]}]}]},
+                   {"name": "as_clause"},
+                   {"name": "statement_list",
+                    "children": [
+                        {"name": "document",
+                         "attributes": {"text": "\n  do len(array_data) times\n"}}]}]}]},
+         {"name": "document",
+          "attributes": {"text": "\n"}},
+         {"name": "statement",
+          "children": [
+              {"name": "for",
+               "children": [
+                   {"name": "expr",
+                    "children": [
+                        {"name": "term",
+                         "children": [
+                             {"name": "factor",
+                              "children": [
+                                  {"name": "id",
+                                   "attributes": {"symbol": "array_data"}}]}]}]},
+                   {"name": "as_clause",
+                    "children": [
+                        {"name": "id",
+                         "attributes": {"symbol": "alpha"}},
+                        {"name": "id",
+                         "attributes": {"symbol": "beta"}}]},
+                   {"name": "statement_list",
+                    "children": [
+                        {"name": "statement",
+                         "children": [
+                             {"name": "assignment",
+                              "attributes": {"target": {"name": "id",
+                                                        "attributes": {"symbol": "c"}},
+                                             "default": false},
+                              "children": [
+                                  {"name": "expr",
+                                   "children": [
+                                       {"name": "term",
+                                        "attributes": {"operator": "*"},
+                                        "children": [
+                                            {"name": "factor",
+                                             "children": [
+                                                 {"name": "id",
+                                                  "attributes": {"symbol": "beta"}}]},
+                                            {"name": "term",
+                                             "children": [
+                                                 {"name": "factor",
+                                                  "children": [
+                                                      {"name": "id",
+                                                       "attributes": {"symbol": "alpha"}}]}]}]}]}]}]}]}]}]}]}]}

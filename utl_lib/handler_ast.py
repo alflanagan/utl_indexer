@@ -193,10 +193,13 @@ class UTLParseHandlerAST(UTLParseHandler):
         return ASTNode('macro-decl', True, {'name': macro_id},
                        [param_list] if param_list else [])
 
-    def for_stmt(self, expr, for_var, statement_list):
-        return ASTNode('for', False,
-                       {'name': for_var} if for_var else {},
-                       [expr, statement_list])
+    def for_stmt(self, expr, as_clause, statement_list):
+        return ASTNode('for', False, {},
+                       [expr, as_clause, statement_list])
+
+    def as_clause(self, var1, var2):
+        kids = [ASTNode('id', True, {"symbol": vname}) for vname in [var1, var2] if vname is not None]
+        return ASTNode('as_clause', False, {}, kids)
 
     def include_stmt(self, filename):
         return ASTNode('include', True, {'file': filename})
