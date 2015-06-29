@@ -23,6 +23,10 @@ class UTLParseHandler(object):
 
     """
 
+    def __init__(self, *args, **kwargs):
+        """Exists to provide an end point for super() calls."""
+        super().__init__(*args, **kwargs)
+
     def utldoc(self, statement_list):
         '''The top-level node for a UTL document.'''
         return None
@@ -92,14 +96,14 @@ class UTLParseHandler(object):
         '''
         return None
 
-    def arg(self, key_or_value, value=None):
+    def arg(self, expr, name=None):
         """An argument, as in a macro call. Arguments can be in two formats, either a plain
         expression or a key-value pair (separated by ':')
 
         """
         return None
 
-    def assignment(self, target, expr, op, default):   # pylint: disable=C0103
+    def assignment(self, target, expr, op, default=False):   # pylint: disable=C0103
         """An assignment, either through the equal operator (=) or one of the various
         operate-and-assign operators (e.g. +=).
 
@@ -169,7 +173,7 @@ class UTLParseHandler(object):
         """An else clause."""
         return None
 
-    def return_stmt(self, expr):
+    def return_stmt(self, expr=None):
         """A return statement. If `expr` is not :py:attr:`None`, it is the return value."""
         return None
 
