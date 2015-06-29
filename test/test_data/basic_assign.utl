@@ -22,6 +22,9 @@
   e = a % b - b % c;
   default a = 3;
   default b += fred;
+  c -= sally;
+  d *= 7;
+  d /= 3;
   default e = a % b - b % c;
   array = [1, 2, 'fred', 3.0, wilma(7)|fred];
   obj = ['one':2, 'two':3];
