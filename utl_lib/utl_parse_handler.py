@@ -23,11 +23,8 @@ class UTLParseHandler(object):
 
     """
 
-    def utldoc(self, child):
-        '''The top-level node for a UTL document. `child` could be a DOCUMENT but is normally a
-        statement_list.
-
-        '''
+    def utldoc(self, statement_list):
+        '''The top-level node for a UTL document.'''
         return None
 
     def statement_list(self, statement, statement_list=None):
@@ -37,17 +34,16 @@ class UTLParseHandler(object):
         '''
         return None
 
-    def statement(self, child_or_text, is_document=False):
+    def statement(self, statement, is_document=False):
         """A single statement, usually terminated with a ';' or a '%]'.
 
-        If `is_document` is :py:attr:`True`, then `child_or_text` is the contents of a DOCUMENT.
+        If `is_document` is :py:attr:`True`, then `statement` is the contents of a DOCUMENT.
 
-        Otherwise, `child_or_text` will be the text of a token, or the result of a production.
+        Otherwise, `statement` will be the text of a token, or the result of a production.
 
         Tokens that may be provided include 'continue', 'break', and 'exit'.
 
         """
-        # NOTE: above not satisfactory from library user's perspective. FIXME
         return None
 
     def end_stmt(self, marker_text):
@@ -58,19 +54,15 @@ class UTLParseHandler(object):
         """An echo statement. `expr` is the object to be echoed, or :py:attr:`None`."""
         return None
 
-    def expr(self, expr, term, op):  # pylint: disable=C0103
-        """Any of various types of expression. Parameters may be present, or None, based on the expression type.
-
-        :param expr: result of another expr or method_call production.
-
-        :param term: The right-hand side of some productions
-
-        :param op: The operator, for those which don't generate a specialized production.
+    def expr(self, lhs, rhs, operator, value):
+        """An expression production. `lhs` is the left side of the infix operator, `rhs` is the
+        right side (or None for unary operators), `operator` is the operator itself. `value` is
+        used for expressions with no operators.
 
         """
         return None
 
-    def param_list(self, param_decl, param_list):
+    def param_list(self, param_decl, param_list=None):
         '''A list of parameters for a macro definition.
 
         :param param_decl: A parameter declaration.
@@ -81,26 +73,26 @@ class UTLParseHandler(object):
         '''
         return None
 
-    def param_decl(self, param_id, param_assign):
-        """A parameter declaration. One parameter should have a value, the other should be
-        :py:attr:`None`.
+    def param_decl(self, param_id, default_value=None):
+        """A parameter declaration.
 
         :param str param_id: The parameter name.
 
-        :param param_assign: The result of an assignment production, representing a parameter
-        with a default value.
+        :param default_value: An expression giving the value to use for the parameter if it is
+        omitted from the method call.
 
         """
         return None
 
-    def arg_list(self, arg, arg_list):
-        '''An argument list, as in a macro call. `arg` is an argument (see :py:meth:`arg`).
+    def arg_list(self, arg, arg_list=None):
+        '''An argument list, as in a macro call. `arg` is an argument (see :py:meth:`arg`), or None for a call with no arguments.
+
         `arg_list`, if not None, is the output of previous processing of this argument list.
 
         '''
         return None
 
-    def arg(self, argument_or_key, value):
+    def arg(self, key_or_value, value=None):
         """An argument, as in a macro call. Arguments can be in two formats, either a plain
         expression or a key-value pair (separated by ':')
 
@@ -119,56 +111,9 @@ class UTLParseHandler(object):
         """
         return None
 
-    def lhs(self, lhs):
-        """An expression which can act as an lvalue, i.e. the result can be assigned to."""
-        return None
-
-    def method_call(self, method_name, arglist):
-        """A method call. `arglist` (the list of arguments) is optional."""
-        return None
-
-    def full_id(self, this_id, suffix):
-        """An ID, possibly part of a dotted ID. `suffix`, if present, is the part of the ID
-        which came before the current value (or after it in the original source code.).
-
-        Input of 'cms.this.block' would thus trigger:
-            full_id('block')
-            full_id('this', ASTNode('id', {'symbol': 'block'}))
-            full_id('cms', ASTNode('id', {'symbol': 'this.block'})
-
-        """
-        return None
-
-    def term(self, factor, op, term):   # pylint: disable=C0103
-        """A term from an expression, with operator '*', '/', '%', or just a factor.
-
-        :param factor: a result from a :py:meth:`factor` production.
-
-        :param str op: The operator, if applicable.
-
-        :param term: The output from any part of the term already processed.
-
-        """
-        return None
-
-    def factor(self, node, keyword, paren_expr):
-        """Any one of several 'atomic' elements in an expr. Generally only one of the parameters
-        will have a value, depending on which production was followed.
-
-        :param node: if present, the result of a sub-production like literal or full_id.
-
-        :param str keyword: a keyword ('false', 'true', 'null') or :py:attr:`None`
-
-        :param paren_expr: the result of an expr production, which was enclosed by parentheses.
-
-        """
-        return None
-
-    def literal(self, value):
-        """A literal number, string, or array occurring in the source, like '3.0' or 'fred'.
-        `value` will be a string, a float, or the result of the array_literal reduction.
-
-        """
+    def method_call(self, expr, arg_list=None):
+        """A method call. `expr` should resolve to method, `arg_list`, if present, is the result
+        of an argument list production."""
         return None
 
     def array_literal(self, elements=None):
@@ -182,19 +127,20 @@ class UTLParseHandler(object):
         """Elements for a simple array (not key/value pairs)."""
         return None
 
-    def key_value_elems(self, key, value, key_value_elems=None):
-        """Elements for an object-type array, with key/value pairs. `key_value_elems`, if
-        present, is the result of reduction of previous elements in the array expression.
+    def key_value_elems(self, key_expr, value_expr, prior_args=None):
+        """Elements for an object-type array, with key/value pairs. `prior_args`, if present, is
+        the result of reduction of previous elements in the array expression.
 
         """
         return None
 
-    def array_ref(self, name, expr):
-        """An array reference to array `name` with index the value of `expr`."""
+    def array_ref(self, array_id, array_index):
+        """An array reference to array `array_id` with index the value of `array_index`. Either
+        param may be an expression rather than a simple value."""
         return None
 
-    def if_stmt(self, expr, statement_list, elseif_stmts, else_stmt):
-        """An if statement. `expr` and `statment_list` are required.
+    def if_stmt(self, expr, statement_list, elseif_stmts=None, else_stmt=None):
+        """An if statement.
 
         :param expr: the test expression. `statement_list` is executed only if this resolves to
             :py:attr:`True`.
@@ -230,16 +176,22 @@ class UTLParseHandler(object):
     def macro_defn(self, macro_decl, statement_list):
         """A macro definition with declaration `macro_decl` containing statements
         `statement_list`. `statement_list` can also be :py:attr:`None`, indicating an empty
-        macro (which is legal).
+        macro (which is legal but useless).
 
         """
         return None
 
-    def macro_decl(self, macro_id, param_list):
-        """A macro definition. `macro_id` is the name of the macro, `param_list` is the list of
-        formal parameters, or :py:attr:`None`.
+    def macro_decl(self, macro_name, param_list=None):
+        """A macro definition. `macro_name` is the name of the macro, `param_list` is the list
+        of formal parameters, or :py:attr:`None`.
 
         """
+        return None
+
+    def dotted_id(self, this_id, id_prefix=None):
+        """An id made of a name, or two or more names separated by dots.
+
+        `id_prefix` will be :py:attr:`None`, if the name is undotted or the first part of a dotted name."""
         return None
 
     def for_stmt(self, expr, as_clause, statement_list):

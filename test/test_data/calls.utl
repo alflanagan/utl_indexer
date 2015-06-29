@@ -4,4 +4,8 @@ wilma('betty');
 pebbles('mom': 'betty', 5);
 call barney(3);
 call pebbles('mom': 'betty', 5);
+ if cms.url('app':'user').path;
+  echo cms.url('app':'user');
+  end;
+
 %]

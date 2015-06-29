@@ -35,6 +35,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         self.handlers = handlers
         """List of UTLParseHandler objects. Only the first one to return something besides
         :py:attr:`None` determines the return value from a production."""
+        # silently accept single handler, don't except non-handlers
         if isinstance(self.handlers, UTLParseHandler):
             self.handlers = [self.handlers]
         else:
@@ -45,8 +46,9 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
 
     precedence = (
         ('right', 'NOT'),
-        ('left', 'PLUS', 'MINUS', 'OP'),
+        ('left', 'FILTER', 'DOT', 'RBRACKET', 'RPAREN'),
         ('left', 'TIMES', 'DIV', 'MODULUS'),
+        ('left', 'PLUS', 'MINUS', 'OP'),
     )
 
     def _filtered_token(self):
@@ -78,7 +80,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                           | statement'''
         for handler in self.handlers:
             if len(p) == 2:
-                value = handler.statement_list(p[1])
+                value = handler.statement_list(p[1], None)
             else:
                 value = handler.statement_list(p[2], p[1])
             if p[0] is None:
@@ -121,27 +123,39 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         '''echo_stmt : ECHO
                      | ECHO expr'''
         for handler in self.handlers:
-            if len(p) > 2:
-                value = handler.echo_stmt(p[2])
-                if p[0] is None:
-                    p[0] = value
+            value = handler.echo_stmt(p[2] if len(p) > 2 else None)
+            if p[0] is None:
+                p[0] = value
 
     def p_expr(self, p):
-        '''expr : expr PLUS term
-                | expr MINUS term
-                | term
-                | expr FILTER method_call
-                | expr FILTER full_id
+        '''expr : expr PLUS expr
+                | expr MINUS expr
+                | expr FILTER expr
+                | expr TIMES expr
+                | expr DIV expr
+                | expr MODULUS expr
+                | expr DOT expr
                 | expr OP expr
+                | LPAREN expr RPAREN
                 | NOT expr
-                '''
+                | NUMBER
+                | STRING
+                | array_literal
+                | ID
+                | array_ref
+                | FALSE
+                | TRUE
+                | NULL
+                | method_call'''
         for handler in self.handlers:
-            if len(p) == 4:
-                value = handler.expr(p[1], p[3], p[2])
+            if len(p) == 4 and p[1] != '(':
+                value = handler.expr(p[1], p[3], p[2], None)
+            elif p[1] == '(':
+                value = handler.expr(p[2], None, '(', None)
             elif len(p) == 3:  # NOT expr
-                value = handler.expr(p[2], None, p[1])
-            else:  # term
-                value = handler.expr(None, p[1], None)
+                value = handler.expr(p[2], None, p[1], None)
+            else:
+                value = handler.expr(None, None, None, p[1])
             if p[0] is None:
                 p[0] = value
 
@@ -160,12 +174,12 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
 
     def p_param_decl(self, p):
         '''param_decl : ID
-                      | assignment'''
+                      | ID ASSIGN expr'''
         for handler in self.handlers:
-            if isinstance(p[1], str):  # ID
+            if len(p) == 2:
                 value = handler.param_decl(p[1], None)
             else:
-                value = handler.param_decl(None, p[1])
+                value = handler.param_decl(p[1], p[3])
             if p[0] is None:
                 p[0] = value
 
@@ -187,15 +201,18 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         '''arg : expr
                | STRING COLON expr'''
         for handler in self.handlers:
-            value = handler.arg(p[1], p[3] if len(p) == 4 else None)
+            if len(p) == 4:
+                value = handler.arg(p[3], p[1])
+            else:
+                value = handler.arg(p[1])
             if p[0] is None:
                 p[0] = value
 
     def p_assignment(self, p):
-        '''assignment : lhs ASSIGN expr
-                      | lhs ASSIGNOP expr
-                      | DEFAULT lhs ASSIGN expr
-                      | DEFAULT lhs ASSIGNOP expr'''
+        '''assignment : expr ASSIGN expr
+                      | expr ASSIGNOP expr
+                      | DEFAULT expr ASSIGN expr
+                      | DEFAULT expr ASSIGNOP expr'''
         for handler in self.handlers:
             if len(p) == 4:
                 value = handler.assignment(p[1], p[3], p[2], False)
@@ -204,69 +221,10 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
             if p[0] is None:
                 p[0] = value
 
-    def p_lhs(self, p):
-        '''lhs : full_id
-               | array_ref'''
-        for handler in self.handlers:
-            value = handler.lhs(p[1])
-            if p[0] is None:
-                p[0] = value
-
     def p_method_call(self, p):
-        '''method_call : full_id LPAREN arg_list RPAREN'''
+        '''method_call : expr LPAREN arg_list RPAREN'''
         for handler in self.handlers:
             value = handler.method_call(p[1], p[3])
-            if p[0] is None:
-                p[0] = value
-
-    def p_full_id(self, p):
-        '''full_id : ID
-                   | full_id DOT ID'''
-        for handler in self.handlers:
-            value = handler.full_id(p[1], None if len(p) == 2 else p[3])
-            if p[0] is None:
-                p[0] = value
-
-    def p_term(self, p):
-        '''term : term TIMES factor
-                | term DIV factor
-                | term MODULUS factor
-                | factor'''
-        for handler in self.handlers:
-            if len(p) == 2:
-                value = handler.term(p[1], None, None)
-            else:
-                value = handler.term(p[1], p[2], p[3])
-            if p[0] is None:
-                p[0] = value
-
-    def p_factor(self, p):
-        '''factor : literal
-                  | full_id
-                  | array_ref
-                  | FALSE
-                  | TRUE
-                  | NULL
-                  | LPAREN expr RPAREN
-                  | method_call'''
-        for handler in self.handlers:
-            # odd we allow string here, but "5" can auto-convert to 5.0, so it's legal
-            if len(p) == 2:
-                if isinstance(p[1], str):  # keyword
-                    value = handler.factor(None, p[1], None)
-                else:  # production
-                    value = handler.factor(p[1], None, None)
-            else:  # parenthesized expr
-                value = handler.factor(None, None, p[2])
-            if p[0] is None:
-                p[0] = value
-
-    def p_literal(self, p):
-        '''literal : NUMBER
-                   | STRING
-                   | array_literal'''
-        for handler in self.handlers:
-            value = handler.literal(p[1])
             if p[0] is None:
                 p[0] = value
 
@@ -275,10 +233,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                          | LBRACKET key_value_elems RBRACKET
                          | LBRACKET RBRACKET'''
         for handler in self.handlers:
-            if len(p) == 4:
-                value = handler.array_literal(p[2])
-            else:
-                value = handler.array_literal()
+            value = handler.array_literal(p[2] if len(p)==4 else None)
             if p[0] is None:
                 p[0] = value
 
@@ -289,7 +244,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
             if len(p) == 4:
                 value = handler.array_elems(p[3], p[1])
             else:
-                value = handler.array_elems(p[1])
+                value = handler.array_elems(p[1], None)
             if p[0] is None:
                 p[0] = value
 
@@ -300,12 +255,12 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
             if len(p) == 6:
                 value = handler.key_value_elems(p[3], p[5], p[1])
             else:
-                value = handler.key_value_elems(p[1], p[3])
+                value = handler.key_value_elems(p[1], p[3], None)
             if p[0] is None:
                 p[0] = value
 
     def p_array_ref(self, p):
-        '''array_ref : full_id LBRACKET expr RBRACKET'''
+        '''array_ref : expr LBRACKET expr RBRACKET'''
         for handler in self.handlers:
             value = handler.array_ref(p[1], p[3])
             if p[0] is None:
@@ -357,17 +312,27 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
             if len(p) == 4:
                 value = handler.macro_defn(p[1], None)
             else:
-                assert len(p) == 5
                 value = handler.macro_defn(p[1], p[3])
             if p[0] is None:
                 p[0] = value
 
     def p_macro_decl(self, p):
-        '''macro_decl : MACRO full_id
-                      | MACRO full_id LPAREN param_list RPAREN
+        '''macro_decl : MACRO dotted_id
+                      | MACRO dotted_id LPAREN param_list RPAREN
         '''
         for handler in self.handlers:
             value = handler.macro_decl(p[2], None if len(p) < 5 else p[4])
+            if p[0] is None:
+                p[0] = value
+
+    def p_dotted_id(self, p):
+        '''dotted_id : ID
+                     | dotted_id DOT ID'''
+        for handler in self.handlers:
+            if len(p) == 4:
+                value = handler.dotted_id(p[3], p[1])
+            else:
+                value = handler.dotted_id(p[1], None)
             if p[0] is None:
                 p[0] = value
 
@@ -398,9 +363,8 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                      | AS ID
                      | AS ID COMMA ID'''
         for handler in self.handlers:
-            first = p[2] if len(p) > 2 else None
-            second = p[4] if len(p) > 4 else None
-            value = handler.as_clause(first, second)
+            value = handler.as_clause(p[2] if len(p) > 2 else None,
+                                      p[4] if len(p) > 4 else None)
             if p[0] is None:
                 p[0] = value
 
