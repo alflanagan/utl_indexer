@@ -204,7 +204,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
             if len(p) == 4:
                 value = handler.arg(p[3], p[1])
             else:
-                value = handler.arg(p[1])
+                value = handler.arg(p[1], None)
             if p[0] is None:
                 p[0] = value
 
