@@ -50,7 +50,8 @@ class UTLLexer(object):
     }
 
     # UTL doesn't support all of the PHP operators
-    operators = [r'\.\.', '<', '<=', '>', '>=', '==', '!=', '&&', r'\|\|', r'and\s', r'or\s',
+    # NOTE operators that start with other operators must come first i.e. '>=' before '>'
+    operators = [r'\.\.', '<=', '>=', '<', '>', '==', '!=', '&&', r'\|\|', r'and\s', r'or\s',
                  r'is\s', r'is not\s']
 
     assignment_ops = [r'\+=', '-=', r'\*=', '/=', '%=', ]
