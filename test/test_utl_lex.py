@@ -8,8 +8,8 @@
 .. codeauthor:: A. Lloyd Flanagan <aflanagan@bhmginc.com>
 
 """
-# pylint: disable=too-few-public-methods
 
+import os
 from testplus import unittest_plus
 
 from utl_lib.utl_lex import UTLLexer, UTLLexerError
@@ -52,7 +52,7 @@ class LexerTestCase(unittest_plus.TestCasePlus):
             if subscriptionAssetsMobile != null && subscriptionAssetsMobile != 'defer';
                 /* use the mobile list */
                 subscriptionAssets = subscriptionAssetsMobile;
-            else if a == b;
+            else if a == b and c;
                 do_something_else;
             end;
         end;
@@ -137,13 +137,13 @@ class LexerTestCase(unittest_plus.TestCasePlus):
                  ('DOCUMENT', 'be a left bracket\n    ', 23),
                  ('START_UTL', '[%', 23),
                  ('IF', 'if', 25),
-                 ('NOT', '!', 25),
+                 ('EXCLAMATION', '!', 25),
                  ('ID', 'cms', 25),
                  ('DOT', '.', 25),
                  ('ID', 'system', 25),
                  ('DOT', '.', 25),
                  ('ID', 'mobile', 25),
-                 ('OP', '||', 25),
+                 ('DOUBLEBAR', '||', 25),
                  ('ID', 'cms', 25),
                  ('DOT', '.', 25),
                  ('ID', 'request', 25),
@@ -152,7 +152,7 @@ class LexerTestCase(unittest_plus.TestCasePlus):
                  ('LPAREN', '(', 25),
                  ('STRING', 'mode', 25),
                  ('RPAREN', ')', 25),
-                 ('OP', '==', 25),
+                 ('EQ', '==', 25),
                  ('STRING', 'jqm', 25),
                  ('SEMI', ';', 25),
                  ('ID', 'something', 26),
@@ -179,11 +179,11 @@ class LexerTestCase(unittest_plus.TestCasePlus):
                  ('SEMI', ';', 29),
                  ('IF', 'if', 32),  # 110
                  ('ID', 'subscriptionAssetsMobile', 32),
-                 ('OP', '!=', 32),
+                 ('NEQ', '!=', 32),
                  ('NULL', 'null', 32),
-                 ('OP', '&&', 32),
+                 ('DOUBLEAMP', '&&', 32),
                  ('ID', 'subscriptionAssetsMobile', 32),
-                 ('OP', '!=', 32),
+                 ('NEQ', '!=', 32),
                  ('STRING', 'defer', 32),
                  ('SEMI', ';', 32),  # 120
                  ('ID', 'subscriptionAssets', 34),
@@ -192,8 +192,10 @@ class LexerTestCase(unittest_plus.TestCasePlus):
                  ('SEMI', ';', 34),
                  ('ELSEIF', 'elseif', 35),
                  ('ID', 'a', 35),
-                 ('OP', '==', 35),
+                 ('EQ', '==', 35),
                  ('ID', 'b', 35),
+                 ('AND', 'and', 35),
+                 ('ID', 'c', 35),
                  ('SEMI', ';', 35),
                  ('ID', 'do_something_else', 36),  # 130
                  ('SEMI', ';', 36),
@@ -208,7 +210,7 @@ class LexerTestCase(unittest_plus.TestCasePlus):
                  ('SEMI', ';', 40),
                  ('FOR', 'for', 41),
                  ('NUMBER', 1.0, 41),
-                 ('OP', '..', 41),
+                 ('RANGE', '..', 41),
                  ('NUMBER', 10.0, 41),
                  ('SEMI', ';', 41),
                  ('ECHO', 'echo', 42),
@@ -234,7 +236,6 @@ class LexerTestCase(unittest_plus.TestCasePlus):
                 self.assertEqual(tok.type, self._EXPECTED[index][0])
                 self.assertEqual(tok.value, self._EXPECTED[index][1])
             except AssertionError as ase:
-                #ase.args = tuple(list(ase.args) + [" on token #{}".format(index)])
                 ase.args = (ase.args[0] + "at token index " + str(index) + '\n', )
                 raise
             index += 1
@@ -282,9 +283,9 @@ class LexerTestCase(unittest_plus.TestCasePlus):
                     891, 893, 896, 897, 903, 904, 910, 913, 917, 918, 925, 926, 931, 932, 938, 939, 942,
                     948, 949, 972, 975, 977, 979, 981, 982, 983, 984, 985, 986, 987, 988, 990, 1072, 1074,
                     1110, 1111, 1138, 1139, 1167, 1168, 1169, 1239, 1264, 1267, 1272, 1275, 1300, 1303,
-                    1311, 1312, 1389, 1391, 1416, 1417, 1436, 1438, 1441, 1443, 1444, 1478, 1479, 1495,
-                    1496, 1508, 1509, 1524, 1543, 1544, 1552, 1553, 1561, 1563, 1565, 1567, 1568, 1581,
-                    1588, 1589, 1597, 1598, 1608, 1610, 1613, 1614, 1621, ]
+                    1311, 1312, 1389, 1391, 1416, 1417, 1436, 1438, 1441, 1443, 1447, 1449, 1450,
+                    1484, 1485, 1501, 1502, 1514, 1515, 1530, 1549, 1550, 1558, 1559, 1567, 1569,
+                    1571, 1573, 1574, 1587, 1594, 1595, 1603, 1604, 1614, 1616, 1619, 1620, 1627]
 
         lexer = UTLLexer()
         lexer.input(self._MACRO_DEF)
@@ -292,7 +293,7 @@ class LexerTestCase(unittest_plus.TestCasePlus):
         index = 0
         tok = lexer.token()
         while tok:
-            #self.assertEqual(lexer.lexpos, expected[index])
+            self.assertEqual(lexer.lexpos, expected[index])
             tok = lexer.token()
             index += 1
         self.assertEqual(index, len(expected))  # make sure we checked all positions
@@ -316,6 +317,29 @@ class LexerTestCase(unittest_plus.TestCasePlus):
             observed1.append((tok.type, tok.value))
             tok = lexer.token()
         self.assertSequenceEqual(observed1, expected1)
+
+    def test_operators(self):
+        """Unit test of ability to lex operators."""
+        lexer = UTLLexer()
+        with open(os.path.join('test_data', 'operators.utl'), 'r') as operin:
+            lexer.input(operin.read())
+        toks = []
+        tok = lexer.token()
+        while tok:
+            toks.append(tok)
+            tok = lexer.token()
+        index = 0
+        with open(os.path.join('test_data', 'operators.lex'), 'r') as lexin:
+            for line in lexin:
+                parts = line[:-1].split(',')
+                self.assertSequenceEqual(parts,
+                                         [str(x) for x in [toks[index].type,
+                                                           repr(toks[index].value),
+                                                           toks[index].lineno,
+                                                           toks[index].lexpos]])
+                index += 1
+        self.assertEqual(len(toks), index)
+
 
 if __name__ == '__main__':
     unittest_plus.main()

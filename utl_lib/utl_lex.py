@@ -10,6 +10,46 @@ class UTLLexerError(RuntimeError):
     pass
 
 
+# PHP tokens implemented in UTL
+# T_AS 	as 	foreach
+# T_BAD_CHARACTER 	  	anything below ASCII 32 except \t (0x09), \n (0x0a) and \r (0x0d)
+# T_BOOLEAN_AND 	&& 	logical operators
+# T_BOOLEAN_OR 	|| 	logical operators
+# T_BREAK 	break 	break
+# T_CLOSE_TAG 	?> or %> 	escaping from HTML
+# T_COMMENT 	// or #, and /* */ 	comments
+# T_CONSTANT_ENCAPSED_STRING 	"foo" or 'bar' 	string syntax
+# T_CONTINUE 	continue 	continue
+# T_DEFAULT 	default 	switch
+# T_DIV_EQUAL 	/= 	assignment operators
+# T_DNUMBER 	0.12, etc. 	floating point numbers
+# T_ECHO 	echo 	echo
+# T_ELSE 	else 	else
+# T_ELSEIF 	elseif 	elseif
+# T_EXIT 	exit or die 	exit(), die()
+# T_FOR 	for 	for
+# T_FOREACH 	foreach 	foreach
+# T_IF 	if 	if
+# T_INLINE_HTML 	  	text outside PHP
+# T_IS_EQUAL 	== 	comparison operators
+# T_IS_GREATER_OR_EQUAL 	>= 	comparison operators
+# T_IS_NOT_EQUAL 	!= or <> 	comparison operators
+# T_IS_SMALLER_OR_EQUAL 	<= 	comparison operators
+# T_LNUMBER 	123, 012, 0x1ac, etc. 	integers
+# T_LOGICAL_AND 	and 	logical operators
+# T_LOGICAL_OR 	or 	logical operators
+# T_MINUS_EQUAL 	-= 	assignment operators
+# T_MOD_EQUAL 	%= 	assignment operators
+# T_MUL_EQUAL 	*= 	assignment operators
+# T_OPEN_TAG 	<?php, <? or <% 	escaping from HTML
+# T_PLUS_EQUAL 	+= 	assignment operators
+# T_RETURN 	return 	returning values
+# T_STRING 	parent, self, etc. 	identifiers, e.g. keywords like parent and self,
+#                               function names, class names and more are matched. See also
+#                               T_CONSTANT_ENCAPSED_STRING.
+# T_WHILE 	while 	while, do..while
+# T_WHITESPACE 	\t \r\n
+
 # pylint: disable=invalid-name,no-self-use
 # method names are dictated by ply introspection
 # and many matchers don't affect state, but might later
@@ -25,6 +65,7 @@ class UTLLexer(object):
     )
 
     reserved = {
+        'and': 'AND',
         'as': 'AS',
         'break': 'BREAK',
         'call': 'CALL',
@@ -40,9 +81,12 @@ class UTLLexer(object):
         'for': 'FOR',
         'foreach': 'FOR',
         'if': 'IF',
+        'is': 'IS',
         'include': 'INCLUDE',
         'macro': 'MACRO',
         'null': 'NULL',
+        'not': 'NOT',
+        'or': 'OR',
         'return': 'RETURN',
         'then': 'THEN',
         'true': 'TRUE',
@@ -51,10 +95,9 @@ class UTLLexer(object):
 
     # UTL doesn't support all of the PHP operators
     # NOTE operators that start with other operators must come first i.e. '>=' before '>'
-    operators = [r'\.\.', '<=', '>=', '<', '>', '==', '!=', '&&', r'\|\|', r'and\s', r'or\s',
-                 r'is\s', r'is not\s']
-
-    assignment_ops = [r'\+=', '-=', r'\*=', '/=', '%=', ]
+    operators = [r'\.\.', r'\+=', '-=', r'\*=', '/=', '%=', r'\.', r'\*', '-', r'\+', '/', '<=',
+                 '>=', '<', '>', '==', '!=', '!', '&&', r'\|\|', r'and', r'or', r'is', r'not',
+                 r'\|', ':', ',', '[', '(']
 
     tokens = ['START_UTL',
               'END_UTL',
@@ -65,9 +108,9 @@ class UTLLexer(object):
               'RPAREN',
               'LBRACKET',
               'RBRACKET',
+              # operators
               'COLON',
               'ASSIGN',
-              'OP',
               'COMMA',
               'PLUS',
               'MINUS',
@@ -75,12 +118,22 @@ class UTLLexer(object):
               'DIV',
               'MODULUS',
               'ASSIGNOP',
-              'SEMI',
               'FILTER',
+              'EQ',
+              'NEQ',
+              'RANGE',
+              'LT',
+              'LTE',
+              'GT',
+              'GTE',
+              'DOT',
+              'DOUBLEAMP',  # &&
+              'DOUBLEBAR',  # ||
+              'EXCLAMATION',  # ! (not)
+              # other
+              'SEMI',
               'STRING',
-              'DOCUMENT',
-              'NOT',
-              'DOT'] + list(set(reserved.values()))
+              'DOCUMENT', ] + list(set(reserved.values()))
 
     def __init__(self, **kwargs):
         self.lexer = lex.lex(module=self, **kwargs)
@@ -185,8 +238,19 @@ class UTLLexer(object):
     t_utl_PLUS = r'\+'
     t_utl_MINUS = '-'
     t_utl_COMMA = ','  # may be operator, may be separator
-    t_utl_NOT = '!'
+    t_utl_EXCLAMATION = '!'
     t_utl_DOT = r'\.'
+    t_utl_DOUBLEAMP = r'&&'  # means same as "and" , but that is reserved word not op
+    t_utl_DOUBLEBAR = r'\|\|'  # means same as "or"
+    t_utl_EQ = '=='
+    t_utl_NEQ = '!='
+
+    t_utl_LT = '<'
+    t_utl_LTE = '<='
+    t_utl_GT = '>'
+    t_utl_GTE = '>='
+
+    t_utl_RANGE = r'\.\.'
 
     # comment (ignore)
     # PROBLEMS: comments *can* be nested
@@ -198,13 +262,8 @@ class UTLLexer(object):
         r'(/\*(.|\n)*?\*/)'
         t.lexer.lineno += t.value.count('\n')
 
-    # this will not allow us to handle precedence in expressions
-    @lex.TOKEN("|".join(operators))
-    def t_utl_OP(self, t):  # pylint: disable=missing-docstring
-        return t
-
-    @lex.TOKEN("|".join(assignment_ops))
     def t_utl_ASSIGNOP(self, t):  # pylint: disable=missing-docstring
+        r'\+=|-=|\*=|/=|%='
         return t
 
     t_utl_SEMI = r';'

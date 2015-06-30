@@ -1,0 +1,29 @@
+[%
+1..3;
+fred.wilma;
+!false;
+5*7;
+-32;
+8-4;
+3+2;
+10/2;
+7 <= 23;
+8 >= 4;
+9 < 13;
+2 > 1;
+5 == 5;
+4 != 5;
+true && false;
+false || false;
+true and false;
+false or true;
+a is b;
+b is not c;
+fred += 7;
+fred -= 3;
+fred *= 2;
+fred /= 8;
+fred %= 3;
+'hello'|some.method();
+%]
+
