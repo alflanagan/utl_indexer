@@ -25,5 +25,6 @@ fred *= 2;
 fred /= 8;
 fred %= 3;
 'hello'|some.method();
+-3 + 2;
 %]
 

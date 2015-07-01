@@ -10,49 +10,7 @@ class UTLLexerError(RuntimeError):
     pass
 
 
-# PHP tokens implemented in UTL
-# T_AS 	as 	foreach
-# T_BAD_CHARACTER 	  	anything below ASCII 32 except \t (0x09), \n (0x0a) and \r (0x0d)
-# T_BOOLEAN_AND 	&& 	logical operators
-# T_BOOLEAN_OR 	|| 	logical operators
-# T_BREAK 	break 	break
-# T_CLOSE_TAG 	?> or %> 	escaping from HTML
-# T_COMMENT 	// or #, and /* */ 	comments
-# T_CONSTANT_ENCAPSED_STRING 	"foo" or 'bar' 	string syntax
-# T_CONTINUE 	continue 	continue
-# T_DEFAULT 	default 	switch
-# T_DIV_EQUAL 	/= 	assignment operators
-# T_DNUMBER 	0.12, etc. 	floating point numbers
-# T_ECHO 	echo 	echo
-# T_ELSE 	else 	else
-# T_ELSEIF 	elseif 	elseif
-# T_EXIT 	exit or die 	exit(), die()
-# T_FOR 	for 	for
-# T_FOREACH 	foreach 	foreach
-# T_IF 	if 	if
-# T_INLINE_HTML 	  	text outside PHP
-# T_IS_EQUAL 	== 	comparison operators
-# T_IS_GREATER_OR_EQUAL 	>= 	comparison operators
-# T_IS_NOT_EQUAL 	!= or <> 	comparison operators
-# T_IS_SMALLER_OR_EQUAL 	<= 	comparison operators
-# T_LNUMBER 	123, 012, 0x1ac, etc. 	integers
-# T_LOGICAL_AND 	and 	logical operators
-# T_LOGICAL_OR 	or 	logical operators
-# T_MINUS_EQUAL 	-= 	assignment operators
-# T_MOD_EQUAL 	%= 	assignment operators
-# T_MUL_EQUAL 	*= 	assignment operators
-# T_OPEN_TAG 	<?php, <? or <% 	escaping from HTML
-# T_PLUS_EQUAL 	+= 	assignment operators
-# T_RETURN 	return 	returning values
-# T_STRING 	parent, self, etc. 	identifiers, e.g. keywords like parent and self,
-#                               function names, class names and more are matched. See also
-#                               T_CONSTANT_ENCAPSED_STRING.
-# T_WHILE 	while 	while, do..while
-# T_WHITESPACE 	\t \r\n
-
 # pylint: disable=invalid-name,no-self-use
-# method names are dictated by ply introspection
-# and many matchers don't affect state, but might later
 class UTLLexer(object):
     """A lexer for analysing UTL documents.
 
@@ -60,7 +18,7 @@ class UTLLexer(object):
 
     # UTL code is embedded in an HTML document, usually
     states = (
-        # our initial state is always non-UTL, switch on '[%'
+        # our initial state is always non-UTL, switch on '[%' and '%]'
         ('utl', 'inclusive'),
     )
 
@@ -95,8 +53,11 @@ class UTLLexer(object):
 
     # UTL doesn't support all of the PHP operators
     # NOTE operators that start with other operators must come first i.e. '>=' before '>'
-    operators = [r'\.\.', r'\+=', '-=', r'\*=', '/=', '%=', r'\.', r'\*', '-', r'\+', '/', '<=',
-                 '>=', '<', '>', '==', '!=', '!', '&&', r'\|\|', r'and', r'or', r'is', r'not',
+    operators = [r'\.\.',
+                 r'\+=', '-=', r'\*=', '/=', '%=', r'\.', r'\*', '-', r'\+', '/', '%',
+                 '<=', '>=', '<', '>', '==', '!=',
+                 '!',
+                 '&&', r'\|\|', 'and', 'or', 'is', 'not',
                  r'\|', ':', ',', '[', '(']
 
     tokens = ['START_UTL',
@@ -140,7 +101,7 @@ class UTLLexer(object):
 
     def input(self, s):
         """Push new input `s` to the lexer."""
-        # lexer doesn't handle equivalence well
+        # UTL treats 'else if' exactly same as 'elseif'
         s, _ = re.subn(r'else\s+if', 'elseif', s)
         self.lexer.input(s)
 
@@ -160,8 +121,7 @@ class UTLLexer(object):
     @property
     def lexpos(self):
         ''':returns int: the current position (in characters) in the text.'''
-        # lex attempts to access this unbound, but it doesn't have to do anything then
-        if hasattr(self, 'lexer'):
+        if hasattr(self, 'lexer'):  # may be called unbound
             return self.lexer.lexpos
 
     @property
@@ -194,7 +154,6 @@ class UTLLexer(object):
     # LexToken(DOCUMENT,'[',...
     # LexToken(DOCUMENT,'more text',...
     # which is not ideal, but workable
-    # parser will have to paste them together
     def t_DOCUMENT(self, t):
         r'[^[]+'
         t.lexer.lineno += t.value.count('\n')
@@ -210,18 +169,10 @@ class UTLLexer(object):
     # ======== UTL state =====================================
     t_utl_LBRACKET = r'\['
 
-    # Define a rule so we can track line numbers (counting UTL not document)
+    # Define a rule so we can track line numbers (also see t_DOCUMENT())
     def t_utl_newline(self, t):
         r'\n+'
         t.lexer.lineno += len(t.value)
-
-    # "Identifier scoping is implemented only for macros. All other block
-    # constructs and included files operate in the same scope as the
-    # parent file. For macro scoping an identifier will first be sought
-    # for within the macro, and failing that the containing scope will be
-    # fallen back upon. A global scope exists and is accessible from all
-    # scoping levels (including exclusive). Global scope is normally used
-    # only for predefined filters and identifiers."
 
     # A string containing ignored characters (spaces and tabs)
     t_ignore = ' \t'
@@ -254,39 +205,20 @@ class UTLLexer(object):
 
     # comment (ignore)
     # PROBLEMS: comments *can* be nested
-    #          delimiters outside template ([% .. %])
-    #          should be ignored
+    #          delimiters outside template ([% .. %]) should be ignored
     # probably need another lexer state
-    # must come before OP
     def t_utl_COMMENT(self, t):
         r'(/\*(.|\n)*?\*/)'
         t.lexer.lineno += t.value.count('\n')
 
-    def t_utl_ASSIGNOP(self, t):  # pylint: disable=missing-docstring
+    # note since a ASSIGNOP b ==> a = a OP b, and operators are all left-assoc, precedence
+    # doesn't matter
+    def t_utl_ASSIGNOP(self, t):
         r'\+=|-=|\*=|/=|%='
         return t
 
     t_utl_SEMI = r';'
     t_utl_FILTER = r'\|'
-
-    # attributes of t param:
-    # t.type: the token type (as a string)
-    # t.value: the lexeme (the actual text matched)
-    # t.lineno: the current line number
-    # t.lexpos: the position of the token relative to the beginning of
-    #     the input text
-    # t.lexer: the Lexer object
-
-    # print attributes that are 'interesting' and not too long
-    # for x in dir(t.lexer):
-    #     # not method, special name
-    #     if (type(getattr(t.lexer, x)) != type(t.lexer.clone)
-    #             and not x.startswith('_')
-    #             and x not in ['lexdata', 'lexre', 'lexretext',
-    #                           'lexstaterenames', 'lexstateretext',
-    #                           'lextokens', 'lexstatere',
-    #                           'lextokens_all']):
-    #         print("{}: {}".format(x, getattr(t.lexer, x)))
 
     def t_utl_ID(self, t):
         r'[a-zA-Z_][a-zA-Z_0-9]*'

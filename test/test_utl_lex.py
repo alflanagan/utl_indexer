@@ -64,6 +64,7 @@ class LexerTestCase(unittest_plus.TestCasePlus):
     empty = "";
     %]'''
 
+    #TODO: put rest of test data in external files, see test_operators()
     _EXPECTED = [('DOCUMENT', '\n    ', 2),  # token, text, line
                  ('START_UTL', '[%-', 2),
                  ('CALL', 'call', 4),
