@@ -17,6 +17,12 @@
   else;
      print('goodbye');
   end;
+  if (myCapturePreviewImage.width/myCapturePreviewImage.height) - (asset.hi_res.width/asset.hi_res.height) < 1/100 && (myCapturePreviewImage.width/myCapturePreviewImage.height) - (asset.hi_res.width/asset.hi_res.height) > -1/100;
+     echo "wtf?";
+     end;
+  if assignee = assigned;
+    this_is_legal();
+  end;
   if fred == wilma %]
           </div>
   [%    else if pixel_sub_grid_on == true %]
