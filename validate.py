@@ -3,7 +3,7 @@
 import sys
 import argparse
 
-from utl_lib.utl_yacc import UTLParser
+from utl_lib.utl_yacc2 import UTLParser
 # parent class does nothing, which is exactly what we want
 from utl_lib.utl_parse_handler import UTLParseHandler, UTLParseError
 

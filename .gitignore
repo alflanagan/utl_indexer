@@ -25,3 +25,4 @@ node_modules/
 # more coverage output
 htmlcov/
 zend_language_parser.y
+*.bz2

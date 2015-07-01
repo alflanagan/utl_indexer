@@ -44,11 +44,25 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                     raise ValueError('Got invalid handler object "{}", must be UTLParseHandler'
                                      ''.format(handler))
 
+
+    # operator precedence based on PHP
+    # https://secure.php.net/manual/en/language.operators.precedence.php
+    # note lowest precedence is first (!)
     precedence = (
-        ('right', 'NOT'),
-        ('left', 'FILTER', 'DOT', 'RBRACKET', 'RPAREN'),
+        ('left', 'OR'),
+        ('left', 'DOUBLEBAR'),
+        ('left', 'AND'),
+        ('left', 'DOUBLEAMP'),
+        ('left', 'ASSIGN', 'ASSIGNOP'),
+        ('left', 'FILTER'),
+        ('nonassoc', 'IS', 'NOT', 'EQ', 'NEQ'),
+        ('nonassoc', 'LT', 'GT', 'LTE', 'GTE'),  # relational operators <, >, <=, >=
+        ('left', 'PLUS', 'MINUS', 'DOT'),
         ('left', 'TIMES', 'DIV', 'MODULUS'),
-        ('left', 'PLUS', 'MINUS', 'OP'),
+        ('right', 'UMINUS'),  # same precedence as *, since  -5 == -1 * 5
+        ('right', 'EXCLAMATION'),
+        ('nonassoc', 'RANGE', 'COLON'),
+        ('left', 'COMMA', 'LBRACKET', 'LPAREN', 'RBRACKET', 'RPAREN'),
     )
 
     def _filtered_token(self):
@@ -135,10 +149,23 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                 | expr DIV expr
                 | expr MODULUS expr
                 | expr DOT expr
-                | expr OP expr
+                | expr DOUBLEBAR expr
+                | expr RANGE expr
+                | expr NEQ expr
+                | expr LTE expr
+                | expr OR expr
+                | expr LT expr
+                | expr EQ expr
+                | expr IS expr
+                | expr GT expr
+                | expr AND expr
+                | expr GTE expr
+                | expr DOUBLEAMP expr
                 | LPAREN expr RPAREN
                 | NOT expr
+                | EXCLAMATION expr
                 | NUMBER
+                | MINUS NUMBER %prec UMINUS
                 | STRING
                 | array_literal
                 | ID
