@@ -30,7 +30,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         #    self.tokens.remove(tok)
         self.tokens = ['PLUS','MINUS','FILTER','TIMES','DIV','MODULUS','DOT','DOUBLEBAR',
                        'RANGE','NEQ','LTE','OR','LT','EQ','IS','GT','AND','GTE','DOUBLEAMP',
-                       'LPAREN','RPAREN','NOT','EXCLAMATION','NUMBER', 'START_UTL', 'DOCUMENT',
+                       'LPAREN','RPAREN','NOT','EXCLAMATION','NUMBER', 'DOCUMENT',
                        'STRING','ID','FALSE','TRUE','NULL', 'SEMI', 'END_UTL', 'COMMA', 'COLON',
                        'LBRACKET', 'RBRACKET', 'ASSIGN', 'ASSIGNOP', 'ECHO']
 
@@ -71,24 +71,25 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         ('left', 'COMMA', 'LBRACKET', 'LPAREN', 'RBRACKET', 'RPAREN'),
     )
 
-    # def _filtered_token(self):
-        # """Like :py:meth:`token()` but does not pass on tokens in `self.filtered_tokens`."""
-        # tok = self.utl_lexer.token()
-        # while tok and tok.type in self.filtered_tokens:
-            # tok = self.utl_lexer.token()
+    def _filtered_token(self):
+        """Like :py:meth:`token()` but does not pass on tokens not in `self.tokens`."""
+        tok = self.utl_lexer.token()
+        while tok and tok.type not in self.tokens:
+            tok = self.utl_lexer.token()
         # if tok and self.print_tokens:
             # print(tok)
-        # return tok
+        return tok
 
     def parse(self, input_text=None, debug=False, tracking=False, print_tokens=False):
         """Parses the code in `input_text`, returns result.
 
         """
         self.print_tokens = print_tokens
-        return self.parser.parse(input=input_text, lexer=self.utl_lexer, debug=debug)
+        return self.parser.parse(input=input_text, lexer=self.utl_lexer,
+                                 debug=debug, tokenfunc=self._filtered_token)
 
     def p_utldoc(self, p):
-        '''utldoc : START_UTL statement_list'''
+        '''utldoc : statement_list'''
         pass
 
     def p_statement_list(self, p):
