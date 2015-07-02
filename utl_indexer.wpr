@@ -105,6 +105,9 @@ proj.launch-config = {loc('test/test_ast_node.py'): ('project',
          'launch-nVVuAOXCGKvHXMpo')),
                       loc('utl_lib/utl_yacc.py'): ('project',
         (u'',
+         'launch-nVVuAOXCGKvHXMpo')),
+                      loc('validate.py'): ('project',
+        (u'test/test_data/if_stmts.utl',
          'launch-nVVuAOXCGKvHXMpo'))}
 testing.auto-test-file-specs = (('glob',
                                  'test/test_*.py'),)

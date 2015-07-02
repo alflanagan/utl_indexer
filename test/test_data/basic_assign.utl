@@ -1,11 +1,11 @@
 [%
-  a + b;
-  5 - 7;
-  "barney rubble" | html;
+  echo a + b;
+  echo 5 - 7;
+  echo "barney rubble" | html;
   /* identifier that begins with operator */
   sally.isfine = 12 / 6;
   sally.fineis = 'bat';
-  sally is fine;
+  fred = sally is fine;
   /* keyword as part of identifier */
   fred.breakthis = 0;
   fred.thisbreak = 2;

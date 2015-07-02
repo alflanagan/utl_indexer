@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Routines to implement a yacc-like parser for Townnews' UTL template language"""
-
+import sys
 import ply.yacc as yacc
 
 from utl_lib.utl_lex import UTLLexer
@@ -8,7 +8,7 @@ from utl_lib.utl_parse_handler import UTLParseHandler
 
 
 class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-instance-attributes
-    """Represents the current state of parsing a UTL code source, and generated AST.
+    """Represents the current state of parsing a UTL code source.
 
     :param UTLParseHandler handlers: a (possibly empty) list of
         :py:class:`~utl_lib.utl_parse_handler.UTLParseHandler` instances containing methods to
@@ -21,24 +21,26 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
 
     def __init__(self, handlers=None, debug=True):
         self.parsed = False
-        #self.tokens = UTLLexer.tokens[:]  # make copy, so we can .remove() tokens
+        # self.tokens = UTLLexer.tokens[:]  # make copy, so we can .remove() tokens
         # Some tokens get processed out before parsing
         # START_UTL is implicit when we get UTL token
         # but we need END_UTL since it may close a statment
-        #self.filtered_tokens = ['COMMENT', 'START_UTL']
-        #for tok in self.filtered_tokens:
-        #    self.tokens.remove(tok)
-        self.tokens = ['PLUS','MINUS','FILTER','TIMES','DIV','MODULUS','DOT','DOUBLEBAR',
-                       'RANGE','NEQ','LTE','OR','LT','EQ','IS','GT','AND','GTE','DOUBLEAMP',
-                       'LPAREN','RPAREN','NOT','EXCLAMATION','NUMBER', 'DOCUMENT',
-                       'STRING','ID','FALSE','TRUE','NULL', 'SEMI', 'END_UTL', 'COMMA', 'COLON',
-                       'LBRACKET', 'RBRACKET', 'ASSIGN', 'ASSIGNOP', 'ECHO']
+        # self.filtered_tokens = ['COMMENT', 'START_UTL']
+        # for tok in self.filtered_tokens:
+        #     self.tokens.remove(tok)
+        self.tokens = ['AND', 'AS', 'ASSIGN', 'ASSIGNOP', 'COLON',
+                       'COMMA', 'DIV', 'DOCUMENT', 'DOT', 'DOUBLEAMP', 'DOUBLEBAR', 'EACH',
+                       'ECHO', 'ELSE', 'ELSEIF', 'END', 'END_UTL', 'EQ', 'EXCLAMATION', 'FALSE', 'FILTER',
+                       'FOR', 'GT', 'GTE', 'ID', 'IF', 'IS', 'LBRACKET', 'LPAREN', 'LT', 'LTE',
+                       'MINUS', 'MODULUS', 'NEQ', 'NOT', 'NULL', 'NUMBER', 'OR', 'PLUS',
+                       'RANGE', 'RBRACKET', 'RPAREN', 'SEMI', 'START_UTL', 'STRING', 'THEN', 'TIMES', 'TRUE', ]
 
         self.parser = yacc.yacc(module=self, debug=debug)
         self.utl_lexer = UTLLexer()
         self.lexer = self.utl_lexer.lexer
         self.print_tokens = False  # may be set by parse()
         self.handlers = handlers
+        self.error_count = 0
         """List of UTLParseHandler objects. Only the first one to return something besides
         :py:attr:`None` determines the return value from a production."""
         # silently accept single handler, don't except non-handlers
@@ -49,7 +51,6 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                 if not isinstance(handler, UTLParseHandler):
                     raise ValueError('Got invalid handler object "{}", must be UTLParseHandler'
                                      ''.format(handler))
-
 
     # operator precedence based on PHP
     # https://secure.php.net/manual/en/language.operators.precedence.php
@@ -89,39 +90,32 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                                  debug=debug, tokenfunc=self._filtered_token)
 
     def p_utldoc(self, p):
-        '''utldoc : statement_list'''
+        '''utldoc :
+                  | utldoc START_UTL statement_list END_UTL
+                  | utldoc START_UTL expr END_UTL
+                  | utldoc DOCUMENT'''
         pass
 
     def p_statement_list(self, p):
-        '''statement_list : statement_list statement
+        '''statement_list : statement_list SEMI statement
                           | statement'''
         pass
 
     def p_statement(self, p):
-        '''statement : expr end_stmt
-                     | echo_stmt end_stmt
-                     | end_stmt
-                     | DOCUMENT'''
-        # | assignment end_stmt
-        # | if_stmt end_stmt
-        # | abbrev_if_stmt
+        '''statement : echo_stmt
+                     | for_stmt
+                     | abbrev_if_stmt
+                     | if_stmt
+                     | error'''
         # | return_stmt end_stmt
         # | macro_defn end_stmt
         # | echo_stmt end_stmt
-        # | for_stmt end_stmt
         # | include_stmt end_stmt
         # | while_stmt end_stmt
         # | call_stmt end_stmt
         # | BREAK end_stmt
         # | CONTINUE end_stmt
         # | EXIT end_stmt
-        # | DOCUMENT
-        # | end_stmt
-        pass
-
-    def p_end_stmt(self, p):
-        '''end_stmt : SEMI
-                    | END_UTL'''
         pass
 
     def p_echo_stmt(self, p):
@@ -154,8 +148,8 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                 | NOT expr
                 | EXCLAMATION expr
                 | NUMBER
-                | MINUS NUMBER %prec UMINUS
-                | PLUS NUMBER %prec UMINUS
+                | MINUS expr %prec UMINUS
+                | PLUS expr %prec UMINUS
                 | STRING
                 | array_literal
                 | ID
@@ -204,90 +198,48 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
     def p_assignment(self, p):
         '''assignment : expr ASSIGN expr
                       | expr ASSIGNOP expr'''
-        for handler in self.handlers:
-            if len(p) == 4:
-                value = handler.assignment(p[1], p[3], p[2], False)
-            else:
-                value = handler.assignment(p[2], p[4], p[3], True)
-            if p[0] is None:
-                p[0] = value
+        pass
 
     def p_method_call(self, p):
         '''method_call : expr LPAREN arg_list RPAREN'''
-        for handler in self.handlers:
-            value = handler.method_call(p[1], p[3])
-            if p[0] is None:
-                p[0] = value
+        pass
 
     def p_array_literal(self, p):
         '''array_literal : LBRACKET array_elems RBRACKET
                          | LBRACKET key_value_elems RBRACKET
                          | LBRACKET RBRACKET'''
-        for handler in self.handlers:
-            value = handler.array_literal(p[2] if len(p)==4 else None)
-            if p[0] is None:
-                p[0] = value
+        pass
 
     def p_array_elems(self, p):
         '''array_elems : expr
                        | array_elems COMMA expr'''
-        for handler in self.handlers:
-            if len(p) == 4:
-                value = handler.array_elems(p[3], p[1])
-            else:
-                value = handler.array_elems(p[1], None)
-            if p[0] is None:
-                p[0] = value
+        pass
 
     def p_key_value_elems(self, p):
         '''key_value_elems : expr COLON expr
                            | key_value_elems COMMA expr COLON expr'''
-        for handler in self.handlers:
-            if len(p) == 6:
-                value = handler.key_value_elems(p[3], p[5], p[1])
-            else:
-                value = handler.key_value_elems(p[1], p[3], None)
-            if p[0] is None:
-                p[0] = value
+        pass
 
     def p_array_ref(self, p):
         '''array_ref : expr LBRACKET expr RBRACKET'''
-        for handler in self.handlers:
-            value = handler.array_ref(p[1], p[3])
-            if p[0] is None:
-                p[0] = value
+        pass
 
-    # def p_if_stmt(self, p):
-        # '''if_stmt : IF expr statement_list elseif_stmts else_stmt END'''
-        # for handler in self.handlers:
-            # value = handler.if_stmt(p[2], p[3], p[4], p[5])
-            # if p[0] is None:
-                # p[0] = value
+    def p_if_stmt(self, p):
+        '''if_stmt : IF statement_list elseif_stmts else_stmt END'''
+        pass
 
-    # def p_elseif_stmts(self, p):
-        # '''elseif_stmts : elseif_stmts elseif_stmt
-                        # |'''
-        # for handler in self.handlers:
-            # if len(p) == 3:
-                # value = handler.elseif_stmts(p[2], p[1])
-                # if p[0] is None:
-                    # p[0] = value
+    def p_elseif_stmts(self, p):
+        '''elseif_stmts :
+                        | elseif_stmts elseif_stmt'''
+        pass
 
-    # def p_elseif_stmt(self, p):
-        # '''elseif_stmt : ELSEIF expr statement_list'''
-        # for handler in self.handlers:
-            # value = handler.elseif_stmt(p[2], p[3])
-            # if p[0] is None:
-                # p[0] = value
+    def p_elseif_stmt(self, p):
+        '''elseif_stmt : ELSEIF expr statement_list'''
+        pass
 
-    # def p_else_stmt(self, p):
-        # '''else_stmt : ELSE statement_list
-                     # |'''
-        # for handler in self.handlers:
-            # if len(p) == 3:
-                # value = handler.else_stmt(p[2])
-                # if p[0] is None:
-                    # p[0] = value
+    def p_else_stmt(self, p):
+        '''else_stmt :
+                     | ELSE statement_list'''
 
     # def p_return_stmt(self, p):
         # '''return_stmt : RETURN expr'''
@@ -321,26 +273,16 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                      # | dotted_id DOT ID'''
         # pass
 
-    # def p_for_stmt(self, p):
-        # '''for_stmt : FOR expr as_clause end_stmt statement_list END
-                    # | FOR EACH expr as_clause end_stmt statement_list END'''
-        # for handler in self.handlers:
-            # if self._ssa(p, 2) == 'each':
-                # value = handler.for_stmt(p[3], p[4], p[6])
-            # else:
-                # value = handler.for_stmt(p[2], p[3], p[5])
-            # if p[0] is None:
-                # p[0] = value
+    def p_for_stmt(self, p):
+        '''for_stmt : FOR expr as_clause SEMI statement_list END
+                    | FOR EACH expr as_clause SEMI statement_list END'''
+        pass
 
-    # def p_as_clause(self, p):
-        # '''as_clause :
-                     # | AS ID
-                     # | AS ID COMMA ID'''
-        # for handler in self.handlers:
-            # value = handler.as_clause(p[2] if len(p) > 2 else None,
-                                      # p[4] if len(p) > 4 else None)
-            # if p[0] is None:
-                # p[0] = value
+    def p_as_clause(self, p):
+        '''as_clause :
+                     | AS ID
+                     | AS ID COMMA ID'''
+        pass
 
     # def p_include_stmt(self, p):
         # '''include_stmt : INCLUDE STRING'''
@@ -349,12 +291,9 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
             # if p[0] is None:
                 # p[0] = value
 
-    # def p_abbrev_if_stmt(self, p):
-        # '''abbrev_if_stmt : IF expr THEN statement'''
-        # for handler in self.handlers:
-            # value = handler.abbrev_if_stmt(p[2], p[4])
-            # if p[0] is None:
-                # p[0] = value
+    def p_abbrev_if_stmt(self, p):
+        '''abbrev_if_stmt : IF expr THEN statement'''
+        pass
 
     # def p_while_stmt(self, p):
         # '''while_stmt : WHILE expr statement_list END'''
@@ -372,5 +311,10 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
 
     # Error rule for syntax errors
     def p_error(self, p):  # pylint: disable=missing-docstring
+        self.error_count += 1
+        if not self.handlers:
+            sys.stderr.write("Error in statement, line {}! {}\n".format(p.lexer.lineno(), p))
+        # is there an expr on the stack?
+        # if so, remove it, push "ECHO", push expr.
         for handler in self.handlers:
             handler.error(p, self.parser)
