@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 """A base class to handle parsing operations for a UTL file."""
+import sys
 
-
+# problem with throwing exception on errors is that it halts parsing process
+# no good way to resume (?) So error handling is coupled to parser, not user
+# of parser
 class UTLParseError(Exception):
     """Exceptions raised when a parsing error occurs."""
     pass
@@ -21,11 +24,16 @@ class UTLParseHandler(object):
     higher-level methods (except for :py:meth:`~utl_lib.utl_parse_handler.utldoc` which is the
     top level).
 
+    :param boolean exception_on_error: If True, a syntax error will raise a
+        :py:class:`UTLParseError`, which will effectively end processing. Usually
+        one wants to continue processing and report all syntax errors
+        encountered.
     """
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, exception_on_error=False, *args, **kwargs):
         """Exists to provide an end point for super() calls."""
         super().__init__(*args, **kwargs)
+        self.exception_on_error = exception_on_error
 
     def utldoc(self, statement_list):
         '''The top-level node for a UTL document.'''
@@ -240,7 +248,10 @@ class UTLParseHandler(object):
         The default method raises UTLParseError with context information.
         """
         if p is None:
-            raise UTLParseError("Syntax error at end of document! Symbol stack is {}".format(the_parser.symstack))
+            if self.exception_on_error:
+                raise UTLParseError("Syntax error at end of document! Symbol stack is {}".format(the_parser.symstack))
+            else:
+                sys.stderr.write("Syntax error at end of document! Symbol stack is {}\n".format(the_parser.symstack))
         else:
             the_lexer = p.lexer
             badline = the_lexer.lexdata.split('\n')[p.lineno-1]
@@ -248,5 +259,9 @@ class UTLParseHandler(object):
             if lineoffset == -1:  # we're on first line
                 lineoffset = 0
             lineoffset = the_lexer.lexpos - lineoffset
-            raise UTLParseError("Syntax error in input line {}, column {} after '{}'!"
-                                "".format(p.lineno, lineoffset, p.value))
+            if self.exception_on_error:
+                raise UTLParseError("Syntax error in input line {}, column {} after '{}'!"
+                                    "".format(p.lineno, lineoffset, p.value))
+            else:
+                sys.stderr.write("Syntax error in input line {}, column {} after '{}'!\n"
+                                 "".format(p.lineno, lineoffset, p.value))

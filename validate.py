@@ -4,8 +4,7 @@ import sys
 import argparse
 
 from utl_lib.utl_yacc2 import UTLParser
-from utl_lib.test_yacc import TestParser
-# parent class does nothing, which is exactly what we want
+# parent class for handlers does nothing, which is exactly what we want
 from utl_lib.utl_parse_handler import UTLParseHandler, UTLParseError
 
 
@@ -16,18 +15,27 @@ def get_args():
                         help="A UTL template file.")
     parser.add_argument('--debug', action='store_true',
                         help="Print debugging info of parse process.")
+    parser.add_argument('--stop-on-error', action='store_true',
+                        help="Stop after first error encountered (default: report and continue)")
     return parser.parse_args()
 
 
 def main(args):
     """Main function. Opens file, parses it."""
-    myparser = UTLParser([UTLParseHandler()])
-    #myparser = TestParser()
-    myparser.parse(args.utl_file.read(), debug=args.debug)
-    if myparser.error_count > 0:
-        print("{} contained {} syntax errors!".format(args.utl_file.name, myparser.error_count))
+    myparser = UTLParser([UTLParseHandler(args.stop_on_error)])
+    if args.stop_on_error:
+        try:
+            myparser.parse(args.utl_file.read(), debug=args.debug)
+        except UTLParseError as upe:
+            sys.stderr.write("{} syntax error: {}\n".format(args.utl_file.name, upe))
+            sys.exit(1)
     else:
-        print("{} appears valid.".format(args.utl_file.name))
+        myparser.parse(args.utl_file.read(), debug=args.debug)
+        if myparser.error_count > 0:
+            print("{} contained {} syntax errors!".format(args.utl_file.name, myparser.error_count))
+            sys.exit(1)
+        else:
+            print("{} appears valid.".format(args.utl_file.name))
 
 if __name__ == '__main__':
     main(get_args())
