@@ -69,7 +69,9 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         ('right', 'UMINUS'),  # same precedence as *, since  -5 == -1 * 5
         ('right', 'EXCLAMATION'),
         ('nonassoc', 'RANGE', 'COLON'),
-        ('left', 'COMMA', 'LBRACKET', 'LPAREN', 'RBRACKET', 'RPAREN'),
+        ('left', 'COMMA'),
+        ('right', 'LPAREN', 'LBRACKET'),
+        ('left', 'RPAREN', 'RBRACKET'),
     )
 
     def _filtered_token(self):
@@ -91,9 +93,14 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
 
     def p_utldoc(self, p):
         '''utldoc :
-                  | utldoc START_UTL statement_list END_UTL
+                  | utldoc START_UTL statement_list opt_semi END_UTL
                   | utldoc START_UTL expr END_UTL
                   | utldoc DOCUMENT'''
+        pass
+
+    def p_opt_semi(self, p):
+        '''opt_semi : SEMI
+                    |'''
         pass
 
     def p_statement_list(self, p):
@@ -106,6 +113,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                      | for_stmt
                      | abbrev_if_stmt
                      | if_stmt
+                     | assignment
                      | error'''
         # | return_stmt end_stmt
         # | macro_defn end_stmt
@@ -130,7 +138,6 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                 | expr TIMES expr
                 | expr DIV expr
                 | expr MODULUS expr
-                | expr DOT expr
                 | expr DOUBLEBAR expr
                 | expr RANGE expr
                 | expr NEQ expr
@@ -143,7 +150,6 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                 | expr AND expr
                 | expr GTE expr
                 | expr DOUBLEAMP expr
-                | assignment
                 | LPAREN expr RPAREN
                 | NOT expr
                 | EXCLAMATION expr
@@ -152,7 +158,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                 | PLUS expr %prec UMINUS
                 | STRING
                 | array_literal
-                | ID
+                | dotted_id
                 | array_ref
                 | FALSE
                 | TRUE
@@ -196,8 +202,14 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         pass
 
     def p_assignment(self, p):
-        '''assignment : expr ASSIGN expr
-                      | expr ASSIGNOP expr'''
+        '''assignment : dotted_id ASSIGN expr
+                      | dotted_id ASSIGNOP expr'''
+        pass
+
+    def p_dotted_id(self, p):
+        '''dotted_id : ID
+                     | ID DOT dotted_id
+                     | dotted_id LBRACKET expr RBRACKET'''
         pass
 
     def p_method_call(self, p):
@@ -311,6 +323,13 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
 
     # Error rule for syntax errors
     def p_error(self, p):  # pylint: disable=missing-docstring
+        # IF top_symbol IS 'expr'
+        # AND next IS SEMI or END_UTL
+        #    pop top symbol value
+        #    push ECHO
+        #    push top symbol
+        #    try again
+        # END
         self.error_count += 1
         if not self.handlers:
             sys.stderr.write("Error in statement, line {}! {}\n".format(p.lexer.lineno(), p))
