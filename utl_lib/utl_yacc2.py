@@ -28,12 +28,12 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         # self.filtered_tokens = ['COMMENT', 'START_UTL']
         # for tok in self.filtered_tokens:
         #     self.tokens.remove(tok)
-        self.tokens = ['AND', 'AS', 'ASSIGN', 'ASSIGNOP', 'COLON',
-                       'COMMA', 'DIV', 'DOCUMENT', 'DOT', 'DOUBLEAMP', 'DOUBLEBAR', 'EACH',
-                       'ECHO', 'ELSE', 'ELSEIF', 'END', 'END_UTL', 'EQ', 'EXCLAMATION', 'FALSE', 'FILTER',
-                       'FOR', 'GT', 'GTE', 'ID', 'IF', 'IS', 'LBRACKET', 'LPAREN', 'LT', 'LTE',
-                       'MINUS', 'MODULUS', 'NEQ', 'NOT', 'NULL', 'NUMBER', 'OR', 'PLUS',
-                       'RANGE', 'RBRACKET', 'RPAREN', 'SEMI', 'START_UTL', 'STRING', 'THEN', 'TIMES', 'TRUE', ]
+        self.tokens = ['AND', 'AS', 'ASSIGN', 'ASSIGNOP', 'BREAK', 'CALL', 'COLON', 'COMMA',
+                       'CONTINUE', 'DEFAULT', 'DIV', 'DOCUMENT', 'DOT', 'DOUBLEAMP', 'DOUBLEBAR', 'EACH',
+                       'ECHO', 'ELSE', 'ELSEIF', 'END', 'END_UTL', 'EOF', 'EQ', 'EXCLAMATION', 'EXIT', 'FALSE',
+                       'FILTER', 'FOR', 'GT', 'GTE', 'ID', 'IF', 'INCLUDE', 'IS', 'LBRACKET', 'LPAREN', 'LT',
+                       'LTE', 'MACRO', 'MINUS', 'MODULUS', 'NEQ', 'NOT', 'NULL', 'NUMBER', 'OR', 'PLUS', 'RANGE',
+                       'RBRACKET', 'RETURN', 'RPAREN', 'SEMI', 'STRING', 'THEN', 'TIMES', 'TRUE', 'WHILE', ]
 
         self.parser = yacc.yacc(module=self, debug=debug)
         self.utl_lexer = UTLLexer()
@@ -64,14 +64,14 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         ('left', 'FILTER'),
         ('nonassoc', 'IS', 'NOT', 'EQ', 'NEQ'),
         ('nonassoc', 'LT', 'GT', 'LTE', 'GTE'),  # relational operators <, >, <=, >=
-        ('left', 'PLUS', 'MINUS', 'DOT'),
+        ('left', 'PLUS', 'MINUS'),
         ('left', 'TIMES', 'DIV', 'MODULUS'),
         ('right', 'UMINUS'),  # same precedence as *, since  -5 == -1 * 5
         ('right', 'EXCLAMATION'),
         ('nonassoc', 'RANGE', 'COLON'),
         ('left', 'COMMA'),
         ('right', 'LPAREN', 'LBRACKET'),
-        ('left', 'RPAREN', 'RBRACKET'),
+        ('left', 'DOT'),
     )
 
     def _filtered_token(self):
@@ -92,38 +92,37 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                                  debug=debug, tokenfunc=self._filtered_token)
 
     def p_utldoc(self, p):
-        '''utldoc :
-                  | utldoc START_UTL statement_list opt_semi END_UTL
-                  | utldoc START_UTL expr END_UTL
-                  | utldoc DOCUMENT'''
-        pass
-
-    def p_opt_semi(self, p):
-        '''opt_semi : SEMI
-                    |'''
+        '''utldoc : statement_list'''
         pass
 
     def p_statement_list(self, p):
-        '''statement_list : statement_list SEMI statement
-                          | statement'''
+        ''' statement_list : statement
+                           | statement statement_list'''
+        pass
+
+    def p_eostmt(self, p):
+        '''eostmt : SEMI
+                  | EOF
+                  | END_UTL'''
         pass
 
     def p_statement(self, p):
-        '''statement : echo_stmt
-                     | for_stmt
+        '''statement : eostmt
+                     | echo_stmt eostmt
+                     | for_stmt eostmt
                      | abbrev_if_stmt
-                     | if_stmt
-                     | assignment
-                     | error'''
-        # | return_stmt end_stmt
-        # | macro_defn end_stmt
-        # | echo_stmt end_stmt
-        # | include_stmt end_stmt
-        # | while_stmt end_stmt
-        # | call_stmt end_stmt
-        # | BREAK end_stmt
-        # | CONTINUE end_stmt
-        # | EXIT end_stmt
+                     | if_stmt eostmt
+                     | DOCUMENT
+                     | expr eostmt
+                     | assignment eostmt
+                     | return_stmt eostmt
+                     | include_stmt eostmt
+                     | call_stmt eostmt
+                     | macro_defn eostmt
+                     | while_stmt eostmt
+                     | BREAK eostmt
+                     | CONTINUE eostmt
+                     | EXIT eostmt'''
         pass
 
     def p_echo_stmt(self, p):
@@ -131,69 +130,61 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                      | ECHO expr'''
         pass
 
-    def p_expr(self, p):
-        '''expr : expr PLUS expr
-                | expr MINUS expr
-                | expr FILTER expr
-                | expr TIMES expr
-                | expr DIV expr
-                | expr MODULUS expr
-                | expr DOUBLEBAR expr
-                | expr RANGE expr
-                | expr NEQ expr
-                | expr LTE expr
-                | expr OR expr
-                | expr LT expr
-                | expr EQ expr
-                | expr IS expr
-                | expr GT expr
-                | expr AND expr
-                | expr GTE expr
-                | expr DOUBLEAMP expr
-                | LPAREN expr RPAREN
-                | NOT expr
-                | EXCLAMATION expr
-                | NUMBER
-                | MINUS expr %prec UMINUS
-                | PLUS expr %prec UMINUS
-                | STRING
-                | array_literal
-                | dotted_id
-                | array_ref
-                | FALSE
-                | TRUE
-                | NULL
-                | method_call'''
+    def p_assignment(self, p):
+        '''assignment : expr ASSIGN expr
+                      | DEFAULT expr ASSIGN expr
+                      | expr ASSIGNOP expr'''
         pass
 
-    # def p_param_list(self, p):
-        # '''param_list :
-                      # | param_list COMMA param_decl
-                      # | param_decl '''
-        # for handler in self.handlers:
-            # value = None  # default for empty list
-            # if len(p) == 2:
-                # value = handler.param_list(p[1], None)
-            # elif len(p) == 4:
-                # value = handler.param_list(p[3], p[1])
-            # if p[0] is None:
-                # p[0] = value
+    def p_expr(self, p):
+        '''expr : array_literal rexpr
+                | LPAREN expr RPAREN rexpr
+                | NOT expr rexpr
+                | EXCLAMATION expr rexpr
+                | NUMBER rexpr
+                | MINUS expr rexpr %prec UMINUS
+                | PLUS expr rexpr %prec UMINUS
+                | STRING rexpr
+                | FALSE rexpr
+                | TRUE rexpr
+                | NULL rexpr
+                | ID rexpr
+                | method_call rexpr'''
+        pass
 
-    # def p_param_decl(self, p):
-        # '''param_decl : ID
-                      # | ID ASSIGN expr'''
-        # for handler in self.handlers:
-            # if len(p) == 2:
-                # value = handler.param_decl(p[1], None)
-            # else:
-                # value = handler.param_decl(p[1], p[3])
-            # if p[0] is None:
-                # p[0] = value
+    # this is the set of productions which, if put back into p_expr, would cause a
+    # left-recursive production
+    # each production (except empty) generates a shift/reduce conflict with each production in
+    # expr that includes rexpr
+    # so we have 13 (expr) * 20 (rexpr) === 260 shift/reduce conflicts
+    # but it works, dammit!
+    def p_rexpr(self, p):
+        '''rexpr :
+                 | PLUS expr
+                 | MINUS expr
+                 | FILTER expr
+                 | TIMES expr
+                 | DIV expr
+                 | MODULUS expr
+                 | DOUBLEBAR expr
+                 | RANGE expr
+                 | NEQ expr
+                 | LTE expr
+                 | OR expr
+                 | LT expr
+                 | EQ expr
+                 | IS expr
+                 | GT expr
+                 | AND expr
+                 | GTE expr
+                 | DOUBLEAMP expr
+                 | LBRACKET expr RBRACKET
+                 | DOT expr'''
+        pass
 
     def p_arg_list(self, p):
-        '''arg_list :
-                    | arg
-                    | arg_list COMMA arg'''
+        '''arg_list : arg
+                    | arg COMMA arg_list'''
         pass
 
     def p_arg(self, p):
@@ -201,19 +192,10 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                | STRING COLON expr'''
         pass
 
-    def p_assignment(self, p):
-        '''assignment : dotted_id ASSIGN expr
-                      | dotted_id ASSIGNOP expr'''
-        pass
-
-    def p_dotted_id(self, p):
-        '''dotted_id : ID
-                     | ID DOT dotted_id
-                     | dotted_id LBRACKET expr RBRACKET'''
-        pass
 
     def p_method_call(self, p):
-        '''method_call : expr LPAREN arg_list RPAREN'''
+        '''method_call : expr LPAREN arg_list RPAREN
+                       | expr LPAREN RPAREN'''
         pass
 
     def p_array_literal(self, p):
@@ -224,16 +206,12 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
 
     def p_array_elems(self, p):
         '''array_elems : expr
-                       | array_elems COMMA expr'''
+                       | expr COMMA array_elems'''
         pass
 
     def p_key_value_elems(self, p):
         '''key_value_elems : expr COLON expr
-                           | key_value_elems COMMA expr COLON expr'''
-        pass
-
-    def p_array_ref(self, p):
-        '''array_ref : expr LBRACKET expr RBRACKET'''
+                           | expr COLON expr COMMA key_value_elems'''
         pass
 
     def p_if_stmt(self, p):
@@ -242,7 +220,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
 
     def p_elseif_stmts(self, p):
         '''elseif_stmts :
-                        | elseif_stmts elseif_stmt'''
+                        | elseif_stmt elseif_stmts'''
         pass
 
     def p_elseif_stmt(self, p):
@@ -252,42 +230,43 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
     def p_else_stmt(self, p):
         '''else_stmt :
                      | ELSE statement_list'''
+        pass
 
-    # def p_return_stmt(self, p):
-        # '''return_stmt : RETURN expr'''
-        # for handler in self.handlers:
-            # value = handler.return_stmt(p[2])
-            # if p[0] is None:
-                # p[0] = value
+    def p_return_stmt(self, p):
+        '''return_stmt : RETURN expr'''
+        pass
 
-    # def p_macro_defn(self, p):
-        # '''macro_defn : macro_decl end_stmt statement_list END
-                      # | macro_decl end_stmt END'''
-        # for handler in self.handlers:
-            # if len(p) == 4:
-                # value = handler.macro_defn(p[1], None)
-            # else:
-                # value = handler.macro_defn(p[1], p[3])
-            # if p[0] is None:
-                # p[0] = value
 
-    # def p_macro_decl(self, p):
-        # '''macro_decl : MACRO dotted_id
-                      # | MACRO dotted_id LPAREN param_list RPAREN
-        # '''
-        # for handler in self.handlers:
-            # value = handler.macro_decl(p[2], None if len(p) < 5 else p[4])
-            # if p[0] is None:
-                # p[0] = value
+    def p_param_list(self, p):
+        '''param_list :
+                      | param_decl COMMA param_list
+                      | param_decl '''
+        pass
 
-    # def p_dotted_id(self, p):
-        # '''dotted_id : ID
-                     # | dotted_id DOT ID'''
-        # pass
+    def p_param_decl(self, p):
+        '''param_decl : ID
+                      | ID ASSIGN expr'''
+        pass
+
+    def p_macro_defn(self, p):
+        '''macro_defn : macro_decl eostmt statement_list END
+                      | macro_decl eostmt END'''
+        pass
+
+    def p_macro_decl(self, p):
+        '''macro_decl : MACRO dotted_id
+                      | MACRO dotted_id LPAREN param_list RPAREN
+        '''
+        pass
+
+    def p_dotted_id(self, p):
+        '''dotted_id : ID
+                     | ID DOT dotted_id'''
+        pass
 
     def p_for_stmt(self, p):
-        '''for_stmt : FOR expr as_clause SEMI statement_list END
-                    | FOR EACH expr as_clause SEMI statement_list END'''
+        '''for_stmt : FOR expr as_clause eostmt statement_list END
+                    | FOR EACH expr as_clause eostmt statement_list END'''
         pass
 
     def p_as_clause(self, p):
@@ -296,30 +275,21 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                      | AS ID COMMA ID'''
         pass
 
-    # def p_include_stmt(self, p):
-        # '''include_stmt : INCLUDE STRING'''
-        # for handler in self.handlers:
-            # value = handler.include_stmt(p[2])
-            # if p[0] is None:
-                # p[0] = value
+    def p_include_stmt(self, p):
+        '''include_stmt : INCLUDE STRING'''
+        pass
 
     def p_abbrev_if_stmt(self, p):
         '''abbrev_if_stmt : IF expr THEN statement'''
         pass
 
-    # def p_while_stmt(self, p):
-        # '''while_stmt : WHILE expr statement_list END'''
-        # for handler in self.handlers:
-            # value = handler.while_stmt(p[2], p[3])
-            # if p[0] is None:
-                # p[0] = value
+    def p_while_stmt(self, p):
+        '''while_stmt : WHILE expr statement_list END'''
+        pass
 
-    # def p_call_stmt(self, p):
-        # '''call_stmt : CALL method_call'''
-        # for handler in self.handlers:
-            # value = handler.call_stmt(p[2])
-            # if p[0] is None:
-                # p[0] = value
+    def p_call_stmt(self, p):
+        '''call_stmt : CALL method_call'''
+        pass
 
     # Error rule for syntax errors
     def p_error(self, p):  # pylint: disable=missing-docstring

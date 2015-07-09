@@ -1,4 +1,5 @@
 [% fred();
+call cms.component.load("core_base_editorial");
 barney(3);
 wilma('betty');
 pebbles('mom': 'betty', 5);

@@ -3,6 +3,9 @@
 [%
   if !cms.component.load("core_services_manager") then echo "<!-- error loading Services Component -->";
   if !cms.component.load("core_services_manager"); echo "<!-- error loading Services Component -->"; end;
+  if aInfo['bTracker'] && !(cms.request.param('mode') == 'jqm');
+      aInfo['sServiceClass'] = 'managed-service';
+  end;
 
   if (7 == 15);
      print('something');

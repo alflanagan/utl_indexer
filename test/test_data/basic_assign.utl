@@ -21,7 +21,7 @@
   d = a * a + b * b;
   e = a % b - b % c;
   default a = 3;
-  default b += fred;
+  default b = fred;
   c -= sally;
   d *= 7;
   d /= 3;
