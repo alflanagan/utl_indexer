@@ -94,20 +94,37 @@ class UTLLexer(object):
               # other
               'SEMI',
               'STRING',
-              'DOCUMENT', ] + list(set(reserved.values()))
+              'DOCUMENT',
+              'EOF'] + list(set(reserved.values()))
 
     def __init__(self, **kwargs):
         self.lexer = lex.lex(module=self, **kwargs)
+        self.ateof = True;
 
     def input(self, s):
         """Push new input `s` to the lexer."""
         # UTL treats 'else if' exactly same as 'elseif'
         s, _ = re.subn(r'else\s+if', 'elseif', s)
         self.lexer.input(s)
+        self.ateof = False
 
     def token(self):
-        """Returns the next token from the input."""
-        return self.lexer.token()
+        """Returns the next token from the input.
+
+        When no more tokens are available, returns the special token 'EOF' once. Subsequent
+        calls will return :py:attr:`None`.
+        """
+        tok = self.lexer.token()
+        if tok is None and not self.ateof:
+            self.ateof = True
+            new_tok = lex.LexToken()
+            new_tok.type = 'EOF'
+            new_tok.value = ''
+            new_tok.lineno = self.lexer.lineno
+            new_tok.lexpos = self.lexer.lexpos
+            return new_tok
+        else:
+            return tok
 
     def skip(self, count):
         """Causes the lexer to skip ahead `count` characters."""

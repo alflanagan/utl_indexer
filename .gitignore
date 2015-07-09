@@ -26,3 +26,4 @@ node_modules/
 htmlcov/
 zend_language_parser.y
 *.bz2
+temp/
