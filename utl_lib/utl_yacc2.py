@@ -21,20 +21,11 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
 
     def __init__(self, handlers=None, debug=True):
         self.parsed = False
-        # self.tokens = UTLLexer.tokens[:]  # make copy, so we can .remove() tokens
         # Some tokens get processed out before parsing
         # START_UTL is implicit when we get UTL token
-        # but we need END_UTL since it may close a statment
-        # self.filtered_tokens = ['COMMENT', 'START_UTL']
-        # for tok in self.filtered_tokens:
-        #     self.tokens.remove(tok)
-        self.tokens = ['AND', 'AS', 'ASSIGN', 'ASSIGNOP', 'BREAK', 'CALL', 'COLON', 'COMMA',
-                       'CONTINUE', 'DEFAULT', 'DIV', 'DOCUMENT', 'DOT', 'DOUBLEAMP', 'DOUBLEBAR', 'EACH',
-                       'ECHO', 'ELSE', 'ELSEIF', 'END', 'END_UTL', 'EOF', 'EQ', 'EXCLAMATION', 'EXIT', 'FALSE',
-                       'FILTER', 'FOR', 'GT', 'GTE', 'ID', 'IF', 'INCLUDE', 'IS', 'LBRACKET', 'LPAREN', 'LT',
-                       'LTE', 'MACRO', 'MINUS', 'MODULUS', 'NEQ', 'NOT', 'NULL', 'NUMBER', 'OR', 'PLUS', 'RANGE',
-                       'RBRACKET', 'RETURN', 'RPAREN', 'SEMI', 'STRING', 'THEN', 'TIMES', 'TRUE', 'WHILE', ]
-
+        # but we need END_UTL since it can close a statment
+        self.filtered_tokens = set(['COMMENT', 'START_UTL'])
+        self.tokens = tuple(set(UTLLexer.tokens) - self.filtered_tokens)
         self.parser = yacc.yacc(module=self, debug=debug)
         self.utl_lexer = UTLLexer()
         self.lexer = self.utl_lexer.lexer
