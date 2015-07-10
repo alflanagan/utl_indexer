@@ -180,7 +180,8 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
 
     def p_arg(self, p):
         '''arg : expr
-               | STRING COLON expr'''
+               | STRING COLON expr
+               | ID COLON expr'''
         pass
 
 
@@ -195,14 +196,20 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                          | LBRACKET'''
         pass
 
+    # third case below allows trailing comma in array literal
+    # even with that, the UTL parser on Townnews allows situations not recognized, like [,].
+    # Hopefully this covers most situations.
     def p_array_elems(self, p):
         '''array_elems : expr
-                       | expr COMMA array_elems'''
+                       | expr COMMA array_elems
+                       | expr COMMA'''
         pass
 
+    # third case below allows trailing comma in array literal
     def p_key_value_elems(self, p):
         '''key_value_elems : expr COLON expr
-                           | expr COLON expr COMMA key_value_elems'''
+                           | expr COLON expr COMMA key_value_elems
+                           | expr COLON expr COMMA'''
         pass
 
     def p_if_stmt(self, p):
