@@ -128,8 +128,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         pass
 
     def p_expr(self, p):
-        '''expr : array_literal rexpr
-                | LPAREN expr RPAREN rexpr
+        '''expr : LPAREN expr RPAREN rexpr
                 | NOT expr rexpr
                 | EXCLAMATION expr rexpr
                 | NUMBER rexpr
@@ -140,7 +139,8 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                 | TRUE rexpr
                 | NULL rexpr
                 | ID rexpr
-                | method_call rexpr'''
+                | method_call rexpr
+                | array_literal RBRACKET rexpr'''
         pass
 
     # this is the set of productions which, if put back into p_expr, would cause a
@@ -169,8 +169,8 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                  | AND expr
                  | GTE expr
                  | DOUBLEAMP expr
-                 | LBRACKET expr RBRACKET
-                 | DOT expr'''
+                 | DOT expr
+                 | LBRACKET expr RBRACKET rexpr'''
         pass
 
     def p_arg_list(self, p):
@@ -190,9 +190,9 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         pass
 
     def p_array_literal(self, p):
-        '''array_literal : LBRACKET array_elems RBRACKET
-                         | LBRACKET key_value_elems RBRACKET
-                         | LBRACKET RBRACKET'''
+        '''array_literal : LBRACKET array_elems
+                         | LBRACKET key_value_elems
+                         | LBRACKET'''
         pass
 
     def p_array_elems(self, p):
