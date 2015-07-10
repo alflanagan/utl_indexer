@@ -224,7 +224,8 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         pass
 
     def p_return_stmt(self, p):
-        '''return_stmt : RETURN expr'''
+        '''return_stmt : RETURN expr
+                       | RETURN'''
         pass
 
 
