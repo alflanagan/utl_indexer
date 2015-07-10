@@ -249,7 +249,8 @@ class UTLLexer(object):
         return t
 
     def t_utl_STRING(self, t):
-        r'"(?P<dq>[^"]*)"|\'(?P<sq>[^\']*)\''
+        r'"(?P<dq>(\\"|[^"])*)"|\'(?P<sq>(\\\'|[^\'])*)\''
+        # note RE above has to account for escaped quotes inside string
         dq = t.lexer.lexmatch.group('dq')
         sq = t.lexer.lexmatch.group('sq')
         t.value = dq if dq else sq

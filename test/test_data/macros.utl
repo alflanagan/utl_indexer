@@ -4,6 +4,11 @@
   echo a;
   end;
 
+macro core_base_nav_class_name(nav_text);
+    dquote_escaped = "there's an \"embedded\" dquote here";
+    return nav_text | lowercase | regex('/[\&\(\)\[\]\{\}\!\@\#\$\%\^\*\+\=\,\.\/\<\>\?\;\:\'\~\`]/','') | regex('/\_+/','_') | regex('/[\s-]+/','-');
+end;
+
 really.really.quite.useless('php');
 wilma(1, 2, 3);
 
@@ -21,4 +26,17 @@ macro really.really.quite.useless(arg1);
 macro multi_arguments(arg1, arg2, arg3=false, arg4);
   echo arg1 + arg2;
   end;
+
+macro core_base_library_relatedAssets(
+    types=[
+        'article','image','pdf','zip','audio','link','flash','html','poll','collection','table','video','youtube','vmix',
+        'highlights','quote','refer','update','correction',
+        'ad','coupon','pdfdisplayad','realestate','vehicle',
+        'business',
+        'event',
+    ], asset=this.asset);
+    if asset;
+      echo "related";
+    end;
+end;
   %]
