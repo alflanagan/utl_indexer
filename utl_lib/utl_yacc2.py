@@ -275,7 +275,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         pass
 
     def p_include_stmt(self, p):
-        '''include_stmt : INCLUDE STRING'''
+        '''include_stmt : INCLUDE expr'''
         pass
 
     def p_abbrev_if_stmt(self, p):

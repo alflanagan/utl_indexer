@@ -1,4 +1,6 @@
 [%
 
 include 'fred.utl';
+include appMacros;
+include 'fred' + (5 * 12) + 'section.inc.utl';
 %]
