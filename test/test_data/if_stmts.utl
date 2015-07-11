@@ -8,7 +8,7 @@
   end;
   if show_flags == 'true' %]
     <li>[% core_base_library_assetFlags(target : asset) %]</li>
-  [% end
+  [% end;
 
   if (7 == 15);
      print('something');
