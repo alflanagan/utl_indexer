@@ -64,7 +64,7 @@ class LexerTestCase(unittest_plus.TestCasePlus):
     empty = "";
     %]'''
 
-    #TODO: put rest of test data in external files, see test_operators()
+    # TODO: put rest of test data in external files, see test_operators()
     _EXPECTED = [('DOCUMENT', '\n    ', 2),  # token, text, line
                  ('START_UTL', '[%-', 2),
                  ('CALL', 'call', 4),
@@ -223,7 +223,8 @@ class LexerTestCase(unittest_plus.TestCasePlus):
                  ('ASSIGN', '=', 44),
                  ('STRING', '', 44),
                  ('SEMI', ';', 44),
-                 ('END_UTL', '%]', 45)]  # 153
+                 ('END_UTL', '%]', 45),
+                 ('EOF', '', 45), ]  # 158
 
     def test_create(self):
         """Unit test for :py:meth:`utl_lex.Lexer`."""
@@ -236,8 +237,9 @@ class LexerTestCase(unittest_plus.TestCasePlus):
             try:
                 self.assertEqual(tok.type, self._EXPECTED[index][0])
                 self.assertEqual(tok.value, self._EXPECTED[index][1])
-            except AssertionError as ase:
-                ase.args = (ase.args[0] + "at token index " + str(index) + '\n', )
+            except (AssertionError, IndexError) as ase:
+                ase.args = (ase.args[0] + " at token index " + str(index) +
+                            ', token is ' + str(tok) + '\n', )
                 raise
             index += 1
             tok = lexer.token()
@@ -278,15 +280,16 @@ class LexerTestCase(unittest_plus.TestCasePlus):
         """Unit tests for :py:meth:`utl_lex.lexer.lexpos`."""
 
         expected = [5, 8, 18, 22, 23, 32, 33, 37, 38, 59, 60, 61, 70, 74, 75, 84, 85, 89, 90,
-                    106, 107, 108, 167, 208, 209, 210, 211, 290, 292, 294, 296, 298, 299, 326, 328, 364,
-                    365, 374, 375, 396, 397, 442, 443, 465, 466, 467, 518, 520, 522, 523, 524, 528, 529,
-                    537, 538, 544, 545, 555, 556, 561, 562, 569, 699, 701, 711, 714, 764, 765, 788, 790,
-                    891, 893, 896, 897, 903, 904, 910, 913, 917, 918, 925, 926, 931, 932, 938, 939, 942,
-                    948, 949, 972, 975, 977, 979, 981, 982, 983, 984, 985, 986, 987, 988, 990, 1072, 1074,
-                    1110, 1111, 1138, 1139, 1167, 1168, 1169, 1239, 1264, 1267, 1272, 1275, 1300, 1303,
-                    1311, 1312, 1389, 1391, 1416, 1417, 1436, 1438, 1441, 1443, 1447, 1449, 1450,
-                    1484, 1485, 1501, 1502, 1514, 1515, 1530, 1549, 1550, 1558, 1559, 1567, 1569,
-                    1571, 1573, 1574, 1587, 1594, 1595, 1603, 1604, 1614, 1616, 1619, 1620, 1627]
+                    106, 107, 108, 167, 208, 209, 210, 211, 290, 292, 294, 296, 298, 299, 326, 328,
+                    364, 365, 374, 375, 396, 397, 442, 443, 465, 466, 467, 518, 520, 522, 523, 524,
+                    528, 529, 537, 538, 544, 545, 555, 556, 561, 562, 569, 699, 701, 711, 714, 764,
+                    765, 788, 790, 891, 893, 896, 897, 903, 904, 910, 913, 917, 918, 925, 926, 931,
+                    932, 938, 939, 942, 948, 949, 972, 975, 977, 979, 981, 982, 983, 984, 985, 986,
+                    987, 988, 990, 1072, 1074, 1110, 1111, 1138, 1139, 1167, 1168, 1169, 1239,
+                    1264, 1267, 1272, 1275, 1300, 1303, 1311, 1312, 1389, 1391, 1416, 1417, 1436,
+                    1438, 1441, 1443, 1447, 1449, 1450, 1484, 1485, 1501, 1502, 1514, 1515, 1530,
+                    1549, 1550, 1558, 1559, 1567, 1569, 1571, 1573, 1574, 1587, 1594, 1595, 1603,
+                    1604, 1614, 1616, 1619, 1620, 1627, 1628]
 
         lexer = UTLLexer()
         lexer.input(self._MACRO_DEF)
@@ -311,7 +314,8 @@ class LexerTestCase(unittest_plus.TestCasePlus):
         lexer = UTLLexer()
         lexer.input(problem1)
         expected1 = [('START_UTL', '[%'), ('ID', 'sally'), ('DOT', '.'), ('ID', 'isfine'),
-                     ('ASSIGN', '='), ('NUMBER', 3), ('SEMI', ';'), ('END_UTL', '%]')]
+                     ('ASSIGN', '='), ('NUMBER', 3.0), ('SEMI', ';'), ('END_UTL', '%]'),
+                     ('EOF', '')]
         observed1 = []
         tok = lexer.token()
         while tok:
@@ -333,6 +337,10 @@ class LexerTestCase(unittest_plus.TestCasePlus):
         with open(os.path.join('test_data', 'operators.lex'), 'r') as lexin:
             for line in lexin:
                 parts = line[:-1].split(',')
+                # above fails in one case (of course):
+                if len(parts) == 5:
+                    self.assertEqual(parts[0], 'COMMA')
+                    parts = [parts[0], "','", parts[3], parts[4]]
                 self.assertSequenceEqual(parts,
                                          [str(x) for x in [toks[index].type,
                                                            repr(toks[index].value),
