@@ -15,11 +15,12 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         be invoked by various parse productions.
 
     :param Boolean debug: passed-through to the `debug` parameter in the
-        :py:func:`ply.yacc.yacc` call.
+        :py:func:`ply.yacc.yacc` call. This turns on messages about the tables generated, and
+        yacc warnings.
 
     """
 
-    def __init__(self, handlers=None, debug=True):
+    def __init__(self, handlers=None, debug=False):
         self.parsed = False
         # Some tokens get processed out before parsing
         # START_UTL is implicit when we get UTL token
@@ -79,8 +80,8 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
 
         """
         self.print_tokens = print_tokens
-        return self.parser.parse(input=input_text, lexer=self.utl_lexer,
-                                 debug=debug, tokenfunc=self._filtered_token)
+        return self.parser.parse(input=input_text, lexer=self.utl_lexer, debug=debug,
+                                 tokenfunc=self._filtered_token, tracking=tracking)
 
     def p_utldoc(self, p):
         '''utldoc : statement_list'''
@@ -122,8 +123,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         pass
 
     def p_expr(self, p):
-        '''expr : LPAREN expr RPAREN rexpr
-                | NOT expr
+        '''expr : NOT expr
                 | EXCLAMATION expr
                 | NUMBER rexpr
                 | MINUS expr %prec UMINUS
@@ -133,12 +133,14 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                 | TRUE rexpr
                 | NULL rexpr
                 | ID rexpr
-                | method_call rexpr
+                | LPAREN expr RPAREN rexpr
                 | array_literal RBRACKET rexpr'''
         pass
 
-    # this is the set of productions which result from elimination of
-    # left-recursion in expr
+    # this is the set of productions which result from elimination of left-recursion in expr.
+    # LPAREN, LBRACKET, PLUS, MINUS appear in both expr and rexpr because they can occur alone
+    # or immediately following an expr -- each results in shift/reduce conflict, but yacc picks
+    # correct option
     def p_rexpr(self, p):
         '''rexpr :
                  | PLUS expr
@@ -162,11 +164,13 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                  | DOT expr
                  | ASSIGN expr
                  | ASSIGNOP expr
+                 | LPAREN arg_list RPAREN rexpr
                  | LBRACKET expr RBRACKET rexpr'''
         pass
 
     def p_arg_list(self, p):
-        '''arg_list : arg
+        '''arg_list :
+                    | arg
                     | arg COMMA arg_list'''
         pass
 
@@ -174,12 +178,6 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         '''arg : expr
                | STRING COLON expr
                | ID COLON expr'''
-        pass
-
-
-    def p_method_call(self, p):
-        '''method_call : expr LPAREN arg_list RPAREN
-                       | expr LPAREN RPAREN'''
         pass
 
     def p_array_literal(self, p):
@@ -226,7 +224,6 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         '''return_stmt : RETURN expr
                        | RETURN'''
         pass
-
 
     def p_param_list(self, p):
         '''param_list :
@@ -279,7 +276,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         pass
 
     def p_call_stmt(self, p):
-        '''call_stmt : CALL method_call'''
+        '''call_stmt : CALL expr'''
         pass
 
     # Error rule for syntax errors
