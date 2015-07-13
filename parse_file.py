@@ -7,11 +7,12 @@ import sys
 from utl_lib.utl_yacc import UTLParser
 from utl_lib.ast_node import ASTNodeFormatter, ASTNodeJSONFormatter
 from utl_lib.handler_ast import UTLParseHandlerAST
+from utl_lib.handler_parse_tree import UTLParseHandlerParseTree
 
 
 def get_args():
     """Parses command-line arguments, returns namespace with values."""
-    parser = argparse.ArgumentParser(description="Parses a UTL file.")
+    parser = argparse.ArgumentParser(description="Parses a UTL file into one of several formats.")
     parser.add_argument('utl_file', type=argparse.FileType('r'),
                         help="A UTL template file.")
     parser.add_argument('--show-lex', action='store_true',
@@ -20,13 +21,18 @@ def get_args():
                         help="Print debugging info of parse process.")
     parser.add_argument('--json', action='store_true',
                         help="Format output as JSON (default: human-readable)")
+    parser.add_argument('--ast', action='store_true',
+                        help="Generate an Abstract Syntax Tree (default: parse tree)")
     return parser.parse_args()
 
 
 def do_parse(program_text, args):
     """Open a file, parse it, return resulting parse."""
-
-    myparser = UTLParser([UTLParseHandlerAST()])
+    if args.ast:
+        handler = UTLParseHandlerAST()
+    else:
+        handler = UTLParseHandlerParseTree()
+    myparser = UTLParser([handler])
     results = myparser.parse(program_text, debug=args.debug, print_tokens=args.show_lex)
     if results:
         if args.json:
