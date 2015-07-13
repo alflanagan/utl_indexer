@@ -2,6 +2,7 @@
 """A base class to handle parsing operations for a UTL file."""
 import sys
 
+
 # problem with throwing exception on errors is that it halts parsing process
 # no good way to resume (?) So error handling is coupled to parser, not user
 # of parser
@@ -46,19 +47,17 @@ class UTLParseHandler(object):
         '''
         return None
 
-    def statement(self, statement, is_document=False):
+    def statement(self, statement):
         """A single statement, usually terminated with a ';' or a '%]'.
 
-        If `is_document` is :py:attr:`True`, then `statement` is the contents of a DOCUMENT.
-
-        Otherwise, `statement` will be the text of a token, or the result of a production.
+        `statement` will be the text of a token, or the result of a production.
 
         Tokens that may be provided include 'continue', 'break', and 'exit'.
 
         """
         return None
 
-    def end_stmt(self, marker_text):
+    def eostmt(self, marker_text):
         """End statement marker. Unlikely to be useful, but if you need it, it's here."""
         return None
 
@@ -66,10 +65,25 @@ class UTLParseHandler(object):
         """An echo statement. `expr` is the object to be echoed, or :py:attr:`None`."""
         return None
 
-    def expr(self, lhs, rhs, operator, value):
-        """An expression production. `lhs` is the left side of the infix operator, `rhs` is the
-        right side (or None for unary operators), `operator` is the operator itself. `value` is
-        used for expressions with no operators.
+    def expr(self, start, expr1, expr2):
+        """An expression production. 'start' is the opening token, `expr1` is the related
+        expression, and `expr2` is a second related expression for a couple of productions.
+
+        """
+        return None
+
+    def rexpr(self, operator, expr_or_arg_list, rexpr):
+        """The right-hand part of certain expr productions. `operator` is the operator applied,
+        `expr_or_arg_list` is the second argument to the operator, `rexpr` is further expression
+        parse for certain productions.
+
+        """
+        return None
+
+    def default_assignment(self, assignment):
+        """Assignment with a preceding DEFAULT keyword.
+
+        :param assignment: The result of an assignment production (as expression).
 
         """
         return None
@@ -97,7 +111,8 @@ class UTLParseHandler(object):
         return None
 
     def arg_list(self, arg, arg_list=None):
-        '''An argument list, as in a macro call. `arg` is an argument (see :py:meth:`arg`), or None for a call with no arguments.
+        '''An argument list, as in a macro call. `arg` is an argument (see :py:meth:`arg`), or
+        None for a call with no arguments.
 
         `arg_list`, if not None, is the output of previous processing of this argument list.
 
@@ -108,24 +123,11 @@ class UTLParseHandler(object):
         """An argument, as in a macro call. Arguments can be in two formats, either a plain
         expression or a key-value pair (separated by ':')
 
-        """
-        return None
+        :param expr: the result of an expression production for the argument
 
-    def assignment(self, target, expr, op, default=False):   # pylint: disable=C0103
-        """An assignment, either through the equal operator (=) or one of the various
-        operate-and-assign operators (e.g. +=).
-
-        `target` is the LHS of the assignment (assigned to)
-        `expr` is the RHS of the assignement (assigned from)
-        `op` is the actual operator used
-        `default` is :py:attr:`True` of the 'default' keyword was used.
+        :param name: the name if the argument is named.
 
         """
-        return None
-
-    def method_call(self, expr, arg_list=None):
-        """A method call. `expr` should resolve to method, `arg_list`, if present, is the result
-        of an argument list production."""
         return None
 
     def array_literal(self, elements=None):
@@ -136,7 +138,13 @@ class UTLParseHandler(object):
         return None
 
     def array_elems(self, expr, array_elems=None):
-        """Elements for a simple array (not key/value pairs)."""
+        """Elements for a simple array (not key/value pairs).
+
+        :param expr: An expression production for the current element value.
+
+        :param array_elems: The result of a previous array_elems production for this array.
+
+        """
         return None
 
     def key_value_elems(self, key_expr, value_expr, prior_args=None):
@@ -144,11 +152,6 @@ class UTLParseHandler(object):
         the result of reduction of previous elements in the array expression.
 
         """
-        return None
-
-    def array_ref(self, array_id, array_index):
-        """An array reference to array `array_id` with index the value of `array_index`. Either
-        param may be an expression rather than a simple value."""
         return None
 
     def if_stmt(self, expr, statement_list, elseif_stmts=None, else_stmt=None):
@@ -185,7 +188,7 @@ class UTLParseHandler(object):
         """A return statement. If `expr` is not :py:attr:`None`, it is the return value."""
         return None
 
-    def macro_defn(self, macro_decl, statement_list):
+    def macro_defn(self, macro_decl, statement_list=None):
         """A macro definition with declaration `macro_decl` containing statements
         `statement_list`. `statement_list` can also be :py:attr:`None`, indicating an empty
         macro (which is legal but useless).
@@ -206,7 +209,7 @@ class UTLParseHandler(object):
         `id_prefix` will be :py:attr:`None`, if the name is undotted or the first part of a dotted name."""
         return None
 
-    def for_stmt(self, expr, as_clause, statement_list):
+    def for_stmt(self, expr, as_clause=None, statement_list=None):
         """A for statement, which executes `statement_list` once for each item in the value of
         `expr` (assumed to be a collection). If `as_clause` has one or two children, the current
         item is assigned to a variable of that name (or the current key, value are assigned to
@@ -215,7 +218,7 @@ class UTLParseHandler(object):
         """
         return None
 
-    def as_clause(self, var1, var2):
+    def as_clause(self, var1, var2=None):
         """The AS clause of a FOR statement, providing one or two variable names to hold
         successive values from the collection being iterated.
 
@@ -223,7 +226,12 @@ class UTLParseHandler(object):
         return None
 
     def include_stmt(self, filename):
-        """An include statement to insert the contents of file `filename`."""
+        """An include statement to insert the contents of file `filename`.
+
+        :param filename: The result of an expression production, which may or may not be a
+            simple string.
+
+        """
         return None
 
     def abbrev_if_stmt(self, expr, statement):
@@ -238,7 +246,11 @@ class UTLParseHandler(object):
         return None
 
     def call_stmt(self, method_call):
-        """A call statement, with the keyword call preceding a method call."""
+        """A call statement, with the keyword call preceding a method call.
+
+        :param method_call: An expression production, which should resolve to a method call.
+
+        """
         return None
 
     def error(self, p, the_parser):
@@ -254,7 +266,6 @@ class UTLParseHandler(object):
                 sys.stderr.write("Syntax error at end of document! Symbol stack is {}\n".format(the_parser.symstack))
         else:
             the_lexer = p.lexer
-            badline = the_lexer.lexdata.split('\n')[p.lineno-1]
             lineoffset = the_lexer.lexdata.rfind('\n', 0, the_lexer.lexpos)
             if lineoffset == -1:  # we're on first line
                 lineoffset = 0
