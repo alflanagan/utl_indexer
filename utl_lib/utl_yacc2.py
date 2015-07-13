@@ -105,7 +105,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                      | if_stmt eostmt
                      | DOCUMENT
                      | expr eostmt
-                     | assignment eostmt
+                     | DEFAULT expr eostmt
                      | return_stmt eostmt
                      | include_stmt eostmt
                      | call_stmt eostmt
@@ -121,19 +121,13 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                      | ECHO expr'''
         pass
 
-    def p_assignment(self, p):
-        '''assignment : expr ASSIGN expr
-                      | DEFAULT expr ASSIGN expr
-                      | expr ASSIGNOP expr'''
-        pass
-
     def p_expr(self, p):
         '''expr : LPAREN expr RPAREN rexpr
-                | NOT expr rexpr
-                | EXCLAMATION expr rexpr
+                | NOT expr
+                | EXCLAMATION expr
                 | NUMBER rexpr
-                | MINUS expr rexpr %prec UMINUS
-                | PLUS expr rexpr %prec UMINUS
+                | MINUS expr %prec UMINUS
+                | PLUS expr %prec UMINUS
                 | STRING rexpr
                 | FALSE rexpr
                 | TRUE rexpr
@@ -143,12 +137,8 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                 | array_literal RBRACKET rexpr'''
         pass
 
-    # this is the set of productions which, if put back into p_expr, would cause a
-    # left-recursive production
-    # each production (except empty) generates a shift/reduce conflict with each production in
-    # expr that includes rexpr
-    # so we have 13 (expr) * 20 (rexpr) === 260 shift/reduce conflicts
-    # but it works, dammit!
+    # this is the set of productions which result from elimination of
+    # left-recursion in expr
     def p_rexpr(self, p):
         '''rexpr :
                  | PLUS expr
@@ -170,6 +160,8 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                  | GTE expr
                  | DOUBLEAMP expr
                  | DOT expr
+                 | ASSIGN expr
+                 | ASSIGNOP expr
                  | LBRACKET expr RBRACKET rexpr'''
         pass
 
@@ -213,7 +205,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         pass
 
     def p_if_stmt(self, p):
-        '''if_stmt : IF statement_list elseif_stmts else_stmt END'''
+        '''if_stmt : IF expr statement_list elseif_stmts else_stmt END'''
         pass
 
     def p_elseif_stmts(self, p):
