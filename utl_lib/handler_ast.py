@@ -2,7 +2,8 @@
 """A parse handler to construct an AST from a UTL document."""
 
 from utl_lib.ast_node import ASTNode
-from utl_lib.utl_parse_handler import UTLParseHandler
+from utl_lib.utl_parse_handler import UTLParseHandler, UTLParseError
+from utl_lib.utl_lex import UTLLexer
 # pylint: disable=too-many-public-methods,missing-docstring
 
 
@@ -28,29 +29,75 @@ class UTLParseHandlerAST(UTLParseHandler):
                 statement_list.add_child(statement)
             return statement_list
 
-    def statement(self, statement, is_document=False):
-        if is_document:
-            return ASTNode('document', True,
-                           {'text': statement if statement else ''})
-        if isinstance(statement, str):   # is a keyword
-            return ASTNode('statement', False, {}, [ASTNode(statement, True)])
-        return ASTNode('statement', False, {}, [statement] if statement else [])
+    def statement(self, statement):
+        if isinstance(statement, str):
+            if statement in UTLLexer.reserved:  # is a keyword
+                return ASTNode('statement', False, {}, [ASTNode(statement, True)])
+            else:
+                return ASTNode('statement', False, {},
+                               [ASTNode('document', True, {'text': statement}, [])])
+        if statement:  # ignore null statements
+            return ASTNode('statement', False, {}, [statement] if statement else [])
 
     def echo_stmt(self, expr):
         return ASTNode('echo', False, {}, [expr] if expr else [])
 
-    def expr(self, lhs, rhs, operator, value):
-        if not ((lhs is not None and operator is not None) or value is not None):
-            raise ValueError("expr() called with missing parameter!")
-        if lhs and operator:
-            # rhs is missing for unary operators
-            return ASTNode('expr', False, {'operator': operator},
-                           [lhs, rhs] if rhs else [lhs])
-        else:
-            if isinstance(value, ASTNode):
-                return ASTNode('expr', False, {}, [value])
+    def expr(self, start, expr1, expr2):
+        if isinstance(start, str):
+            if start.lower() in ('not', '!', '-', '+', ):
+                start = ASTNode('unary-op', False, {'operator': start.lower()}, [expr1])
+            elif start.lower() in ('false', 'true', 'null', ):
+                start = ASTNode('keyword', True, {'keyword': start.lower()}, [])
             else:
-                return ASTNode('expr', True, {"value": value}, [])
+                start = ASTNode('id', True, {'name': start}, [])
+        elif isinstance(start, float):
+            start = ASTNode('number', True, {'value': start})
+        elif not isinstance(start, ASTNode):
+            raise UTLParseError("Unrecognized start to an expr: {}".format(start))
+        # We want the returned expression node to hide the whole expr/rexpr distinction, which is
+        # implementation detail.
+        # : NOT expr
+        # | EXCLAMATION expr
+        # | NUMBER rexpr
+        # | MINUS expr %prec UMINUS
+        # | PLUS expr %prec UMINUS
+        # | STRING rexpr
+        # | FALSE rexpr
+        # | TRUE rexpr
+        # | NULL rexpr
+        # | ID rexpr
+        # | LPAREN expr RPAREN rexpr
+        # | array_literal RBRACKET rexpr'''
+        if expr1 and 'operator' in expr1.attributes:
+            return ASTNode('expr', False, expr1.attributes, [start] + expr1.children)
+        return ASTNode('expr', False, {}, [node for node in [start, expr1, expr2] if node is not None])
+
+    def rexpr(self, operator, expr_or_arg_list, rexpr):
+        # | PLUS expr
+        # | MINUS expr
+        # | FILTER expr
+        # | TIMES expr
+        # | DIV expr
+        # | MODULUS expr
+        # | DOUBLEBAR expr
+        # | RANGE expr
+        # | NEQ expr
+        # | LTE expr
+        # | OR expr
+        # | LT expr
+        # | EQ expr
+        # | IS expr
+        # | GT expr
+        # | AND expr
+        # | GTE expr
+        # | DOUBLEAMP expr
+        # | DOT expr
+        # | ASSIGN expr
+        # | ASSIGNOP expr
+        # | LPAREN arg_list RPAREN rexpr
+        # | LBRACKET expr RBRACKET rexpr
+        return ASTNode('rexpr', False, {'operator': operator},
+                       [node for node in [expr_or_arg_list, rexpr] if node is not None])
 
     def param_list(self, param_decl, param_list=None):
         if not (param_decl or param_list):
@@ -83,16 +130,6 @@ class UTLParseHandlerAST(UTLParseHandler):
         else:
             return ASTNode('arg', False, {}, [expr])
 
-    def assignment(self, target, expr, op, default=False):
-        return ASTNode('assignment', False,
-                       {'op': op,
-                        'default': default},
-                       [target, expr])
-
-    def method_call(self, expr, arg_list=None):
-        return ASTNode('method_call', False, {},
-                       [expr, arg_list] if arg_list else [expr])
-
     def array_literal(self, elements=None):
         return ASTNode('array_literal', False, {}, [elements] if elements else [])
 
@@ -115,9 +152,6 @@ class UTLParseHandlerAST(UTLParseHandler):
         else:
             kv_elems.add_child(new_elem)
             return kv_elems
-
-    def array_ref(self, array_id, array_index):
-        return ASTNode('array_ref', False, {}, [array_id, array_index])
 
     def if_stmt(self, expr, statement_list, elseif_stmts=None, else_stmt=None):
         kids = [expr, statement_list]
@@ -143,7 +177,7 @@ class UTLParseHandlerAST(UTLParseHandler):
     def return_stmt(self, expr=None):
         return ASTNode('return', False, {}, [expr] if expr else [])
 
-    def macro_defn(self, macro_decl, statement_list):
+    def macro_defn(self, macro_decl, statement_list=None):
         return ASTNode('macro-defn',
                        False,
                        {'name': macro_decl.attributes['name']},
@@ -162,13 +196,16 @@ class UTLParseHandlerAST(UTLParseHandler):
             return id_prefix
         return ASTNode('id', True, {'symbol': this_id}, [])
 
-    def for_stmt(self, expr, as_clause, statement_list):
+    def for_stmt(self, expr, as_clause=None, statement_list=None):
         return ASTNode('for', False, {},
                        [expr, as_clause, statement_list])
 
-    def as_clause(self, var1, var2):
+    def as_clause(self, var1, var2=None):
         kids = [ASTNode('id', True, {"symbol": vname}) for vname in [var1, var2] if vname is not None]
         return ASTNode('as_clause', False, {}, kids)
+
+    def default_assignment(self, assign_expr):
+        return ASTNode('default', False, {}, [assign_expr])
 
     def include_stmt(self, filename):
         return ASTNode('include', True, {'file': filename})
