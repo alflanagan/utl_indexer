@@ -12,7 +12,6 @@
 import os
 import json
 import re
-import sys
 from html import unescape  # since we escape entities in DOCUMENT text
 
 import ply
@@ -23,7 +22,7 @@ from utl_lib.ast_node import ASTNode
 from utl_lib.utl_yacc import UTLParser
 from utl_lib.utl_lex import UTLLexer
 from utl_lib.utl_parse_handler import UTLParseHandler, UTLParseError
-from utl_lib.handler_ast import UTLParseHandlerAST
+from utl_lib.handler_parse_tree import UTLParseHandlerParseTree
 
 
 class UTLParserTestCase(unittest_plus.TestCasePlus):
@@ -43,7 +42,7 @@ class UTLParserTestCase(unittest_plus.TestCasePlus):
         self.assertIsInstance(parser.lexer, ply.lex.Lexer)
         self.assertSetEqual(set(parser.tokens), set(UTLLexer.tokens) - set(parser.filtered_tokens))
         self.assertSequenceEqual(parser.handlers, [])
-        handler = UTLParseHandlerAST()
+        handler = UTLParseHandlerParseTree()
         parser2 = UTLParser([handler], debug=False)
         self.assertIs(parser2.handlers[0], handler)
         parser3 = UTLParser(handler, debug=False)
@@ -99,7 +98,7 @@ class UTLParserTestCase(unittest_plus.TestCasePlus):
         ``json_filename``, which must exist in our test data directory.
 
         """
-        handler = UTLParseHandlerAST()
+        handler = UTLParseHandlerParseTree()
         parser = UTLParser([handler], debug=False)
         with open(self.data_file(utl_filename), 'r') as utlin:
             item1 = parser.parse(utlin.read())
@@ -208,14 +207,18 @@ class UTLParserTestCase(unittest_plus.TestCasePlus):
 
     def test_syntax_error(self):
         """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with invalid syntax."""
-        handler = UTLParseHandlerAST()
+        handler = UTLParseHandlerParseTree()
         parser = UTLParser([handler], debug=False)
         with open(self.data_file('syntax_error.utl'), 'r') as datain:
             self.assertRaises(UTLParseError, parser.parse, datain.read())
 
     def test_with_multiple_handlers(self):
-        handler1 = UTLParseHandlerAST()
-        # second handler can't be AST, that one can modify previous results
+        """Unit test of :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with more than one handler
+        attached.
+
+        """
+        handler1 = UTLParseHandlerParseTree()
+        # parse tree as second handler could modify previous results
         handler2 = UTLParseHandler()  # but doing nothing is fine
         # FIXME: need a second handler that returns values from productions
         #     but does not modify existing p[0] values

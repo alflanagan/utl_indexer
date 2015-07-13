@@ -80,6 +80,10 @@ class UTLParseHandler(object):
         """
         return None
 
+    def literal(self, literal):
+        """A literal value: either a string, a number, or an array literal."""
+        return None
+
     def default_assignment(self, assignment):
         """Assignment with a preceding DEFAULT keyword.
 

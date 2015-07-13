@@ -156,21 +156,28 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
     def p_expr(self, p):
         '''expr : NOT expr
                 | EXCLAMATION expr
-                | NUMBER rexpr
+                | literal rexpr
                 | MINUS expr %prec UMINUS
                 | PLUS expr %prec UMINUS
-                | STRING rexpr
                 | FALSE rexpr
                 | TRUE rexpr
                 | NULL rexpr
                 | ID rexpr
-                | LPAREN expr RPAREN rexpr
-                | array_literal RBRACKET rexpr'''
+                | LPAREN expr RPAREN rexpr'''
         for handler in self.handlers:
             if len(p) == 4:
                 value = handler.expr(p[1], p[3], None)
             else:
                 value = handler.expr(p[1], p[2], self._(p, 4))
+            if p[0] is None:
+                p[0] = value
+
+    def p_literal(self, p):
+        '''literal : NUMBER
+                   | STRING
+                   | array_literal RBRACKET'''
+        for handler in self.handlers:
+            value = handler.literal(p[1])
             if p[0] is None:
                 p[0] = value
 
@@ -213,10 +220,11 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         '''arg_list :
                     | arg
                     | arg COMMA arg_list'''
-        for handler in self.handlers:
-            value = handler.arg_list(p[1], self._(p, 3))
-            if p[0] is None:
-                p[0] = value
+        if len(p) > 1:
+            for handler in self.handlers:
+                value = handler.arg_list(p[1], self._(p, 3))
+                if p[0] is None:
+                    p[0] = value
 
     def p_arg(self, p):
         '''arg : expr
@@ -227,8 +235,8 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                 value = handler.arg(p[1])
             else:
                 value = handler.arg(p[3], p[1])
-                if p[0] is None:
-                    p[0] = value
+            if p[0] is None:
+                p[0] = value
 
     def p_array_literal(self, p):
         '''array_literal : LBRACKET array_elems
@@ -271,31 +279,33 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
     def p_elseif_stmts(self, p):
         '''elseif_stmts :
                         | elseif_stmt elseif_stmts'''
-        for handler in self.handlers:
-            value = handler.elseif_stmts(p[1], p[2])
-            if p[0] is None:
-                p[0] = value
+        if len(p) > 1:
+            for handler in self.handlers:
+                value = handler.elseif_stmts(p[1], p[2])
+                if p[0] is None:
+                    p[0] = value
 
     def p_elseif_stmt(self, p):
         '''elseif_stmt : ELSEIF expr statement_list'''
         for handler in self.handlers:
-            value = handler.elseif_stmt(p[1], p[2])
+            value = handler.elseif_stmt(p[2], p[3])
             if p[0] is None:
                 p[0] = value
 
     def p_else_stmt(self, p):
         '''else_stmt :
                      | ELSE statement_list'''
-        for handler in self.handlers:
-            value = handler.else_stmt(p[2])
-            if p[0] is None:
-                p[0] = value
+        if len(p) > 1:
+            for handler in self.handlers:
+                value = handler.else_stmt(p[2])
+                if p[0] is None:
+                    p[0] = value
 
     def p_return_stmt(self, p):
         '''return_stmt : RETURN expr
                        | RETURN'''
         for handler in self.handlers:
-            value = handler.return_stmt(self._(p, 1))
+            value = handler.return_stmt(self._(p, 2))
             if p[0] is None:
                 p[0] = value
 
@@ -305,7 +315,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                       | param_decl '''
         if len(p) > 1:
             for handler in self.handlers:
-                value = handler.param_list(p[1], self._(p, 2))
+                value = handler.param_list(p[1], self._(p, 3))
                 if p[0] is None:
                     p[0] = value
 
@@ -321,7 +331,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         '''macro_defn : macro_decl eostmt statement_list END
                       | macro_decl eostmt END'''
         for handler in self.handlers:
-            value = handler.macro_defn(p[1], self._(p, 3))
+            value = handler.macro_defn(p[1], p[3] if p[3] != 'end' else None)
             if p[0] is None:
                 p[0] = value
 
