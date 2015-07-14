@@ -1,8 +1,104 @@
-{"name": "utldoc",
- "children": [
-     {"name": "statement_list",
-      "children": [
-          {"name": "statement",
-           "children": [
-               {"name": "include",
-                "attributes": {"file": "fred.utl"}}]}]}]}
+{
+    "name": "utldoc",
+    "children": [{
+        "name": "statement_list",
+        "children": [{
+            "name": "statement",
+            "children": [{
+                "name": "include_stmt",
+                "children": [{
+                    "name": "expr",
+                    "children": [{
+                        "name": "literal",
+                        "attributes": {
+                            "type": "string",
+                            "value": "fred.utl"
+                        }
+                    }]
+                }]
+            }]
+        }, {
+            "name": "statement",
+            "children": [{
+                "name": "include_stmt",
+                "children": [{
+                    "name": "expr",
+                    "children": [{
+                        "name": "id",
+                        "attributes": {
+                            "symbol": "appMacros"
+                        }
+                    }]
+                }]
+            }]
+        }, {
+            "name": "statement",
+            "children": [{
+                "name": "include_stmt",
+                "children": [{
+                    "name": "expr",
+                    "children": [{
+                        "name": "literal",
+                        "attributes": {
+                            "type": "string",
+                            "value": "fred"
+                        }
+                    }, {
+                        "name": "rexpr",
+                        "attributes": {
+                            "operator": "+"
+                        },
+                        "children": [{
+                            "name": "expr",
+                            "attributes": {
+                                "operator": "("
+                            },
+                            "children": [{
+                                "name": "expr",
+                                "children": [{
+                                    "name": "literal",
+                                    "attributes": {
+                                        "type": "number",
+                                        "value": 5.0
+                                    }
+                                }, {
+                                    "name": "rexpr",
+                                    "attributes": {
+                                        "operator": "*"
+                                    },
+                                    "children": [{
+                                        "name": "expr",
+                                        "children": [{
+                                            "name": "literal",
+                                            "attributes": {
+                                                "type": "number",
+                                                "value": 12.0
+                                            }
+                                        }]
+                                    }]
+                                }]
+                            }, {
+                                "name": "rexpr",
+                                "attributes": {
+                                    "operator": "+"
+                                },
+                                "children": [{
+                                    "name": "expr",
+                                    "children": [{
+                                        "name": "literal",
+                                        "attributes": {
+                                            "type": "string",
+                                            "value": "section.inc.utl"
+                                        }
+                                    }]
+                                }]
+                            }]
+                        }]
+                    }]
+                }]
+            }]
+        }, {
+            "name": "statement"
+        }]
+    }]
+}

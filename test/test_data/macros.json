@@ -563,16 +563,17 @@
                         }, {
                             "name": "param_decl",
                             "attributes": {
+                                "name": "arg3",
                                 "default": {
                                     "name": "expr",
                                     "children": [{
-                                        "name": "id",
+                                        "name": "literal",
                                         "attributes": {
-                                            "symbol": "false"
+                                            "type": "boolean",
+                                            "value": false
                                         }
                                     }]
-                                },
-                                "name": "arg3"
+                                }
                             }
                         }, {
                             "name": "param_decl",
@@ -630,6 +631,7 @@
                         "children": [{
                             "name": "param_decl",
                             "attributes": {
+                                "name": "types",
                                 "default": {
                                     "name": "expr",
                                     "children": [{
@@ -880,12 +882,12 @@
                                             }]
                                         }]
                                     }]
-                                },
-                                "name": "types"
+                                }
                             }
                         }, {
                             "name": "param_decl",
                             "attributes": {
+                                "name": "asset",
                                 "default": {
                                     "name": "expr",
                                     "children": [{
@@ -908,8 +910,7 @@
                                             }]
                                         }]
                                     }]
-                                },
-                                "name": "asset"
+                                }
                             }
                         }]
                     }]

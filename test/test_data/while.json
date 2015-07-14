@@ -1,31 +1,50 @@
-{"name": "utldoc",
- "children": [
-     {"name": "statement_list",
-      "children": [
-          {"name": "statement",
-           "children": [
-               {"name": "while",
-                "children": [
-                    {"name": "expr",
-                     "attributes": {"operator": "=="},
-                     "children": [
-                         {"name": "expr",
-                          "children": [
-                              {"name": "term",
-                               "children": [
-                                   {"name": "factor",
-                                    "children": [
-                                        {"name": "id",
-                                         "attributes": {"symbol": "foo"}}]}]}]},
-                         {"name": "expr",
-                          "children": [
-                              {"name": "term",
-                               "children": [
-                                   {"name": "factor",
-                                    "children": [
-                                        {"name": "id",
-                                         "attributes": {"symbol": "bar"}}]}]}]}]},
-                    {"name": "statement_list",
-                     "children": [
-                         {"name": "document",
-                          "attributes": {"text": "\nstuff happens\n"}}]}]}]}]}]}
+{
+    "name": "utldoc",
+    "children": [{
+        "name": "statement_list",
+        "children": [{
+            "name": "statement",
+            "children": [{
+                "name": "while_stmt",
+                "children": [{
+                    "name": "expr",
+                    "children": [{
+                        "name": "id",
+                        "attributes": {
+                            "symbol": "foo"
+                        }
+                    }, {
+                        "name": "rexpr",
+                        "attributes": {
+                            "operator": "=="
+                        },
+                        "children": [{
+                            "name": "expr",
+                            "children": [{
+                                "name": "id",
+                                "attributes": {
+                                    "symbol": "bar"
+                                }
+                            }]
+                        }]
+                    }]
+                }, {
+                    "name": "statement_list",
+                    "children": [{
+                        "name": "statement"
+                    }, {
+                        "name": "statement",
+                        "children": [{
+                            "name": "document",
+                            "attributes": {
+                                "text": "\nstuff happens\n"
+                            }
+                        }]
+                    }]
+                }]
+            }]
+        }, {
+            "name": "statement"
+        }]
+    }]
+}

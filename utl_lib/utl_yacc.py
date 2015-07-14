@@ -52,7 +52,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         ('left', 'DOUBLEBAR'),
         ('left', 'AND'),
         ('left', 'DOUBLEAMP'),
-        ('left', 'ASSIGN', 'ASSIGNOP'),
+        ('nonassoc', 'ASSIGN', 'ASSIGNOP'),
         ('left', 'FILTER'),
         ('nonassoc', 'IS', 'NOT', 'EQ', 'NEQ'),
         ('nonassoc', 'LT', 'GT', 'LTE', 'GTE'),  # relational operators <, >, <=, >=
@@ -159,23 +159,20 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                 | literal rexpr
                 | MINUS expr %prec UMINUS
                 | PLUS expr %prec UMINUS
-                | FALSE rexpr
-                | TRUE rexpr
-                | NULL rexpr
                 | ID rexpr
                 | LPAREN expr RPAREN rexpr'''
         for handler in self.handlers:
-            if len(p) == 4:
-                value = handler.expr(p[1], p[3], None)
-            else:
-                value = handler.expr(p[1], p[2], self._(p, 4))
+            value = handler.expr(p[1], p[2], self._(p, 4))
             if p[0] is None:
                 p[0] = value
 
     def p_literal(self, p):
         '''literal : NUMBER
                    | STRING
-                   | array_literal RBRACKET'''
+                   | array_literal RBRACKET
+                   | FALSE
+                   | TRUE
+                   | NULL'''
         for handler in self.handlers:
             value = handler.literal(p[1])
             if p[0] is None:
@@ -356,7 +353,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         '''for_stmt : FOR expr as_clause eostmt statement_list END
                     | FOR EACH expr as_clause eostmt statement_list END'''
         for handler in self.handlers:
-            if len(p) == 7:
+            if len(p) == 8:
                 # account for EACH
                 value = handler.for_stmt(p[3], p[4], p[6])
             else:

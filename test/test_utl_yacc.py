@@ -207,10 +207,22 @@ class UTLParserTestCase(unittest_plus.TestCasePlus):
 
     def test_syntax_error(self):
         """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with invalid syntax."""
-        handler = UTLParseHandlerParseTree()
+        handler = UTLParseHandlerParseTree(exception_on_error=True)
         parser = UTLParser([handler], debug=False)
         with open(self.data_file('syntax_error.utl'), 'r') as datain:
             self.assertRaises(UTLParseError, parser.parse, datain.read())
+
+    def test_syntax_error_stderr(self):
+        """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with invalid syntax when no
+        handlers are defined.
+
+        """
+        parser = UTLParser([], debug=False)
+        with mock_objects.MockStream().capture_stderr() as fake_stderr:
+            with open(self.data_file('syntax_error.utl'), 'r') as datain:
+                parser.parse(datain.read())
+        self.assertIn('in statement', fake_stderr.logged)
+        self.assertIn('line 2', fake_stderr.logged)
 
     def test_with_multiple_handlers(self):
         """Unit test of :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with more than one handler

@@ -65,9 +65,9 @@ class UTLParseHandler(object):
         """An echo statement. `expr` is the object to be echoed, or :py:attr:`None`."""
         return None
 
-    def expr(self, start, expr1, expr2):
-        """An expression production. 'start' is the opening token, `expr1` is the related
-        expression, and `expr2` is a second related expression for a couple of productions.
+    def expr(self, start, related, rexpr):
+        """An expression production. 'start' is the opening token, `related` is the related
+        expression, and `rexpr` is expression continuation if start is "(".
 
         """
         return None

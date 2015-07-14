@@ -45,13 +45,21 @@ class UTLParseHandlerParseTree(UTLParseHandler):
     def echo_stmt(self, expr):
         return ASTNode('echo', False, {}, [expr] if expr else [])
 
-    def expr(self, start, expr1, expr2):
-        if isinstance(start, str):
+    def expr(self, start, related, rexpression):
+        # NOT expr
+        # EXCLAMATION expr
+        # literal rexpr
+        # MINUS expr %prec UMINUS
+        # PLUS expr %prec UMINUS
+        # ID rexpr
+        # LPAREN expr RPAREN rexpr''
+        if start in ['not', '!', '-', '+', '(']:
+            return ASTNode('expr', False, {'operator': start},
+                           [related, rexpression] if rexpression else [related])
+        elif not isinstance(start, ASTNode):  # literal is already a node
             start = ASTNode('id', True, {'symbol': start}, [])
-        elif not isinstance(start, ASTNode):
-            raise UTLParseError("Unrecognized start to an expr: {}".format(start))
-        return ASTNode('expr', False, {},
-                       [node for node in [start, expr1, expr2] if node is not None])
+        kids = [node for node in [start, related, rexpression] if node is not None]
+        return ASTNode('expr', False, {}, kids)
 
     def rexpr(self, operator, expr_or_arg_list, rexpr):
         # | PLUS expr
@@ -82,6 +90,10 @@ class UTLParseHandlerParseTree(UTLParseHandler):
 
     def literal(self, literal):
         if isinstance(literal, str):
+            if literal in ['true', 'false']:
+                return ASTNode('literal', True, {'type': 'boolean', 'value': literal == 'true'})
+            if literal == 'null':
+                return ASTNode('literal', True, {'type': 'null', 'value': literal})
             return ASTNode('literal', True, {'type': 'string', 'value': literal}, [])
         elif isinstance(literal, float):
             return ASTNode('literal', True, {'type': 'number', 'value': literal}, [])
@@ -190,7 +202,7 @@ class UTLParseHandlerParseTree(UTLParseHandler):
         return ASTNode('default_assignment', False, {}, [assign_expr])
 
     def include_stmt(self, filename):
-        return ASTNode('include_stmt', True, {}, [])
+        return ASTNode('include_stmt', True, {}, [filename])
 
     def abbrev_if_stmt(self, expr, statement):
         return ASTNode('abbrev_if_stmt', False, {}, [expr, statement])

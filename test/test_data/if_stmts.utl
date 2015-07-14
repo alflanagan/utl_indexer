@@ -6,7 +6,7 @@
   if aInfo['bTracker'] && !(cms.request.param('mode') == 'jqm');
       aInfo['sServiceClass'] = 'managed-service';
   end;
-  if show_flags == 'true' %]
+  if show_flags == true %]
     <li>[% core_base_library_assetFlags(target : asset) %]</li>
   [% end;
     if cms.request.param('q') then site_keywords += ',' + cms.request.param('q') | replace(' ',',') | html;  
