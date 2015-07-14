@@ -27,3 +27,4 @@ htmlcov/
 zend_language_parser.y
 *.bz2
 temp/
+.secret
