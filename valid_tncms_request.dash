@@ -1,7 +1,0 @@
-#!/usr/bin/env dash
-TNPASS=$(cat .secret)
-wget http://www.richmond.com/tncms/webservice/v1/editorial/get/?id=72c2ab48-2976-11e5-a21b-a7f967e75fca --user=16ED26C62A6711E591E4B3E58BAF2E49 --password=${TNPASS} -O editorial_asset.json
-# wget http://www.richmond.com/tncms/webservice/v1/template/get/?id=1 --user=16ED26C62A6711E591E4B3E58BAF2E49 --password=${TNPASS}
-# wget 'http://www.richmond.com/tncms/webservice/v1/user/get/?user=Flanagan' --user=16ED26C62A6711E591E4B3E58BAF2E49 --password=${TNPASS}
-# wget 'http://www.richmond.com/tncms/webservice/v1/user/get/?user=aflanagan@worldmediaenterprise.com' --user=16ED26C62A6711E591E4B3E58BAF2E49 --password=${TNPASS}
-wget 'http://www.richmond.com/tncms/webservice/v1/user/get/?user=stevehewitt1@me.com' --user=16ED26C62A6711E591E4B3E58BAF2E49 --password=${TNPASS} -O user_asset.json
