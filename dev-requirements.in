@@ -1,0 +1,15 @@
+Sphinx
+coverage
+pylint
+pep8
+ipython
+# pip-compile does not support packages with extras, so for now, ipython dependencies are:
+# most of these are not relevant, but not sure what i don't need.
+pyzmq
+tornado
+numpydoc
+mistune
+ptyprocess
+terminado
+jsonschema
+nose

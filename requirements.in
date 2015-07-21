@@ -1,0 +1,15 @@
+# we're now using a more straightforward way of specifying packages.
+# each of the files requirements.in, dev-requirements.in, and
+# emacs-requirements.in list packages that we use for production,
+# development, or with emacs. We run "pip-compile xxxx.in" on each
+# file to create a .txt file with the version numbers of each
+# dependency, and each dependency of a dependency. These .txt files
+# serve to "pin" versions of the dependent packages to prevent
+# problems from getting a more recent version of the package than was
+# available for development. Then for development or production, you
+# can run "pip install -r xxxx.txt" to install all the packages
+# needed.
+
+ply
+requests
+pip-tools
