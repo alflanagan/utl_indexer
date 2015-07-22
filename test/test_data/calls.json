@@ -344,8 +344,6 @@
                 }, {
                     "name": "statement_list",
                     "children": [{
-                        "name": "statement"
-                    }, {
                         "name": "statement",
                         "children": [{
                             "name": "echo",
@@ -401,8 +399,6 @@
                 }]
             }]
         }, {
-            "name": "statement"
-        }, {
             "name": "statement",
             "children": [{
                 "name": "document",
@@ -410,8 +406,6 @@
                     "text": "\n"
                 }
             }]
-        }, {
-            "name": "statement"
         }]
     }]
 }

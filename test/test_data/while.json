@@ -31,8 +31,6 @@
                 }, {
                     "name": "statement_list",
                     "children": [{
-                        "name": "statement"
-                    }, {
                         "name": "statement",
                         "children": [{
                             "name": "document",
@@ -43,8 +41,6 @@
                     }]
                 }]
             }]
-        }, {
-            "name": "statement"
         }]
     }]
 }

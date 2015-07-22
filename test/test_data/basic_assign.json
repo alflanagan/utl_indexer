@@ -39,8 +39,8 @@
                     "children": [{
                         "name": "literal",
                         "attributes": {
-                            "value": 5.0,
-                            "type": "number"
+                            "type": "number",
+                            "value": 5.0
                         }
                     }, {
                         "name": "rexpr",
@@ -52,8 +52,8 @@
                             "children": [{
                                 "name": "literal",
                                 "attributes": {
-                                    "value": 7.0,
-                                    "type": "number"
+                                    "type": "number",
+                                    "value": 7.0
                                 }
                             }]
                         }]
@@ -69,8 +69,8 @@
                     "children": [{
                         "name": "literal",
                         "attributes": {
-                            "value": "barney rubble",
-                            "type": "string"
+                            "type": "string",
+                            "value": "barney rubble"
                         }
                     }, {
                         "name": "rexpr",
@@ -120,8 +120,8 @@
                                 "children": [{
                                     "name": "literal",
                                     "attributes": {
-                                        "value": 12.0,
-                                        "type": "number"
+                                        "type": "number",
+                                        "value": 12.0
                                     }
                                 }, {
                                     "name": "rexpr",
@@ -133,8 +133,8 @@
                                         "children": [{
                                             "name": "literal",
                                             "attributes": {
-                                                "value": 6.0,
-                                                "type": "number"
+                                                "type": "number",
+                                                "value": 6.0
                                             }
                                         }]
                                     }]
@@ -175,8 +175,8 @@
                                 "children": [{
                                     "name": "literal",
                                     "attributes": {
-                                        "value": "bat",
-                                        "type": "string"
+                                        "type": "string",
+                                        "value": "bat"
                                     }
                                 }]
                             }]
@@ -254,8 +254,8 @@
                                 "children": [{
                                     "name": "literal",
                                     "attributes": {
-                                        "value": 0.0,
-                                        "type": "number"
+                                        "type": "number",
+                                        "value": 0.0
                                     }
                                 }]
                             }]
@@ -294,8 +294,8 @@
                                 "children": [{
                                     "name": "literal",
                                     "attributes": {
-                                        "value": 2.0,
-                                        "type": "number"
+                                        "type": "number",
+                                        "value": 2.0
                                     }
                                 }]
                             }]
@@ -322,8 +322,8 @@
                         "children": [{
                             "name": "literal",
                             "attributes": {
-                                "value": "",
-                                "type": "string"
+                                "type": "string",
+                                "value": ""
                             }
                         }]
                     }]
@@ -360,8 +360,8 @@
                                 "children": [{
                                     "name": "literal",
                                     "attributes": {
-                                        "value": 3.0,
-                                        "type": "number"
+                                        "type": "number",
+                                        "value": 3.0
                                     }
                                 }]
                             }]
@@ -369,8 +369,6 @@
                     }]
                 }]
             }]
-        }, {
-            "name": "statement"
         }, {
             "name": "statement",
             "children": [{
@@ -398,8 +396,8 @@
                         "children": [{
                             "name": "literal",
                             "attributes": {
-                                "value": 3.0,
-                                "type": "number"
+                                "type": "number",
+                                "value": 3.0
                             }
                         }, {
                             "name": "rexpr",
@@ -411,8 +409,8 @@
                                 "children": [{
                                     "name": "literal",
                                     "attributes": {
-                                        "value": 4.0,
-                                        "type": "number"
+                                        "type": "number",
+                                        "value": 4.0
                                     }
                                 }]
                             }]
@@ -439,8 +437,8 @@
                         "children": [{
                             "name": "literal",
                             "attributes": {
-                                "value": 3.0,
-                                "type": "number"
+                                "type": "number",
+                                "value": 3.0
                             }
                         }]
                     }]
@@ -502,8 +500,8 @@
                                 "children": [{
                                     "name": "literal",
                                     "attributes": {
-                                        "value": 12.0,
-                                        "type": "number"
+                                        "type": "number",
+                                        "value": 12.0
                                     }
                                 }]
                             }]
@@ -739,8 +737,8 @@
                             "children": [{
                                 "name": "literal",
                                 "attributes": {
-                                    "value": 3.0,
-                                    "type": "number"
+                                    "type": "number",
+                                    "value": 3.0
                                 }
                             }]
                         }]
@@ -819,8 +817,8 @@
                         "children": [{
                             "name": "literal",
                             "attributes": {
-                                "value": 7.0,
-                                "type": "number"
+                                "type": "number",
+                                "value": 7.0
                             }
                         }]
                     }]
@@ -845,8 +843,8 @@
                         "children": [{
                             "name": "literal",
                             "attributes": {
-                                "value": 3.0,
-                                "type": "number"
+                                "type": "number",
+                                "value": 3.0
                             }
                         }]
                     }]
@@ -941,8 +939,8 @@
                         "children": [{
                             "name": "literal",
                             "attributes": {
-                                "value": "",
-                                "type": "array"
+                                "type": "array",
+                                "value": ""
                             },
                             "children": [{
                                 "name": "array_literal",
@@ -953,8 +951,8 @@
                                         "children": [{
                                             "name": "literal",
                                             "attributes": {
-                                                "value": 1.0,
-                                                "type": "number"
+                                                "type": "number",
+                                                "value": 1.0
                                             }
                                         }]
                                     }, {
@@ -962,8 +960,8 @@
                                         "children": [{
                                             "name": "literal",
                                             "attributes": {
-                                                "value": 2.0,
-                                                "type": "number"
+                                                "type": "number",
+                                                "value": 2.0
                                             }
                                         }]
                                     }, {
@@ -971,8 +969,8 @@
                                         "children": [{
                                             "name": "literal",
                                             "attributes": {
-                                                "value": "fred",
-                                                "type": "string"
+                                                "type": "string",
+                                                "value": "fred"
                                             }
                                         }]
                                     }, {
@@ -980,8 +978,8 @@
                                         "children": [{
                                             "name": "literal",
                                             "attributes": {
-                                                "value": 3.0,
-                                                "type": "number"
+                                                "type": "number",
+                                                "value": 3.0
                                             }
                                         }]
                                     }, {
@@ -1005,8 +1003,8 @@
                                                         "children": [{
                                                             "name": "literal",
                                                             "attributes": {
-                                                                "value": 7.0,
-                                                                "type": "number"
+                                                                "type": "number",
+                                                                "value": 7.0
                                                             }
                                                         }]
                                                     }]
@@ -1053,8 +1051,8 @@
                         "children": [{
                             "name": "literal",
                             "attributes": {
-                                "value": "",
-                                "type": "array"
+                                "type": "array",
+                                "value": ""
                             },
                             "children": [{
                                 "name": "array_literal",
@@ -1067,8 +1065,8 @@
                                             "children": [{
                                                 "name": "literal",
                                                 "attributes": {
-                                                    "value": "one",
-                                                    "type": "string"
+                                                    "type": "string",
+                                                    "value": "one"
                                                 }
                                             }]
                                         }, {
@@ -1076,8 +1074,8 @@
                                             "children": [{
                                                 "name": "literal",
                                                 "attributes": {
-                                                    "value": 2.0,
-                                                    "type": "number"
+                                                    "type": "number",
+                                                    "value": 2.0
                                                 }
                                             }]
                                         }]
@@ -1088,8 +1086,8 @@
                                             "children": [{
                                                 "name": "literal",
                                                 "attributes": {
-                                                    "value": "two",
-                                                    "type": "string"
+                                                    "type": "string",
+                                                    "value": "two"
                                                 }
                                             }]
                                         }, {
@@ -1097,8 +1095,8 @@
                                             "children": [{
                                                 "name": "literal",
                                                 "attributes": {
-                                                    "value": 3.0,
-                                                    "type": "number"
+                                                    "type": "number",
+                                                    "value": 3.0
                                                 }
                                             }]
                                         }]
@@ -1140,8 +1138,8 @@
                                 "children": [{
                                     "name": "literal",
                                     "attributes": {
-                                        "value": 3.0,
-                                        "type": "number"
+                                        "type": "number",
+                                        "value": 3.0
                                     }
                                 }]
                             }]
@@ -1168,8 +1166,8 @@
                         "children": [{
                             "name": "literal",
                             "attributes": {
-                                "value": "two",
-                                "type": "string"
+                                "type": "string",
+                                "value": "two"
                             }
                         }]
                     }, {
@@ -1182,8 +1180,8 @@
                             "children": [{
                                 "name": "literal",
                                 "attributes": {
-                                    "value": 7.0,
-                                    "type": "number"
+                                    "type": "number",
+                                    "value": 7.0
                                 }
                             }]
                         }]
@@ -1209,8 +1207,8 @@
                         "children": [{
                             "name": "literal",
                             "attributes": {
-                                "value": "",
-                                "type": "array"
+                                "type": "array",
+                                "value": ""
                             },
                             "children": [{
                                 "name": "array_literal"
@@ -1269,8 +1267,8 @@
                                                 "children": [{
                                                     "name": "literal",
                                                     "attributes": {
-                                                        "value": "image",
-                                                        "type": "string"
+                                                        "type": "string",
+                                                        "value": "image"
                                                     }
                                                 }]
                                             }]
@@ -1285,8 +1283,8 @@
                                             "children": [{
                                                 "name": "literal",
                                                 "attributes": {
-                                                    "value": 0.0,
-                                                    "type": "number"
+                                                    "type": "number",
+                                                    "value": 0.0
                                                 }
                                             }]
                                         }]
@@ -1297,8 +1295,6 @@
                     }]
                 }]
             }]
-        }, {
-            "name": "statement"
         }]
     }]
 }

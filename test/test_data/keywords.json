@@ -67,10 +67,6 @@
             "children": [{
                 "name": "return_stmt"
             }]
-        }, {
-            "name": "statement"
-        }, {
-            "name": "statement"
         }]
     }]
 }
