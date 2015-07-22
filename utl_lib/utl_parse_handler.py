@@ -36,6 +36,11 @@ class UTLParseHandler(object):
         super().__init__(*args, **kwargs)
         self.exception_on_error = exception_on_error
 
+    def state(self, value, msg=""):
+        """Like assert, but raises a UTLParseError."""
+        if not value:
+            raise UTLParseError("Assertion failed! Internal error in parser." + msg)
+
     def utldoc(self, statement_list):
         '''The top-level node for a UTL document.'''
         return None

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Module of classes used to implement an Abstract Syntax Tree structure.
+"""Module of classes used to implement an Abstract Syntax Tree structure. Actually, theyre used
+to implement parse tree as well, name is historical accident.
 
 
 | © 2015 BH Media Group, Inc.

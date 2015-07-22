@@ -1,0 +1,153 @@
+{
+    "name": "statement_list",
+    "children": [{
+        "name": "echo",
+        "children": [{
+            "name": "operator",
+            "attributes": {
+                "symbol": "+"
+            },
+            "children": [{
+                "name": "id",
+                "attributes": {
+                    "symbol": "a"
+                }
+            }, {
+                "name": "id",
+                "attributes": {
+                    "symbol": "b"
+                }
+            }]
+        }]
+    }, {
+        "name": "echo",
+        "children": [{
+            "name": "operator",
+            "attributes": {
+                "symbol": "-"
+            },
+            "children": [{
+                "name": "literal",
+                "attributes": {
+                    "value": 5.0
+                }
+            }, {
+                "name": "literal",
+                "attributes": {
+                    "value": 7.0
+                }
+            }]
+        }]
+    }, {
+        "name": "echo",
+        "children": [{
+            "name": "operator",
+            "attributes": {
+                "symbol": "|"
+            },
+            "children": [{
+                "name": "literal",
+                "attributes": {
+                    "value": "barney rubble"
+                }
+            }, {
+                "name": "id",
+                "attributes": {
+                    "symbol": "html"
+                }
+            }]
+        }]
+    }, {
+        "name": "operator",
+        "attributes": {
+            "symbol": "="
+        },
+        "children": [{
+            "name": "operator",
+            "attributes": {
+                "symbol": "."
+            },
+            "children": [{
+                "name": "id",
+                "attributes": {
+                    "symbol": "sally"
+                }
+            }, {
+                "name": "id",
+                "attributes": {
+                    "symbol": "isfine"
+                }
+            }]
+        }, {
+            "name": "operator",
+            "attributes": {
+                "symbol": "/"
+            },
+            "children": [{
+                "name": "literal",
+                "attributes": {
+                    "value": 12.0
+                }
+            }, {
+                "name": "literal",
+                "attributes": {
+                    "value": 6.0
+                }
+            }]
+        }]
+    }, {
+        "name": "operator",
+        "attributes": {
+            "symbol": "="
+        },
+        "children": [{
+            "name": "operator",
+            "attributes": {
+                "symbol": "."
+            },
+            "children": [{
+                "name": "id",
+                "attributes": {
+                    "symbol": "sally"
+                }
+            }, {
+                "name": "id",
+                "attributes": {
+                    "symbol": "fineis"
+                }
+            }]
+        }, {
+            "name": "literal",
+            "attributes": {
+                "value": "bat"
+            }
+        }]
+    }, {
+        "name": "operator",
+        "attributes": {
+            "symbol": "="
+        },
+        "children": [{
+            "name": "id",
+            "attributes": {
+                "symbol": "fred"
+            }
+        }, {
+            "name": "operator",
+            "attributes": {
+                "symbol": "is"
+            },
+            "children": [{
+                "name": "id",
+                "attributes": {
+                    "symbol": "sally"
+                }
+            }, {
+                "name": "id",
+                "attributes": {
+                    "symbol": "fine"
+                }
+            }]
+        }]
+    }]
+}

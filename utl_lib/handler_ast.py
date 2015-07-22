@@ -18,7 +18,7 @@ class UTLParseHandlerAST(UTLParseHandler):
         self.documents = []
 
     def utldoc(self, statement_list):
-        return ASTNode('utldoc', False, {}, [statement_list])
+        return statement_list
 
     def statement_list(self, statement, statement_list=None):
         if statement_list is None:
@@ -26,18 +26,18 @@ class UTLParseHandlerAST(UTLParseHandler):
         else:
             assert statement_list.symbol == 'statement_list'
             if statement:
-                statement_list.add_child(statement)
+                statement_list.add_first_child(statement)
             return statement_list
 
     def statement(self, statement):
         if isinstance(statement, str):
             if statement in UTLLexer.reserved:  # is a keyword
-                return ASTNode('statement', False, {}, [ASTNode(statement, True)])
+                return ASTNode('keyword', False, {}, [ASTNode(statement, True)])
             else:
-                return ASTNode('statement', False, {},
-                               [ASTNode('document', True, {'text': statement}, [])])
+                return ASTNode('document', True, {'text': statement}, [])
         if statement:  # ignore null statements
-            return ASTNode('statement', False, {}, [statement] if statement else [])
+            assert isinstance(statement, ASTNode)
+            return statement
 
     def echo_stmt(self, expr):
         return ASTNode('echo', False, {}, [expr] if expr else [])
@@ -49,7 +49,7 @@ class UTLParseHandlerAST(UTLParseHandler):
             elif start.lower() in ('false', 'true', 'null', ):
                 start = ASTNode('keyword', True, {'keyword': start.lower()}, [])
             else:
-                start = ASTNode('id', True, {'name': start}, [])
+                start = ASTNode('id', True, {'symbol': start}, [])
         elif isinstance(start, float):
             start = ASTNode('number', True, {'value': start})
         elif not isinstance(start, ASTNode):
@@ -68,8 +68,12 @@ class UTLParseHandlerAST(UTLParseHandler):
         # | ID rexpr
         # | LPAREN expr RPAREN rexpr
         # | array_literal RBRACKET rexpr'''
+        if start and not (expr1 or expr2):
+            return start
         if expr1 and 'operator' in expr1.attributes:
-            return ASTNode('expr', False, expr1.attributes, [start] + expr1.children)
+            self.state(expr1.symbol == 'rexpr', 'expected rexpr for expr1')
+            return ASTNode('operator', False, {"symbol": expr1.attributes["operator"]},
+                           [start] + expr1.children)
         return ASTNode('expr', False, {}, [node for node in [start, expr1, expr2] if node is not None])
 
     def rexpr(self, operator, expr_or_arg_list, rexpr):
@@ -218,3 +222,6 @@ class UTLParseHandlerAST(UTLParseHandler):
 
     def call_stmt(self, method_call):
         return ASTNode('call', False, {}, [method_call])
+
+    def literal(self, literal):
+        return ASTNode("literal", True, {"value": literal}, [])
