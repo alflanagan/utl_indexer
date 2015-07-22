@@ -13,7 +13,7 @@
 import json
 from testplus import unittest_plus
 
-from utl_lib.ast_node import ASTNode, ASTNodeFormatter, ASTNodeError, ASTNodeJSONFormatter
+from utl_lib.ast_node import ASTNode, ASTNodeError
 
 
 class ASTNodeTestCase(unittest_plus.TestCasePlus):
@@ -146,57 +146,31 @@ class ASTNodeTestCase(unittest_plus.TestCasePlus):
         item1.add_child(ASTNode("fourth", True))
         self.assertEqual(repr(item1), 'ASTNode("first", False, ..., [third, fourth])')
 
-
-class ASTNodeFormatterTestCase(unittest_plus.TestCasePlus):
-    """Unit tests for :py:class:`~utl_lib.ast_node.ASTNodeFormatter`."""
-
-    def test_create(self):
-        """Simple unit tests for :py:meth:`~utl_lib.ast_node.ASTNodeFormatter`."""
-        fred = ASTNodeFormatter(None)
-        self.assertIsNone(fred.root)
-        anode = ASTNode('root', True)
-        wilma = ASTNodeFormatter(anode)
-        self.assertIs(wilma.root, anode)
-
     def test_format(self):
-        """Unit tests for :py:meth:`~utl_lib.ast_node.ASTNodeFormatter.format`."""
+        """Unit tests for :py:meth:`~utl_lib.ast_node.ASTNode.format`."""
         anode = ASTNode('top', False, {}, [])
-        fmtr = ASTNodeFormatter(anode)
-        test_out = fmtr.format()
+        test_out = anode.format()
         self.assertEqual(test_out, 'Node(top)')
         anode.add_child(ASTNode('first_kid', False, {}, []))
-        test_out = fmtr.format()
+        test_out = anode.format()
         self.assertRegex(test_out, r'Node\(top\)\s+Node\(first_kid\)')
 
-
-class ASTNodeJSONFormatterTestCase(unittest_plus.TestCasePlus):
-    """Unit tests for :py:class:`~utl_lib.ast_node.ASTNodeJSONFormatter`."""
-
-    def test_create(self):
-        """Simple unit tests for :py:meth:`~utl_lib.ast_node.ASTNodeJSONFormatter`."""
-        fred = ASTNodeJSONFormatter(None)
-        self.assertIsNone(fred.root)
-        anode = ASTNode('root', True)
-        wilma = ASTNodeFormatter(anode)
-        self.assertIs(wilma.root, anode)
-
-    def test_format(self):
-        """Unit tests for :py:meth:`~utl_lib.ast_node.ASTNodeJSONFormatter.format`."""
+    def test_json_format(self):
+        """Unit tests for :py:meth:`~utl_lib.ast_node.ASTNode.json_format`."""
         anode = ASTNode('top', False, {}, [])
-        fmtr = ASTNodeJSONFormatter(anode)
-        test_out = fmtr.format()
+        test_out = anode.json_format()
         self.assertEqual(test_out, '{"name": "top"}')
         anode.attributes['first'] = 'last'
-        test_json = json.loads(fmtr.format())
+        test_json = json.loads(anode.json_format())
         self.assertDictEqual(test_json, {"name": "top", "attributes": {"first": "last"}})
         anode.add_child(ASTNode('second', True, {"fred": "husband"}))
-        test_json = json.loads(fmtr.format())
+        test_json = json.loads(anode.json_format())
         self.assertDictEqual(test_json, {"name": "top", "attributes": {"first": "last"},
                                          "children": [{"name": "second",
                                                        "attributes": {"fred": "husband"}}]})
         anode.add_child(ASTNode('third', False,
                                 {"wife": ASTNode('wilma', False, {"husband": "fred"})}))
-        test_json = json.loads(fmtr.format())
+        test_json = json.loads(anode.json_format())
         self.assertDictEqual(test_json,
                              {'name': 'top',
                               'attributes': {'first': 'last'},
@@ -207,34 +181,32 @@ class ASTNodeJSONFormatterTestCase(unittest_plus.TestCasePlus):
                                    'attributes': {'wife': {'name': 'wilma',
                                                            'attributes': {'husband': 'fred'}}}}]})
         anode = ASTNode('top', False, {"fred": 'has "double" quotes'}, [])
-        fmtr = ASTNodeJSONFormatter(anode)
-        test_out = fmtr.format()
+        test_out = anode.json_format()
         self.assertEqual(test_out,
                          '{"name": "top",\n"attributes": {"fred": "has \\"double\\" quotes"}}')
         anode.attributes['int'] = 7
-        test_out = fmtr.format()
+        test_out = anode.json_format()
         self.assertIn(test_out,
                       ('{"name": "top",\n"attributes": {"int": 7,\n"fred": "has \\"double\\" quotes"}}',
                        '{"name": "top",\n"attributes": {"fred": "has \\"double\\" quotes",\n"int": 7}}'))
         del anode.attributes['int']
         anode.attributes['bool'] = True
-        test_out = fmtr.format()
+        test_out = anode.json_format()
         self.assertIn(test_out,
                       ('{"name": "top",\n"attributes": {"bool": true,\n"fred": "has \\"double\\" quotes"}}',
                        '{"name": "top",\n"attributes": {"fred": "has \\"double\\" quotes",\n"bool": true}}'))
         del anode.attributes['bool']
         anode.attributes['float'] = 23.0
-        test_out = fmtr.format()
+        test_out = anode.json_format()
         self.assertIn(test_out,
                       ('{"name": "top",\n"attributes": {"float": 23.0,\n"fred": "has \\"double\\" quotes"}}',
                        '{"name": "top",\n"attributes": {"fred": "has \\"double\\" quotes",\n"float": 23.0}}'))
         anode = ASTNode('top', False, {"fred": "has 'single' quotes"}, [])
-        fmtr = ASTNodeJSONFormatter(anode)
-        test_out = fmtr.format()
+        test_out = anode.json_format()
         self.assertEqual(test_out,
                          '{"name": "top",\n"attributes": {"fred": "has \'single\' quotes"}}')
         document = ASTNode('document', True, {"text": '<div>some " embedded HTML</div>'})
-        self.assertEqual(fmtr.format(document),
+        self.assertEqual(document.json_format(),
                          '{"name": "document",\n"attributes": {"text": ' +
                          '"<div>some &quot; embedded HTML</div>"}}')
 

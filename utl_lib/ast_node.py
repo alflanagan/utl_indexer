@@ -1,5 +1,15 @@
 #!/usr/bin/env python3
-"""Module of classes used to implement an Abstract Syntax Tree structure."""
+# -*- coding: utf-8 -*-
+"""Module of classes used to implement an Abstract Syntax Tree structure.
+
+
+| © 2015 BH Media Group, Inc.
+| BH Media Group Digital Development
+
+.. codeauthor:: A. Lloyd Flanagan <aflanagan@bhmginc.com>
+
+
+"""
 
 
 class ASTNodeError(Exception):
@@ -95,12 +105,13 @@ class ASTNode(object):
         self.children.insert(0, child)
 
     def add_children(self, iterator):
-        '''Add each item in iterator to the list of children. Items should be nodes. Note that
+        """Add each item in iterator to the list of children. Items should be nodes. Note that
         the nodes will be inserted into the beginning of the list, and end up in reverse order
         of the iterator.
 
         :param list iterator: Iterator producing :py:class:`utl_lib.ast_node.ASTNode` objects.
-        '''
+
+        """
         # we might have passed a generator to __init__(), or even a set
         self.children = list(self.children)
         for child in iterator:
@@ -126,51 +137,27 @@ class ASTNode(object):
                 child_list += ", {}".format(child.symbol)
             else:
                 child_list = child.symbol
-        return'ASTNode("{}", {}, ..., [{}])'.format(self.symbol,
-                                                    "True" if self.terminal else "False",
-                                                    child_list)
+        return 'ASTNode("{}", {}, ..., [{}])'.format(self.symbol,
+                                                     "True" if self.terminal else "False",
+                                                     child_list)
 
+    def format(self):
+        """Walks the tree from this node, printing it out in a format which, if not pretty, is
+        at least comprehensible.
 
-class ASTNodeFormatter(object):  # pylint: disable=too-few-public-methods
-    """Helper class that can traverse an AST and pretty-print it.
+        :returns: str
 
-    :param ASTNode root_node: The root node of the tree to be printed. May be supplied to
-        :py:meth:`~utl_lib.ast_node.ASTNodeFormatter.format` instead.
-    """
-    # TODO: abstract class for "classes that walk an AST"
-    def __init__(self, root_node):
-        self.root = root_node
-
-    def format(self, from_node=None):
-        """Walks the tree with root `from_node`, printing it out in a format which, if not
-        pretty, is at least comprehensible. `from_node` defaults to the root node set at object
-        init.
-
-        :param ASTNode from_node: Root of an AST to be printed.
         """
-        if from_node is None:
-            from_node = self.root
-        result = str(from_node)
-        for child in from_node.children:
-            lines = self.format(child).split('\n')
+        result = str(self)
+        for child in self.children:
+            lines = child.format().split('\n')
             for line in lines:
                 result += '\n    ' + line
         return result
 
-
-class ASTNodeJSONFormatter(object):  # pylint: disable=too-few-public-methods
-    """Helper class that can print an AST as JSON data.
-
-    :param ASTNode root_node: The root node of the tree to be printed. May be supplied to
-        :py:meth:`~utl_lib.ast_node.ASTNodeFormatter.format` instead.
-    """
-    # TODO: abstract class for "classes that walk an AST"
-    def __init__(self, root_node):
-        self.root = root_node
-
     @staticmethod
     def _json_safe(text):
-        '''Safely convert a python string to a format suitable for JSON'''
+        """Safely convert a python string to a format suitable for JSON"""
         if isinstance(text, int) or isinstance(text, float):
             if isinstance(text, bool):
                 # yes, bool is a subclass of int. Sigh
@@ -185,34 +172,36 @@ class ASTNodeJSONFormatter(object):  # pylint: disable=too-few-public-methods
             my_repr = '"' + my_repr[1:-1] + '"'
         return my_repr
 
-    def format(self, from_node=None):
-        """Walks the tree with root `from_node`, printing it out in a format which, if not
-        pretty, is at least comprehensible. `from_node` defaults to the root node set at object
-        init.
+    def json_format(self):
+        """Walks the tree whose root is this node and returns a JSON representation of the tree.
 
-        :param ASTNode from_node: Root of an AST to be printed.
+        :returns: str
+
         """
-        if from_node is None:
-            from_node = self.root
-        assert isinstance(from_node, ASTNode)
-        result = '{"name": "' + str(from_node.symbol) + '"'
-        if from_node.attributes:
+        result = '{"name": "' + str(self.symbol) + '"'
+        if self.attributes:
             result += ',\n"attributes": {'
-            for key in from_node.attributes:
-                value = from_node.attributes[key]
-                if from_node.symbol == 'document':
+            for key in self.attributes:
+                value = self.attributes[key]
+                if self.symbol == 'document':
                     # special handling of HTML content
                     value = value.replace('"', '&quot;')
                 if isinstance(value, ASTNode):
-                    result += '"{}": {},\n'.format(key, self.format(value))
+                    result += '"{}": {},\n'.format(key, value.json_format())
                 else:
                     result += '"{}": {},\n'.format(key, self._json_safe(value))
             result = result[:-2]  # remove final ,\n
             result += '}'
-        if from_node.children:
+        if self.children:
             result += ',\n"children": [\n'
-            for child in from_node.children:
-                result += self.format(child) + ',\n'
+            for child in self.children:
+                result += child.json_format() + ',\n'
             result = result[:-2] + ']'
         result += '}'
         return result
+
+# Local Variables:
+# python-indent-offset: 4
+# fill-column: 100
+# indent-tabs-mode: nil
+# End:
