@@ -132,10 +132,11 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                      | BREAK eostmt
                      | CONTINUE eostmt
                      | EXIT eostmt'''
-        for handler in self.handlers:
-            value = handler.statement(p[1])
-            if p[0] is None:
-                p[0] = value
+        if p[1] is not None:  # skip empty statements
+            for handler in self.handlers:
+                value = handler.statement(p[1])
+                if p[0] is None:
+                    p[0] = value
 
     # below rule not strictly necessary, but makes p_statement() simpler
     def p_default_assignment(self, p):
