@@ -5,7 +5,6 @@ import argparse
 import sys
 
 from utl_lib.utl_yacc import UTLParser
-from utl_lib.ast_node import ASTNodeFormatter, ASTNodeJSONFormatter
 from utl_lib.handler_ast import UTLParseHandlerAST
 from utl_lib.handler_parse_tree import UTLParseHandlerParseTree
 
@@ -35,10 +34,7 @@ def do_parse(program_text, args):
     myparser = UTLParser([handler])
     results = myparser.parse(program_text, debug=args.debug, print_tokens=args.show_lex)
     if results:
-        if args.json:
-            print(ASTNodeJSONFormatter(results).format())
-        else:
-            print(ASTNodeFormatter(results).format())
+        print(results.json_format() if args.json else results.format())
     else:
         sys.stderr.write('Parse FAILED!\n')
 
