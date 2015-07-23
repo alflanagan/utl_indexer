@@ -160,7 +160,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                 | literal rexpr
                 | MINUS expr %prec UMINUS
                 | PLUS expr %prec UMINUS
-                | ID rexpr
+                | dotted_id rexpr
                 | LPAREN expr RPAREN rexpr'''
         for handler in self.handlers:
             value = handler.expr(p[1], p[2], self._(p, 4))

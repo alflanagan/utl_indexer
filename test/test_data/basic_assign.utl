@@ -7,7 +7,7 @@
   sally.fineis = 'bat';
   fred = sally is fine;
   /* keyword as part of identifier */
-/*  fred.breakthis = 0;
+  fred.breakthis = 0;
   fred.thisbreak = 2;
   empty = "";
   barney = fred * 3; %]
@@ -32,5 +32,4 @@
   obj['two'] = 7;
   n = [];
   child_image = asset.items('type':'image')[0]
-  */
 %]

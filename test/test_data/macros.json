@@ -9,7 +9,7 @@
                 "children": [{
                     "name": "macro_decl",
                     "children": [{
-                        "name": "dotted_id",
+                        "name": "id",
                         "attributes": {
                             "symbol": "fred"
                         }
@@ -85,7 +85,7 @@
                 "children": [{
                     "name": "macro_decl",
                     "children": [{
-                        "name": "dotted_id",
+                        "name": "id",
                         "attributes": {
                             "symbol": "core_base_nav_class_name"
                         }
@@ -119,8 +119,8 @@
                                     "children": [{
                                         "name": "literal",
                                         "attributes": {
-                                            "type": "string",
-                                            "value": "there's an \\\"embedded\\\" dquote here"
+                                            "value": "there's an \\\"embedded\\\" dquote here",
+                                            "type": "string"
                                         }
                                     }]
                                 }]
@@ -175,8 +175,8 @@
                                                                 "children": [{
                                                                     "name": "literal",
                                                                     "attributes": {
-                                                                        "type": "string",
-                                                                        "value": "/[\\&\\(\\)\\[\\]\\{\\}\\!\\@\\#\\$\\%\\^\\*\\+\\=\\,\\.\\/\\<\\>\\?\\;\\:\\'\\~\\`]/"
+                                                                        "value": "/[\\&\\(\\)\\[\\]\\{\\}\\!\\@\\#\\$\\%\\^\\*\\+\\=\\,\\.\\/\\<\\>\\?\\;\\:\\'\\~\\`]/",
+                                                                        "type": "string"
                                                                     }
                                                                 }]
                                                             }]
@@ -187,8 +187,8 @@
                                                                 "children": [{
                                                                     "name": "literal",
                                                                     "attributes": {
-                                                                        "type": "string",
-                                                                        "value": ""
+                                                                        "value": "",
+                                                                        "type": "string"
                                                                     }
                                                                 }]
                                                             }]
@@ -219,8 +219,8 @@
                                                                             "children": [{
                                                                                 "name": "literal",
                                                                                 "attributes": {
-                                                                                    "type": "string",
-                                                                                    "value": "/\\_+/"
+                                                                                    "value": "/\\_+/",
+                                                                                    "type": "string"
                                                                                 }
                                                                             }]
                                                                         }]
@@ -231,8 +231,8 @@
                                                                             "children": [{
                                                                                 "name": "literal",
                                                                                 "attributes": {
-                                                                                    "type": "string",
-                                                                                    "value": "_"
+                                                                                    "value": "_",
+                                                                                    "type": "string"
                                                                                 }
                                                                             }]
                                                                         }]
@@ -263,8 +263,8 @@
                                                                                         "children": [{
                                                                                             "name": "literal",
                                                                                             "attributes": {
-                                                                                                "type": "string",
-                                                                                                "value": "/[\\s-]+/"
+                                                                                                "value": "/[\\s-]+/",
+                                                                                                "type": "string"
                                                                                             }
                                                                                         }]
                                                                                     }]
@@ -275,8 +275,8 @@
                                                                                         "children": [{
                                                                                             "name": "literal",
                                                                                             "attributes": {
-                                                                                                "type": "string",
-                                                                                                "value": "-"
+                                                                                                "value": "-",
+                                                                                                "type": "string"
                                                                                             }
                                                                                         }]
                                                                                     }]
@@ -305,67 +305,25 @@
                 "children": [{
                     "name": "id",
                     "attributes": {
-                        "symbol": "really"
+                        "symbol": "really.really.quite.useless"
                     }
                 }, {
                     "name": "rexpr",
                     "attributes": {
-                        "operator": "."
+                        "operator": "("
                     },
                     "children": [{
-                        "name": "expr",
+                        "name": "arg_list",
                         "children": [{
-                            "name": "id",
-                            "attributes": {
-                                "symbol": "really"
-                            }
-                        }, {
-                            "name": "rexpr",
-                            "attributes": {
-                                "operator": "."
-                            },
+                            "name": "arg",
                             "children": [{
                                 "name": "expr",
                                 "children": [{
-                                    "name": "id",
+                                    "name": "literal",
                                     "attributes": {
-                                        "symbol": "quite"
+                                        "value": "php",
+                                        "type": "string"
                                     }
-                                }, {
-                                    "name": "rexpr",
-                                    "attributes": {
-                                        "operator": "."
-                                    },
-                                    "children": [{
-                                        "name": "expr",
-                                        "children": [{
-                                            "name": "id",
-                                            "attributes": {
-                                                "symbol": "useless"
-                                            }
-                                        }, {
-                                            "name": "rexpr",
-                                            "attributes": {
-                                                "operator": "("
-                                            },
-                                            "children": [{
-                                                "name": "arg_list",
-                                                "children": [{
-                                                    "name": "arg",
-                                                    "children": [{
-                                                        "name": "expr",
-                                                        "children": [{
-                                                            "name": "literal",
-                                                            "attributes": {
-                                                                "type": "string",
-                                                                "value": "php"
-                                                            }
-                                                        }]
-                                                    }]
-                                                }]
-                                            }]
-                                        }]
-                                    }]
                                 }]
                             }]
                         }]
@@ -395,8 +353,8 @@
                                 "children": [{
                                     "name": "literal",
                                     "attributes": {
-                                        "type": "number",
-                                        "value": 1.0
+                                        "value": 1.0,
+                                        "type": "number"
                                     }
                                 }]
                             }]
@@ -407,8 +365,8 @@
                                 "children": [{
                                     "name": "literal",
                                     "attributes": {
-                                        "type": "number",
-                                        "value": 2.0
+                                        "value": 2.0,
+                                        "type": "number"
                                     }
                                 }]
                             }]
@@ -419,8 +377,8 @@
                                 "children": [{
                                     "name": "literal",
                                     "attributes": {
-                                        "type": "number",
-                                        "value": 3.0
+                                        "value": 3.0,
+                                        "type": "number"
                                     }
                                 }]
                             }]
@@ -435,7 +393,7 @@
                 "children": [{
                     "name": "macro_decl",
                     "children": [{
-                        "name": "dotted_id",
+                        "name": "id",
                         "attributes": {
                             "symbol": "empty_but_legal"
                         }
@@ -449,16 +407,10 @@
                 "children": [{
                     "name": "macro_decl",
                     "children": [{
-                        "name": "dotted_id",
+                        "name": "id",
                         "attributes": {
-                            "symbol": "fairly"
-                        },
-                        "children": [{
-                            "name": "dotted_id",
-                            "attributes": {
-                                "symbol": "useless"
-                            }
-                        }]
+                            "symbol": "fairly.useless"
+                        }
                     }]
                 }, {
                     "name": "statement_list",
@@ -471,8 +423,8 @@
                                 "children": [{
                                     "name": "literal",
                                     "attributes": {
-                                        "type": "string",
-                                        "value": "useless"
+                                        "value": "useless",
+                                        "type": "string"
                                     }
                                 }]
                             }]
@@ -487,28 +439,10 @@
                 "children": [{
                     "name": "macro_decl",
                     "children": [{
-                        "name": "dotted_id",
+                        "name": "id",
                         "attributes": {
-                            "symbol": "really"
-                        },
-                        "children": [{
-                            "name": "dotted_id",
-                            "attributes": {
-                                "symbol": "really"
-                            },
-                            "children": [{
-                                "name": "dotted_id",
-                                "attributes": {
-                                    "symbol": "quite"
-                                },
-                                "children": [{
-                                    "name": "dotted_id",
-                                    "attributes": {
-                                        "symbol": "useless"
-                                    }
-                                }]
-                            }]
-                        }]
+                            "symbol": "really.really.quite.useless"
+                        }
                     }, {
                         "name": "param_list",
                         "children": [{
@@ -544,7 +478,7 @@
                 "children": [{
                     "name": "macro_decl",
                     "children": [{
-                        "name": "dotted_id",
+                        "name": "id",
                         "attributes": {
                             "symbol": "multi_arguments"
                         }
@@ -569,8 +503,8 @@
                                     "children": [{
                                         "name": "literal",
                                         "attributes": {
-                                            "type": "boolean",
-                                            "value": false
+                                            "value": false,
+                                            "type": "boolean"
                                         }
                                     }]
                                 }
@@ -622,7 +556,7 @@
                 "children": [{
                     "name": "macro_decl",
                     "children": [{
-                        "name": "dotted_id",
+                        "name": "id",
                         "attributes": {
                             "symbol": "core_base_library_relatedAssets"
                         }
@@ -637,8 +571,8 @@
                                     "children": [{
                                         "name": "literal",
                                         "attributes": {
-                                            "type": "array",
-                                            "value": ""
+                                            "value": "",
+                                            "type": "array"
                                         },
                                         "children": [{
                                             "name": "array_literal",
@@ -649,8 +583,8 @@
                                                     "children": [{
                                                         "name": "literal",
                                                         "attributes": {
-                                                            "type": "string",
-                                                            "value": "article"
+                                                            "value": "article",
+                                                            "type": "string"
                                                         }
                                                     }]
                                                 }, {
@@ -658,8 +592,8 @@
                                                     "children": [{
                                                         "name": "literal",
                                                         "attributes": {
-                                                            "type": "string",
-                                                            "value": "image"
+                                                            "value": "image",
+                                                            "type": "string"
                                                         }
                                                     }]
                                                 }, {
@@ -667,8 +601,8 @@
                                                     "children": [{
                                                         "name": "literal",
                                                         "attributes": {
-                                                            "type": "string",
-                                                            "value": "pdf"
+                                                            "value": "pdf",
+                                                            "type": "string"
                                                         }
                                                     }]
                                                 }, {
@@ -676,8 +610,8 @@
                                                     "children": [{
                                                         "name": "literal",
                                                         "attributes": {
-                                                            "type": "string",
-                                                            "value": "zip"
+                                                            "value": "zip",
+                                                            "type": "string"
                                                         }
                                                     }]
                                                 }, {
@@ -685,8 +619,8 @@
                                                     "children": [{
                                                         "name": "literal",
                                                         "attributes": {
-                                                            "type": "string",
-                                                            "value": "audio"
+                                                            "value": "audio",
+                                                            "type": "string"
                                                         }
                                                     }]
                                                 }, {
@@ -694,8 +628,8 @@
                                                     "children": [{
                                                         "name": "literal",
                                                         "attributes": {
-                                                            "type": "string",
-                                                            "value": "link"
+                                                            "value": "link",
+                                                            "type": "string"
                                                         }
                                                     }]
                                                 }, {
@@ -703,8 +637,8 @@
                                                     "children": [{
                                                         "name": "literal",
                                                         "attributes": {
-                                                            "type": "string",
-                                                            "value": "flash"
+                                                            "value": "flash",
+                                                            "type": "string"
                                                         }
                                                     }]
                                                 }, {
@@ -712,8 +646,8 @@
                                                     "children": [{
                                                         "name": "literal",
                                                         "attributes": {
-                                                            "type": "string",
-                                                            "value": "html"
+                                                            "value": "html",
+                                                            "type": "string"
                                                         }
                                                     }]
                                                 }, {
@@ -721,8 +655,8 @@
                                                     "children": [{
                                                         "name": "literal",
                                                         "attributes": {
-                                                            "type": "string",
-                                                            "value": "poll"
+                                                            "value": "poll",
+                                                            "type": "string"
                                                         }
                                                     }]
                                                 }, {
@@ -730,8 +664,8 @@
                                                     "children": [{
                                                         "name": "literal",
                                                         "attributes": {
-                                                            "type": "string",
-                                                            "value": "collection"
+                                                            "value": "collection",
+                                                            "type": "string"
                                                         }
                                                     }]
                                                 }, {
@@ -739,8 +673,8 @@
                                                     "children": [{
                                                         "name": "literal",
                                                         "attributes": {
-                                                            "type": "string",
-                                                            "value": "table"
+                                                            "value": "table",
+                                                            "type": "string"
                                                         }
                                                     }]
                                                 }, {
@@ -748,8 +682,8 @@
                                                     "children": [{
                                                         "name": "literal",
                                                         "attributes": {
-                                                            "type": "string",
-                                                            "value": "video"
+                                                            "value": "video",
+                                                            "type": "string"
                                                         }
                                                     }]
                                                 }, {
@@ -757,8 +691,8 @@
                                                     "children": [{
                                                         "name": "literal",
                                                         "attributes": {
-                                                            "type": "string",
-                                                            "value": "youtube"
+                                                            "value": "youtube",
+                                                            "type": "string"
                                                         }
                                                     }]
                                                 }, {
@@ -766,8 +700,8 @@
                                                     "children": [{
                                                         "name": "literal",
                                                         "attributes": {
-                                                            "type": "string",
-                                                            "value": "vmix"
+                                                            "value": "vmix",
+                                                            "type": "string"
                                                         }
                                                     }]
                                                 }, {
@@ -775,8 +709,8 @@
                                                     "children": [{
                                                         "name": "literal",
                                                         "attributes": {
-                                                            "type": "string",
-                                                            "value": "highlights"
+                                                            "value": "highlights",
+                                                            "type": "string"
                                                         }
                                                     }]
                                                 }, {
@@ -784,8 +718,8 @@
                                                     "children": [{
                                                         "name": "literal",
                                                         "attributes": {
-                                                            "type": "string",
-                                                            "value": "quote"
+                                                            "value": "quote",
+                                                            "type": "string"
                                                         }
                                                     }]
                                                 }, {
@@ -793,8 +727,8 @@
                                                     "children": [{
                                                         "name": "literal",
                                                         "attributes": {
-                                                            "type": "string",
-                                                            "value": "refer"
+                                                            "value": "refer",
+                                                            "type": "string"
                                                         }
                                                     }]
                                                 }, {
@@ -802,8 +736,8 @@
                                                     "children": [{
                                                         "name": "literal",
                                                         "attributes": {
-                                                            "type": "string",
-                                                            "value": "update"
+                                                            "value": "update",
+                                                            "type": "string"
                                                         }
                                                     }]
                                                 }, {
@@ -811,8 +745,8 @@
                                                     "children": [{
                                                         "name": "literal",
                                                         "attributes": {
-                                                            "type": "string",
-                                                            "value": "correction"
+                                                            "value": "correction",
+                                                            "type": "string"
                                                         }
                                                     }]
                                                 }, {
@@ -820,8 +754,8 @@
                                                     "children": [{
                                                         "name": "literal",
                                                         "attributes": {
-                                                            "type": "string",
-                                                            "value": "ad"
+                                                            "value": "ad",
+                                                            "type": "string"
                                                         }
                                                     }]
                                                 }, {
@@ -829,8 +763,8 @@
                                                     "children": [{
                                                         "name": "literal",
                                                         "attributes": {
-                                                            "type": "string",
-                                                            "value": "coupon"
+                                                            "value": "coupon",
+                                                            "type": "string"
                                                         }
                                                     }]
                                                 }, {
@@ -838,8 +772,8 @@
                                                     "children": [{
                                                         "name": "literal",
                                                         "attributes": {
-                                                            "type": "string",
-                                                            "value": "pdfdisplayad"
+                                                            "value": "pdfdisplayad",
+                                                            "type": "string"
                                                         }
                                                     }]
                                                 }, {
@@ -847,8 +781,8 @@
                                                     "children": [{
                                                         "name": "literal",
                                                         "attributes": {
-                                                            "type": "string",
-                                                            "value": "realestate"
+                                                            "value": "realestate",
+                                                            "type": "string"
                                                         }
                                                     }]
                                                 }, {
@@ -856,8 +790,8 @@
                                                     "children": [{
                                                         "name": "literal",
                                                         "attributes": {
-                                                            "type": "string",
-                                                            "value": "vehicle"
+                                                            "value": "vehicle",
+                                                            "type": "string"
                                                         }
                                                     }]
                                                 }, {
@@ -865,8 +799,8 @@
                                                     "children": [{
                                                         "name": "literal",
                                                         "attributes": {
-                                                            "type": "string",
-                                                            "value": "business"
+                                                            "value": "business",
+                                                            "type": "string"
                                                         }
                                                     }]
                                                 }, {
@@ -874,8 +808,8 @@
                                                     "children": [{
                                                         "name": "literal",
                                                         "attributes": {
-                                                            "type": "string",
-                                                            "value": "event"
+                                                            "value": "event",
+                                                            "type": "string"
                                                         }
                                                     }]
                                                 }]
@@ -893,22 +827,8 @@
                                     "children": [{
                                         "name": "id",
                                         "attributes": {
-                                            "symbol": "this"
+                                            "symbol": "this.asset"
                                         }
-                                    }, {
-                                        "name": "rexpr",
-                                        "attributes": {
-                                            "operator": "."
-                                        },
-                                        "children": [{
-                                            "name": "expr",
-                                            "children": [{
-                                                "name": "id",
-                                                "attributes": {
-                                                    "symbol": "asset"
-                                                }
-                                            }]
-                                        }]
                                     }]
                                 }
                             }
@@ -939,8 +859,8 @@
                                             "children": [{
                                                 "name": "literal",
                                                 "attributes": {
-                                                    "type": "string",
-                                                    "value": "related"
+                                                    "value": "related",
+                                                    "type": "string"
                                                 }
                                             }]
                                         }]

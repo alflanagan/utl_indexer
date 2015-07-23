@@ -212,10 +212,13 @@ class UTLParseHandler(object):
         """
         return None
 
-    def dotted_id(self, this_id, id_prefix=None):
+    def dotted_id(self, this_id, id_suffix=None):
         """An id made of a name, or two or more names separated by dots.
 
-        `id_prefix` will be :py:attr:`None`, if the name is undotted or the first part of a dotted name."""
+        `id_suffix` will be :py:attr:`None`, if `this_id` is the first part of the id, or the
+        result of productions of the parts of the id previous to `this_id`.
+
+        """
         return None
 
     def for_stmt(self, expr, as_clause=None, statement_list=None):

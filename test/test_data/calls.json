@@ -27,53 +27,25 @@
                     "children": [{
                         "name": "id",
                         "attributes": {
-                            "symbol": "cms"
+                            "symbol": "cms.component.load"
                         }
                     }, {
                         "name": "rexpr",
                         "attributes": {
-                            "operator": "."
+                            "operator": "("
                         },
                         "children": [{
-                            "name": "expr",
+                            "name": "arg_list",
                             "children": [{
-                                "name": "id",
-                                "attributes": {
-                                    "symbol": "component"
-                                }
-                            }, {
-                                "name": "rexpr",
-                                "attributes": {
-                                    "operator": "."
-                                },
+                                "name": "arg",
                                 "children": [{
                                     "name": "expr",
                                     "children": [{
-                                        "name": "id",
+                                        "name": "literal",
                                         "attributes": {
-                                            "symbol": "load"
+                                            "type": "string",
+                                            "value": "core_base_editorial"
                                         }
-                                    }, {
-                                        "name": "rexpr",
-                                        "attributes": {
-                                            "operator": "("
-                                        },
-                                        "children": [{
-                                            "name": "arg_list",
-                                            "children": [{
-                                                "name": "arg",
-                                                "children": [{
-                                                    "name": "expr",
-                                                    "children": [{
-                                                        "name": "literal",
-                                                        "attributes": {
-                                                            "type": "string",
-                                                            "value": "core_base_editorial"
-                                                        }
-                                                    }]
-                                                }]
-                                            }]
-                                        }]
                                     }]
                                 }]
                             }]
@@ -286,57 +258,43 @@
                     "children": [{
                         "name": "id",
                         "attributes": {
-                            "symbol": "cms"
+                            "symbol": "cms.url"
                         }
                     }, {
                         "name": "rexpr",
                         "attributes": {
-                            "operator": "."
+                            "operator": "("
                         },
                         "children": [{
-                            "name": "expr",
+                            "name": "arg_list",
                             "children": [{
-                                "name": "id",
+                                "name": "arg",
                                 "attributes": {
-                                    "symbol": "url"
-                                }
-                            }, {
-                                "name": "rexpr",
-                                "attributes": {
-                                    "operator": "("
+                                    "keyword": "app"
                                 },
                                 "children": [{
-                                    "name": "arg_list",
+                                    "name": "expr",
                                     "children": [{
-                                        "name": "arg",
+                                        "name": "literal",
                                         "attributes": {
-                                            "keyword": "app"
-                                        },
-                                        "children": [{
-                                            "name": "expr",
-                                            "children": [{
-                                                "name": "literal",
-                                                "attributes": {
-                                                    "type": "string",
-                                                    "value": "user"
-                                                }
-                                            }]
-                                        }]
+                                            "type": "string",
+                                            "value": "user"
+                                        }
                                     }]
-                                }, {
-                                    "name": "rexpr",
+                                }]
+                            }]
+                        }, {
+                            "name": "rexpr",
+                            "attributes": {
+                                "operator": "."
+                            },
+                            "children": [{
+                                "name": "expr",
+                                "children": [{
+                                    "name": "id",
                                     "attributes": {
-                                        "operator": "."
-                                    },
-                                    "children": [{
-                                        "name": "expr",
-                                        "children": [{
-                                            "name": "id",
-                                            "attributes": {
-                                                "symbol": "path"
-                                            }
-                                        }]
-                                    }]
+                                        "symbol": "path"
+                                    }
                                 }]
                             }]
                         }]
@@ -352,42 +310,28 @@
                                 "children": [{
                                     "name": "id",
                                     "attributes": {
-                                        "symbol": "cms"
+                                        "symbol": "cms.url"
                                     }
                                 }, {
                                     "name": "rexpr",
                                     "attributes": {
-                                        "operator": "."
+                                        "operator": "("
                                     },
                                     "children": [{
-                                        "name": "expr",
+                                        "name": "arg_list",
                                         "children": [{
-                                            "name": "id",
+                                            "name": "arg",
                                             "attributes": {
-                                                "symbol": "url"
-                                            }
-                                        }, {
-                                            "name": "rexpr",
-                                            "attributes": {
-                                                "operator": "("
+                                                "keyword": "app"
                                             },
                                             "children": [{
-                                                "name": "arg_list",
+                                                "name": "expr",
                                                 "children": [{
-                                                    "name": "arg",
+                                                    "name": "literal",
                                                     "attributes": {
-                                                        "keyword": "app"
-                                                    },
-                                                    "children": [{
-                                                        "name": "expr",
-                                                        "children": [{
-                                                            "name": "literal",
-                                                            "attributes": {
-                                                                "type": "string",
-                                                                "value": "user"
-                                                            }
-                                                        }]
-                                                    }]
+                                                        "type": "string",
+                                                        "value": "user"
+                                                    }
                                                 }]
                                             }]
                                         }]

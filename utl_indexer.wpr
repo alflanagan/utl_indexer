@@ -88,8 +88,8 @@ debug.named-entry-points = (1,
                         'launch-nVVuAOXCGKvHXMpo')),
          'loc': loc('parse_file.py')})})
 proj.directory-list = [{'dirloc': loc('.'),
-                        'excludes': (),
-                        'filter': u'*',
+                        'excludes': [u'node_modules'],
+                        'filter': '*',
                         'include_hidden': False,
                         'recursive': True,
                         'watch_for_changes': True}]

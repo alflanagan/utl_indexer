@@ -46,13 +46,6 @@ class UTLParseHandlerParseTree(UTLParseHandler):
         return ASTNode('echo', False, {}, [expr] if expr else [])
 
     def expr(self, start, related, rexpression):
-        # NOT expr
-        # EXCLAMATION expr
-        # literal rexpr
-        # MINUS expr %prec UMINUS
-        # PLUS expr %prec UMINUS
-        # ID rexpr
-        # LPAREN expr RPAREN rexpr''
         if start in ['not', '!', '-', '+', '(']:
             return ASTNode('expr', False, {'operator': start},
                            [related, rexpression] if rexpression else [related])
@@ -62,29 +55,6 @@ class UTLParseHandlerParseTree(UTLParseHandler):
         return ASTNode('expr', False, {}, kids)
 
     def rexpr(self, operator, expr_or_arg_list, rexpr):
-        # | PLUS expr
-        # | MINUS expr
-        # | FILTER expr
-        # | TIMES expr
-        # | DIV expr
-        # | MODULUS expr
-        # | DOUBLEBAR expr
-        # | RANGE expr
-        # | NEQ expr
-        # | LTE expr
-        # | OR expr
-        # | LT expr
-        # | EQ expr
-        # | IS expr
-        # | GT expr
-        # | AND expr
-        # | GTE expr
-        # | DOUBLEAMP expr
-        # | DOT expr
-        # | ASSIGN expr
-        # | ASSIGNOP expr
-        # | LPAREN arg_list RPAREN rexpr
-        # | LBRACKET expr RBRACKET rexpr
         return ASTNode('rexpr', False, {'operator': operator},
                        [node for node in [expr_or_arg_list, rexpr] if node is not None])
 
@@ -186,9 +156,11 @@ class UTLParseHandlerParseTree(UTLParseHandler):
         return ASTNode('macro_decl', True, {},
                        [macro_name, param_list] if param_list else [macro_name])
 
-    def dotted_id(self, this_id, id_prefix=None):
-        return ASTNode('dotted_id', True, {'symbol': this_id},
-                       [id_prefix] if id_prefix is not None else [])
+    def dotted_id(self, this_id, id_suffix=None):
+        if id_suffix:
+            id_suffix.attributes['symbol'] = this_id + '.' + id_suffix.attributes['symbol']
+            return id_suffix
+        return ASTNode('id', True, {'symbol': this_id}, [])
 
     def for_stmt(self, expr, as_clause=None, statement_list=None):
         return ASTNode('for_stmt', False, {},

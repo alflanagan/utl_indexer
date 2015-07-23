@@ -96,24 +96,25 @@
                 "children": [{
                     "name": "id",
                     "attributes": {
-                        "symbol": "sally"
+                        "symbol": "sally.isfine"
                     }
                 }, {
                     "name": "rexpr",
                     "attributes": {
-                        "operator": "."
+                        "operator": "="
                     },
                     "children": [{
                         "name": "expr",
                         "children": [{
-                            "name": "id",
+                            "name": "literal",
                             "attributes": {
-                                "symbol": "isfine"
+                                "type": "number",
+                                "value": 12.0
                             }
                         }, {
                             "name": "rexpr",
                             "attributes": {
-                                "operator": "="
+                                "operator": "/"
                             },
                             "children": [{
                                 "name": "expr",
@@ -121,23 +122,8 @@
                                     "name": "literal",
                                     "attributes": {
                                         "type": "number",
-                                        "value": 12.0
+                                        "value": 6.0
                                     }
-                                }, {
-                                    "name": "rexpr",
-                                    "attributes": {
-                                        "operator": "/"
-                                    },
-                                    "children": [{
-                                        "name": "expr",
-                                        "children": [{
-                                            "name": "literal",
-                                            "attributes": {
-                                                "type": "number",
-                                                "value": 6.0
-                                            }
-                                        }]
-                                    }]
                                 }]
                             }]
                         }]
@@ -151,35 +137,21 @@
                 "children": [{
                     "name": "id",
                     "attributes": {
-                        "symbol": "sally"
+                        "symbol": "sally.fineis"
                     }
                 }, {
                     "name": "rexpr",
                     "attributes": {
-                        "operator": "."
+                        "operator": "="
                     },
                     "children": [{
                         "name": "expr",
                         "children": [{
-                            "name": "id",
+                            "name": "literal",
                             "attributes": {
-                                "symbol": "fineis"
+                                "type": "string",
+                                "value": "bat"
                             }
-                        }, {
-                            "name": "rexpr",
-                            "attributes": {
-                                "operator": "="
-                            },
-                            "children": [{
-                                "name": "expr",
-                                "children": [{
-                                    "name": "literal",
-                                    "attributes": {
-                                        "type": "string",
-                                        "value": "bat"
-                                    }
-                                }]
-                            }]
                         }]
                     }]
                 }]
@@ -230,35 +202,21 @@
                 "children": [{
                     "name": "id",
                     "attributes": {
-                        "symbol": "fred"
+                        "symbol": "fred.breakthis"
                     }
                 }, {
                     "name": "rexpr",
                     "attributes": {
-                        "operator": "."
+                        "operator": "="
                     },
                     "children": [{
                         "name": "expr",
                         "children": [{
-                            "name": "id",
+                            "name": "literal",
                             "attributes": {
-                                "symbol": "breakthis"
+                                "value": 0.0,
+                                "type": "number"
                             }
-                        }, {
-                            "name": "rexpr",
-                            "attributes": {
-                                "operator": "="
-                            },
-                            "children": [{
-                                "name": "expr",
-                                "children": [{
-                                    "name": "literal",
-                                    "attributes": {
-                                        "type": "number",
-                                        "value": 0.0
-                                    }
-                                }]
-                            }]
                         }]
                     }]
                 }]
@@ -270,35 +228,21 @@
                 "children": [{
                     "name": "id",
                     "attributes": {
-                        "symbol": "fred"
+                        "symbol": "fred.thisbreak"
                     }
                 }, {
                     "name": "rexpr",
                     "attributes": {
-                        "operator": "."
+                        "operator": "="
                     },
                     "children": [{
                         "name": "expr",
                         "children": [{
-                            "name": "id",
+                            "name": "literal",
                             "attributes": {
-                                "symbol": "thisbreak"
+                                "value": 2.0,
+                                "type": "number"
                             }
-                        }, {
-                            "name": "rexpr",
-                            "attributes": {
-                                "operator": "="
-                            },
-                            "children": [{
-                                "name": "expr",
-                                "children": [{
-                                    "name": "literal",
-                                    "attributes": {
-                                        "type": "number",
-                                        "value": 2.0
-                                    }
-                                }]
-                            }]
                         }]
                     }]
                 }]
@@ -322,8 +266,8 @@
                         "children": [{
                             "name": "literal",
                             "attributes": {
-                                "type": "string",
-                                "value": ""
+                                "value": "",
+                                "type": "string"
                             }
                         }]
                     }]
@@ -360,8 +304,8 @@
                                 "children": [{
                                     "name": "literal",
                                     "attributes": {
-                                        "type": "number",
-                                        "value": 3.0
+                                        "value": 3.0,
+                                        "type": "number"
                                     }
                                 }]
                             }]
@@ -396,8 +340,8 @@
                         "children": [{
                             "name": "literal",
                             "attributes": {
-                                "type": "number",
-                                "value": 3.0
+                                "value": 3.0,
+                                "type": "number"
                             }
                         }, {
                             "name": "rexpr",
@@ -409,8 +353,8 @@
                                 "children": [{
                                     "name": "literal",
                                     "attributes": {
-                                        "type": "number",
-                                        "value": 4.0
+                                        "value": 4.0,
+                                        "type": "number"
                                     }
                                 }]
                             }]
@@ -437,8 +381,8 @@
                         "children": [{
                             "name": "literal",
                             "attributes": {
-                                "type": "number",
-                                "value": 3.0
+                                "value": 3.0,
+                                "type": "number"
                             }
                         }]
                     }]
@@ -500,8 +444,8 @@
                                 "children": [{
                                     "name": "literal",
                                     "attributes": {
-                                        "type": "number",
-                                        "value": 12.0
+                                        "value": 12.0,
+                                        "type": "number"
                                     }
                                 }]
                             }]
@@ -737,8 +681,8 @@
                             "children": [{
                                 "name": "literal",
                                 "attributes": {
-                                    "type": "number",
-                                    "value": 3.0
+                                    "value": 3.0,
+                                    "type": "number"
                                 }
                             }]
                         }]
@@ -817,8 +761,8 @@
                         "children": [{
                             "name": "literal",
                             "attributes": {
-                                "type": "number",
-                                "value": 7.0
+                                "value": 7.0,
+                                "type": "number"
                             }
                         }]
                     }]
@@ -843,8 +787,8 @@
                         "children": [{
                             "name": "literal",
                             "attributes": {
-                                "type": "number",
-                                "value": 3.0
+                                "value": 3.0,
+                                "type": "number"
                             }
                         }]
                     }]
@@ -939,8 +883,8 @@
                         "children": [{
                             "name": "literal",
                             "attributes": {
-                                "type": "array",
-                                "value": ""
+                                "value": "",
+                                "type": "array"
                             },
                             "children": [{
                                 "name": "array_literal",
@@ -951,8 +895,8 @@
                                         "children": [{
                                             "name": "literal",
                                             "attributes": {
-                                                "type": "number",
-                                                "value": 1.0
+                                                "value": 1.0,
+                                                "type": "number"
                                             }
                                         }]
                                     }, {
@@ -960,8 +904,8 @@
                                         "children": [{
                                             "name": "literal",
                                             "attributes": {
-                                                "type": "number",
-                                                "value": 2.0
+                                                "value": 2.0,
+                                                "type": "number"
                                             }
                                         }]
                                     }, {
@@ -969,8 +913,8 @@
                                         "children": [{
                                             "name": "literal",
                                             "attributes": {
-                                                "type": "string",
-                                                "value": "fred"
+                                                "value": "fred",
+                                                "type": "string"
                                             }
                                         }]
                                     }, {
@@ -978,8 +922,8 @@
                                         "children": [{
                                             "name": "literal",
                                             "attributes": {
-                                                "type": "number",
-                                                "value": 3.0
+                                                "value": 3.0,
+                                                "type": "number"
                                             }
                                         }]
                                     }, {
@@ -1003,8 +947,8 @@
                                                         "children": [{
                                                             "name": "literal",
                                                             "attributes": {
-                                                                "type": "number",
-                                                                "value": 7.0
+                                                                "value": 7.0,
+                                                                "type": "number"
                                                             }
                                                         }]
                                                     }]
@@ -1051,8 +995,8 @@
                         "children": [{
                             "name": "literal",
                             "attributes": {
-                                "type": "array",
-                                "value": ""
+                                "value": "",
+                                "type": "array"
                             },
                             "children": [{
                                 "name": "array_literal",
@@ -1065,8 +1009,8 @@
                                             "children": [{
                                                 "name": "literal",
                                                 "attributes": {
-                                                    "type": "string",
-                                                    "value": "one"
+                                                    "value": "one",
+                                                    "type": "string"
                                                 }
                                             }]
                                         }, {
@@ -1074,8 +1018,8 @@
                                             "children": [{
                                                 "name": "literal",
                                                 "attributes": {
-                                                    "type": "number",
-                                                    "value": 2.0
+                                                    "value": 2.0,
+                                                    "type": "number"
                                                 }
                                             }]
                                         }]
@@ -1086,8 +1030,8 @@
                                             "children": [{
                                                 "name": "literal",
                                                 "attributes": {
-                                                    "type": "string",
-                                                    "value": "two"
+                                                    "value": "two",
+                                                    "type": "string"
                                                 }
                                             }]
                                         }, {
@@ -1095,8 +1039,8 @@
                                             "children": [{
                                                 "name": "literal",
                                                 "attributes": {
-                                                    "type": "number",
-                                                    "value": 3.0
+                                                    "value": 3.0,
+                                                    "type": "number"
                                                 }
                                             }]
                                         }]
@@ -1114,35 +1058,21 @@
                 "children": [{
                     "name": "id",
                     "attributes": {
-                        "symbol": "obj"
+                        "symbol": "obj.one"
                     }
                 }, {
                     "name": "rexpr",
                     "attributes": {
-                        "operator": "."
+                        "operator": "="
                     },
                     "children": [{
                         "name": "expr",
                         "children": [{
-                            "name": "id",
+                            "name": "literal",
                             "attributes": {
-                                "symbol": "one"
+                                "value": 3.0,
+                                "type": "number"
                             }
-                        }, {
-                            "name": "rexpr",
-                            "attributes": {
-                                "operator": "="
-                            },
-                            "children": [{
-                                "name": "expr",
-                                "children": [{
-                                    "name": "literal",
-                                    "attributes": {
-                                        "type": "number",
-                                        "value": 3.0
-                                    }
-                                }]
-                            }]
                         }]
                     }]
                 }]
@@ -1166,8 +1096,8 @@
                         "children": [{
                             "name": "literal",
                             "attributes": {
-                                "type": "string",
-                                "value": "two"
+                                "value": "two",
+                                "type": "string"
                             }
                         }]
                     }, {
@@ -1180,8 +1110,8 @@
                             "children": [{
                                 "name": "literal",
                                 "attributes": {
-                                    "type": "number",
-                                    "value": 7.0
+                                    "value": 7.0,
+                                    "type": "number"
                                 }
                             }]
                         }]
@@ -1207,8 +1137,8 @@
                         "children": [{
                             "name": "literal",
                             "attributes": {
-                                "type": "array",
-                                "value": ""
+                                "value": "",
+                                "type": "array"
                             },
                             "children": [{
                                 "name": "array_literal"
@@ -1236,58 +1166,44 @@
                         "children": [{
                             "name": "id",
                             "attributes": {
-                                "symbol": "asset"
+                                "symbol": "asset.items"
                             }
                         }, {
                             "name": "rexpr",
                             "attributes": {
-                                "operator": "."
+                                "operator": "("
                             },
                             "children": [{
-                                "name": "expr",
+                                "name": "arg_list",
                                 "children": [{
-                                    "name": "id",
+                                    "name": "arg",
                                     "attributes": {
-                                        "symbol": "items"
-                                    }
-                                }, {
-                                    "name": "rexpr",
-                                    "attributes": {
-                                        "operator": "("
+                                        "keyword": "type"
                                     },
                                     "children": [{
-                                        "name": "arg_list",
+                                        "name": "expr",
                                         "children": [{
-                                            "name": "arg",
+                                            "name": "literal",
                                             "attributes": {
-                                                "keyword": "type"
-                                            },
-                                            "children": [{
-                                                "name": "expr",
-                                                "children": [{
-                                                    "name": "literal",
-                                                    "attributes": {
-                                                        "type": "string",
-                                                        "value": "image"
-                                                    }
-                                                }]
-                                            }]
+                                                "value": "image",
+                                                "type": "string"
+                                            }
                                         }]
-                                    }, {
-                                        "name": "rexpr",
+                                    }]
+                                }]
+                            }, {
+                                "name": "rexpr",
+                                "attributes": {
+                                    "operator": "["
+                                },
+                                "children": [{
+                                    "name": "expr",
+                                    "children": [{
+                                        "name": "literal",
                                         "attributes": {
-                                            "operator": "["
-                                        },
-                                        "children": [{
-                                            "name": "expr",
-                                            "children": [{
-                                                "name": "literal",
-                                                "attributes": {
-                                                    "type": "number",
-                                                    "value": 0.0
-                                                }
-                                            }]
-                                        }]
+                                            "value": 0.0,
+                                            "type": "number"
+                                        }
                                     }]
                                 }]
                             }]

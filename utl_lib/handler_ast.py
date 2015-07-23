@@ -194,10 +194,10 @@ class UTLParseHandlerAST(UTLParseHandler):
         return ASTNode('macro-decl', True, {'name': macro_name},
                        [param_list] if param_list else [])
 
-    def dotted_id(self, this_id, id_prefix=None):
-        if id_prefix:
-            id_prefix.attributes['symbol'] += '.' + this_id
-            return id_prefix
+    def dotted_id(self, this_id, id_suffix=None):
+        if id_suffix:
+            id_suffix.attributes['symbol'] = this_id + '.' + id_suffix.attributes['symbol']
+            return id_suffix
         return ASTNode('id', True, {'symbol': this_id}, [])
 
     def for_stmt(self, expr, as_clause=None, statement_list=None):

@@ -30,63 +30,21 @@
                     "children": [{
                         "name": "id",
                         "attributes": {
-                            "symbol": "cms"
+                            "symbol": "cms.site.custom.alpha_omega"
                         }
                     }, {
                         "name": "rexpr",
                         "attributes": {
-                            "operator": "."
+                            "operator": "=="
                         },
                         "children": [{
                             "name": "expr",
                             "children": [{
-                                "name": "id",
+                                "name": "literal",
                                 "attributes": {
-                                    "symbol": "site"
+                                    "type": "boolean",
+                                    "value": true
                                 }
-                            }, {
-                                "name": "rexpr",
-                                "attributes": {
-                                    "operator": "."
-                                },
-                                "children": [{
-                                    "name": "expr",
-                                    "children": [{
-                                        "name": "id",
-                                        "attributes": {
-                                            "symbol": "custom"
-                                        }
-                                    }, {
-                                        "name": "rexpr",
-                                        "attributes": {
-                                            "operator": "."
-                                        },
-                                        "children": [{
-                                            "name": "expr",
-                                            "children": [{
-                                                "name": "id",
-                                                "attributes": {
-                                                    "symbol": "alpha_omega"
-                                                }
-                                            }, {
-                                                "name": "rexpr",
-                                                "attributes": {
-                                                    "operator": "=="
-                                                },
-                                                "children": [{
-                                                    "name": "expr",
-                                                    "children": [{
-                                                        "name": "literal",
-                                                        "attributes": {
-                                                            "value": true,
-                                                            "type": "boolean"
-                                                        }
-                                                    }]
-                                                }]
-                                            }]
-                                        }]
-                                    }]
-                                }]
                             }]
                         }]
                     }]
@@ -125,53 +83,25 @@
                         "children": [{
                             "name": "id",
                             "attributes": {
-                                "symbol": "cms"
+                                "symbol": "cms.component.load"
                             }
                         }, {
                             "name": "rexpr",
                             "attributes": {
-                                "operator": "."
+                                "operator": "("
                             },
                             "children": [{
-                                "name": "expr",
+                                "name": "arg_list",
                                 "children": [{
-                                    "name": "id",
-                                    "attributes": {
-                                        "symbol": "component"
-                                    }
-                                }, {
-                                    "name": "rexpr",
-                                    "attributes": {
-                                        "operator": "."
-                                    },
+                                    "name": "arg",
                                     "children": [{
                                         "name": "expr",
                                         "children": [{
-                                            "name": "id",
+                                            "name": "literal",
                                             "attributes": {
-                                                "symbol": "load"
+                                                "type": "string",
+                                                "value": "core_services_manager"
                                             }
-                                        }, {
-                                            "name": "rexpr",
-                                            "attributes": {
-                                                "operator": "("
-                                            },
-                                            "children": [{
-                                                "name": "arg_list",
-                                                "children": [{
-                                                    "name": "arg",
-                                                    "children": [{
-                                                        "name": "expr",
-                                                        "children": [{
-                                                            "name": "literal",
-                                                            "attributes": {
-                                                                "value": "core_services_manager",
-                                                                "type": "string"
-                                                            }
-                                                        }]
-                                                    }]
-                                                }]
-                                            }]
                                         }]
                                     }]
                                 }]
@@ -187,8 +117,8 @@
                             "children": [{
                                 "name": "literal",
                                 "attributes": {
-                                    "value": "<!-- error loading Services Component -->",
-                                    "type": "string"
+                                    "type": "string",
+                                    "value": "<!-- error loading Services Component -->"
                                 }
                             }]
                         }]
@@ -209,53 +139,25 @@
                         "children": [{
                             "name": "id",
                             "attributes": {
-                                "symbol": "cms"
+                                "symbol": "cms.component.load"
                             }
                         }, {
                             "name": "rexpr",
                             "attributes": {
-                                "operator": "."
+                                "operator": "("
                             },
                             "children": [{
-                                "name": "expr",
+                                "name": "arg_list",
                                 "children": [{
-                                    "name": "id",
-                                    "attributes": {
-                                        "symbol": "component"
-                                    }
-                                }, {
-                                    "name": "rexpr",
-                                    "attributes": {
-                                        "operator": "."
-                                    },
+                                    "name": "arg",
                                     "children": [{
                                         "name": "expr",
                                         "children": [{
-                                            "name": "id",
+                                            "name": "literal",
                                             "attributes": {
-                                                "symbol": "load"
+                                                "type": "string",
+                                                "value": "core_services_manager"
                                             }
-                                        }, {
-                                            "name": "rexpr",
-                                            "attributes": {
-                                                "operator": "("
-                                            },
-                                            "children": [{
-                                                "name": "arg_list",
-                                                "children": [{
-                                                    "name": "arg",
-                                                    "children": [{
-                                                        "name": "expr",
-                                                        "children": [{
-                                                            "name": "literal",
-                                                            "attributes": {
-                                                                "value": "core_services_manager",
-                                                                "type": "string"
-                                                            }
-                                                        }]
-                                                    }]
-                                                }]
-                                            }]
                                         }]
                                     }]
                                 }]
@@ -273,8 +175,8 @@
                                 "children": [{
                                     "name": "literal",
                                     "attributes": {
-                                        "value": "<!-- error loading Services Component -->",
-                                        "type": "string"
+                                        "type": "string",
+                                        "value": "<!-- error loading Services Component -->"
                                     }
                                 }]
                             }]
@@ -303,8 +205,8 @@
                             "children": [{
                                 "name": "literal",
                                 "attributes": {
-                                    "value": "bTracker",
-                                    "type": "string"
+                                    "type": "string",
+                                    "value": "bTracker"
                                 }
                             }]
                         }, {
@@ -327,69 +229,41 @@
                                         "children": [{
                                             "name": "id",
                                             "attributes": {
-                                                "symbol": "cms"
+                                                "symbol": "cms.request.param"
                                             }
                                         }, {
                                             "name": "rexpr",
                                             "attributes": {
-                                                "operator": "."
+                                                "operator": "("
                                             },
                                             "children": [{
-                                                "name": "expr",
+                                                "name": "arg_list",
                                                 "children": [{
-                                                    "name": "id",
-                                                    "attributes": {
-                                                        "symbol": "request"
-                                                    }
-                                                }, {
-                                                    "name": "rexpr",
-                                                    "attributes": {
-                                                        "operator": "."
-                                                    },
+                                                    "name": "arg",
                                                     "children": [{
                                                         "name": "expr",
                                                         "children": [{
-                                                            "name": "id",
+                                                            "name": "literal",
                                                             "attributes": {
-                                                                "symbol": "param"
+                                                                "type": "string",
+                                                                "value": "mode"
                                                             }
-                                                        }, {
-                                                            "name": "rexpr",
-                                                            "attributes": {
-                                                                "operator": "("
-                                                            },
-                                                            "children": [{
-                                                                "name": "arg_list",
-                                                                "children": [{
-                                                                    "name": "arg",
-                                                                    "children": [{
-                                                                        "name": "expr",
-                                                                        "children": [{
-                                                                            "name": "literal",
-                                                                            "attributes": {
-                                                                                "value": "mode",
-                                                                                "type": "string"
-                                                                            }
-                                                                        }]
-                                                                    }]
-                                                                }]
-                                                            }, {
-                                                                "name": "rexpr",
-                                                                "attributes": {
-                                                                    "operator": "=="
-                                                                },
-                                                                "children": [{
-                                                                    "name": "expr",
-                                                                    "children": [{
-                                                                        "name": "literal",
-                                                                        "attributes": {
-                                                                            "value": "jqm",
-                                                                            "type": "string"
-                                                                        }
-                                                                    }]
-                                                                }]
-                                                            }]
                                                         }]
+                                                    }]
+                                                }]
+                                            }, {
+                                                "name": "rexpr",
+                                                "attributes": {
+                                                    "operator": "=="
+                                                },
+                                                "children": [{
+                                                    "name": "expr",
+                                                    "children": [{
+                                                        "name": "literal",
+                                                        "attributes": {
+                                                            "type": "string",
+                                                            "value": "jqm"
+                                                        }
                                                     }]
                                                 }]
                                             }]
@@ -420,8 +294,8 @@
                                     "children": [{
                                         "name": "literal",
                                         "attributes": {
-                                            "value": "sServiceClass",
-                                            "type": "string"
+                                            "type": "string",
+                                            "value": "sServiceClass"
                                         }
                                     }]
                                 }, {
@@ -434,8 +308,8 @@
                                         "children": [{
                                             "name": "literal",
                                             "attributes": {
-                                                "value": "managed-service",
-                                                "type": "string"
+                                                "type": "string",
+                                                "value": "managed-service"
                                             }
                                         }]
                                     }]
@@ -466,8 +340,8 @@
                             "children": [{
                                 "name": "literal",
                                 "attributes": {
-                                    "value": true,
-                                    "type": "boolean"
+                                    "type": "boolean",
+                                    "value": true
                                 }
                             }]
                         }]
@@ -536,53 +410,25 @@
                     "children": [{
                         "name": "id",
                         "attributes": {
-                            "symbol": "cms"
+                            "symbol": "cms.request.param"
                         }
                     }, {
                         "name": "rexpr",
                         "attributes": {
-                            "operator": "."
+                            "operator": "("
                         },
                         "children": [{
-                            "name": "expr",
+                            "name": "arg_list",
                             "children": [{
-                                "name": "id",
-                                "attributes": {
-                                    "symbol": "request"
-                                }
-                            }, {
-                                "name": "rexpr",
-                                "attributes": {
-                                    "operator": "."
-                                },
+                                "name": "arg",
                                 "children": [{
                                     "name": "expr",
                                     "children": [{
-                                        "name": "id",
+                                        "name": "literal",
                                         "attributes": {
-                                            "symbol": "param"
+                                            "type": "string",
+                                            "value": "q"
                                         }
-                                    }, {
-                                        "name": "rexpr",
-                                        "attributes": {
-                                            "operator": "("
-                                        },
-                                        "children": [{
-                                            "name": "arg_list",
-                                            "children": [{
-                                                "name": "arg",
-                                                "children": [{
-                                                    "name": "expr",
-                                                    "children": [{
-                                                        "name": "literal",
-                                                        "attributes": {
-                                                            "value": "q",
-                                                            "type": "string"
-                                                        }
-                                                    }]
-                                                }]
-                                            }]
-                                        }]
                                     }]
                                 }]
                             }]
@@ -607,8 +453,8 @@
                                 "children": [{
                                     "name": "literal",
                                     "attributes": {
-                                        "value": ",",
-                                        "type": "string"
+                                        "type": "string",
+                                        "value": ","
                                     }
                                 }, {
                                     "name": "rexpr",
@@ -620,112 +466,84 @@
                                         "children": [{
                                             "name": "id",
                                             "attributes": {
-                                                "symbol": "cms"
+                                                "symbol": "cms.request.param"
                                             }
                                         }, {
                                             "name": "rexpr",
                                             "attributes": {
-                                                "operator": "."
+                                                "operator": "("
                                             },
                                             "children": [{
-                                                "name": "expr",
+                                                "name": "arg_list",
                                                 "children": [{
-                                                    "name": "id",
-                                                    "attributes": {
-                                                        "symbol": "request"
-                                                    }
-                                                }, {
-                                                    "name": "rexpr",
-                                                    "attributes": {
-                                                        "operator": "."
-                                                    },
+                                                    "name": "arg",
                                                     "children": [{
                                                         "name": "expr",
                                                         "children": [{
-                                                            "name": "id",
+                                                            "name": "literal",
                                                             "attributes": {
-                                                                "symbol": "param"
+                                                                "type": "string",
+                                                                "value": "q"
                                                             }
-                                                        }, {
-                                                            "name": "rexpr",
-                                                            "attributes": {
-                                                                "operator": "("
-                                                            },
+                                                        }]
+                                                    }]
+                                                }]
+                                            }, {
+                                                "name": "rexpr",
+                                                "attributes": {
+                                                    "operator": "|"
+                                                },
+                                                "children": [{
+                                                    "name": "expr",
+                                                    "children": [{
+                                                        "name": "id",
+                                                        "attributes": {
+                                                            "symbol": "replace"
+                                                        }
+                                                    }, {
+                                                        "name": "rexpr",
+                                                        "attributes": {
+                                                            "operator": "("
+                                                        },
+                                                        "children": [{
+                                                            "name": "arg_list",
                                                             "children": [{
-                                                                "name": "arg_list",
-                                                                "children": [{
-                                                                    "name": "arg",
-                                                                    "children": [{
-                                                                        "name": "expr",
-                                                                        "children": [{
-                                                                            "name": "literal",
-                                                                            "attributes": {
-                                                                                "value": "q",
-                                                                                "type": "string"
-                                                                            }
-                                                                        }]
-                                                                    }]
-                                                                }]
-                                                            }, {
-                                                                "name": "rexpr",
-                                                                "attributes": {
-                                                                    "operator": "|"
-                                                                },
+                                                                "name": "arg",
                                                                 "children": [{
                                                                     "name": "expr",
                                                                     "children": [{
-                                                                        "name": "id",
+                                                                        "name": "literal",
                                                                         "attributes": {
-                                                                            "symbol": "replace"
+                                                                            "type": "string",
+                                                                            "value": " "
                                                                         }
-                                                                    }, {
-                                                                        "name": "rexpr",
-                                                                        "attributes": {
-                                                                            "operator": "("
-                                                                        },
-                                                                        "children": [{
-                                                                            "name": "arg_list",
-                                                                            "children": [{
-                                                                                "name": "arg",
-                                                                                "children": [{
-                                                                                    "name": "expr",
-                                                                                    "children": [{
-                                                                                        "name": "literal",
-                                                                                        "attributes": {
-                                                                                            "value": " ",
-                                                                                            "type": "string"
-                                                                                        }
-                                                                                    }]
-                                                                                }]
-                                                                            }, {
-                                                                                "name": "arg",
-                                                                                "children": [{
-                                                                                    "name": "expr",
-                                                                                    "children": [{
-                                                                                        "name": "literal",
-                                                                                        "attributes": {
-                                                                                            "value": ",",
-                                                                                            "type": "string"
-                                                                                        }
-                                                                                    }]
-                                                                                }]
-                                                                            }]
-                                                                        }, {
-                                                                            "name": "rexpr",
-                                                                            "attributes": {
-                                                                                "operator": "|"
-                                                                            },
-                                                                            "children": [{
-                                                                                "name": "expr",
-                                                                                "children": [{
-                                                                                    "name": "id",
-                                                                                    "attributes": {
-                                                                                        "symbol": "html"
-                                                                                    }
-                                                                                }]
-                                                                            }]
-                                                                        }]
                                                                     }]
+                                                                }]
+                                                            }, {
+                                                                "name": "arg",
+                                                                "children": [{
+                                                                    "name": "expr",
+                                                                    "children": [{
+                                                                        "name": "literal",
+                                                                        "attributes": {
+                                                                            "type": "string",
+                                                                            "value": ","
+                                                                        }
+                                                                    }]
+                                                                }]
+                                                            }]
+                                                        }, {
+                                                            "name": "rexpr",
+                                                            "attributes": {
+                                                                "operator": "|"
+                                                            },
+                                                            "children": [{
+                                                                "name": "expr",
+                                                                "children": [{
+                                                                    "name": "id",
+                                                                    "attributes": {
+                                                                        "symbol": "html"
+                                                                    }
                                                                 }]
                                                             }]
                                                         }]
@@ -777,8 +595,8 @@
                                 "children": [{
                                     "name": "literal",
                                     "attributes": {
-                                        "value": "probably an error but legal",
-                                        "type": "string"
+                                        "type": "string",
+                                        "value": "probably an error but legal"
                                     }
                                 }]
                             }]
@@ -821,8 +639,8 @@
                                         "children": [{
                                             "name": "literal",
                                             "attributes": {
-                                                "value": "still_legal",
-                                                "type": "string"
+                                                "type": "string",
+                                                "value": "still_legal"
                                             }
                                         }]
                                     }]
@@ -846,8 +664,8 @@
                         "children": [{
                             "name": "literal",
                             "attributes": {
-                                "value": 7.0,
-                                "type": "number"
+                                "type": "number",
+                                "value": 7.0
                             }
                         }, {
                             "name": "rexpr",
@@ -859,8 +677,8 @@
                                 "children": [{
                                     "name": "literal",
                                     "attributes": {
-                                        "value": 15.0,
-                                        "type": "number"
+                                        "type": "number",
+                                        "value": 15.0
                                     }
                                 }]
                             }]
@@ -891,8 +709,8 @@
                                             "children": [{
                                                 "name": "literal",
                                                 "attributes": {
-                                                    "value": "something",
-                                                    "type": "string"
+                                                    "type": "string",
+                                                    "value": "something"
                                                 }
                                             }]
                                         }]
@@ -924,8 +742,8 @@
                             "children": [{
                                 "name": "literal",
                                 "attributes": {
-                                    "value": 3.0,
-                                    "type": "number"
+                                    "type": "number",
+                                    "value": 3.0
                                 }
                             }]
                         }]
@@ -955,8 +773,8 @@
                                             "children": [{
                                                 "name": "literal",
                                                 "attributes": {
-                                                    "value": "hello",
-                                                    "type": "string"
+                                                    "type": "string",
+                                                    "value": "hello"
                                                 }
                                             }]
                                         }]
@@ -991,8 +809,8 @@
                                         "children": [{
                                             "name": "literal",
                                             "attributes": {
-                                                "value": 5.0,
-                                                "type": "number"
+                                                "type": "number",
+                                                "value": 5.0
                                             }
                                         }]
                                     }]
@@ -1023,8 +841,8 @@
                                                     "children": [{
                                                         "name": "literal",
                                                         "attributes": {
-                                                            "value": 7.0,
-                                                            "type": "number"
+                                                            "type": "number",
+                                                            "value": 7.0
                                                         }
                                                     }]
                                                 }]
@@ -1035,8 +853,8 @@
                                                     "children": [{
                                                         "name": "literal",
                                                         "attributes": {
-                                                            "value": 12.0,
-                                                            "type": "number"
+                                                            "type": "number",
+                                                            "value": 12.0
                                                         }
                                                     }]
                                                 }]
@@ -1047,8 +865,8 @@
                                                     "children": [{
                                                         "name": "literal",
                                                         "attributes": {
-                                                            "value": 2.0,
-                                                            "type": "number"
+                                                            "type": "number",
+                                                            "value": 2.0
                                                         }
                                                     }]
                                                 }]
@@ -1065,47 +883,33 @@
                             "children": [{
                                 "name": "id",
                                 "attributes": {
-                                    "symbol": "photo"
+                                    "symbol": "photo.width"
                                 }
                             }, {
                                 "name": "rexpr",
                                 "attributes": {
-                                    "operator": "."
+                                    "operator": ">="
                                 },
                                 "children": [{
                                     "name": "expr",
                                     "children": [{
                                         "name": "id",
                                         "attributes": {
-                                            "symbol": "width"
+                                            "symbol": "sizeArray"
                                         }
                                     }, {
                                         "name": "rexpr",
                                         "attributes": {
-                                            "operator": ">="
+                                            "operator": "["
                                         },
                                         "children": [{
                                             "name": "expr",
                                             "children": [{
-                                                "name": "id",
+                                                "name": "literal",
                                                 "attributes": {
-                                                    "symbol": "sizeArray"
+                                                    "type": "number",
+                                                    "value": 0.0
                                                 }
-                                            }, {
-                                                "name": "rexpr",
-                                                "attributes": {
-                                                    "operator": "["
-                                                },
-                                                "children": [{
-                                                    "name": "expr",
-                                                    "children": [{
-                                                        "name": "literal",
-                                                        "attributes": {
-                                                            "value": 0.0,
-                                                            "type": "number"
-                                                        }
-                                                    }]
-                                                }]
                                             }]
                                         }]
                                     }]
@@ -1132,8 +936,8 @@
                                             "children": [{
                                                 "name": "literal",
                                                 "attributes": {
-                                                    "value": "large",
-                                                    "type": "string"
+                                                    "type": "string",
+                                                    "value": "large"
                                                 }
                                             }]
                                         }]
@@ -1148,125 +952,83 @@
                             "children": [{
                                 "name": "id",
                                 "attributes": {
-                                    "symbol": "photo"
+                                    "symbol": "photo.width"
                                 }
                             }, {
                                 "name": "rexpr",
                                 "attributes": {
-                                    "operator": "."
+                                    "operator": "<="
                                 },
                                 "children": [{
                                     "name": "expr",
                                     "children": [{
                                         "name": "id",
                                         "attributes": {
-                                            "symbol": "width"
+                                            "symbol": "fred.mymacro.mycall"
                                         }
                                     }, {
                                         "name": "rexpr",
                                         "attributes": {
-                                            "operator": "<="
+                                            "operator": "("
                                         },
                                         "children": [{
-                                            "name": "expr",
+                                            "name": "arg_list",
                                             "children": [{
-                                                "name": "id",
-                                                "attributes": {
-                                                    "symbol": "fred"
-                                                }
-                                            }, {
-                                                "name": "rexpr",
-                                                "attributes": {
-                                                    "operator": "."
-                                                },
+                                                "name": "arg",
                                                 "children": [{
                                                     "name": "expr",
                                                     "children": [{
-                                                        "name": "id",
+                                                        "name": "literal",
                                                         "attributes": {
-                                                            "symbol": "mymacro"
+                                                            "type": "number",
+                                                            "value": 12.0
                                                         }
                                                     }, {
                                                         "name": "rexpr",
                                                         "attributes": {
-                                                            "operator": "."
+                                                            "operator": "*"
                                                         },
                                                         "children": [{
                                                             "name": "expr",
                                                             "children": [{
-                                                                "name": "id",
+                                                                "name": "literal",
                                                                 "attributes": {
-                                                                    "symbol": "mycall"
+                                                                    "type": "number",
+                                                                    "value": 3.0
                                                                 }
                                                             }, {
                                                                 "name": "rexpr",
                                                                 "attributes": {
-                                                                    "operator": "("
+                                                                    "operator": "-"
                                                                 },
                                                                 "children": [{
-                                                                    "name": "arg_list",
+                                                                    "name": "expr",
                                                                     "children": [{
-                                                                        "name": "arg",
-                                                                        "children": [{
-                                                                            "name": "expr",
-                                                                            "children": [{
-                                                                                "name": "literal",
-                                                                                "attributes": {
-                                                                                    "value": 12.0,
-                                                                                    "type": "number"
-                                                                                }
-                                                                            }, {
-                                                                                "name": "rexpr",
-                                                                                "attributes": {
-                                                                                    "operator": "*"
-                                                                                },
-                                                                                "children": [{
-                                                                                    "name": "expr",
-                                                                                    "children": [{
-                                                                                        "name": "literal",
-                                                                                        "attributes": {
-                                                                                            "value": 3.0,
-                                                                                            "type": "number"
-                                                                                        }
-                                                                                    }, {
-                                                                                        "name": "rexpr",
-                                                                                        "attributes": {
-                                                                                            "operator": "-"
-                                                                                        },
-                                                                                        "children": [{
-                                                                                            "name": "expr",
-                                                                                            "children": [{
-                                                                                                "name": "literal",
-                                                                                                "attributes": {
-                                                                                                    "value": 4.0,
-                                                                                                    "type": "number"
-                                                                                                }
-                                                                                            }]
-                                                                                        }]
-                                                                                    }]
-                                                                                }]
-                                                                            }]
-                                                                        }]
-                                                                    }]
-                                                                }, {
-                                                                    "name": "rexpr",
-                                                                    "attributes": {
-                                                                        "operator": "["
-                                                                    },
-                                                                    "children": [{
-                                                                        "name": "expr",
-                                                                        "children": [{
-                                                                            "name": "literal",
-                                                                            "attributes": {
-                                                                                "value": 3.0,
-                                                                                "type": "number"
-                                                                            }
-                                                                        }]
+                                                                        "name": "literal",
+                                                                        "attributes": {
+                                                                            "type": "number",
+                                                                            "value": 4.0
+                                                                        }
                                                                     }]
                                                                 }]
                                                             }]
                                                         }]
                                                     }]
+                                                }]
+                                            }]
+                                        }, {
+                                            "name": "rexpr",
+                                            "attributes": {
+                                                "operator": "["
+                                            },
+                                            "children": [{
+                                                "name": "expr",
+                                                "children": [{
+                                                    "name": "literal",
+                                                    "attributes": {
+                                                        "type": "number",
+                                                        "value": 3.0
+                                                    }
                                                 }]
                                             }]
                                         }]
@@ -1294,8 +1056,8 @@
                                             "children": [{
                                                 "name": "literal",
                                                 "attributes": {
-                                                    "value": 12.0,
-                                                    "type": "number"
+                                                    "type": "number",
+                                                    "value": 12.0
                                                 }
                                             }]
                                         }, {
@@ -1312,8 +1074,8 @@
                                                         "children": [{
                                                             "name": "literal",
                                                             "attributes": {
-                                                                "value": 47.0,
-                                                                "type": "number"
+                                                                "type": "number",
+                                                                "value": 47.0
                                                             }
                                                         }]
                                                     }]
@@ -1352,8 +1114,8 @@
                                                 "children": [{
                                                     "name": "literal",
                                                     "attributes": {
-                                                        "value": "goodbye",
-                                                        "type": "string"
+                                                        "type": "string",
+                                                        "value": "goodbye"
                                                     }
                                                 }]
                                             }]
@@ -1379,48 +1141,20 @@
                         "children": [{
                             "name": "id",
                             "attributes": {
-                                "symbol": "myCapturePreviewImage"
+                                "symbol": "myCapturePreviewImage.width"
                             }
                         }, {
                             "name": "rexpr",
                             "attributes": {
-                                "operator": "."
+                                "operator": "/"
                             },
                             "children": [{
                                 "name": "expr",
                                 "children": [{
                                     "name": "id",
                                     "attributes": {
-                                        "symbol": "width"
+                                        "symbol": "myCapturePreviewImage.height"
                                     }
-                                }, {
-                                    "name": "rexpr",
-                                    "attributes": {
-                                        "operator": "/"
-                                    },
-                                    "children": [{
-                                        "name": "expr",
-                                        "children": [{
-                                            "name": "id",
-                                            "attributes": {
-                                                "symbol": "myCapturePreviewImage"
-                                            }
-                                        }, {
-                                            "name": "rexpr",
-                                            "attributes": {
-                                                "operator": "."
-                                            },
-                                            "children": [{
-                                                "name": "expr",
-                                                "children": [{
-                                                    "name": "id",
-                                                    "attributes": {
-                                                        "symbol": "height"
-                                                    }
-                                                }]
-                                            }]
-                                        }]
-                                    }]
                                 }]
                             }]
                         }]
@@ -1439,76 +1173,20 @@
                                 "children": [{
                                     "name": "id",
                                     "attributes": {
-                                        "symbol": "asset"
+                                        "symbol": "asset.hi_res.width"
                                     }
                                 }, {
                                     "name": "rexpr",
                                     "attributes": {
-                                        "operator": "."
+                                        "operator": "/"
                                     },
                                     "children": [{
                                         "name": "expr",
                                         "children": [{
                                             "name": "id",
                                             "attributes": {
-                                                "symbol": "hi_res"
+                                                "symbol": "asset.hi_res.height"
                                             }
-                                        }, {
-                                            "name": "rexpr",
-                                            "attributes": {
-                                                "operator": "."
-                                            },
-                                            "children": [{
-                                                "name": "expr",
-                                                "children": [{
-                                                    "name": "id",
-                                                    "attributes": {
-                                                        "symbol": "width"
-                                                    }
-                                                }, {
-                                                    "name": "rexpr",
-                                                    "attributes": {
-                                                        "operator": "/"
-                                                    },
-                                                    "children": [{
-                                                        "name": "expr",
-                                                        "children": [{
-                                                            "name": "id",
-                                                            "attributes": {
-                                                                "symbol": "asset"
-                                                            }
-                                                        }, {
-                                                            "name": "rexpr",
-                                                            "attributes": {
-                                                                "operator": "."
-                                                            },
-                                                            "children": [{
-                                                                "name": "expr",
-                                                                "children": [{
-                                                                    "name": "id",
-                                                                    "attributes": {
-                                                                        "symbol": "hi_res"
-                                                                    }
-                                                                }, {
-                                                                    "name": "rexpr",
-                                                                    "attributes": {
-                                                                        "operator": "."
-                                                                    },
-                                                                    "children": [{
-                                                                        "name": "expr",
-                                                                        "children": [{
-                                                                            "name": "id",
-                                                                            "attributes": {
-                                                                                "symbol": "height"
-                                                                            }
-                                                                        }]
-                                                                    }]
-                                                                }]
-                                                            }]
-                                                        }]
-                                                    }]
-                                                }]
-                                            }]
                                         }]
                                     }]
                                 }]
@@ -1522,8 +1200,8 @@
                                     "children": [{
                                         "name": "literal",
                                         "attributes": {
-                                            "value": 1.0,
-                                            "type": "number"
+                                            "type": "number",
+                                            "value": 1.0
                                         }
                                     }, {
                                         "name": "rexpr",
@@ -1535,8 +1213,8 @@
                                             "children": [{
                                                 "name": "literal",
                                                 "attributes": {
-                                                    "value": 100.0,
-                                                    "type": "number"
+                                                    "type": "number",
+                                                    "value": 100.0
                                                 }
                                             }, {
                                                 "name": "rexpr",
@@ -1553,48 +1231,20 @@
                                                         "children": [{
                                                             "name": "id",
                                                             "attributes": {
-                                                                "symbol": "myCapturePreviewImage"
+                                                                "symbol": "myCapturePreviewImage.width"
                                                             }
                                                         }, {
                                                             "name": "rexpr",
                                                             "attributes": {
-                                                                "operator": "."
+                                                                "operator": "/"
                                                             },
                                                             "children": [{
                                                                 "name": "expr",
                                                                 "children": [{
                                                                     "name": "id",
                                                                     "attributes": {
-                                                                        "symbol": "width"
+                                                                        "symbol": "myCapturePreviewImage.height"
                                                                     }
-                                                                }, {
-                                                                    "name": "rexpr",
-                                                                    "attributes": {
-                                                                        "operator": "/"
-                                                                    },
-                                                                    "children": [{
-                                                                        "name": "expr",
-                                                                        "children": [{
-                                                                            "name": "id",
-                                                                            "attributes": {
-                                                                                "symbol": "myCapturePreviewImage"
-                                                                            }
-                                                                        }, {
-                                                                            "name": "rexpr",
-                                                                            "attributes": {
-                                                                                "operator": "."
-                                                                            },
-                                                                            "children": [{
-                                                                                "name": "expr",
-                                                                                "children": [{
-                                                                                    "name": "id",
-                                                                                    "attributes": {
-                                                                                        "symbol": "height"
-                                                                                    }
-                                                                                }]
-                                                                            }]
-                                                                        }]
-                                                                    }]
                                                                 }]
                                                             }]
                                                         }]
@@ -1613,76 +1263,20 @@
                                                                 "children": [{
                                                                     "name": "id",
                                                                     "attributes": {
-                                                                        "symbol": "asset"
+                                                                        "symbol": "asset.hi_res.width"
                                                                     }
                                                                 }, {
                                                                     "name": "rexpr",
                                                                     "attributes": {
-                                                                        "operator": "."
+                                                                        "operator": "/"
                                                                     },
                                                                     "children": [{
                                                                         "name": "expr",
                                                                         "children": [{
                                                                             "name": "id",
                                                                             "attributes": {
-                                                                                "symbol": "hi_res"
+                                                                                "symbol": "asset.hi_res.height"
                                                                             }
-                                                                        }, {
-                                                                            "name": "rexpr",
-                                                                            "attributes": {
-                                                                                "operator": "."
-                                                                            },
-                                                                            "children": [{
-                                                                                "name": "expr",
-                                                                                "children": [{
-                                                                                    "name": "id",
-                                                                                    "attributes": {
-                                                                                        "symbol": "width"
-                                                                                    }
-                                                                                }, {
-                                                                                    "name": "rexpr",
-                                                                                    "attributes": {
-                                                                                        "operator": "/"
-                                                                                    },
-                                                                                    "children": [{
-                                                                                        "name": "expr",
-                                                                                        "children": [{
-                                                                                            "name": "id",
-                                                                                            "attributes": {
-                                                                                                "symbol": "asset"
-                                                                                            }
-                                                                                        }, {
-                                                                                            "name": "rexpr",
-                                                                                            "attributes": {
-                                                                                                "operator": "."
-                                                                                            },
-                                                                                            "children": [{
-                                                                                                "name": "expr",
-                                                                                                "children": [{
-                                                                                                    "name": "id",
-                                                                                                    "attributes": {
-                                                                                                        "symbol": "hi_res"
-                                                                                                    }
-                                                                                                }, {
-                                                                                                    "name": "rexpr",
-                                                                                                    "attributes": {
-                                                                                                        "operator": "."
-                                                                                                    },
-                                                                                                    "children": [{
-                                                                                                        "name": "expr",
-                                                                                                        "children": [{
-                                                                                                            "name": "id",
-                                                                                                            "attributes": {
-                                                                                                                "symbol": "height"
-                                                                                                            }
-                                                                                                        }]
-                                                                                                    }]
-                                                                                                }]
-                                                                                            }]
-                                                                                        }]
-                                                                                    }]
-                                                                                }]
-                                                                            }]
                                                                         }]
                                                                     }]
                                                                 }]
@@ -1701,8 +1295,8 @@
                                                                         "children": [{
                                                                             "name": "literal",
                                                                             "attributes": {
-                                                                                "value": 1.0,
-                                                                                "type": "number"
+                                                                                "type": "number",
+                                                                                "value": 1.0
                                                                             }
                                                                         }, {
                                                                             "name": "rexpr",
@@ -1714,8 +1308,8 @@
                                                                                 "children": [{
                                                                                     "name": "literal",
                                                                                     "attributes": {
-                                                                                        "value": 100.0,
-                                                                                        "type": "number"
+                                                                                        "type": "number",
+                                                                                        "value": 100.0
                                                                                     }
                                                                                 }]
                                                                             }]
@@ -1744,8 +1338,8 @@
                                 "children": [{
                                     "name": "literal",
                                     "attributes": {
-                                        "value": "wtf?",
-                                        "type": "string"
+                                        "type": "string",
+                                        "value": "wtf?"
                                     }
                                 }]
                             }]
@@ -1858,8 +1452,8 @@
                                     "children": [{
                                         "name": "literal",
                                         "attributes": {
-                                            "value": true,
-                                            "type": "boolean"
+                                            "type": "boolean",
+                                            "value": true
                                         }
                                     }]
                                 }]
@@ -1924,8 +1518,8 @@
                                 "children": [{
                                     "name": "literal",
                                     "attributes": {
-                                        "value": "oops",
-                                        "type": "string"
+                                        "type": "string",
+                                        "value": "oops"
                                     }
                                 }]
                             }]
@@ -1950,8 +1544,8 @@
                     "children": [{
                         "name": "literal",
                         "attributes": {
-                            "value": 2.0,
-                            "type": "number"
+                            "type": "number",
+                            "value": 2.0
                         }
                     }, {
                         "name": "rexpr",
@@ -1963,8 +1557,8 @@
                             "children": [{
                                 "name": "literal",
                                 "attributes": {
-                                    "value": 3.0,
-                                    "type": "number"
+                                    "type": "number",
+                                    "value": 3.0
                                 }
                             }]
                         }]
@@ -1976,8 +1570,8 @@
                         "children": [{
                             "name": "literal",
                             "attributes": {
-                                "value": "hello",
-                                "type": "string"
+                                "type": "string",
+                                "value": "hello"
                             }
                         }]
                     }]
