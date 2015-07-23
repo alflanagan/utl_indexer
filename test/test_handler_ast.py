@@ -13,7 +13,7 @@ from utl_lib.handler_ast import UTLParseHandlerAST
 from utl_lib.ast_node import ASTNode
 
 
-class UTLParseHandlerASTTestCase(utl_parse_test.TestCaseUtl):
+class UTLParseHandlerASTTestCase(utl_parse_test.TestCaseUTL):
     """Unit tests for class :py:class:`~utl_lib.handler_ast.UTLParseHandlerAST`."""
 
     def test_create(self):

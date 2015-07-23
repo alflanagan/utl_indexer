@@ -20,7 +20,7 @@ from utl_lib.utl_yacc import UTLParser
 from utl_lib.handler_parse_tree import UTLParseHandlerParseTree
 
 
-class TestCaseUtl(unittest_plus.TestCasePlus):
+class TestCaseUTL(unittest_plus.TestCasePlus):
     """A base class providing :py:mod:`unittest`-like assertions to aid testing of
     :py:mod:`utl_lib` code.
 

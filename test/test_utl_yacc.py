@@ -22,7 +22,7 @@ from utl_lib.utl_parse_handler import UTLParseHandler, UTLParseError
 from utl_lib.handler_parse_tree import UTLParseHandlerParseTree
 
 
-class UTLParserTestCase(utl_parse_test.TestCaseUtl):
+class UTLParserTestCase(utl_parse_test.TestCaseUTL):
     """Unit tests for class :py:class:`~utl_lib.utl_yacc.UTLParser`."""
 
     data_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'test_data')
