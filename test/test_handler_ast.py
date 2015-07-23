@@ -8,6 +8,8 @@
 .. codeauthor:: A. Lloyd Flanagan <aflanagan@bhmginc.com>
 
 """
+import os
+
 import utl_parse_test
 from utl_lib.handler_ast import UTLParseHandlerAST
 from utl_lib.utl_yacc import UTLParser
@@ -23,11 +25,16 @@ class UTLParseHandlerASTTestCase(utl_parse_test.TestCaseUTL):
         utldoc = handler.utldoc(ASTNode('statement_list', False, {}, []))
         self.assertEqual(utldoc, ASTNode('statement_list', False, {}, []))
 
-    def assertJSONFileMatches(self, utl_filename, json_filename):  # pylint: disable=W0221
+    def assertJSONFileMatches(self, utl_filename, json_filename, output_filename=""):  # pylint: disable=W0221
         """Wrapper function that supplies correct handler to
         :py:meth:`utl_lib.utl_parse_test.assertJSONFileMatches`.
 
         """
+        if output_filename:
+            parser = UTLParser([UTLParseHandlerAST()])
+            with open(os.path.join(self.data_dir, utl_filename), 'r') as utlin:
+                with open(os.path.join(self.data_dir, output_filename), "w") as jsonout:
+                    jsonout.write(parser.parse(utlin.read()).json_format())
         super().assertJSONFileMatches(UTLParseHandlerAST(),
                                       utl_filename, json_filename)
 
@@ -39,7 +46,7 @@ class UTLParseHandlerASTTestCase(utl_parse_test.TestCaseUTL):
         self.assertJSONFileMatches('basic_assign.utl', 'basic_assign_ast.json')
 
     def test_calls(self):
-        """Unit test :py:meth:`utl_lib.utl_yacc.UTLParseHandlerAST` with macro calls."""
+        """Unit test :py:meth:`utl_lib.handler_ast.UTLParseHandlerAST` with macro calls."""
         # handler = UTLParseHandlerAST()
         # parser = UTLParser([handler])
         # with open('test_data/calls.utl', 'r') as cautl:
@@ -47,6 +54,10 @@ class UTLParseHandlerASTTestCase(utl_parse_test.TestCaseUTL):
                 # cajson.write(parser.parse(cautl.read()).json_format())
 
         self.assertJSONFileMatches('calls.utl', 'calls_ast.json')
+
+    def test_for_stmts(self):
+        """Unit test :py:meth:`utl_lib.handler_ast.UTLParseHandlerAST` with for statements."""
+        self.assertJSONFileMatches('for_stmt.utl', 'for_stmt_ast.json')
 
 
 if __name__ == '__main__':

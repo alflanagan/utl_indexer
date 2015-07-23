@@ -32,7 +32,7 @@ class UTLParseHandlerAST(UTLParseHandler):
     def statement(self, statement):
         if isinstance(statement, str):
             if statement in UTLLexer.reserved:  # is a keyword
-                return ASTNode('keyword', False, {}, [ASTNode(statement, True)])
+                return ASTNode(statement, True, {}, [])
             else:
                 return ASTNode('document', True, {'text': statement}, [])
         if statement:  # ignore null statements
@@ -201,12 +201,18 @@ class UTLParseHandlerAST(UTLParseHandler):
         return ASTNode('id', True, {'symbol': this_id}, [])
 
     def for_stmt(self, expr, as_clause=None, statement_list=None):
-        return ASTNode('for', False, {},
-                       [expr, as_clause, statement_list])
+        attrs = {}
+        if as_clause is not None:
+            attrs["name1"] = as_clause[0]
+            if as_clause[1] is not None:
+                attrs["name2"] = as_clause[1]
+        return ASTNode('for', False, attrs,
+                       [expr, statement_list] if statement_list else [expr])
 
     def as_clause(self, var1, var2=None):
-        kids = [ASTNode('id', True, {"symbol": vname}) for vname in [var1, var2] if vname is not None]
-        return ASTNode('as_clause', False, {}, kids)
+        # We handle target variables as attributes of for node. So, we just need to return the
+        # names.
+        return (var1, var2, )
 
     def default_assignment(self, assign_expr):
         return ASTNode('default', False, {}, [assign_expr])

@@ -1,0 +1,155 @@
+{
+    "name": "statement_list",
+    "children": [{
+        "name": "for",
+        "attributes": {
+            "name1": "item"
+        },
+        "children": [{
+            "name": "id",
+            "attributes": {
+                "symbol": "array_data"
+            }
+        }, {
+            "name": "statement_list",
+            "children": [{
+                "name": "document",
+                "attributes": {
+                    "text": "\n      stuff happens\n      "
+                }
+            }, {
+                "name": "continue"
+            }]
+        }]
+    }, {
+        "name": "for",
+        "children": [{
+            "name": "operator",
+            "attributes": {
+                "symbol": ".."
+            },
+            "children": [{
+                "name": "literal",
+                "attributes": {
+                    "value": 1.0
+                }
+            }, {
+                "name": "literal",
+                "attributes": {
+                    "value": 10.0
+                }
+            }]
+        }, {
+            "name": "statement_list",
+            "children": [{
+                "name": "document",
+                "attributes": {
+                    "text": "\n  more stuff happens\n"
+                }
+            }]
+        }]
+    }, {
+        "name": "for",
+        "attributes": {
+            "name1": "item"
+        },
+        "children": [{
+            "name": "id",
+            "attributes": {
+                "symbol": "array_data"
+            }
+        }, {
+            "name": "statement_list",
+            "children": [{
+                "name": "document",
+                "attributes": {
+                    "text": "\n  even more stuff\n"
+                }
+            }]
+        }]
+    }, {
+        "name": "for",
+        "attributes": {
+            "name1": "item"
+        },
+        "children": [{
+            "name": "id",
+            "attributes": {
+                "symbol": "array_data"
+            }
+        }, {
+            "name": "statement_list",
+            "children": [{
+                "name": "document",
+                "attributes": {
+                    "text": "\n  even more "
+                }
+            }, {
+                "name": "break"
+            }, {
+                "name": "document",
+                "attributes": {
+                    "text": "stuff\n"
+                }
+            }]
+        }]
+    }, {
+        "name": "for",
+        "children": [{
+            "name": "id",
+            "attributes": {
+                "symbol": "array_data"
+            }
+        }, {
+            "name": "statement_list",
+            "children": [{
+                "name": "document",
+                "attributes": {
+                    "text": "\n  do len(array_data) times\n"
+                }
+            }]
+        }]
+    }, {
+        "name": "for",
+        "attributes": {
+            "name1": "alpha",
+            "name2": "beta"
+        },
+        "children": [{
+            "name": "id",
+            "attributes": {
+                "symbol": "array_data"
+            }
+        }, {
+            "name": "statement_list",
+            "children": [{
+                "name": "operator",
+                "attributes": {
+                    "symbol": "+="
+                },
+                "children": [{
+                    "name": "id",
+                    "attributes": {
+                        "symbol": "c"
+                    }
+                }, {
+                    "name": "operator",
+                    "attributes": {
+                        "symbol": "*"
+                    },
+                    "children": [{
+                        "name": "id",
+                        "attributes": {
+                            "symbol": "alpha"
+                        }
+                    }, {
+                        "name": "id",
+                        "attributes": {
+                            "symbol": "beta"
+                        }
+                    }]
+                }]
+            }]
+        }]
+    }]
+}
