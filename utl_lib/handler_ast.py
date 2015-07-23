@@ -221,7 +221,8 @@ class UTLParseHandlerAST(UTLParseHandler):
         return ASTNode('include', True, {'file': filename})
 
     def abbrev_if_stmt(self, expr, statement):
-        return ASTNode('if', False, {}, [expr, statement])
+        statement_list = ASTNode('statement_list', False, {}, [statement])
+        return ASTNode('if', False, {}, [expr, statement_list])
 
     def while_stmt(self, expr, statement_list):
         return ASTNode('while', False, {}, [expr, statement_list])
