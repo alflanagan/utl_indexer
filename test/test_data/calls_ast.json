@@ -1,0 +1,253 @@
+{
+    "name": "statement_list",
+    "children": [{
+        "name": "operator",
+        "attributes": {
+            "symbol": "("
+        },
+        "children": [{
+            "name": "id",
+            "attributes": {
+                "symbol": "fred"
+            }
+        }]
+    }, {
+        "name": "call",
+        "children": [{
+            "name": "operator",
+            "attributes": {
+                "symbol": "("
+            },
+            "children": [{
+                "name": "id",
+                "attributes": {
+                    "symbol": "cms.component.load"
+                }
+            }, {
+                "name": "arg_list",
+                "children": [{
+                    "name": "arg",
+                    "children": [{
+                        "name": "literal",
+                        "attributes": {
+                            "value": "core_base_editorial"
+                        }
+                    }]
+                }]
+            }]
+        }]
+    }, {
+        "name": "operator",
+        "attributes": {
+            "symbol": "("
+        },
+        "children": [{
+            "name": "id",
+            "attributes": {
+                "symbol": "barney"
+            }
+        }, {
+            "name": "arg_list",
+            "children": [{
+                "name": "arg",
+                "children": [{
+                    "name": "literal",
+                    "attributes": {
+                        "value": 3.0
+                    }
+                }]
+            }]
+        }]
+    }, {
+        "name": "operator",
+        "attributes": {
+            "symbol": "("
+        },
+        "children": [{
+            "name": "id",
+            "attributes": {
+                "symbol": "wilma"
+            }
+        }, {
+            "name": "arg_list",
+            "children": [{
+                "name": "arg",
+                "children": [{
+                    "name": "literal",
+                    "attributes": {
+                        "value": "betty"
+                    }
+                }]
+            }]
+        }]
+    }, {
+        "name": "operator",
+        "attributes": {
+            "symbol": "("
+        },
+        "children": [{
+            "name": "id",
+            "attributes": {
+                "symbol": "pebbles"
+            }
+        }, {
+            "name": "arg_list",
+            "children": [{
+                "name": "arg",
+                "children": [{
+                    "name": "literal",
+                    "attributes": {
+                        "value": 5.0
+                    }
+                }]
+            }, {
+                "name": "arg",
+                "attributes": {
+                    "keyword": "mom"
+                },
+                "children": [{
+                    "name": "literal",
+                    "attributes": {
+                        "value": "betty"
+                    }
+                }]
+            }]
+        }]
+    }, {
+        "name": "call",
+        "children": [{
+            "name": "operator",
+            "attributes": {
+                "symbol": "("
+            },
+            "children": [{
+                "name": "id",
+                "attributes": {
+                    "symbol": "barney"
+                }
+            }, {
+                "name": "arg_list",
+                "children": [{
+                    "name": "arg",
+                    "children": [{
+                        "name": "literal",
+                        "attributes": {
+                            "value": 3.0
+                        }
+                    }]
+                }]
+            }]
+        }]
+    }, {
+        "name": "call",
+        "children": [{
+            "name": "operator",
+            "attributes": {
+                "symbol": "("
+            },
+            "children": [{
+                "name": "id",
+                "attributes": {
+                    "symbol": "pebbles"
+                }
+            }, {
+                "name": "arg_list",
+                "children": [{
+                    "name": "arg",
+                    "children": [{
+                        "name": "literal",
+                        "attributes": {
+                            "value": 5.0
+                        }
+                    }]
+                }, {
+                    "name": "arg",
+                    "attributes": {
+                        "keyword": "mom"
+                    },
+                    "children": [{
+                        "name": "literal",
+                        "attributes": {
+                            "value": "betty"
+                        }
+                    }]
+                }]
+            }]
+        }]
+    }, {
+        "name": "if",
+        "children": [{
+            "name": "operator",
+            "attributes": {
+                "symbol": "("
+            },
+            "children": [{
+                "name": "id",
+                "attributes": {
+                    "symbol": "cms.url"
+                }
+            }, {
+                "name": "arg_list",
+                "children": [{
+                    "name": "arg",
+                    "attributes": {
+                        "keyword": "app"
+                    },
+                    "children": [{
+                        "name": "literal",
+                        "attributes": {
+                            "value": "user"
+                        }
+                    }]
+                }]
+            }, {
+                "name": "rexpr",
+                "attributes": {
+                    "operator": "."
+                },
+                "children": [{
+                    "name": "id",
+                    "attributes": {
+                        "symbol": "path"
+                    }
+                }]
+            }]
+        }, {
+            "name": "statement_list",
+            "children": [{
+                "name": "echo",
+                "children": [{
+                    "name": "operator",
+                    "attributes": {
+                        "symbol": "("
+                    },
+                    "children": [{
+                        "name": "id",
+                        "attributes": {
+                            "symbol": "cms.url"
+                        }
+                    }, {
+                        "name": "arg_list",
+                        "children": [{
+                            "name": "arg",
+                            "attributes": {
+                                "keyword": "app"
+                            },
+                            "children": [{
+                                "name": "literal",
+                                "attributes": {
+                                    "value": "user"
+                                }
+                            }]
+                        }]
+                    }]
+                }]
+            }]
+        }]
+    }, {
+        "name": "document",
+        "attributes": {
+            "text": "\n"
+        }
+    }]
+}

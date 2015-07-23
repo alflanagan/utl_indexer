@@ -10,6 +10,7 @@
 """
 import utl_parse_test
 from utl_lib.handler_ast import UTLParseHandlerAST
+from utl_lib.utl_yacc import UTLParser
 from utl_lib.ast_node import ASTNode
 
 
@@ -36,6 +37,16 @@ class UTLParseHandlerASTTestCase(utl_parse_test.TestCaseUTL):
 
             """
         self.assertJSONFileMatches('basic_assign.utl', 'basic_assign_ast.json')
+
+    def test_calls(self):
+        """Unit test :py:meth:`utl_lib.utl_yacc.UTLParseHandlerAST` with macro calls."""
+        # handler = UTLParseHandlerAST()
+        # parser = UTLParser([handler])
+        # with open('test_data/calls.utl', 'r') as cautl:
+            # with open("test_data/calls_ast_result.json", "w") as cajson:
+                # cajson.write(parser.parse(cautl.read()).json_format())
+
+        self.assertJSONFileMatches('calls.utl', 'calls_ast.json')
 
 
 if __name__ == '__main__':
