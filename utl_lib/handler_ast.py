@@ -43,65 +43,56 @@ class UTLParseHandlerAST(UTLParseHandler):
         return ASTNode('echo', False, {}, [expr] if expr else [])
 
     def expr(self, start, expr1, expr2):
-        if isinstance(start, str):
-            if start.lower() in ('not', '!', '-', '+', ):
-                start = ASTNode('unary-op', False, {'operator': start.lower()}, [expr1])
-            elif start.lower() in ('false', 'true', 'null', ):
-                start = ASTNode('keyword', True, {'keyword': start.lower()}, [])
-            else:
-                start = ASTNode('id', True, {'symbol': start}, [])
-        elif isinstance(start, float):
-            start = ASTNode('number', True, {'value': start})
-        elif not isinstance(start, ASTNode):
-            raise UTLParseError("Unrecognized start to an expr: {}".format(start))
-        # We want the returned expression node to hide the whole expr/rexpr distinction, which is
-        # implementation detail.
-        # : NOT expr
-        # | EXCLAMATION expr
-        # | NUMBER rexpr
-        # | MINUS expr %prec UMINUS
-        # | PLUS expr %prec UMINUS
-        # | STRING rexpr
-        # | FALSE rexpr
-        # | TRUE rexpr
-        # | NULL rexpr
-        # | ID rexpr
-        # | LPAREN expr RPAREN rexpr
-        # | array_literal RBRACKET rexpr'''
-        if start and not (expr1 or expr2):
-            return start
-        if expr1 and 'operator' in expr1.attributes:
-            self.state(expr1.symbol == 'rexpr', 'expected rexpr for expr1')
-            return ASTNode('operator', False, {"symbol": expr1.attributes["operator"]},
+        # We want the returned expression node to hide the whole expr/rexpr distinction, which
+        # is implementation detail.
+
+        # <unary-operator> expr
+        if isinstance(start, str) and start.lower() in ('not', '!', '-', '+', ):
+            start = ASTNode('unary-op', False, {'operator': start.lower()}, [expr1])
+
+        # LPAREN expr RPAREN rexpr
+        if start == '(':
+            # here, LPAREN is NOT a macro call
+            # and we don't need the () in the AST
+            if not expr2:
+                return expr1
+            # merge the nodes under rexpr operator
+            return ASTNode("operator", False, {"symbol": expr2.attributes["symbol"]},
+                           [expr1] + expr2.children)
+
+        # literal rexpr | dotted_id rexpr
+        if start.symbol in ['literal', 'id']:
+            if not expr1:
+                return start
+            # start is LHS, expr1 child is RHS, merge under rexpr operator
+            return ASTNode("operator", False, {"symbol": expr1.attributes["symbol"]},
                            [start] + expr1.children)
-        return ASTNode('expr', False, {}, [node for node in [start, expr1, expr2] if node is not None])
+        # uh, oops
+        raise UTLParseError("expr handler got unexpected operator: {}".format(start))
 
     def rexpr(self, operator, expr_or_arg_list, rexpr):
-        # | PLUS expr
-        # | MINUS expr
-        # | FILTER expr
-        # | TIMES expr
-        # | DIV expr
-        # | MODULUS expr
-        # | DOUBLEBAR expr
-        # | RANGE expr
-        # | NEQ expr
-        # | LTE expr
-        # | OR expr
-        # | LT expr
-        # | EQ expr
-        # | IS expr
-        # | GT expr
-        # | AND expr
-        # | GTE expr
-        # | DOUBLEAMP expr
-        # | DOT expr
-        # | ASSIGN expr
-        # | ASSIGNOP expr
-        # | LPAREN arg_list RPAREN rexpr
-        # | LBRACKET expr RBRACKET rexpr
-        return ASTNode('rexpr', False, {'operator': operator},
-                       [node for node in [expr_or_arg_list, rexpr] if node is not None])
+        """Handle RHS of some exprs. Returns roperator, operator, or None."""
+        # <empty>
+        if not operator:
+            return None
+
+        # LPAREN arg_list RPAREN rexpr
+        # LBRACKET expr RBRACKET rexpr
+        if operator in ('[', '(', ):
+            # can't remove the "(" here because we don't know if macro call
+            if rexpr:
+                # merge the rexpr into a new rexpr using the symbol for rexpr
+                # and operator as the first child (RHS)
+                return ASTNode("rexpr", False, {"symbol": rexpr.attributes["symbol"]},
+                               [ASTNode("operator", False,
+                                        {"symbol": operator},
+                                        [expr_or_arg_list])] + rexpr.children)
+            else:
+                return ASTNode('rexpr', False, {"symbol": operator},
+                               [expr_or_arg_list])
+
+        # <binary-operator> expr
+        return ASTNode("rexpr", False, {"symbol": operator, }, [expr_or_arg_list])
 
     def param_list(self, param_decl, param_list=None):
         if not (param_decl or param_list):

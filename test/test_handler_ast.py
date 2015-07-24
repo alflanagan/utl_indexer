@@ -27,7 +27,8 @@ class UTLParseHandlerASTTestCase(utl_parse_test.TestCaseUTL):
 
     def assertJSONFileMatches(self, utl_filename, json_filename, output_filename=""):  # pylint: disable=W0221
         """Wrapper function that supplies correct handler to
-        :py:meth:`utl_lib.utl_parse_test.assertJSONFileMatches`.
+        :py:meth:`utl_lib.utl_parse_test.assertJSONFileMatches`, and optionally writes the AST
+        to a file for later inspection.
 
         """
         if output_filename:
@@ -43,16 +44,11 @@ class UTLParseHandlerASTTestCase(utl_parse_test.TestCaseUTL):
             assignment statements.
 
             """
-        self.assertJSONFileMatches('basic_assign.utl', 'basic_assign_ast.json')
+        self.assertJSONFileMatches('basic_assign.utl', 'basic_assign_ast.json',
+                                   'basic_assign_ast_result.json')
 
     def test_calls(self):
         """Unit test :py:meth:`utl_lib.handler_ast.UTLParseHandlerAST` with macro calls."""
-        # handler = UTLParseHandlerAST()
-        # parser = UTLParser([handler])
-        # with open('test_data/calls.utl', 'r') as cautl:
-            # with open("test_data/calls_ast_result.json", "w") as cajson:
-                # cajson.write(parser.parse(cautl.read()).json_format())
-
         self.assertJSONFileMatches('calls.utl', 'calls_ast.json')
 
     def test_for_stmts(self):
