@@ -42,11 +42,22 @@ class UTLParseHandlerAST(UTLParseHandler):
     def echo_stmt(self, expr):
         return ASTNode('echo', False, {}, [expr] if expr else [])
 
+    def _dbg_print_hlpr(self, label, expr):
+        if expr is not None:
+            print("*    {}: {}".format(
+                label,
+                expr.format().replace('\n', '\n*    ') if isinstance(expr, ASTNode) else expr))
+
     def expr(self, start, expr1, expr2):
         # We want the returned expression node to hide the whole expr/rexpr distinction, which
         # is implementation detail.
 
         # <unary-operator> expr
+        print("*expr")
+        self._dbg_print_hlpr("start", start)
+        self._dbg_print_hlpr("expr1", expr1)
+        self._dbg_print_hlpr("expr2", expr2)
+
         if isinstance(start, str) and start.lower() in ('not', '!', '-', '+', ):
             start = ASTNode('unary-op', False, {'operator': start.lower()}, [expr1])
 
@@ -64,7 +75,12 @@ class UTLParseHandlerAST(UTLParseHandler):
         if start.symbol in ['literal', 'id']:
             if not expr1:
                 return start
+            if expr1.symbol in ("(", "[", ):
+                return ASTNode("operator", {"symbol": expr2.attributes["symbol"]},
+                               [ASTNode("operator", {"symbol": expr1.symbol},
+                                        [start] + expr1.children)] + expr2.children)
             # start is LHS, expr1 child is RHS, merge under rexpr operator
+            assert expr2 is None
             return ASTNode("operator", False, {"symbol": expr1.attributes["symbol"]},
                            [start] + expr1.children)
         # uh, oops
@@ -72,6 +88,10 @@ class UTLParseHandlerAST(UTLParseHandler):
 
     def rexpr(self, operator, expr_or_arg_list, rexpr):
         """Handle RHS of some exprs. Returns roperator, operator, or None."""
+        print("*rexpr, op='{}'".format(operator))
+        self._dbg_print_hlpr("expr_or_arg_list", expr_or_arg_list)
+        self._dbg_print_hlpr("rexpr", rexpr)
+
         # <empty>
         if not operator:
             return None
@@ -80,16 +100,20 @@ class UTLParseHandlerAST(UTLParseHandler):
         # LBRACKET expr RBRACKET rexpr
         if operator in ('[', '(', ):
             # can't remove the "(" here because we don't know if macro call
+            # either or both expr_or_arg_list and rexpr may be None
             if rexpr:
-                # merge the rexpr into a new rexpr using the symbol for rexpr
-                # and operator as the first child (RHS)
-                return ASTNode("rexpr", False, {"symbol": rexpr.attributes["symbol"]},
-                               [ASTNode("operator", False,
-                                        {"symbol": operator},
-                                        [expr_or_arg_list])] + rexpr.children)
+                return ASTNode("rexpr", False, {"symbol": operator},
+                               [expr_or_arg_list, rexpr] if expr_or_arg_list else [rexpr])
+                # # merge the rexpr into a new rexpr using the symbol for rexpr
+                # # and operator as the first child (RHS)
+                # return ASTNode("rexpr", False, {"symbol": rexpr.attributes["symbol"]},
+                # [ASTNode("operator", False,
+                # {"symbol": operator},
+                # [expr_or_arg_list])] + rexpr.children)
             else:
+                # # expr_or_arg_list may be empty for macro call
                 return ASTNode('rexpr', False, {"symbol": operator},
-                               [expr_or_arg_list])
+                               [expr_or_arg_list] if expr_or_arg_list else [])
 
         # <binary-operator> expr
         return ASTNode("rexpr", False, {"symbol": operator, }, [expr_or_arg_list])
@@ -116,7 +140,7 @@ class UTLParseHandlerAST(UTLParseHandler):
         if not arg_list:
             return ASTNode('arg_list', True, {}, [arg] if arg else [])
         else:
-            arg_list.add_child(arg)
+            arg_list.add_first_child(arg)
             return arg_list
 
     def arg(self, expr, name=None):

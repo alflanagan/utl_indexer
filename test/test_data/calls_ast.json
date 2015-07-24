@@ -94,14 +94,6 @@
             "name": "arg_list",
             "children": [{
                 "name": "arg",
-                "children": [{
-                    "name": "literal",
-                    "attributes": {
-                        "value": 5.0
-                    }
-                }]
-            }, {
-                "name": "arg",
                 "attributes": {
                     "keyword": "mom"
                 },
@@ -109,6 +101,14 @@
                     "name": "literal",
                     "attributes": {
                         "value": "betty"
+                    }
+                }]
+            }, {
+                "name": "arg",
+                "children": [{
+                    "name": "literal",
+                    "attributes": {
+                        "value": 5.0
                     }
                 }]
             }]
@@ -154,14 +154,6 @@
                 "name": "arg_list",
                 "children": [{
                     "name": "arg",
-                    "children": [{
-                        "name": "literal",
-                        "attributes": {
-                            "value": 5.0
-                        }
-                    }]
-                }, {
-                    "name": "arg",
                     "attributes": {
                         "keyword": "mom"
                     },
@@ -169,6 +161,14 @@
                         "name": "literal",
                         "attributes": {
                             "value": "betty"
+                        }
+                    }]
+                }, {
+                    "name": "arg",
+                    "children": [{
+                        "name": "literal",
+                        "attributes": {
+                            "value": 5.0
                         }
                     }]
                 }]
@@ -179,38 +179,38 @@
         "children": [{
             "name": "operator",
             "attributes": {
-                "symbol": "("
+                "symbol": "."
             },
             "children": [{
-                "name": "id",
+                "name": "operator",
                 "attributes": {
-                    "symbol": "cms.url"
-                }
-            }, {
-                "name": "arg_list",
-                "children": [{
-                    "name": "arg",
-                    "attributes": {
-                        "keyword": "app"
-                    },
-                    "children": [{
-                        "name": "literal",
-                        "attributes": {
-                            "value": "user"
-                        }
-                    }]
-                }]
-            }, {
-                "name": "rexpr",
-                "attributes": {
-                    "operator": "."
+                    "symbol": "("
                 },
                 "children": [{
                     "name": "id",
                     "attributes": {
-                        "symbol": "path"
+                        "symbol": "cms.url"
                     }
+                }, {
+                    "name": "arg_list",
+                    "children": [{
+                        "name": "arg",
+                        "attributes": {
+                            "keyword": "app"
+                        },
+                        "children": [{
+                            "name": "literal",
+                            "attributes": {
+                                "value": "user"
+                            }
+                        }]
+                    }]
                 }]
+            }, {
+                "name": "id",
+                "attributes": {
+                    "symbol": "path"
+                }
             }]
         }, {
             "name": "statement_list",
