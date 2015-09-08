@@ -128,12 +128,30 @@ class ASTNodeTestCase(unittest_plus.TestCasePlus):
     def test_str(self):
         """Unit tests for :py:meth:`~utl_lib.ast_node.ASTNode.__str__`."""
         item1 = ASTNode("first", False)
-        self.assertEqual(str(item1), "Node(first)")
+        self.assertEqual(str(item1), "first: ")
         item1.attributes["second"] = "test"
-        self.assertEqual(str(item1), "Node(first) {second: 'test'}")
+        self.assertEqual(str(item1), "first:  {second: 'test'}")
         item1.attributes["third"] = "Π"  # Unicode, capital pi
-        self.assertIn(str(item1), ["Node(first) {second: 'test', third: 'Π'}",
-                                   "Node(first) {third: 'Π', second: 'test'}"])
+        self.assertIn(str(item1), ["first:  {third: 'Π', second: 'test'}",
+                                   "first:  {second: 'test', third: 'Π'}"])
+        item2 = ASTNode("unary-op", False)
+        item2.attributes["operator"] = "!"
+        self.assertEqual(str(item2), 'unary-op: !')
+        item2 = ASTNode("literal", True, {"value": 12.0}, [])
+        self.assertEqual(str(item2), 'literal: 12.0')
+        lit2 = ASTNode("literal", False, {"value": 3.0}, [])
+        item2 = ASTNode("literal",
+                        False,
+                        {"value": ASTNode('array_literal', False, {},
+                                          [ASTNode('array_elems', False, {}, [item2, lit2])])},
+                        [])
+        self.assertEqual(str(item2), 'literal (array): array_elems')
+        item1 = ASTNode("operator", False, {"symbol": "-"}, [])
+        item1.children.append(ASTNode("literal", True, {"value": 5}, []))
+        item1.children.append(ASTNode("literla", True, {"value": 12.0}, []))
+        self.assertEqual(str(item1), 'operator: -')
+        item2 = ASTNode("document", True, {"text": '<h1>This is a test</h1>'}, [])
+        self.assertEqual(str(item2), "document: '<h1>This is a test</h1>'")
 
     def test_repr(self):
         """Unit tests for :py:meth:`~utl_lib.ast_node.ASTNode.__repr__`."""
@@ -150,10 +168,10 @@ class ASTNodeTestCase(unittest_plus.TestCasePlus):
         """Unit tests for :py:meth:`~utl_lib.ast_node.ASTNode.format`."""
         anode = ASTNode('top', False, {}, [])
         test_out = anode.format()
-        self.assertEqual(test_out, 'Node(top)')
+        self.assertRegex(test_out, 'top:\s*')
         anode.add_child(ASTNode('first_kid', False, {}, []))
         test_out = anode.format()
-        self.assertRegex(test_out, r'Node\(top\)\s+Node\(first_kid\)')
+        self.assertRegex(test_out, r'top:\s+first_kid')
 
     def test_json_format(self):
         """Unit tests for :py:meth:`~utl_lib.ast_node.ASTNode.json_format`."""

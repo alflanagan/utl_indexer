@@ -120,8 +120,22 @@ class ASTNode(object):
                 self.add_child(child)
 
     def __str__(self):
-        result = 'Node({})'.format(self.symbol)
-        if self.attributes:
+        result = '{}: '.format(self.symbol)
+        if self.symbol == 'literal':
+            value = self.attributes['value']
+            if isinstance(value, ASTNode) and value.symbol == "array_literal":
+                result = "literal (array):"
+                for child in value.children:
+                    result += " {}".format(child.symbol)
+            else:
+                result += repr(self.attributes['value'])
+        elif self.symbol in ('operator', 'id', 'rexpr'):
+            result += self.attributes['symbol']
+        elif self.symbol == 'unary-op':
+            result += self.attributes['operator']
+        elif self.symbol == 'document':
+            result += repr(self.attributes['text'])
+        elif self.attributes:
             attrs = ''
             for key in self.attributes:
                 if attrs:
