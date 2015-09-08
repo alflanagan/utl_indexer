@@ -44,8 +44,7 @@ class UTLParseHandlerASTTestCase(utl_parse_test.TestCaseUTL):
             assignment statements.
 
             """
-        self.assertJSONFileMatches('basic_assign.utl', 'basic_assign_ast.json',
-                                   'basic_assign_ast_result.json')
+        self.assertJSONFileMatches('basic_assign.utl', 'basic_assign_ast.json')
 
     def test_calls(self):
         """Unit test :py:meth:`utl_lib.handler_ast.UTLParseHandlerAST` with macro calls."""

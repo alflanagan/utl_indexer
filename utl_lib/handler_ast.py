@@ -53,10 +53,10 @@ class UTLParseHandlerAST(UTLParseHandler):
         # is implementation detail.
 
         # <unary-operator> expr
-        print("*expr")
-        self._dbg_print_hlpr("start", start)
-        self._dbg_print_hlpr("expr1", expr1)
-        self._dbg_print_hlpr("expr2", expr2)
+        # print("*expr")
+        # self._dbg_print_hlpr("start", start)
+        # self._dbg_print_hlpr("expr1", expr1)
+        # self._dbg_print_hlpr("expr2", expr2)
 
         if isinstance(start, str) and start.lower() in ('not', '!', '-', '+', ):
             start = ASTNode('unary-op', False, {'operator': start.lower()}, [expr1])
@@ -88,9 +88,9 @@ class UTLParseHandlerAST(UTLParseHandler):
 
     def rexpr(self, operator, expr_or_arg_list, rexpr):
         """Handle RHS of some exprs. Returns roperator, operator, or None."""
-        print("*rexpr, op='{}'".format(operator))
-        self._dbg_print_hlpr("expr_or_arg_list", expr_or_arg_list)
-        self._dbg_print_hlpr("rexpr", rexpr)
+        # print("*rexpr, op='{}'".format(operator))
+        # self._dbg_print_hlpr("expr_or_arg_list", expr_or_arg_list)
+        # self._dbg_print_hlpr("rexpr", rexpr)
 
         # <empty>
         if not operator:

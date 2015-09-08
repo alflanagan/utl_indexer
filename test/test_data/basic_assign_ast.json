@@ -63,21 +63,10 @@
       "symbol": "="
     },
     "children": [{
-      "name": "operator",
+      "name": "id",
       "attributes": {
-        "symbol": "."
-      },
-      "children": [{
-        "name": "id",
-        "attributes": {
-          "symbol": "sally"
-        }
-      }, {
-        "name": "id",
-        "attributes": {
-          "symbol": "isfine"
-        }
-      }]
+        "symbol": "sally.isfine"
+      }
     }, {
       "name": "operator",
       "attributes": {
@@ -101,21 +90,10 @@
       "symbol": "="
     },
     "children": [{
-      "name": "operator",
+      "name": "id",
       "attributes": {
-        "symbol": "."
-      },
-      "children": [{
-        "name": "id",
-        "attributes": {
-          "symbol": "sally"
-        }
-      }, {
-        "name": "id",
-        "attributes": {
-          "symbol": "sally"
-        }
-      }]
+        "symbol": "sally.fineis"
+      }
     }, {
       "name": "literal",
       "attributes": {
