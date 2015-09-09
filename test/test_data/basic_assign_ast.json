@@ -1,11 +1,415 @@
 {
   "name": "statement_list",
   "children": [{
-      "name": "echo",
+    "name": "echo",
+    "children": [{
+      "name": "operator",
+      "attributes": {
+        "symbol": "+"
+      },
+      "children": [{
+        "name": "id",
+        "attributes": {
+          "symbol": "a"
+        }
+      }, {
+        "name": "id",
+        "attributes": {
+          "symbol": "b"
+        }
+      }]
+    }]
+  }, {
+    "name": "echo",
+    "children": [{
+      "name": "operator",
+      "attributes": {
+        "symbol": "-"
+      },
+      "children": [{
+        "name": "literal",
+        "attributes": {
+          "value": 5.0
+        }
+      }, {
+        "name": "literal",
+        "attributes": {
+          "value": 7.0
+        }
+      }]
+    }]
+  }, {
+    "name": "echo",
+    "children": [{
+      "name": "operator",
+      "attributes": {
+        "symbol": "|"
+      },
+      "children": [{
+        "name": "literal",
+        "attributes": {
+          "value": "barney rubble"
+        }
+      }, {
+        "name": "id",
+        "attributes": {
+          "symbol": "html"
+        }
+      }]
+    }]
+  }, {
+    "name": "operator",
+    "attributes": {
+      "symbol": "="
+    },
+    "children": [{
+      "name": "id",
+      "attributes": {
+        "symbol": "sally.isfine"
+      }
+    }, {
+      "name": "operator",
+      "attributes": {
+        "symbol": "/"
+      },
+      "children": [{
+        "name": "literal",
+        "attributes": {
+          "value": 12.0
+        }
+      }, {
+        "name": "literal",
+        "attributes": {
+          "value": 6.0
+        }
+      }]
+    }]
+  }, {
+    "name": "operator",
+    "attributes": {
+      "symbol": "="
+    },
+    "children": [{
+      "name": "id",
+      "attributes": {
+        "symbol": "sally.fineis"
+      }
+    }, {
+      "name": "literal",
+      "attributes": {
+        "value": "bat"
+      }
+    }]
+  }, {
+    "name": "operator",
+    "attributes": {
+      "symbol": "="
+    },
+    "children": [{
+      "name": "id",
+      "attributes": {
+        "symbol": "fred"
+      }
+    }, {
+      "name": "operator",
+      "attributes": {
+        "symbol": "is"
+      },
+      "children": [{
+        "name": "id",
+        "attributes": {
+          "symbol": "sally"
+        }
+      }, {
+        "name": "id",
+        "attributes": {
+          "symbol": "fine"
+        }
+      }]
+    }]
+  }, {
+    "name": "operator",
+    "attributes": {
+      "symbol": "="
+    },
+    "children": [{
+      "name": "id",
+      "attributes": {
+        "symbol": "fred.breakthis"
+      }
+    }, {
+      "name": "literal",
+      "attributes": {
+        "value": 0.0
+      }
+    }]
+  }, {
+    "name": "operator",
+    "attributes": {
+      "symbol": "="
+    },
+    "children": [{
+      "name": "id",
+      "attributes": {
+        "symbol": "fred.thisbreak"
+      }
+    }, {
+      "name": "literal",
+      "attributes": {
+        "value": 2.0
+      }
+    }]
+  }, {
+    "name": "operator",
+    "attributes": {
+      "symbol": "="
+    },
+    "children": [{
+      "name": "id",
+      "attributes": {
+        "symbol": "empty"
+      }
+    }, {
+      "name": "literal",
+      "attributes": {
+        "value": ""
+      }
+    }]
+  }, {
+    "name": "operator",
+    "attributes": {
+      "symbol": "="
+    },
+    "children": [{
+      "name": "id",
+      "attributes": {
+        "symbol": "barney"
+      }
+    }, {
+      "name": "operator",
+      "attributes": {
+        "symbol": "*"
+      },
+      "children": [{
+        "name": "id",
+        "attributes": {
+          "symbol": "fred"
+        }
+      }, {
+        "name": "literal",
+        "attributes": {
+          "value": 3.0
+        }
+      }]
+    }]
+  }, {
+    "name": "document",
+    "attributes": {
+      "text": "\n here's some text\n "
+    }
+  }, {
+    "name": "operator",
+    "attributes": {
+      "symbol": "="
+    },
+    "children": [{
+      "name": "id",
+      "attributes": {
+        "symbol": "abool"
+      }
+    }, {
+      "name": "operator",
+      "attributes": {
+        "symbol": "=="
+      },
+      "children": [{
+        "name": "literal",
+        "attributes": {
+          "value": 3.0
+        }
+      }, {
+        "name": "literal",
+        "attributes": {
+          "value": 4.0
+        }
+      }]
+    }]
+  }, {
+    "name": "operator",
+    "attributes": {
+      "symbol": "="
+    },
+    "children": [{
+      "name": "id",
+      "attributes": {
+        "symbol": "a"
+      }
+    }, {
+      "name": "literal",
+      "attributes": {
+        "value": 3.0
+      }
+    }]
+  }, {
+    "name": "operator",
+    "attributes": {
+      "symbol": "="
+    },
+    "children": [{
+      "name": "id",
+      "attributes": {
+        "symbol": "b"
+      }
+    }, {
+      "name": "id",
+      "attributes": {
+        "symbol": "fred"
+      }
+    }]
+  }, {
+    "name": "operator",
+    "attributes": {
+      "symbol": "="
+    },
+    "children": [{
+      "name": "id",
+      "attributes": {
+        "symbol": "wilma"
+      }
+    }, {
+      "name": "operator",
+      "attributes": {
+        "symbol": "["
+      },
+      "children": [{
+        "name": "id",
+        "attributes": {
+          "symbol": "e"
+        }
+      }, {
+        "name": "literal",
+        "attributes": {
+          "value": 12.0
+        }
+      }]
+    }]
+  }, {
+    "name": "operator",
+    "attributes": {
+      "symbol": "="
+    },
+    "children": [{
+      "name": "id",
+      "attributes": {
+        "symbol": "c"
+      }
+    }, {
+      "name": "operator",
+      "attributes": {
+        "symbol": "*"
+      },
+      "children": [{
+        "name": "id",
+        "attributes": {
+          "symbol": "a"
+        }
+      }, {
+        "name": "operator",
+        "attributes": {
+          "symbol": "*"
+        },
+        "children": [{
+          "name": "operator",
+          "attributes": {
+            "symbol": "+"
+          },
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "a"
+            }
+          }, {
+            "name": "id",
+            "attributes": {
+              "symbol": "b"
+            }
+          }]
+        }, {
+          "name": "id",
+          "attributes": {
+            "symbol": "b"
+          }
+        }]
+      }]
+    }]
+  }, {
+    "name": "operator",
+    "attributes": {
+      "symbol": "="
+    },
+    "children": [{
+      "name": "id",
+      "attributes": {
+        "symbol": "d"
+      }
+    }, {
+      "name": "operator",
+      "attributes": {
+        "symbol": "+"
+      },
       "children": [{
         "name": "operator",
         "attributes": {
-          "symbol": "+"
+          "symbol": "*"
+        },
+        "children": [{
+          "name": "id",
+          "attributes": {
+            "symbol": "a"
+          }
+        }, {
+          "name": "id",
+          "attributes": {
+            "symbol": "a"
+          }
+        }]
+      }, {
+        "name": "operator",
+        "attributes": {
+          "symbol": "*"
+        },
+        "children": [{
+          "name": "id",
+          "attributes": {
+            "symbol": "b"
+          }
+        }, {
+          "name": "id",
+          "attributes": {
+            "symbol": "b"
+          }
+        }]
+      }]
+    }]
+  }, {
+    "name": "operator",
+    "attributes": {
+      "symbol": "="
+    },
+    "children": [{
+      "name": "id",
+      "attributes": {
+        "symbol": "e"
+      }
+    }, {
+      "name": "operator",
+      "attributes": {
+        "symbol": "-"
+      },
+      "children": [{
+        "name": "operator",
+        "attributes": {
+          "symbol": "%"
         },
         "children": [{
           "name": "id",
@@ -18,223 +422,27 @@
             "symbol": "b"
           }
         }]
-      }]
-    }, {
-      "name": "echo",
-      "children": [{
-        "name": "operator",
-        "attributes": {
-          "symbol": "-"
-        },
-        "children": [{
-          "name": "literal",
-          "attributes": {
-            "value": 5.0
-          }
-        }, {
-          "name": "literal",
-          "attributes": {
-            "value": 7.0
-          }
-        }]
-      }]
-    }, {
-      "name": "echo",
-      "children": [{
-        "name": "operator",
-        "attributes": {
-          "symbol": "|"
-        },
-        "children": [{
-          "name": "literal",
-          "attributes": {
-            "value": "barney rubble"
-          }
-        }, {
-          "name": "id",
-          "attributes": {
-            "symbol": "html"
-          }
-        }]
-      }]
-    }, {
-      "name": "operator",
-      "attributes": {
-        "symbol": "="
-      },
-      "children": [{
-        "name": "id",
-        "attributes": {
-          "symbol": "sally.isfine"
-        }
       }, {
         "name": "operator",
         "attributes": {
-          "symbol": "/"
-        },
-        "children": [{
-          "name": "literal",
-          "attributes": {
-            "value": 12.0
-          }
-        }, {
-          "name": "literal",
-          "attributes": {
-            "value": 6.0
-          }
-        }]
-      }]
-    }, {
-      "name": "operator",
-      "attributes": {
-        "symbol": "="
-      },
-      "children": [{
-        "name": "id",
-        "attributes": {
-          "symbol": "sally.fineis"
-        }
-      }, {
-        "name": "literal",
-        "attributes": {
-          "value": "bat"
-        }
-      }]
-    }, {
-      "name": "operator",
-      "attributes": {
-        "symbol": "="
-      },
-      "children": [{
-        "name": "id",
-        "attributes": {
-          "symbol": "fred"
-        }
-      }, {
-        "name": "operator",
-        "attributes": {
-          "symbol": "is"
+          "symbol": "%"
         },
         "children": [{
           "name": "id",
           "attributes": {
-            "symbol": "sally"
+            "symbol": "b"
           }
         }, {
           "name": "id",
           "attributes": {
-            "symbol": "fine"
+            "symbol": "c"
           }
         }]
       }]
-    }, {
-      "name": "operator",
-      "attributes": {
-        "symbol": "="
-      },
-      "children": [{
-        "name": "id",
-        "attributes": {
-          "symbol": "fred.breakthis"
-        }
-      }, {
-        "name": "literal",
-        "attributes": {
-          "value": 0.0
-        }
-      }]
-    }, {
-      "name": "operator",
-      "attributes": {
-        "symbol": "="
-      },
-      "children": [{
-        "name": "id",
-        "attributes": {
-          "symbol": "fred.thisbreak"
-        }
-      }, {
-        "name": "literal",
-        "attributes": {
-          "value": 2.0
-        }
-      }]
-    }, {
-      "name": "operator",
-      "attributes": {
-        "symbol": "="
-      },
-      "children": [{
-        "name": "id",
-        "attributes": {
-          "symbol": "empty"
-        }
-      }, {
-        "name": "literal",
-        "attributes": {
-          "value": ""
-        }
-      }]
-    }, {
-      "name": "operator",
-      "attributes": {
-        "symbol": "="
-      },
-      "children": [{
-        "name": "id",
-        "attributes": {
-          "symbol": "barney"
-        }
-      }, {
-        "name": "operator",
-        "attributes": {
-          "symbol": "*"
-        },
-        "children": [{
-          "name": "id",
-          "attributes": {
-            "symbol": "fred"
-          }
-        }, {
-          "name": "literal",
-          "attributes": {
-            "value": 3.0
-          }
-        }]
-      }]
-    }, {
-      "name": "document",
-      "attributes": {
-        "text": "\n here's some text\n "
-      }
-    }, {
-      "name": "operator",
-      "attributes": {
-        "symbol": "="
-      },
-      "children": [{
-        "name": "id",
-        "attributes": {
-          "symbol": "abool"
-        }
-      }, {
-        "name": "operator",
-        "attributes": {
-          "symbol": "=="
-        },
-        "children": [{
-          "name": "literal",
-          "attributes": {
-            "value": 3.0
-          }
-        }, {
-          "name": "literal",
-          "attributes": {
-            "value": 4.0
-          }
-        }]
-      }]
-    }, {
+    }]
+  }, {
+    "name": "default",
+    "children": [{
       "name": "operator",
       "attributes": {
         "symbol": "="
@@ -250,7 +458,10 @@
           "value": 3.0
         }
       }]
-    }, {
+    }]
+  }, {
+    "name": "default",
+    "children": [{
       "name": "operator",
       "attributes": {
         "symbol": "="
@@ -266,132 +477,58 @@
           "symbol": "fred"
         }
       }]
-    }, {
-      "name": "operator",
+    }]
+  }, {
+    "name": "operator",
+    "attributes": {
+      "symbol": "-="
+    },
+    "children": [{
+      "name": "id",
       "attributes": {
-        "symbol": "="
-      },
-      "children": [{
-        "name": "id",
-        "attributes": {
-          "symbol": "wilma"
-        }
-      }, {
-        "name": "operator",
-        "attributes": {
-          "symbol": "["
-        },
-        "children": [{
-          "name": "id",
-          "attributes": {
-            "symbol": "e"
-          }
-        }, {
-          "name": "literal",
-          "attributes": {
-            "value": 12.0
-          }
-        }]
-      }]
+        "symbol": "c"
+      }
     }, {
-      "name": "operator",
+      "name": "id",
       "attributes": {
-        "symbol": "="
-      },
-      "children": [{
-        "name": "id",
-        "attributes": {
-          "symbol": "c"
-        }
-      }, {
-        "name": "operator",
-        "attributes": {
-          "symbol": "*"
-        },
-        "children": [{
-          "name": "id",
-          "attributes": {
-            "symbol": "a"
-          }
-        }, {
-          "name": "operator",
-          "attributes": {
-            "symbol": "*"
-          },
-          "children": [{
-            "name": "operator",
-            "attributes": {
-              "symbol": "+"
-            },
-            "children": [{
-              "name": "id",
-              "attributes": {
-                "symbol": "a"
-              }
-            }, {
-              "name": "id",
-              "attributes": {
-                "symbol": "b"
-              }
-            }]
-          }, {
-            "name": "id",
-            "attributes": {
-              "symbol": "b"
-            }
-          }]
-        }]
-      }]
-    }, {
-      "name": "operator",
+        "symbol": "sally"
+      }
+    }]
+  }, {
+    "name": "operator",
+    "attributes": {
+      "symbol": "*="
+    },
+    "children": [{
+      "name": "id",
       "attributes": {
-        "symbol": "="
-      },
-      "children": [{
-        "name": "id",
-        "attributes": {
-          "symbol": "d"
-        }
-      }, {
-        "name": "operator",
-        "attributes": {
-          "symbol": "+"
-        },
-        "children": [{
-          "name": "operator",
-          "attributes": {
-            "symbol": "*"
-          },
-          "children": [{
-            "name": "id",
-            "attributes": {
-              "symbol": "a"
-            }
-          }, {
-            "name": "id",
-            "attributes": {
-              "symbol": "a"
-            }
-          }]
-        }, {
-          "name": "operator",
-          "attributes": {
-            "symbol": "*"
-          },
-          "children": [{
-            "name": "id",
-            "attributes": {
-              "symbol": "b"
-            }
-          }, {
-            "name": "id",
-            "attributes": {
-              "symbol": "b"
-            }
-          }]
-        }]
-      }]
+        "symbol": "d"
+      }
     }, {
+      "name": "literal",
+      "attributes": {
+        "value": 7.0
+      }
+    }]
+  }, {
+    "name": "operator",
+    "attributes": {
+      "symbol": "/="
+    },
+    "children": [{
+      "name": "id",
+      "attributes": {
+        "symbol": "d"
+      }
+    }, {
+      "name": "literal",
+      "attributes": {
+        "value": 3.0
+      }
+    }]
+  }, {
+    "name": "default",
+    "children": [{
       "name": "operator",
       "attributes": {
         "symbol": "="
@@ -440,274 +577,111 @@
           }]
         }]
       }]
+    }]
+  }, {
+    "name": "operator",
+    "attributes": {
+      "symbol": "="
+    },
+    "children": [{
+      "name": "id",
+      "attributes": {
+        "symbol": "array"
+      }
     }, {
-      "name": "default",
-      "children": [{
-        "name": "operator",
-        "attributes": {
-          "symbol": "="
-        },
-        "children": [{
-          "name": "id",
+      "name": "literal",
+      "attributes": {
+        "value": [{
+          "name": "literal",
           "attributes": {
-            "symbol": "a"
+            "value": 1.0
+          }
+        }, {
+          "name": "literal",
+          "attributes": {
+            "value": 2.0
+          }
+        }, {
+          "name": "literal",
+          "attributes": {
+            "value": "fred"
           }
         }, {
           "name": "literal",
           "attributes": {
             "value": 3.0
           }
-        }]
-      }]
-    }, {
-      "name": "default",
-      "children": [{
-        "name": "operator",
-        "attributes": {
-          "symbol": "="
-        },
-        "children": [{
-          "name": "id",
-          "attributes": {
-            "symbol": "b"
-          }
-        }, {
-          "name": "id",
-          "attributes": {
-            "symbol": "fred"
-          }
-        }]
-      }]
-    }, {
-      "name": "operator",
-      "attributes": {
-        "symbol": "-="
-      },
-      "children": [{
-        "name": "id",
-        "attributes": {
-          "symbol": "c"
-        }
-      }, {
-        "name": "id",
-        "attributes": {
-          "symbol": "sally"
-        }
-      }]
-    }, {
-      "name": "operator",
-      "attributes": {
-        "symbol": "*="
-      },
-      "children": [{
-        "name": "id",
-        "attributes": {
-          "symbol": "d"
-        }
-      }, {
-        "name": "literal",
-        "attributes": {
-          "value": 7.0
-        }
-      }]
-    }, {
-      "name": "operator",
-      "attributes": {
-        "symbol": "/="
-      },
-      "children": [{
-        "name": "id",
-        "attributes": {
-          "symbol": "d"
-        }
-      }, {
-        "name": "literal",
-        "attributes": {
-          "value": 3.0
-        }
-      }]
-    }, {
-      "name": "default",
-      "children": [{
-        "name": "operator",
-        "attributes": {
-          "symbol": "="
-        },
-        "children": [{
-          "name": "id",
-          "attributes": {
-            "symbol": "e"
-          }
         }, {
           "name": "operator",
           "attributes": {
-            "symbol": "-"
+            "symbol": "|"
           },
           "children": [{
             "name": "operator",
             "attributes": {
-              "symbol": "%"
+              "symbol": "("
             },
             "children": [{
               "name": "id",
               "attributes": {
-                "symbol": "a"
+                "symbol": "wilma"
               }
             }, {
-              "name": "id",
+              "name": "literal",
               "attributes": {
-                "symbol": "b"
+                "value": 7.0
               }
             }]
           }, {
-            "name": "operator",
+            "name": "id",
             "attributes": {
-              "symbol": "%"
-            },
-            "children": [{
-              "name": "id",
-              "attributes": {
-                "symbol": "b"
-              }
-            }, {
-              "name": "id",
-              "attributes": {
-                "symbol": "c"
-              }
-            }]
+              "symbol": "fred"
+            }
           }]
         }]
-      }]
-    }, {
-      "name": "operator",
-      "attributes": {
-        "symbol": "="
-      },
-      "children": [{
-        "name": "id",
-        "attributes": {
-          "symbol": "array"
-        }
-      }, {
-        "name": "literal",
-        "attributes": {
-          "value": [{
-            "name": "literal",
-            "attributes": {
-              "value": 1.0
-            }
-          }, {
-            "name": "literal",
-            "attributes": {
-              "value": 2.0
-            }
-          }, {
-            "name": "literal",
-            "attributes": {
-              "value": "fred"
-            }
-          }, {
-            "name": "literal",
-            "attributes": {
-              "value": 3.0
-            }
-          }, {
-            "name": "operator",
-            "attributes": {
-              "symbol": "|"
-            },
-            "children": [{
-              "name": "operator",
-              "attributes": {
-                "symbol": "("
-              },
-              "children": [{
-                "name": "id",
-                "attributes": {
-                  "symbol": "wilma"
-                }
-              }, {
-                "name": "literal",
-                "attributes": {
-                  "value": 7.0
-                }
-              }]
-            }, {
-              "name": "id",
-              "attributes": {
-                "symbol": "fred"
-              }
-            }]
-          }]
-        }
-      }]
+      }
+    }]
+  }, {
+    "name": "operator",
+    "attributes": {
+      "symbol": "="
     },
-
-    {
-      "name": "operator",
+    "children": [{
+      "name": "id",
       "attributes": {
-        "symbol": "="
-      },
-      "children": [{
-        "name": "id",
-        "attributes": {
-          "symbol": "obj"
-        }
-      }, {
-        "name": "literal",
-        "attributes": {
-          "value": {
-            "name": "array_literal",
-            "children": [{
-              "name": "key_value_elems",
-              "children": [{
-                "name": "key_value",
-                "children": [{
-                  "name": "literal",
-                  "attributes": {
-                    "value": "two"
-                  }
-                }, {
-                  "name": "literal",
-                  "attributes": {
-                    "value": 3.0
-                  }
-                }]
-              }, {
-                "name": "key_value",
-                "children": [{
-                  "name": "literal",
-                  "attributes": {
-                    "value": "one"
-                  }
-                }, {
-                  "name": "literal",
-                  "attributes": {
-                    "value": 2.0
-                  }
-                }]
-              }]
-            }]
-          }
-        }
-      }]
+        "symbol": "obj"
+      }
     }, {
-      "name": "operator",
+      "name": "literal",
       "attributes": {
-        "symbol": "="
-      },
-      "children": [{
-        "name": "id",
-        "attributes": {
-          "symbol": "obj.one"
+        "value": {
+          "one": 2.0,
+          "two": 3.0
         }
-      }, {
-        "name": "literal",
-        "attributes": {
-          "value": 3.0
-        }
-      }]
+      }
+    }]
+  }, {
+    "name": "operator",
+    "attributes": {
+      "symbol": "="
+    },
+    "children": [{
+      "name": "id",
+      "attributes": {
+        "symbol": "obj.one"
+      }
     }, {
+      "name": "literal",
+      "attributes": {
+        "value": 3.0
+      }
+    }]
+  }, {
+    "name": "operator",
+    "attributes": {
+      "symbol": "="
+    },
+    "children": [{
       "name": "operator",
       "attributes": {
         "symbol": "["
@@ -722,47 +696,45 @@
         "attributes": {
           "value": "two"
         }
-      }, {
-        "name": "rexpr",
-        "attributes": {
-          "symbol": "="
-        },
-        "children": [{
-          "name": "literal",
-          "attributes": {
-            "value": 7.0
-          }
-        }]
       }]
+    }, {
+      "name": "literal",
+      "attributes": {
+        "value": 7.0
+      }
+    }]
+  }, {
+    "name": "operator",
+    "attributes": {
+      "symbol": "="
+    },
+    "children": [{
+      "name": "id",
+      "attributes": {
+        "symbol": "n"
+      }
+    }, {
+      "name": "literal",
+      "attributes": {
+        "value": []
+      }
+    }]
+  }, {
+    "name": "operator",
+    "attributes": {
+      "symbol": "="
+    },
+    "children": [{
+      "name": "id",
+      "attributes": {
+        "symbol": "child_image"
+      }
     }, {
       "name": "operator",
       "attributes": {
-        "symbol": "="
+        "symbol": "["
       },
       "children": [{
-        "name": "id",
-        "attributes": {
-          "symbol": "n"
-        }
-      }, {
-        "name": "literal",
-        "attributes": {
-          "value": {
-            "name": "array_literal"
-          }
-        }
-      }]
-    }, {
-      "name": "operator",
-      "attributes": {
-        "symbol": "="
-      },
-      "children": [{
-        "name": "id",
-        "attributes": {
-          "symbol": "child_image"
-        }
-      }, {
         "name": "operator",
         "attributes": {
           "symbol": "("
@@ -773,9 +745,9 @@
             "symbol": "asset.items"
           }
         }, {
-          "name": "arg_list",
+          "name": "arg-list",
           "children": [{
-            "name": "arg",
+            "name": "keyword-arg",
             "attributes": {
               "keyword": "type"
             },
@@ -786,77 +758,67 @@
               }
             }]
           }]
-        }, {
-          "name": "rexpr",
-          "attributes": {
-            "symbol": "["
-          },
-          "children": [{
-            "name": "literal",
-            "attributes": {
-              "value": 0.0
-            }
-          }]
         }]
+      }, {
+        "name": "literal",
+        "attributes": {
+          "value": 0.0
+        }
       }]
+    }]
+  }, {
+    "name": "operator",
+    "attributes": {
+      "symbol": "="
     },
-
-    {
+    "children": [{
       "name": "operator",
       "attributes": {
-        "symbol": "="
+        "symbol": "+"
       },
       "children": [{
         "name": "operator",
         "attributes": {
-          "symbol": "+"
+          "symbol": "*"
         },
         "children": [{
-          "name": "operator",
+          "name": "id",
           "attributes": {
-            "symbol": "*"
-          },
-          "children": [{
-            "name": "id",
-            "attributes": {
-              "symbol": "a"
-            }
-          }, {
-            "name": "id",
-            "attributes": {
-              "symbol": "a"
-            }
-          }]
+            "symbol": "a"
+          }
         }, {
-          "name": "operator",
+          "name": "id",
           "attributes": {
-            "symbol": "*"
-          },
-          "children": [{
-            "name": "id",
-            "attributes": {
-              "symbol": "b"
-            }
-          }, {
-            "name": "id",
-            "attributes": {
-              "symbol": "b"
-            }
-          }]
+            "symbol": "a"
+          }
         }]
       }, {
-        "name": "id",
+        "name": "operator",
         "attributes": {
-          "symbol": "c"
-        }
+          "symbol": "*"
+        },
+        "children": [{
+          "name": "id",
+          "attributes": {
+            "symbol": "b"
+          }
+        }, {
+          "name": "id",
+          "attributes": {
+            "symbol": "b"
+          }
+        }]
       }]
-    },
-
-    {
-      "name": "document",
+    }, {
+      "name": "id",
       "attributes": {
-        "text": "\n"
+        "symbol": "c"
       }
+    }]
+  }, {
+    "name": "document",
+    "attributes": {
+      "text": "\n"
     }
-  ]
+  }]
 }
