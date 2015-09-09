@@ -355,17 +355,12 @@
       }, {
         "name": "operator",
         "attributes": {
-          "symbol": "*"
+          "symbol": "+"
         },
         "children": [{
-          "name": "id",
-          "attributes": {
-            "symbol": "a"
-          }
-        }, {
           "name": "operator",
           "attributes": {
-            "symbol": "+"
+            "symbol": "*"
           },
           "children": [{
             "name": "id",
@@ -373,21 +368,26 @@
               "symbol": "a"
             }
           }, {
-            "name": "operator",
+            "name": "id",
             "attributes": {
-              "symbol": "*"
-            },
-            "children": [{
-              "name": "id",
-              "attributes": {
-                "symbol": "b"
-              }
-            }, {
-              "name": "id",
-              "attributes": {
-                "symbol": "b"
-              }
-            }]
+              "symbol": "a"
+            }
+          }]
+        }, {
+          "name": "operator",
+          "attributes": {
+            "symbol": "*"
+          },
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "b"
+            }
+          }, {
+            "name": "id",
+            "attributes": {
+              "symbol": "b"
+            }
           }]
         }]
       }]
@@ -404,17 +404,28 @@
       }, {
         "name": "operator",
         "attributes": {
-          "symbol": "%"
+          "symbol": "-"
         },
         "children": [{
-          "name": "id",
+          "name": "operator",
           "attributes": {
-            "symbol": "a"
-          }
+            "symbol": "%"
+          },
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "a"
+            }
+          }, {
+            "name": "id",
+            "attributes": {
+              "symbol": "b"
+            }
+          }]
         }, {
           "name": "operator",
           "attributes": {
-            "symbol": "-"
+            "symbol": "%"
           },
           "children": [{
             "name": "id",
@@ -422,25 +433,16 @@
               "symbol": "b"
             }
           }, {
-            "name": "operator",
+            "name": "id",
             "attributes": {
-              "symbol": "%"
-            },
-            "children": [{
-              "name": "id",
-              "attributes": {
-                "symbol": "b"
-              }
-            }, {
-              "name": "id",
-              "attributes": {
-                "symbol": "c"
-              }
-            }]
+              "symbol": "c"
+            }
           }]
         }]
       }]
-    }, {
+    },
+
+    {
       "name": "default",
       "children": [{
         "name": "operator",
