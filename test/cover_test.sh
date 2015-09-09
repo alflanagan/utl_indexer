@@ -11,6 +11,9 @@ fi
 MODULE_DIR=utl_lib
 MODULE_NAME=${1%.py} # .py is optional
 MODULE_FILE=../${MODULE_DIR}/${MODULE_NAME}.py
+if [ ${MODULE_NAME} = utl_parse_test ]; then # special case
+  MODULE_FILE=${MODULE_NAME}.py
+fi
 TEST_SUITE=test_${MODULE_NAME}.py
 
 if [ ! -r ${MODULE_FILE} ]; then
@@ -22,8 +25,12 @@ if [ ! -r ${TEST_SUITE} ]; then
     echo "ERROR: can't locate test file for module '${MODULE_NAME}': expected \"${TEST_SUITE}\"." >&2
     exit 3
 fi
-    
-coverage run --source=${MODULE_DIR}.${MODULE_NAME} --branch ${TEST_SUITE}
+
+if [ ${MODULE_NAME} = utl_parse_test ]; then # special case
+  coverage run --source=${MODULE_NAME} --branch ${TEST_SUITE}
+else
+  coverage run --source=${MODULE_DIR}.${MODULE_NAME} --branch ${TEST_SUITE}
+fi
 coverage report -m ${MODULE_FILE}
 
 # Local Variables:
