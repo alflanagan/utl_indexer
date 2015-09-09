@@ -42,7 +42,7 @@ class UTLParseHandlerAST(UTLParseHandler):
     def echo_stmt(self, expr):
         return ASTNode('echo', False, {}, [expr] if expr else [])
 
-    def _dbg_print_hlpr(self, label, expr):
+    def _dbg_print_hlpr(self, label, expr):  # pragma: no cover
         if expr is not None:
             print("*    {}: {}".format(
                 label,
@@ -59,7 +59,7 @@ class UTLParseHandlerAST(UTLParseHandler):
         # self._dbg_print_hlpr("expr2", expr2)
 
         if isinstance(start, str) and start.lower() in ('not', '!', '-', '+', ):
-            start = ASTNode('unary-op', False, {'operator': start.lower()}, [expr1])
+            return ASTNode('unary-op', False, {'operator': start.lower()}, [expr1])
 
         # LPAREN expr RPAREN rexpr
         if start == '(':
