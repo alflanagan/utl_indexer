@@ -1,0 +1,1104 @@
+{
+  "name": "statement_list",
+  "children": [{
+    "name": "document",
+    "attributes": {
+      "text": "<div id=&quot;blox-left-col&quot; class=&quot;grid_"
+    }
+  }, {
+    "name": "id",
+    "attributes": {
+      "symbol": "grid_set_blox_med_span"
+    }
+  }, {
+    "name": "if",
+    "children": [{
+      "name": "operator",
+      "attributes": {
+        "symbol": "=="
+      },
+      "children": [{
+        "name": "id",
+        "attributes": {
+          "symbol": "cms.site.custom.alpha_omega"
+        }
+      }, {
+        "name": "literal",
+        "attributes": {
+          "value": "true"
+        }
+      }]
+    }, {
+      "name": "statement_list",
+      "children": [{
+        "name": "document",
+        "attributes": {
+          "text": "alpha"
+        }
+      }]
+    }]
+  }, {
+    "name": "document",
+    "attributes": {
+      "text": "&quot;>\n<div id=&quot;blox-front&quot; class=&quot;blox-content&quot;>\n"
+    }
+  }, {
+    "name": "if",
+    "children": [{
+      "name": "unary-op",
+      "attributes": {
+        "operator": "!"
+      },
+      "children": [{
+        "name": "operator",
+        "attributes": {
+          "symbol": "("
+        },
+        "children": [{
+          "name": "id",
+          "attributes": {
+            "symbol": "cms.component.load"
+          }
+        }, {
+          "name": "arg_list",
+          "children": [{
+            "name": "arg",
+            "children": [{
+              "name": "literal",
+              "attributes": {
+                "value": "core_services_manager"
+              }
+            }]
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement_list",
+      "children": [{
+        "name": "echo",
+        "children": [{
+          "name": "literal",
+          "attributes": {
+            "value": "<!-- error loading Services Component -->"
+          }
+        }]
+      }]
+    }]
+  }, {
+    "name": "if",
+    "children": [{
+      "name": "unary-op",
+      "attributes": {
+        "operator": "!"
+      },
+      "children": [{
+        "name": "operator",
+        "attributes": {
+          "symbol": "("
+        },
+        "children": [{
+          "name": "id",
+          "attributes": {
+            "symbol": "cms.component.load"
+          }
+        }, {
+          "name": "arg_list",
+          "children": [{
+            "name": "arg",
+            "children": [{
+              "name": "literal",
+              "attributes": {
+                "value": "core_services_manager"
+              }
+            }]
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement_list",
+      "children": [{
+        "name": "echo",
+        "children": [{
+          "name": "literal",
+          "attributes": {
+            "value": "<!-- error loading Services Component -->"
+          }
+        }]
+      }]
+    }]
+  }, {
+    "name": "if",
+    "children": [{
+      "name": "operator",
+      "attributes": {
+        "symbol": "["
+      },
+      "children": [{
+        "name": "id",
+        "attributes": {
+          "symbol": "aInfo"
+        }
+      }, {
+        "name": "literal",
+        "attributes": {
+          "value": "bTracker"
+        }
+      }, {
+        "name": "rexpr",
+        "attributes": {
+          "symbol": "&&"
+        },
+        "children": [{
+          "name": "unary-op",
+          "attributes": {
+            "operator": "!"
+          },
+          "children": [{
+            "name": "operator",
+            "attributes": {
+              "symbol": "("
+            },
+            "children": [{
+              "name": "id",
+              "attributes": {
+                "symbol": "cms.request.param"
+              }
+            }, {
+              "name": "arg_list",
+              "children": [{
+                "name": "arg",
+                "children": [{
+                  "name": "literal",
+                  "attributes": {
+                    "value": "mode"
+                  }
+                }]
+              }]
+            }, {
+              "name": "rexpr",
+              "attributes": {
+                "symbol": "=="
+              },
+              "children": [{
+                "name": "literal",
+                "attributes": {
+                  "value": "jqm"
+                }
+              }]
+            }]
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement_list",
+      "children": [{
+        "name": "operator",
+        "attributes": {
+          "symbol": "["
+        },
+        "children": [{
+          "name": "id",
+          "attributes": {
+            "symbol": "aInfo"
+          }
+        }, {
+          "name": "literal",
+          "attributes": {
+            "value": "sServiceClass"
+          }
+        }, {
+          "name": "rexpr",
+          "attributes": {
+            "symbol": "="
+          },
+          "children": [{
+            "name": "literal",
+            "attributes": {
+              "value": "managed-service"
+            }
+          }]
+        }]
+      }]
+    }]
+  }, {
+    "name": "if",
+    "children": [{
+      "name": "operator",
+      "attributes": {
+        "symbol": "=="
+      },
+      "children": [{
+        "name": "id",
+        "attributes": {
+          "symbol": "show_flags"
+        }
+      }, {
+        "name": "literal",
+        "attributes": {
+          "value": "true"
+        }
+      }]
+    }, {
+      "name": "statement_list",
+      "children": [{
+        "name": "document",
+        "attributes": {
+          "text": "\n    <li>"
+        }
+      }, {
+        "name": "operator",
+        "attributes": {
+          "symbol": "("
+        },
+        "children": [{
+          "name": "id",
+          "attributes": {
+            "symbol": "core_base_library_assetFlags"
+          }
+        }, {
+          "name": "arg_list",
+          "children": [{
+            "name": "arg",
+            "attributes": {
+              "keyword": "target"
+            },
+            "children": [{
+              "name": "id",
+              "attributes": {
+                "symbol": "asset"
+              }
+            }]
+          }]
+        }]
+      }, {
+        "name": "document",
+        "attributes": {
+          "text": "</li>\n  "
+        }
+      }]
+    }]
+  }, {
+    "name": "if",
+    "children": [{
+      "name": "operator",
+      "attributes": {
+        "symbol": "("
+      },
+      "children": [{
+        "name": "id",
+        "attributes": {
+          "symbol": "cms.request.param"
+        }
+      }, {
+        "name": "arg_list",
+        "children": [{
+          "name": "arg",
+          "children": [{
+            "name": "literal",
+            "attributes": {
+              "value": "q"
+            }
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement_list",
+      "children": [{
+        "name": "operator",
+        "attributes": {
+          "symbol": "+="
+        },
+        "children": [{
+          "name": "id",
+          "attributes": {
+            "symbol": "site_keywords"
+          }
+        }, {
+          "name": "operator",
+          "attributes": {
+            "symbol": "+"
+          },
+          "children": [{
+            "name": "literal",
+            "attributes": {
+              "value": ","
+            }
+          }, {
+            "name": "operator",
+            "attributes": {
+              "symbol": "("
+            },
+            "children": [{
+              "name": "id",
+              "attributes": {
+                "symbol": "cms.request.param"
+              }
+            }, {
+              "name": "arg_list",
+              "children": [{
+                "name": "arg",
+                "children": [{
+                  "name": "literal",
+                  "attributes": {
+                    "value": "q"
+                  }
+                }]
+              }]
+            }, {
+              "name": "rexpr",
+              "attributes": {
+                "symbol": "|"
+              },
+              "children": [{
+                "name": "operator",
+                "attributes": {
+                  "symbol": "("
+                },
+                "children": [{
+                  "name": "id",
+                  "attributes": {
+                    "symbol": "replace"
+                  }
+                }, {
+                  "name": "arg_list",
+                  "children": [{
+                    "name": "arg",
+                    "children": [{
+                      "name": "literal",
+                      "attributes": {
+                        "value": " "
+                      }
+                    }]
+                  }, {
+                    "name": "arg",
+                    "children": [{
+                      "name": "literal",
+                      "attributes": {
+                        "value": ","
+                      }
+                    }]
+                  }]
+                }, {
+                  "name": "rexpr",
+                  "attributes": {
+                    "symbol": "|"
+                  },
+                  "children": [{
+                    "name": "id",
+                    "attributes": {
+                      "symbol": "html"
+                    }
+                  }]
+                }]
+              }]
+            }]
+          }]
+        }]
+      }]
+    }]
+  }, {
+    "name": "if",
+    "children": [{
+      "name": "operator",
+      "attributes": {
+        "symbol": "="
+      },
+      "children": [{
+        "name": "id",
+        "attributes": {
+          "symbol": "assign"
+        }
+      }, {
+        "name": "id",
+        "attributes": {
+          "symbol": "expr"
+        }
+      }]
+    }, {
+      "name": "statement_list",
+      "children": [{
+        "name": "echo",
+        "children": [{
+          "name": "literal",
+          "attributes": {
+            "value": "probably an error but legal"
+          }
+        }]
+      }]
+    }, {
+      "name": "elseif_stmts",
+      "children": [{
+        "name": "elseif",
+        "children": [{
+          "name": "operator",
+          "attributes": {
+            "symbol": "="
+          },
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "other_assign"
+            }
+          }, {
+            "name": "id",
+            "attributes": {
+              "symbol": "expr"
+            }
+          }]
+        }, {
+          "name": "statement_list",
+          "children": [{
+            "name": "echo",
+            "children": [{
+              "name": "literal",
+              "attributes": {
+                "value": "still_legal"
+              }
+            }]
+          }]
+        }]
+      }]
+    }]
+  }, {
+    "name": "if",
+    "children": [{
+      "name": "operator",
+      "attributes": {
+        "symbol": "=="
+      },
+      "children": [{
+        "name": "literal",
+        "attributes": {
+          "value": 7.0
+        }
+      }, {
+        "name": "literal",
+        "attributes": {
+          "value": 15.0
+        }
+      }]
+    }, {
+      "name": "statement_list",
+      "children": [{
+        "name": "operator",
+        "attributes": {
+          "symbol": "("
+        },
+        "children": [{
+          "name": "id",
+          "attributes": {
+            "symbol": "print"
+          }
+        }, {
+          "name": "arg_list",
+          "children": [{
+            "name": "arg",
+            "children": [{
+              "name": "literal",
+              "attributes": {
+                "value": "something"
+              }
+            }]
+          }]
+        }]
+      }]
+    }]
+  }, {
+    "name": "if",
+    "children": [{
+      "name": "operator",
+      "attributes": {
+        "symbol": "=="
+      },
+      "children": [{
+        "name": "id",
+        "attributes": {
+          "symbol": "a"
+        }
+      }, {
+        "name": "literal",
+        "attributes": {
+          "value": 3.0
+        }
+      }]
+    }, {
+      "name": "statement_list",
+      "children": [{
+        "name": "operator",
+        "attributes": {
+          "symbol": "("
+        },
+        "children": [{
+          "name": "id",
+          "attributes": {
+            "symbol": "print"
+          }
+        }, {
+          "name": "arg_list",
+          "children": [{
+            "name": "arg",
+            "children": [{
+              "name": "literal",
+              "attributes": {
+                "value": "hello"
+              }
+            }]
+          }]
+        }]
+      }]
+    }, {
+      "name": "elseif_stmts",
+      "children": [{
+        "name": "elseif",
+        "children": [{
+          "name": "operator",
+          "attributes": {
+            "symbol": "<="
+          },
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "photo.width"
+            }
+          }, {
+            "name": "operator",
+            "attributes": {
+              "symbol": "("
+            },
+            "children": [{
+              "name": "id",
+              "attributes": {
+                "symbol": "fred.mymacro.mycall"
+              }
+            }, {
+              "name": "arg_list",
+              "children": [{
+                "name": "arg",
+                "children": [{
+                  "name": "operator",
+                  "attributes": {
+                    "symbol": "*"
+                  },
+                  "children": [{
+                    "name": "literal",
+                    "attributes": {
+                      "value": 12.0
+                    }
+                  }, {
+                    "name": "operator",
+                    "attributes": {
+                      "symbol": "-"
+                    },
+                    "children": [{
+                      "name": "literal",
+                      "attributes": {
+                        "value": 3.0
+                      }
+                    }, {
+                      "name": "literal",
+                      "attributes": {
+                        "value": 4.0
+                      }
+                    }]
+                  }]
+                }]
+              }]
+            }, {
+              "name": "rexpr",
+              "attributes": {
+                "symbol": "["
+              },
+              "children": [{
+                "name": "literal",
+                "attributes": {
+                  "value": 3.0
+                }
+              }]
+            }]
+          }]
+        }, {
+          "name": "statement_list",
+          "children": [{
+            "name": "operator",
+            "attributes": {
+              "symbol": "["
+            },
+            "children": [{
+              "name": "id",
+              "attributes": {
+                "symbol": "array_of_methods"
+              }
+            }, {
+              "name": "literal",
+              "attributes": {
+                "value": 12.0
+              }
+            }, {
+              "name": "rexpr",
+              "attributes": {
+                "symbol": "("
+              },
+              "children": [{
+                "name": "arg_list",
+                "children": [{
+                  "name": "arg",
+                  "children": [{
+                    "name": "literal",
+                    "attributes": {
+                      "value": 47.0
+                    }
+                  }]
+                }]
+              }]
+            }]
+          }]
+        }]
+      }, {
+        "name": "elseif",
+        "children": [{
+          "name": "operator",
+          "attributes": {
+            "symbol": ">="
+          },
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "photo.width"
+            }
+          }, {
+            "name": "operator",
+            "attributes": {
+              "symbol": "["
+            },
+            "children": [{
+              "name": "id",
+              "attributes": {
+                "symbol": "sizeArray"
+              }
+            }, {
+              "name": "literal",
+              "attributes": {
+                "value": 0.0
+              }
+            }]
+          }]
+        }, {
+          "name": "statement_list",
+          "children": [{
+            "name": "operator",
+            "attributes": {
+              "symbol": "="
+            },
+            "children": [{
+              "name": "id",
+              "attributes": {
+                "symbol": "compared_size"
+              }
+            }, {
+              "name": "literal",
+              "attributes": {
+                "value": "large"
+              }
+            }]
+          }]
+        }]
+      }, {
+        "name": "elseif",
+        "children": [{
+          "name": "operator",
+          "attributes": {
+            "symbol": "=="
+          },
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "a"
+            }
+          }, {
+            "name": "literal",
+            "attributes": {
+              "value": 5.0
+            }
+          }]
+        }, {
+          "name": "statement_list",
+          "children": [{
+            "name": "operator",
+            "attributes": {
+              "symbol": "("
+            },
+            "children": [{
+              "name": "id",
+              "attributes": {
+                "symbol": "scream_in_panic"
+              }
+            }, {
+              "name": "arg_list",
+              "children": [{
+                "name": "arg",
+                "children": [{
+                  "name": "literal",
+                  "attributes": {
+                    "value": 7.0
+                  }
+                }]
+              }, {
+                "name": "arg",
+                "children": [{
+                  "name": "literal",
+                  "attributes": {
+                    "value": 12.0
+                  }
+                }]
+              }, {
+                "name": "arg",
+                "children": [{
+                  "name": "literal",
+                  "attributes": {
+                    "value": 2.0
+                  }
+                }]
+              }]
+            }]
+          }]
+        }]
+      }]
+    }, {
+      "name": "else",
+      "children": [{
+        "name": "statement_list",
+        "children": [{
+          "name": "operator",
+          "attributes": {
+            "symbol": "("
+          },
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "print"
+            }
+          }, {
+            "name": "arg_list",
+            "children": [{
+              "name": "arg",
+              "children": [{
+                "name": "literal",
+                "attributes": {
+                  "value": "goodbye"
+                }
+              }]
+            }]
+          }]
+        }]
+      }]
+    }]
+  }, {
+    "name": "if",
+    "children": [{
+      "name": "operator",
+      "attributes": {
+        "symbol": "-"
+      },
+      "children": [{
+        "name": "operator",
+        "attributes": {
+          "symbol": "/"
+        },
+        "children": [{
+          "name": "id",
+          "attributes": {
+            "symbol": "myCapturePreviewImage.width"
+          }
+        }, {
+          "name": "id",
+          "attributes": {
+            "symbol": "myCapturePreviewImage.height"
+          }
+        }]
+      }, {
+        "name": "operator",
+        "attributes": {
+          "symbol": "<"
+        },
+        "children": [{
+          "name": "operator",
+          "attributes": {
+            "symbol": "/"
+          },
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "asset.hi_res.width"
+            }
+          }, {
+            "name": "id",
+            "attributes": {
+              "symbol": "asset.hi_res.height"
+            }
+          }]
+        }, {
+          "name": "operator",
+          "attributes": {
+            "symbol": "/"
+          },
+          "children": [{
+            "name": "literal",
+            "attributes": {
+              "value": 1.0
+            }
+          }, {
+            "name": "operator",
+            "attributes": {
+              "symbol": "&&"
+            },
+            "children": [{
+              "name": "literal",
+              "attributes": {
+                "value": 100.0
+              }
+            }, {
+              "name": "operator",
+              "attributes": {
+                "symbol": "-"
+              },
+              "children": [{
+                "name": "operator",
+                "attributes": {
+                  "symbol": "/"
+                },
+                "children": [{
+                  "name": "id",
+                  "attributes": {
+                    "symbol": "myCapturePreviewImage.width"
+                  }
+                }, {
+                  "name": "id",
+                  "attributes": {
+                    "symbol": "myCapturePreviewImage.height"
+                  }
+                }]
+              }, {
+                "name": "operator",
+                "attributes": {
+                  "symbol": ">"
+                },
+                "children": [{
+                  "name": "operator",
+                  "attributes": {
+                    "symbol": "/"
+                  },
+                  "children": [{
+                    "name": "id",
+                    "attributes": {
+                      "symbol": "asset.hi_res.width"
+                    }
+                  }, {
+                    "name": "id",
+                    "attributes": {
+                      "symbol": "asset.hi_res.height"
+                    }
+                  }]
+                }, {
+                  "name": "unary-op",
+                  "attributes": {
+                    "operator": "-"
+                  },
+                  "children": [{
+                    "name": "operator",
+                    "attributes": {
+                      "symbol": "/"
+                    },
+                    "children": [{
+                      "name": "literal",
+                      "attributes": {
+                        "value": 1.0
+                      }
+                    }, {
+                      "name": "literal",
+                      "attributes": {
+                        "value": 100.0
+                      }
+                    }]
+                  }]
+                }]
+              }]
+            }]
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement_list",
+      "children": [{
+        "name": "echo",
+        "children": [{
+          "name": "literal",
+          "attributes": {
+            "value": "wtf?"
+          }
+        }]
+      }]
+    }]
+  }, {
+    "name": "if",
+    "children": [{
+      "name": "operator",
+      "attributes": {
+        "symbol": "="
+      },
+      "children": [{
+        "name": "id",
+        "attributes": {
+          "symbol": "assignee"
+        }
+      }, {
+        "name": "id",
+        "attributes": {
+          "symbol": "assigned"
+        }
+      }]
+    }, {
+      "name": "statement_list",
+      "children": [{
+        "name": "operator",
+        "attributes": {
+          "symbol": "("
+        },
+        "children": [{
+          "name": "id",
+          "attributes": {
+            "symbol": "this_is_legal"
+          }
+        }]
+      }]
+    }]
+  }, {
+    "name": "if",
+    "children": [{
+      "name": "operator",
+      "attributes": {
+        "symbol": "=="
+      },
+      "children": [{
+        "name": "id",
+        "attributes": {
+          "symbol": "fred"
+        }
+      }, {
+        "name": "id",
+        "attributes": {
+          "symbol": "wilma"
+        }
+      }]
+    }, {
+      "name": "statement_list",
+      "children": [{
+        "name": "document",
+        "attributes": {
+          "text": "\n          </div>\n  "
+        }
+      }]
+    }, {
+      "name": "elseif_stmts",
+      "children": [{
+        "name": "elseif",
+        "children": [{
+          "name": "operator",
+          "attributes": {
+            "symbol": "=="
+          },
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "pixel_sub_grid_on"
+            }
+          }, {
+            "name": "literal",
+            "attributes": {
+              "value": "true"
+            }
+          }]
+        }, {
+          "name": "statement_list",
+          "children": [{
+            "name": "document",
+            "attributes": {
+              "text": "\n    </dt>\n    "
+            }
+          }]
+        }]
+      }]
+    }]
+  }, {
+    "name": "document",
+    "attributes": {
+      "text": "\n"
+    }
+  }, {
+    "name": "if",
+    "children": [{
+      "name": "operator",
+      "attributes": {
+        "symbol": "!="
+      },
+      "children": [{
+        "name": "id",
+        "attributes": {
+          "symbol": "fred"
+        }
+      }, {
+        "name": "id",
+        "attributes": {
+          "symbol": "wilma"
+        }
+      }]
+    }, {
+      "name": "statement_list",
+      "children": [{
+        "name": "echo",
+        "children": [{
+          "name": "literal",
+          "attributes": {
+            "value": "oops"
+          }
+        }]
+      }]
+    }]
+  }, {
+    "name": "document",
+    "attributes": {
+      "text": "\n"
+    }
+  }, {
+    "name": "if",
+    "children": [{
+      "name": "operator",
+      "attributes": {
+        "symbol": "=="
+      },
+      "children": [{
+        "name": "literal",
+        "attributes": {
+          "value": 2.0
+        }
+      }, {
+        "name": "literal",
+        "attributes": {
+          "value": 3.0
+        }
+      }]
+    }, {
+      "name": "statement_list",
+      "children": [{
+        "name": "literal",
+        "attributes": {
+          "value": "hello"
+        }
+      }]
+    }]
+  }, {
+    "name": "document",
+    "attributes": {
+      "text": "\n"
+    }
+  }]
+}
