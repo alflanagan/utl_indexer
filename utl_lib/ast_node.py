@@ -129,7 +129,7 @@ class ASTNode(object):
                     result += " {}".format(child.symbol)
             else:
                 result += repr(self.attributes['value'])
-        elif self.symbol in ('operator', 'id', 'rexpr'):
+        elif self.symbol in ('operator', 'id'):
             result += self.attributes['symbol']
         elif self.symbol == 'unary-op':
             result += self.attributes['operator']
