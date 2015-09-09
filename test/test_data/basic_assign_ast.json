@@ -725,53 +725,6 @@
       "symbol": "="
     },
     "children": [{
-      "name": "id",
-      "attributes": {
-        "symbol": "child_image"
-      }
-    }, {
-      "name": "operator",
-      "attributes": {
-        "symbol": "["
-      },
-      "children": [{
-        "name": "operator",
-        "attributes": {
-          "symbol": "("
-        },
-        "children": [{
-          "name": "id",
-          "attributes": {
-            "symbol": "asset.items"
-          }
-        }, {
-          "name": "arg-list",
-          "children": [{
-            "name": "keyword-arg",
-            "attributes": {
-              "keyword": "type"
-            },
-            "children": [{
-              "name": "literal",
-              "attributes": {
-                "value": "image"
-              }
-            }]
-          }]
-        }]
-      }, {
-        "name": "literal",
-        "attributes": {
-          "value": 0.0
-        }
-      }]
-    }]
-  }, {
-    "name": "operator",
-    "attributes": {
-      "symbol": "="
-    },
-    "children": [{
       "name": "operator",
       "attributes": {
         "symbol": "+"

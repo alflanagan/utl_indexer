@@ -1,355 +1,419 @@
 {
-    "name": "utldoc",
+  "name": "utldoc",
+  "children": [{
+    "name": "statement_list",
     "children": [{
-        "name": "statement_list",
+      "name": "statement",
+      "children": [{
+        "name": "expr",
         "children": [{
-            "name": "statement",
-            "children": [{
-                "name": "expr",
-                "children": [{
-                    "name": "id",
-                    "attributes": {
-                        "symbol": "fred"
-                    }
-                }, {
-                    "name": "rexpr",
-                    "attributes": {
-                        "operator": "("
-                    }
-                }]
-            }]
+          "name": "id",
+          "attributes": {
+            "symbol": "fred"
+          }
         }, {
-            "name": "statement",
-            "children": [{
-                "name": "call_stmt",
-                "children": [{
-                    "name": "expr",
-                    "children": [{
-                        "name": "id",
-                        "attributes": {
-                            "symbol": "cms.component.load"
-                        }
-                    }, {
-                        "name": "rexpr",
-                        "attributes": {
-                            "operator": "("
-                        },
-                        "children": [{
-                            "name": "arg_list",
-                            "children": [{
-                                "name": "arg",
-                                "children": [{
-                                    "name": "expr",
-                                    "children": [{
-                                        "name": "literal",
-                                        "attributes": {
-                                            "type": "string",
-                                            "value": "core_base_editorial"
-                                        }
-                                    }]
-                                }]
-                            }]
-                        }]
-                    }]
-                }]
-            }]
-        }, {
-            "name": "statement",
-            "children": [{
-                "name": "expr",
-                "children": [{
-                    "name": "id",
-                    "attributes": {
-                        "symbol": "barney"
-                    }
-                }, {
-                    "name": "rexpr",
-                    "attributes": {
-                        "operator": "("
-                    },
-                    "children": [{
-                        "name": "arg_list",
-                        "children": [{
-                            "name": "arg",
-                            "children": [{
-                                "name": "expr",
-                                "children": [{
-                                    "name": "literal",
-                                    "attributes": {
-                                        "type": "number",
-                                        "value": 3.0
-                                    }
-                                }]
-                            }]
-                        }]
-                    }]
-                }]
-            }]
-        }, {
-            "name": "statement",
-            "children": [{
-                "name": "expr",
-                "children": [{
-                    "name": "id",
-                    "attributes": {
-                        "symbol": "wilma"
-                    }
-                }, {
-                    "name": "rexpr",
-                    "attributes": {
-                        "operator": "("
-                    },
-                    "children": [{
-                        "name": "arg_list",
-                        "children": [{
-                            "name": "arg",
-                            "children": [{
-                                "name": "expr",
-                                "children": [{
-                                    "name": "literal",
-                                    "attributes": {
-                                        "type": "string",
-                                        "value": "betty"
-                                    }
-                                }]
-                            }]
-                        }]
-                    }]
-                }]
-            }]
-        }, {
-            "name": "statement",
-            "children": [{
-                "name": "expr",
-                "children": [{
-                    "name": "id",
-                    "attributes": {
-                        "symbol": "pebbles"
-                    }
-                }, {
-                    "name": "rexpr",
-                    "attributes": {
-                        "operator": "("
-                    },
-                    "children": [{
-                        "name": "arg_list",
-                        "children": [{
-                            "name": "arg",
-                            "attributes": {
-                                "keyword": "mom"
-                            },
-                            "children": [{
-                                "name": "expr",
-                                "children": [{
-                                    "name": "literal",
-                                    "attributes": {
-                                        "type": "string",
-                                        "value": "betty"
-                                    }
-                                }]
-                            }]
-                        }, {
-                            "name": "arg",
-                            "children": [{
-                                "name": "expr",
-                                "children": [{
-                                    "name": "literal",
-                                    "attributes": {
-                                        "type": "number",
-                                        "value": 5.0
-                                    }
-                                }]
-                            }]
-                        }]
-                    }]
-                }]
-            }]
-        }, {
-            "name": "statement",
-            "children": [{
-                "name": "call_stmt",
-                "children": [{
-                    "name": "expr",
-                    "children": [{
-                        "name": "id",
-                        "attributes": {
-                            "symbol": "barney"
-                        }
-                    }, {
-                        "name": "rexpr",
-                        "attributes": {
-                            "operator": "("
-                        },
-                        "children": [{
-                            "name": "arg_list",
-                            "children": [{
-                                "name": "arg",
-                                "children": [{
-                                    "name": "expr",
-                                    "children": [{
-                                        "name": "literal",
-                                        "attributes": {
-                                            "type": "number",
-                                            "value": 3.0
-                                        }
-                                    }]
-                                }]
-                            }]
-                        }]
-                    }]
-                }]
-            }]
-        }, {
-            "name": "statement",
-            "children": [{
-                "name": "call_stmt",
-                "children": [{
-                    "name": "expr",
-                    "children": [{
-                        "name": "id",
-                        "attributes": {
-                            "symbol": "pebbles"
-                        }
-                    }, {
-                        "name": "rexpr",
-                        "attributes": {
-                            "operator": "("
-                        },
-                        "children": [{
-                            "name": "arg_list",
-                            "children": [{
-                                "name": "arg",
-                                "attributes": {
-                                    "keyword": "mom"
-                                },
-                                "children": [{
-                                    "name": "expr",
-                                    "children": [{
-                                        "name": "literal",
-                                        "attributes": {
-                                            "type": "string",
-                                            "value": "betty"
-                                        }
-                                    }]
-                                }]
-                            }, {
-                                "name": "arg",
-                                "children": [{
-                                    "name": "expr",
-                                    "children": [{
-                                        "name": "literal",
-                                        "attributes": {
-                                            "type": "number",
-                                            "value": 5.0
-                                        }
-                                    }]
-                                }]
-                            }]
-                        }]
-                    }]
-                }]
-            }]
-        }, {
-            "name": "statement",
-            "children": [{
-                "name": "if_stmt",
-                "children": [{
-                    "name": "expr",
-                    "children": [{
-                        "name": "id",
-                        "attributes": {
-                            "symbol": "cms.url"
-                        }
-                    }, {
-                        "name": "rexpr",
-                        "attributes": {
-                            "operator": "("
-                        },
-                        "children": [{
-                            "name": "arg_list",
-                            "children": [{
-                                "name": "arg",
-                                "attributes": {
-                                    "keyword": "app"
-                                },
-                                "children": [{
-                                    "name": "expr",
-                                    "children": [{
-                                        "name": "literal",
-                                        "attributes": {
-                                            "type": "string",
-                                            "value": "user"
-                                        }
-                                    }]
-                                }]
-                            }]
-                        }, {
-                            "name": "rexpr",
-                            "attributes": {
-                                "operator": "."
-                            },
-                            "children": [{
-                                "name": "expr",
-                                "children": [{
-                                    "name": "id",
-                                    "attributes": {
-                                        "symbol": "path"
-                                    }
-                                }]
-                            }]
-                        }]
-                    }]
-                }, {
-                    "name": "statement_list",
-                    "children": [{
-                        "name": "statement",
-                        "children": [{
-                            "name": "echo",
-                            "children": [{
-                                "name": "expr",
-                                "children": [{
-                                    "name": "id",
-                                    "attributes": {
-                                        "symbol": "cms.url"
-                                    }
-                                }, {
-                                    "name": "rexpr",
-                                    "attributes": {
-                                        "operator": "("
-                                    },
-                                    "children": [{
-                                        "name": "arg_list",
-                                        "children": [{
-                                            "name": "arg",
-                                            "attributes": {
-                                                "keyword": "app"
-                                            },
-                                            "children": [{
-                                                "name": "expr",
-                                                "children": [{
-                                                    "name": "literal",
-                                                    "attributes": {
-                                                        "type": "string",
-                                                        "value": "user"
-                                                    }
-                                                }]
-                                            }]
-                                        }]
-                                    }]
-                                }]
-                            }]
-                        }]
-                    }]
-                }]
-            }]
-        }, {
-            "name": "statement",
-            "children": [{
-                "name": "document",
-                "attributes": {
-                    "text": "\n"
-                }
-            }]
+          "name": "rexpr",
+          "attributes": {
+            "operator": "("
+          }
         }]
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "call_stmt",
+        "children": [{
+          "name": "expr",
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "cms.component.load"
+            }
+          }, {
+            "name": "rexpr",
+            "attributes": {
+              "operator": "("
+            },
+            "children": [{
+              "name": "arg_list",
+              "children": [{
+                "name": "arg",
+                "children": [{
+                  "name": "expr",
+                  "children": [{
+                    "name": "literal",
+                    "attributes": {
+                      "type": "string",
+                      "value": "core_base_editorial"
+                    }
+                  }]
+                }]
+              }]
+            }]
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "expr",
+        "children": [{
+          "name": "id",
+          "attributes": {
+            "symbol": "barney"
+          }
+        }, {
+          "name": "rexpr",
+          "attributes": {
+            "operator": "("
+          },
+          "children": [{
+            "name": "arg_list",
+            "children": [{
+              "name": "arg",
+              "children": [{
+                "name": "expr",
+                "children": [{
+                  "name": "literal",
+                  "attributes": {
+                    "type": "number",
+                    "value": 3.0
+                  }
+                }]
+              }]
+            }]
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "expr",
+        "children": [{
+          "name": "id",
+          "attributes": {
+            "symbol": "wilma"
+          }
+        }, {
+          "name": "rexpr",
+          "attributes": {
+            "operator": "("
+          },
+          "children": [{
+            "name": "arg_list",
+            "children": [{
+              "name": "arg",
+              "children": [{
+                "name": "expr",
+                "children": [{
+                  "name": "literal",
+                  "attributes": {
+                    "type": "string",
+                    "value": "betty"
+                  }
+                }]
+              }]
+            }]
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "expr",
+        "children": [{
+          "name": "id",
+          "attributes": {
+            "symbol": "pebbles"
+          }
+        }, {
+          "name": "rexpr",
+          "attributes": {
+            "operator": "("
+          },
+          "children": [{
+            "name": "arg_list",
+            "children": [{
+              "name": "arg",
+              "attributes": {
+                "keyword": "mom"
+              },
+              "children": [{
+                "name": "expr",
+                "children": [{
+                  "name": "literal",
+                  "attributes": {
+                    "type": "string",
+                    "value": "betty"
+                  }
+                }]
+              }]
+            }, {
+              "name": "arg",
+              "children": [{
+                "name": "expr",
+                "children": [{
+                  "name": "literal",
+                  "attributes": {
+                    "type": "number",
+                    "value": 5.0
+                  }
+                }]
+              }]
+            }]
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "call_stmt",
+        "children": [{
+          "name": "expr",
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "barney"
+            }
+          }, {
+            "name": "rexpr",
+            "attributes": {
+              "operator": "("
+            },
+            "children": [{
+              "name": "arg_list",
+              "children": [{
+                "name": "arg",
+                "children": [{
+                  "name": "expr",
+                  "children": [{
+                    "name": "literal",
+                    "attributes": {
+                      "type": "number",
+                      "value": 3.0
+                    }
+                  }]
+                }]
+              }]
+            }]
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "call_stmt",
+        "children": [{
+          "name": "expr",
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "pebbles"
+            }
+          }, {
+            "name": "rexpr",
+            "attributes": {
+              "operator": "("
+            },
+            "children": [{
+              "name": "arg_list",
+              "children": [{
+                "name": "arg",
+                "attributes": {
+                  "keyword": "mom"
+                },
+                "children": [{
+                  "name": "expr",
+                  "children": [{
+                    "name": "literal",
+                    "attributes": {
+                      "type": "string",
+                      "value": "betty"
+                    }
+                  }]
+                }]
+              }, {
+                "name": "arg",
+                "children": [{
+                  "name": "expr",
+                  "children": [{
+                    "name": "literal",
+                    "attributes": {
+                      "type": "number",
+                      "value": 5.0
+                    }
+                  }]
+                }]
+              }]
+            }]
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "if_stmt",
+        "children": [{
+          "name": "expr",
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "cms.url"
+            }
+          }, {
+            "name": "rexpr",
+            "attributes": {
+              "operator": "("
+            },
+            "children": [{
+              "name": "arg_list",
+              "children": [{
+                "name": "arg",
+                "attributes": {
+                  "keyword": "app"
+                },
+                "children": [{
+                  "name": "expr",
+                  "children": [{
+                    "name": "literal",
+                    "attributes": {
+                      "type": "string",
+                      "value": "user"
+                    }
+                  }]
+                }]
+              }]
+            }, {
+              "name": "rexpr",
+              "attributes": {
+                "operator": "."
+              },
+              "children": [{
+                "name": "expr",
+                "children": [{
+                  "name": "id",
+                  "attributes": {
+                    "symbol": "path"
+                  }
+                }]
+              }]
+            }]
+          }]
+        }, {
+          "name": "statement_list",
+          "children": [{
+            "name": "statement",
+            "children": [{
+              "name": "echo",
+              "children": [{
+                "name": "expr",
+                "children": [{
+                  "name": "id",
+                  "attributes": {
+                    "symbol": "cms.url"
+                  }
+                }, {
+                  "name": "rexpr",
+                  "attributes": {
+                    "operator": "("
+                  },
+                  "children": [{
+                    "name": "arg_list",
+                    "children": [{
+                      "name": "arg",
+                      "attributes": {
+                        "keyword": "app"
+                      },
+                      "children": [{
+                        "name": "expr",
+                        "children": [{
+                          "name": "literal",
+                          "attributes": {
+                            "type": "string",
+                            "value": "user"
+                          }
+                        }]
+                      }]
+                    }]
+                  }]
+                }]
+              }]
+            }]
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "expr",
+        "children": [{
+          "name": "id",
+          "attributes": {
+            "symbol": "child_image"
+          }
+        }, {
+          "name": "rexpr",
+          "attributes": {
+            "operator": "="
+          },
+          "children": [{
+            "name": "expr",
+            "children": [{
+              "name": "id",
+              "attributes": {
+                "symbol": "asset.items"
+              }
+            }, {
+              "name": "rexpr",
+              "attributes": {
+                "operator": "("
+              },
+              "children": [{
+                "name": "arg_list",
+                "children": [{
+                  "name": "arg",
+                  "attributes": {
+                    "keyword": "type"
+                  },
+                  "children": [{
+                    "name": "expr",
+                    "children": [{
+                      "name": "literal",
+                      "attributes": {
+                        "value": "image",
+                        "type": "string"
+                      }
+                    }]
+                  }]
+                }]
+              }, {
+                "name": "rexpr",
+                "attributes": {
+                  "operator": "["
+                },
+                "children": [{
+                  "name": "expr",
+                  "children": [{
+                    "name": "literal",
+                    "attributes": {
+                      "value": 0.0,
+                      "type": "number"
+                    }
+                  }]
+                }]
+              }]
+            }]
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "document",
+        "attributes": {
+          "text": "\n"
+        }
+      }]
     }]
+  }]
 }

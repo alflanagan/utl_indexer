@@ -9,4 +9,6 @@ call pebbles(mom: 'betty', 5);
  if cms.url('app':'user').path;
   echo cms.url('app':'user');
 end;
+child_image = asset.items('type':'image')[0];
+
 %]
