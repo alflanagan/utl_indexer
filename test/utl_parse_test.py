@@ -74,7 +74,15 @@ class TestCaseUTL(unittest_plus.TestCasePlus):
         self.assertListEqual([kid.symbol for kid in node.children],
                              expected_kids)
         for index, child in enumerate(node.children):
-            self.assertMatchesJSON(child, expected['children'][index])
+            try:
+                self.assertMatchesJSON(child, expected['children'][index])
+            except AssertionError:
+                if getattr(self, "printed", False) != True:
+                    print('-' * 80)
+                    print(child.format())
+                    print('-' * 80)
+                    self.printed = True
+                raise
 
     def assertJSONFileMatches(self, handler, utl_filename, json_filename):  # pylint: disable=invalid-name
         """Asserts :py:meth:`assertMatchesJSON` on the contents of ``utl_filename`` and
