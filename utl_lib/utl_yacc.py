@@ -58,11 +58,12 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         ('nonassoc', 'LT', 'GT', 'LTE', 'GTE'),  # relational operators <, >, <=, >=
         ('left', 'PLUS', 'MINUS'),
         ('left', 'TIMES', 'DIV', 'MODULUS'),
-        ('right', 'UMINUS'),  # same precedence as *, since  -5 == -1 * 5
+        ('nonassoc', 'UMINUS'),  # same precedence as *, since  -5 == -1 * 5
         ('right', 'EXCLAMATION'),
         ('nonassoc', 'RANGE', 'COLON'),
         ('left', 'COMMA'),
         ('right', 'LPAREN', 'LBRACKET'),
+        ('nonassoc', 'RBRACKET'),
         ('left', 'DOT'),
     )
 
@@ -157,113 +158,112 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
     def p_expr(self, p):
         '''expr : NOT expr
                 | EXCLAMATION expr
-                | literal rexpr
-                | MINUS expr %prec UMINUS
-                | PLUS expr %prec UMINUS
-                | dotted_id rexpr
-                | LPAREN expr RPAREN rexpr'''
+                | expr PLUS expr
+                | expr MINUS expr
+                | expr TIMES expr
+                | expr DIV expr
+                | expr MODULUS expr
+                | expr FILTER expr
+                | literal
+                | ID
+                | array_ref
+                | macro_call
+                | expr DOUBLEBAR expr
+                | expr RANGE expr
+                | expr NEQ expr
+                | expr LTE expr
+                | expr OR expr
+                | expr LT expr
+                | expr EQ expr
+                | expr IS expr
+                | expr GT expr
+                | expr AND expr
+                | expr GTE expr
+                | expr DOUBLEAMP expr
+                | expr DOT expr
+                | expr ASSIGN expr
+                | expr ASSIGNOP expr
+                | expr COLON expr'''
         for handler in self.handlers:
-            value = handler.expr(p[1], p[2], self._(p, 4))
+            value = handler.expr(p[1], self._(p, 2), self._(p, 3))
             if p[0] is None:
                 p[0] = value
 
-    def p_literal(self, p):
-        '''literal : NUMBER
-                   | STRING
-                   | array_literal RBRACKET
-                   | FALSE
-                   | TRUE
-                   | NULL'''
+    def p_macro_call(self, p):
+        '''macro_call : expr LPAREN RPAREN
+                      | expr LPAREN arg_list RPAREN'''
         for handler in self.handlers:
-            value = handler.literal(p[1])
+            value = handler.macro_call(p[1], self._(p, 3))
             if p[0] is None:
                 p[0] = value
-
-    # this is the set of productions which result from elimination of left-recursion in expr.
-    # LPAREN, LBRACKET, PLUS, MINUS appear in both expr and rexpr because they can occur alone
-    # or immediately following an expr -- each results in shift/reduce conflict, but yacc picks
-    # correct option
-    def p_rexpr(self, p):
-        '''rexpr :
-                 | PLUS expr
-                 | MINUS expr
-                 | FILTER expr
-                 | TIMES expr
-                 | DIV expr
-                 | MODULUS expr
-                 | DOUBLEBAR expr
-                 | RANGE expr
-                 | NEQ expr
-                 | LTE expr
-                 | OR expr
-                 | LT expr
-                 | EQ expr
-                 | IS expr
-                 | GT expr
-                 | AND expr
-                 | GTE expr
-                 | DOUBLEAMP expr
-                 | DOT expr
-                 | ASSIGN expr
-                 | ASSIGNOP expr
-                 | LPAREN arg_list RPAREN rexpr
-                 | LBRACKET expr RBRACKET rexpr'''
-        if len(p) > 1:
-            for handler in self.handlers:
-                value = handler.rexpr(p[1], p[2], self._(p, 4))
-                if p[0] is None:
-                    p[0] = value
 
     def p_arg_list(self, p):
-        '''arg_list :
-                    | arg
+        '''arg_list : arg
                     | arg COMMA arg_list'''
-        if len(p) > 1:
-            for handler in self.handlers:
-                value = handler.arg_list(p[1], self._(p, 3))
-                if p[0] is None:
-                    p[0] = value
+        for handler in self.handlers:
+            value = handler.arg_list(p[1], self._(p, 3))
+            if p[0] is None:
+                p[0] = value
 
     def p_arg(self, p):
         '''arg : expr
                | STRING COLON expr
                | ID COLON expr'''
         for handler in self.handlers:
-            if len(p) == 2:
-                value = handler.arg(p[1])
-            else:
+            if len(p) == 4:
                 value = handler.arg(p[3], p[1])
+            else:
+                value = handler.arg(p[1], None)
+            if p[0] is None:
+                p[0] = value
+
+    # array_ref causes shift/reduce conflict with array_literal
+    # b['fred'] is an array_ref, but ['fred'] is an array_literal
+    # ecchh, looks like we should reduce here. how to force?
+    def p_array_ref(self, p):
+        '''array_ref : expr LBRACKET expr RBRACKET'''
+        # of course, not all array literal expressions are valid for array reference
+        for handler in self.handlers:
+            value = handler.array_ref(p[1], p[3])
             if p[0] is None:
                 p[0] = value
 
     def p_array_literal(self, p):
-        '''array_literal : LBRACKET array_elems
-                         | LBRACKET key_value_elems
-                         | LBRACKET'''
+        '''array_literal : LBRACKET RBRACKET
+                         | LBRACKET array_elems RBRACKET'''
         for handler in self.handlers:
-            value = handler.array_literal(self._(p, 2))
+            value = handler.array_literal(p[2] if len(p) == 4 else None)
             if p[0] is None:
                 p[0] = value
 
-    # third case below allows trailing comma in array literal
-    # even with that, the UTL parser on Townnews allows situations not recognized, like [,].
-    # Hopefully this covers most situations.
     def p_array_elems(self, p):
         '''array_elems : expr
-                       | expr COMMA array_elems
-                       | expr COMMA'''
+                       | array_elems COMMA expr'''
         for handler in self.handlers:
-            value = handler.array_elems(p[1], self._(p, 3))
+            if len(p) == 2:
+                value = handler.array_elems(p[1], None)
+            else:
+                value = handler.array_elems(p[3], p[1])
             if p[0] is None:
                 p[0] = value
 
-    # third case below allows trailing comma in array literal
-    def p_key_value_elems(self, p):
-        '''key_value_elems : expr COLON expr
-                           | expr COLON expr COMMA key_value_elems
-                           | expr COLON expr COMMA'''
+    def p_unary_expr(self, p):
+        '''unary_expr : MINUS expr %prec UMINUS
+                      | PLUS expr %prec UMINUS'''
         for handler in self.handlers:
-            value = handler.key_value_elems(p[1], p[3], self._(p, 5))
+            value = handler.unary_expr(p[1], p[2])
+            if p[0] is None:
+                p[0] = value
+
+    def p_literal(self, p):
+        '''literal : NUMBER
+                   | STRING
+                   | FALSE
+                   | TRUE
+                   | NULL
+                   | array_literal'''
+        for handler in self.handlers:
+            value = handler.literal(p[1])
             if p[0] is None:
                 p[0] = value
 
@@ -301,6 +301,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
 
     def p_return_stmt(self, p):
         '''return_stmt : RETURN expr
+                       | RETURN unary_expr
                        | RETURN'''
         for handler in self.handlers:
             value = handler.return_stmt(self._(p, 2))
@@ -319,7 +320,8 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
 
     def p_param_decl(self, p):
         '''param_decl : ID
-                      | ID ASSIGN expr'''
+                      | ID ASSIGN expr
+                      | ID ASSIGN unary_expr'''
         for handler in self.handlers:
             value = handler.param_decl(p[1], self._(p, 3))
             if p[0] is None:
