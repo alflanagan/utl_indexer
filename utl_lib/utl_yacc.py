@@ -19,7 +19,9 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         yacc warnings.
 
     """
-
+    #-------------------------------------------------------------------------------------------
+    # non-production stuff
+    #-------------------------------------------------------------------------------------------
     def __init__(self, handlers=None, debug=False):
         self.parsed = False
         # Some tokens get processed out before parsing
@@ -63,6 +65,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         ('nonassoc', 'RANGE', 'COLON'),
         ('left', 'COMMA'),
         ('right', 'LPAREN', 'LBRACKET'),
+        # fixes shift/reduce conflict between arrray reference and array literal
         ('nonassoc', 'RBRACKET'),
         ('left', 'DOT'),
     )
@@ -92,6 +95,26 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         return self.parser.parse(input=input_text, lexer=self.utl_lexer, debug=debug,
                                  tokenfunc=self._filtered_token, tracking=tracking)
 
+    # Error rule for syntax errors
+    def p_error(self, p):  # pylint: disable=missing-docstring
+        # IF top_symbol IS 'expr'
+        # AND next IS SEMI or END_UTL
+        #    pop top symbol value
+        #    push ECHO
+        #    push top symbol
+        #    try again
+        # END
+        self.error_count += 1
+        if not self.handlers:
+            sys.stderr.write("Error in statement, line {}! {}\n".format(p.lexer.lineno(), p))
+        # is there an expr on the stack?
+        # if so, remove it, push "ECHO", push expr.
+        for handler in self.handlers:
+            handler.error(p, self.parser)
+
+    #-------------------------------------------------------------------------------------------
+    # top-level productions
+    #-------------------------------------------------------------------------------------------
     def p_utldoc(self, p):
         '''utldoc : statement_list'''
         for handler in self.handlers:
@@ -104,15 +127,6 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                            | statement statement_list'''
         for handler in self.handlers:
             value = handler.statement_list(p[1], self._(p, 2))
-            if p[0] is None:
-                p[0] = value
-
-    def p_eostmt(self, p):
-        '''eostmt : SEMI
-                  | EOF
-                  | END_UTL'''
-        for handler in self.handlers:
-            value = handler.eostmt(p[1])
             if p[0] is None:
                 p[0] = value
 
@@ -139,6 +153,80 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                 if p[0] is None:
                     p[0] = value
 
+    #-------------------------------------------------------------------------------------------
+    # regular productions
+    #-------------------------------------------------------------------------------------------
+    def p_abbrev_if_stmt(self, p):
+        '''abbrev_if_stmt : IF expr THEN statement'''
+        for handler in self.handlers:
+            value = handler.abbrev_if_stmt(p[2], p[4])
+            if p[0] is None:
+                p[0] = value
+
+    def p_arg(self, p):
+        '''arg : expr
+               | STRING COLON expr
+               | ID COLON expr'''
+        for handler in self.handlers:
+            if len(p) == 4:
+                value = handler.arg(p[3], p[1])
+            else:
+                value = handler.arg(p[1], None)
+            if p[0] is None:
+                p[0] = value
+
+    def p_arg_list(self, p):
+        '''arg_list : arg
+                    | arg COMMA arg_list'''
+        for handler in self.handlers:
+            value = handler.arg_list(p[1], self._(p, 3))
+            if p[0] is None:
+                p[0] = value
+
+    def p_array_elems(self, p):
+        '''array_elems : expr
+                       | array_elems COMMA expr'''
+        for handler in self.handlers:
+            if len(p) == 2:
+                value = handler.array_elems(p[1], None)
+            else:
+                value = handler.array_elems(p[3], p[1])
+            if p[0] is None:
+                p[0] = value
+
+    def p_array_literal(self, p):
+        '''array_literal : LBRACKET RBRACKET
+                         | LBRACKET array_elems RBRACKET'''
+        for handler in self.handlers:
+            value = handler.array_literal(p[2] if len(p) == 4 else None)
+            if p[0] is None:
+                p[0] = value
+
+    def p_array_ref(self, p):
+        '''array_ref : expr LBRACKET expr RBRACKET'''
+        # of course, not all array literal expressions are valid for array reference
+        for handler in self.handlers:
+            value = handler.array_ref(p[1], p[3])
+            if p[0] is None:
+                p[0] = value
+
+    def p_as_clause(self, p):
+        '''as_clause :
+                     | AS ID
+                     | AS ID COMMA ID'''
+        if len(p) > 1:
+            for handler in self.handlers:
+                value = handler.as_clause(p[2], self._(p, 4))
+                if p[0] is None:
+                    p[0] = value
+
+    def p_call_stmt(self, p):
+        '''call_stmt : CALL expr'''
+        for handler in self.handlers:
+            value = handler.call_stmt(p[2])
+            if p[0] is None:
+                p[0] = value
+
     # below rule not strictly necessary, but makes p_statement() simpler
     def p_default_assignment(self, p):
         '''default_assignment : DEFAULT expr'''
@@ -147,11 +235,53 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
             if p[0] is None:
                 p[0] = value
 
+    def p_dotted_id(self, p):
+        '''dotted_id : ID
+                     | ID DOT dotted_id'''
+        for handler in self.handlers:
+            value = handler.dotted_id(p[1], self._(p, 3))
+            if p[0] is None:
+                p[0] = value
+
     def p_echo_stmt(self, p):
         '''echo_stmt : ECHO
                      | ECHO expr'''
         for handler in self.handlers:
             value = handler.echo_stmt(self._(p, 2))
+            if p[0] is None:
+                p[0] = value
+
+    def p_else_stmt(self, p):
+        '''else_stmt :
+                     | ELSE statement_list'''
+        if len(p) > 1:
+            for handler in self.handlers:
+                value = handler.else_stmt(p[2])
+                if p[0] is None:
+                    p[0] = value
+
+    def p_elseif_stmts(self, p):
+        '''elseif_stmts :
+                        | elseif_stmt elseif_stmts'''
+        if len(p) > 1:
+            for handler in self.handlers:
+                value = handler.elseif_stmts(p[1], p[2])
+                if p[0] is None:
+                    p[0] = value
+
+    def p_elseif_stmt(self, p):
+        '''elseif_stmt : ELSEIF expr statement_list'''
+        for handler in self.handlers:
+            value = handler.elseif_stmt(p[2], p[3])
+            if p[0] is None:
+                p[0] = value
+
+    def p_eostmt(self, p):
+        '''eostmt : SEMI
+                  | EOF
+                  | END_UTL'''
+        for handler in self.handlers:
+            value = handler.eostmt(p[1])
             if p[0] is None:
                 p[0] = value
 
@@ -189,69 +319,29 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
             if p[0] is None:
                 p[0] = value
 
-    def p_macro_call(self, p):
-        '''macro_call : expr LPAREN RPAREN
-                      | expr LPAREN arg_list RPAREN'''
+    def p_for_stmt(self, p):
+        '''for_stmt : FOR expr as_clause eostmt statement_list END
+                    | FOR EACH expr as_clause eostmt statement_list END'''
         for handler in self.handlers:
-            value = handler.macro_call(p[1], self._(p, 3))
-            if p[0] is None:
-                p[0] = value
-
-    def p_arg_list(self, p):
-        '''arg_list : arg
-                    | arg COMMA arg_list'''
-        for handler in self.handlers:
-            value = handler.arg_list(p[1], self._(p, 3))
-            if p[0] is None:
-                p[0] = value
-
-    def p_arg(self, p):
-        '''arg : expr
-               | STRING COLON expr
-               | ID COLON expr'''
-        for handler in self.handlers:
-            if len(p) == 4:
-                value = handler.arg(p[3], p[1])
+            if len(p) == 8:
+                # account for EACH
+                value = handler.for_stmt(p[3], p[4], p[6])
             else:
-                value = handler.arg(p[1], None)
+                value = handler.for_stmt(p[2], p[3], p[5])
             if p[0] is None:
                 p[0] = value
 
-    # array_ref causes shift/reduce conflict with array_literal
-    # b['fred'] is an array_ref, but ['fred'] is an array_literal
-    # ecchh, looks like we should reduce here. how to force?
-    def p_array_ref(self, p):
-        '''array_ref : expr LBRACKET expr RBRACKET'''
-        # of course, not all array literal expressions are valid for array reference
+    def p_if_stmt(self, p):
+        '''if_stmt : IF expr statement_list elseif_stmts else_stmt END'''
         for handler in self.handlers:
-            value = handler.array_ref(p[1], p[3])
+            value = handler.if_stmt(p[2], p[3], p[4], p[5])
             if p[0] is None:
                 p[0] = value
 
-    def p_array_literal(self, p):
-        '''array_literal : LBRACKET RBRACKET
-                         | LBRACKET array_elems RBRACKET'''
+    def p_include_stmt(self, p):
+        '''include_stmt : INCLUDE expr'''
         for handler in self.handlers:
-            value = handler.array_literal(p[2] if len(p) == 4 else None)
-            if p[0] is None:
-                p[0] = value
-
-    def p_array_elems(self, p):
-        '''array_elems : expr
-                       | array_elems COMMA expr'''
-        for handler in self.handlers:
-            if len(p) == 2:
-                value = handler.array_elems(p[1], None)
-            else:
-                value = handler.array_elems(p[3], p[1])
-            if p[0] is None:
-                p[0] = value
-
-    def p_unary_expr(self, p):
-        '''unary_expr : MINUS expr %prec UMINUS
-                      | PLUS expr %prec UMINUS'''
-        for handler in self.handlers:
-            value = handler.unary_expr(p[1], p[2])
+            value = handler.include_stmt(p[2])
             if p[0] is None:
                 p[0] = value
 
@@ -267,44 +357,37 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
             if p[0] is None:
                 p[0] = value
 
-    def p_if_stmt(self, p):
-        '''if_stmt : IF expr statement_list elseif_stmts else_stmt END'''
+    def p_macro_call(self, p):
+        '''macro_call : expr LPAREN RPAREN
+                      | expr LPAREN arg_list RPAREN'''
         for handler in self.handlers:
-            value = handler.if_stmt(p[2], p[3], p[4], p[5])
+            value = handler.macro_call(p[1], self._(p, 3))
             if p[0] is None:
                 p[0] = value
 
-    def p_elseif_stmts(self, p):
-        '''elseif_stmts :
-                        | elseif_stmt elseif_stmts'''
-        if len(p) > 1:
-            for handler in self.handlers:
-                value = handler.elseif_stmts(p[1], p[2])
-                if p[0] is None:
-                    p[0] = value
-
-    def p_elseif_stmt(self, p):
-        '''elseif_stmt : ELSEIF expr statement_list'''
+    def p_macro_decl(self, p):
+        '''macro_decl : MACRO dotted_id
+                      | MACRO dotted_id LPAREN param_list RPAREN
+        '''
         for handler in self.handlers:
-            value = handler.elseif_stmt(p[2], p[3])
+            value = handler.macro_decl(p[2], self._(p, 4))
             if p[0] is None:
                 p[0] = value
 
-    def p_else_stmt(self, p):
-        '''else_stmt :
-                     | ELSE statement_list'''
-        if len(p) > 1:
-            for handler in self.handlers:
-                value = handler.else_stmt(p[2])
-                if p[0] is None:
-                    p[0] = value
-
-    def p_return_stmt(self, p):
-        '''return_stmt : RETURN expr
-                       | RETURN unary_expr
-                       | RETURN'''
+    def p_macro_defn(self, p):
+        '''macro_defn : macro_decl eostmt statement_list END
+                      | macro_decl eostmt END'''
         for handler in self.handlers:
-            value = handler.return_stmt(self._(p, 2))
+            value = handler.macro_defn(p[1], p[3] if p[3] != 'end' else None)
+            if p[0] is None:
+                p[0] = value
+
+    def p_param_decl(self, p):
+        '''param_decl : ID
+                      | ID ASSIGN expr
+                      | ID ASSIGN unary_expr'''
+        for handler in self.handlers:
+            value = handler.param_decl(p[1], self._(p, 3))
             if p[0] is None:
                 p[0] = value
 
@@ -318,73 +401,20 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                 if p[0] is None:
                     p[0] = value
 
-    def p_param_decl(self, p):
-        '''param_decl : ID
-                      | ID ASSIGN expr
-                      | ID ASSIGN unary_expr'''
+    def p_return_stmt(self, p):
+        '''return_stmt : RETURN expr
+                       | RETURN unary_expr
+                       | RETURN'''
         for handler in self.handlers:
-            value = handler.param_decl(p[1], self._(p, 3))
+            value = handler.return_stmt(self._(p, 2))
             if p[0] is None:
                 p[0] = value
 
-    def p_macro_defn(self, p):
-        '''macro_defn : macro_decl eostmt statement_list END
-                      | macro_decl eostmt END'''
+    def p_unary_expr(self, p):
+        '''unary_expr : MINUS expr %prec UMINUS
+                      | PLUS expr %prec UMINUS'''
         for handler in self.handlers:
-            value = handler.macro_defn(p[1], p[3] if p[3] != 'end' else None)
-            if p[0] is None:
-                p[0] = value
-
-    def p_macro_decl(self, p):
-        '''macro_decl : MACRO dotted_id
-                      | MACRO dotted_id LPAREN param_list RPAREN
-        '''
-        for handler in self.handlers:
-            value = handler.macro_decl(p[2], self._(p, 4))
-            if p[0] is None:
-                p[0] = value
-
-    def p_dotted_id(self, p):
-        '''dotted_id : ID
-                     | ID DOT dotted_id'''
-        for handler in self.handlers:
-            value = handler.dotted_id(p[1], self._(p, 3))
-            if p[0] is None:
-                p[0] = value
-
-    def p_for_stmt(self, p):
-        '''for_stmt : FOR expr as_clause eostmt statement_list END
-                    | FOR EACH expr as_clause eostmt statement_list END'''
-        for handler in self.handlers:
-            if len(p) == 8:
-                # account for EACH
-                value = handler.for_stmt(p[3], p[4], p[6])
-            else:
-                value = handler.for_stmt(p[2], p[3], p[5])
-            if p[0] is None:
-                p[0] = value
-
-    def p_as_clause(self, p):
-        '''as_clause :
-                     | AS ID
-                     | AS ID COMMA ID'''
-        if len(p) > 1:
-            for handler in self.handlers:
-                value = handler.as_clause(p[2], self._(p, 4))
-                if p[0] is None:
-                    p[0] = value
-
-    def p_include_stmt(self, p):
-        '''include_stmt : INCLUDE expr'''
-        for handler in self.handlers:
-            value = handler.include_stmt(p[2])
-            if p[0] is None:
-                p[0] = value
-
-    def p_abbrev_if_stmt(self, p):
-        '''abbrev_if_stmt : IF expr THEN statement'''
-        for handler in self.handlers:
-            value = handler.abbrev_if_stmt(p[2], p[4])
+            value = handler.unary_expr(p[1], p[2])
             if p[0] is None:
                 p[0] = value
 
@@ -394,27 +424,3 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
             value = handler.while_stmt(p[2], p[3])
             if p[0] is None:
                 p[0] = value
-
-    def p_call_stmt(self, p):
-        '''call_stmt : CALL expr'''
-        for handler in self.handlers:
-            value = handler.call_stmt(p[2])
-            if p[0] is None:
-                p[0] = value
-
-    # Error rule for syntax errors
-    def p_error(self, p):  # pylint: disable=missing-docstring
-        # IF top_symbol IS 'expr'
-        # AND next IS SEMI or END_UTL
-        #    pop top symbol value
-        #    push ECHO
-        #    push top symbol
-        #    try again
-        # END
-        self.error_count += 1
-        if not self.handlers:
-            sys.stderr.write("Error in statement, line {}! {}\n".format(p.lexer.lineno(), p))
-        # is there an expr on the stack?
-        # if so, remove it, push "ECHO", push expr.
-        for handler in self.handlers:
-            handler.error(p, self.parser)
