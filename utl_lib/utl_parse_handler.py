@@ -292,6 +292,10 @@ class UTLParseHandler(object):
         '''
         return None
 
+    def paren_expr(self, expr):
+        '''An expr enclosed in parentheses.'''
+        return None
+
     def return_stmt(self, expr=None):
         """A return statement. If `expr` is not :py:attr:`None`, it is the return value."""
         return None

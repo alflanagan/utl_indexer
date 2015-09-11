@@ -65,7 +65,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         ('nonassoc', 'RANGE', 'COLON'),
         ('left', 'COMMA'),
         ('right', 'LPAREN', 'LBRACKET'),
-        # fixes shift/reduce conflict between arrray reference and array literal
+        # fixes shift/reduce conflict between array reference and array literal
         ('nonassoc', 'RBRACKET'),
         ('left', 'DOT'),
     )
@@ -297,6 +297,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                 | ID
                 | array_ref
                 | macro_call
+                | paren_expr
                 | expr DOUBLEBAR expr
                 | expr RANGE expr
                 | expr NEQ expr
@@ -397,6 +398,14 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         if len(p) > 1:
             for handler in self.handlers:
                 value = handler.param_list(p[1], self._(p, 3))
+                if p[0] is None:
+                    p[0] = value
+
+    def p_paren_expr(self, p):
+        '''paren_expr : LPAREN expr RPAREN'''
+        if p[2] is not None:
+            for handler in self.handlers:
+                value = handler.paren_expr(p[2])
                 if p[0] is None:
                     p[0] = value
 
