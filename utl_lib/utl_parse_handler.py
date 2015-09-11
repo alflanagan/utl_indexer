@@ -151,10 +151,10 @@ class UTLParseHandler(object):
         """
         return None
 
-    def call_stmt(self, method_call):
+    def call_stmt(self, macro_call):
         """A call statement, with the keyword call preceding a method call.
 
-        :param method_call: An expression production, which should resolve to a method call.
+        :param macro_call: An expression production, which should resolve to a macro call.
 
         """
         return None

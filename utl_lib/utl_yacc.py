@@ -20,7 +20,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
 
     """
     #-------------------------------------------------------------------------------------------
-    # non-production stuff
+    # admin stuff
     #-------------------------------------------------------------------------------------------
     def __init__(self, handlers=None, debug=False):
         self.parsed = False
@@ -221,13 +221,12 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                     p[0] = value
 
     def p_call_stmt(self, p):
-        '''call_stmt : CALL expr'''
+        '''call_stmt : CALL macro_call'''
         for handler in self.handlers:
             value = handler.call_stmt(p[2])
             if p[0] is None:
                 p[0] = value
 
-    # below rule not strictly necessary, but makes p_statement() simpler
     def p_default_assignment(self, p):
         '''default_assignment : DEFAULT expr'''
         for handler in self.handlers:
