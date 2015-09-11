@@ -60,6 +60,11 @@ class UTLLexer(object):
                  '&&', r'\|\|', 'and', 'or', 'is', 'not',
                  r'\|', ':', ',', '[', '(']
 
+    # non-regex form for quick comparison
+    operator_list = ['..', '+=', '-=', '*=', '/=', '%=', '.', '*', '-', '+', '/', '%', '<=',
+                     '>=', '<', '>', '==', '!=', '!', '&&', '||', 'and', 'or', 'is', 'not', '|',
+                     ':', ',', '[', '(']
+
     tokens = ['START_UTL',
               'END_UTL',
               'ID',
