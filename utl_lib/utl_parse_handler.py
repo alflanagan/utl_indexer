@@ -41,6 +41,7 @@ class UTLParseHandler(object):
         if not value:
             raise UTLParseError("Assertion failed! Internal error in parser." + msg)
 
+    # --------------------------------------------------------------------------------------
     def utldoc(self, statement_list):
         '''The top-level node for a UTL document.'''
         return None
@@ -62,6 +63,7 @@ class UTLParseHandler(object):
         """
         return None
 
+    # --------------------------------------------------------------------------------------
     def eostmt(self, marker_text):
         """End statement marker. Unlikely to be useful, but if you need it, it's here."""
         return None
@@ -70,19 +72,21 @@ class UTLParseHandler(object):
         """An echo statement. `expr` is the object to be echoed, or :py:attr:`None`."""
         return None
 
-    def expr(self, start, related, rexpr):
-        """An expression production. 'start' is the opening token, `related` is the related
-        expression, and `rexpr` is expression continuation if start is "(".
-
+    def expr(self, first, second, third):
+        """An expression production.
+        first is: not|!|expr|literal|ID|LBRACKET|LPAREN|array_ref
+        second is: expr|PLUS|MINUS|TIMES|DIV|MODULUS|FILTER|DOUBLEBAR|RANGE|NEQ|LTE|OR|LT|EQ|IS|
+                   GT|AND|GTE|DOUBLEAMP|DOT|ASSIGN|ASSIGNOP|COMMA|COLON
+        third is: expr|RBRACKET|RPAREN
         """
         return None
 
-    def rexpr(self, operator, expr_or_arg_list, rexpr):
-        """The right-hand part of certain expr productions. `operator` is the operator applied,
-        `expr_or_arg_list` is the second argument to the operator, `rexpr` is further expression
-        parse for certain productions.
+    def array_ref(self, variable, index):
+        """An array reference of the form variable[index]."""
+        return None
 
-        """
+    def unary_expr(self, unary_op, expr):
+        """An expression for productions of the form -expr and +expr."""
         return None
 
     def literal(self, literal):
@@ -115,6 +119,16 @@ class UTLParseHandler(object):
 
         :param default_value: An expression giving the value to use for the parameter if it is
         omitted from the method call.
+
+        """
+        return None
+
+    def macro_call(self, macro_expr, arg_list=None):
+        """A macro procedure call.
+
+        :param ASTNode macro_expr: An expression, either an ID with the macro name or some expression that resolves to a macro reference.
+
+        :param ASTNode arg_list: The list of arguments, if any.
 
         """
         return None
@@ -156,12 +170,12 @@ class UTLParseHandler(object):
         """
         return None
 
-    def key_value_elems(self, key_expr, value_expr, prior_args=None):
-        """Elements for an object-type array, with key/value pairs. `prior_args`, if present, is
-        the result of reduction of previous elements in the array expression.
-
-        """
-        return None
+#    def key_value_elems(self, key_expr, value_expr, prior_args=None):
+#        """Elements for an object-type array, with key/value pairs. `prior_args`, if present, is
+#        the result of reduction of previous elements in the array expression.
+#
+#        """
+#        return None
 
     def if_stmt(self, expr, statement_list, elseif_stmts=None, else_stmt=None):
         """An if statement.
@@ -265,6 +279,7 @@ class UTLParseHandler(object):
         """
         return None
 
+    # --------------------------------------------------------------------------------------
     def error(self, p, the_parser):
         """Method called when a syntax error occurs. `p` is a production object with the state
         of the parser at the point where the error was detected.
@@ -273,9 +288,11 @@ class UTLParseHandler(object):
         """
         if p is None:
             if self.exception_on_error:
-                raise UTLParseError("Syntax error at end of document! Symbol stack is {}".format(the_parser.symstack))
+                raise UTLParseError("Syntax error at end of document! Symbol stack is {}"
+                                    "".format(the_parser.symstack))
             else:
-                sys.stderr.write("Syntax error at end of document! Symbol stack is {}\n".format(the_parser.symstack))
+                sys.stderr.write("Syntax error at end of document! Symbol stack is {}\n"
+                                 "".format(the_parser.symstack))
         else:
             the_lexer = p.lexer
             lineoffset = the_lexer.lexdata.rfind('\n', 0, the_lexer.lexpos)
