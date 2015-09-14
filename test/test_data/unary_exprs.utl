@@ -1,0 +1,8 @@
+[%
+  /* tests for unary operator expressions, especially the troublesome +/- */
+  a = -3;
+  if (myCapturePreviewImage.width/myCapturePreviewImage.height) - (asset.hi_res.width/asset.hi_res.height) < 1/100 && (myCapturePreviewImage.width/myCapturePreviewImage.height) - (asset.hi_res.width/asset.hi_res.height) > -1/100;
+     echo "wtf?";
+     end;
+
+ %]

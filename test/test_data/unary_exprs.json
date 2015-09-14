@@ -1,0 +1,28 @@
+{
+  "name": "utldoc",
+  "children": [{
+    "name": "statement_list",
+    "children": [{
+      "name": "statement",
+      "children": [{
+        "name": "expr",
+        "attributes": {
+          "operator": "="
+        },
+        "children": [{
+          "name": "id",
+          "attributes": {
+            "symbol": "a"
+          }
+        }, {
+          "name": "literal",
+          "attributes": {
+            "type": "number",
+            "value": -3
+          }
+        }]
+      }]
+    }]
+  }]
+}]
+}

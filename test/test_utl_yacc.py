@@ -154,6 +154,13 @@ class UTLParserTestCase(utl_parse_test.TestCaseUTL):
         """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with a while statement."""
         self.assertJSONFileMatches('while.utl', 'while.json')
 
+    def test_unary_expr(self):
+        """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with expressions containing
+        unary operators.
+
+        """
+        self.assertJSONFileMatches('unary_exprs.utl', 'unary_exprs.json')
+
     def test_syntax_error(self):
         """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with invalid syntax."""
         handler = UTLParseHandlerParseTree(exception_on_error=True)
