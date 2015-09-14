@@ -32,6 +32,14 @@
             },
             "children": [{
               "name": "expr",
+              "children": [{
+                "name": "id",
+                "attributes": {
+                  "symbol": "cms"
+                }
+              }]
+            }, {
+              "name": "expr",
               "attributes": {
                 "operator": "."
               },
@@ -40,7 +48,7 @@
                 "children": [{
                   "name": "id",
                   "attributes": {
-                    "symbol": "cms"
+                    "symbol": "component"
                   }
                 }]
               }, {
@@ -48,17 +56,9 @@
                 "children": [{
                   "name": "id",
                   "attributes": {
-                    "symbol": "component"
+                    "symbol": "load"
                   }
                 }]
-              }]
-            }, {
-              "name": "expr",
-              "children": [{
-                "name": "id",
-                "attributes": {
-                  "symbol": "load"
-                }
               }]
             }]
           }, {
@@ -70,8 +70,8 @@
                 "children": [{
                   "name": "literal",
                   "attributes": {
-                    "type": "string",
-                    "value": "core_base_editorial"
+                    "value": "core_base_editorial",
+                    "type": "string"
                   }
                 }]
               }]
@@ -102,8 +102,8 @@
                 "children": [{
                   "name": "literal",
                   "attributes": {
-                    "type": "number",
-                    "value": 3.0
+                    "value": 3.0,
+                    "type": "number"
                   }
                 }]
               }]
@@ -134,8 +134,8 @@
                 "children": [{
                   "name": "literal",
                   "attributes": {
-                    "type": "number",
-                    "value": 1.0
+                    "value": 1.0,
+                    "type": "number"
                   }
                 }]
               }]
@@ -146,8 +146,8 @@
                 "children": [{
                   "name": "literal",
                   "attributes": {
-                    "type": "number",
-                    "value": 2.0
+                    "value": 2.0,
+                    "type": "number"
                   }
                 }]
               }]
@@ -158,8 +158,8 @@
                 "children": [{
                   "name": "literal",
                   "attributes": {
-                    "type": "number",
-                    "value": 3.0
+                    "value": 3.0,
+                    "type": "number"
                   }
                 }]
               }]
@@ -170,8 +170,8 @@
                 "children": [{
                   "name": "literal",
                   "attributes": {
-                    "type": "number",
-                    "value": 4.0
+                    "value": 4.0,
+                    "type": "number"
                   }
                 }]
               }]
@@ -182,8 +182,8 @@
                 "children": [{
                   "name": "literal",
                   "attributes": {
-                    "type": "number",
-                    "value": 5.0
+                    "value": 5.0,
+                    "type": "number"
                   }
                 }]
               }]
@@ -194,8 +194,8 @@
                 "children": [{
                   "name": "literal",
                   "attributes": {
-                    "type": "number",
-                    "value": 6.0
+                    "value": 6.0,
+                    "type": "number"
                   }
                 }]
               }]
@@ -226,8 +226,8 @@
                 "children": [{
                   "name": "literal",
                   "attributes": {
-                    "type": "string",
-                    "value": "betty"
+                    "value": "betty",
+                    "type": "string"
                   }
                 }]
               }]
@@ -261,8 +261,8 @@
                 "children": [{
                   "name": "literal",
                   "attributes": {
-                    "type": "string",
-                    "value": "betty"
+                    "value": "betty",
+                    "type": "string"
                   }
                 }]
               }]
@@ -273,8 +273,8 @@
                 "children": [{
                   "name": "literal",
                   "attributes": {
-                    "type": "number",
-                    "value": 5.0
+                    "value": 5.0,
+                    "type": "number"
                   }
                 }]
               }]
@@ -305,8 +305,8 @@
                 "children": [{
                   "name": "literal",
                   "attributes": {
-                    "type": "number",
-                    "value": 3.0
+                    "value": 3.0,
+                    "type": "number"
                   }
                 }]
               }]
@@ -340,8 +340,8 @@
                 "children": [{
                   "name": "literal",
                   "attributes": {
-                    "type": "string",
-                    "value": "betty"
+                    "value": "betty",
+                    "type": "string"
                   }
                 }]
               }]
@@ -352,8 +352,8 @@
                 "children": [{
                   "name": "literal",
                   "attributes": {
-                    "type": "number",
-                    "value": 5.0
+                    "value": 5.0,
+                    "type": "number"
                   }
                 }]
               }]
@@ -408,8 +408,8 @@
                     "children": [{
                       "name": "literal",
                       "attributes": {
-                        "type": "string",
-                        "value": "user"
+                        "value": "user",
+                        "type": "string"
                       }
                     }]
                   }]
@@ -469,8 +469,8 @@
                         "children": [{
                           "name": "literal",
                           "attributes": {
-                            "type": "string",
-                            "value": "user"
+                            "value": "user",
+                            "type": "string"
                           }
                         }]
                       }]
@@ -539,8 +539,8 @@
                       "children": [{
                         "name": "literal",
                         "attributes": {
-                          "type": "string",
-                          "value": "image"
+                          "value": "image",
+                          "type": "string"
                         }
                       }]
                     }]
@@ -552,8 +552,8 @@
               "children": [{
                 "name": "literal",
                 "attributes": {
-                  "type": "number",
-                  "value": 0.0
+                  "value": 0.0,
+                  "type": "number"
                 }
               }]
             }]

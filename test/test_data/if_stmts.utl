@@ -9,7 +9,7 @@
   if show_flags == true %]
     <li>[% core_base_library_assetFlags(target : asset) %]</li>
   [% end;
-    if cms.request.param('q') then site_keywords += ',' + cms.request.param('q') | replace(' ',',') | html;  
+    if cms.request.param('q') then site_keywords += ',' + cms.request.param('q') | replace(' ',',') | html;
 
   if assign = expr;
     echo 'probably an error but legal';
@@ -31,7 +31,7 @@
   else;
      print('goodbye');
   end;
-  if (myCapturePreviewImage.width/myCapturePreviewImage.height) - (asset.hi_res.width/asset.hi_res.height) < 1/100 && (myCapturePreviewImage.width/myCapturePreviewImage.height) - (asset.hi_res.width/asset.hi_res.height) > -1/100;
+  if (myCapturePreviewImage.width/myCapturePreviewImage.height) - (asset.hi_res.width/asset.hi_res.height) < 1/100 && (myCapturePreviewImage.width/myCapturePreviewImage.height) - (asset.hi_res.width/asset.hi_res.height) > 1/100;
      echo "wtf?";
      end;
   if assignee = assigned;

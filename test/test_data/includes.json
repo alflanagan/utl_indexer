@@ -1,102 +1,99 @@
 {
-    "name": "utldoc",
+  "name": "utldoc",
+  "children": [{
+    "name": "statement_list",
     "children": [{
-        "name": "statement_list",
+      "name": "statement",
+      "children": [{
+        "name": "include_stmt",
         "children": [{
-            "name": "statement",
-            "children": [{
-                "name": "include_stmt",
-                "children": [{
-                    "name": "expr",
-                    "children": [{
-                        "name": "literal",
-                        "attributes": {
-                            "type": "string",
-                            "value": "fred.utl"
-                        }
-                    }]
-                }]
-            }]
-        }, {
-            "name": "statement",
-            "children": [{
-                "name": "include_stmt",
-                "children": [{
-                    "name": "expr",
-                    "children": [{
-                        "name": "id",
-                        "attributes": {
-                            "symbol": "appMacros"
-                        }
-                    }]
-                }]
-            }]
-        }, {
-            "name": "statement",
-            "children": [{
-                "name": "include_stmt",
-                "children": [{
-                    "name": "expr",
-                    "children": [{
-                        "name": "literal",
-                        "attributes": {
-                            "type": "string",
-                            "value": "fred"
-                        }
-                    }, {
-                        "name": "rexpr",
-                        "attributes": {
-                            "operator": "+"
-                        },
-                        "children": [{
-                            "name": "expr",
-                            "attributes": {
-                                "operator": "("
-                            },
-                            "children": [{
-                                "name": "expr",
-                                "children": [{
-                                    "name": "literal",
-                                    "attributes": {
-                                        "type": "number",
-                                        "value": 5.0
-                                    }
-                                }, {
-                                    "name": "rexpr",
-                                    "attributes": {
-                                        "operator": "*"
-                                    },
-                                    "children": [{
-                                        "name": "expr",
-                                        "children": [{
-                                            "name": "literal",
-                                            "attributes": {
-                                                "type": "number",
-                                                "value": 12.0
-                                            }
-                                        }]
-                                    }]
-                                }]
-                            }, {
-                                "name": "rexpr",
-                                "attributes": {
-                                    "operator": "+"
-                                },
-                                "children": [{
-                                    "name": "expr",
-                                    "children": [{
-                                        "name": "literal",
-                                        "attributes": {
-                                            "type": "string",
-                                            "value": "section.inc.utl"
-                                        }
-                                    }]
-                                }]
-                            }]
-                        }]
-                    }]
-                }]
-            }]
+          "name": "expr",
+          "children": [{
+            "name": "literal",
+            "attributes": {
+              "value": "fred.utl",
+              "type": "string"
+            }
+          }]
         }]
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "include_stmt",
+        "children": [{
+          "name": "expr",
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "appMacros"
+            }
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "include_stmt",
+        "children": [{
+          "name": "expr",
+          "attributes": {
+            "operator": "+"
+          },
+          "children": [{
+            "name": "expr",
+            "attributes": {
+              "operator": "+"
+            },
+            "children": [{
+              "name": "expr",
+              "children": [{
+                "name": "literal",
+                "attributes": {
+                  "value": "fred",
+                  "type": "string"
+                }
+              }]
+            }, {
+              "name": "expr",
+              "children": [{
+                "name": "expr",
+                "attributes": {
+                  "operator": "*"
+                },
+                "children": [{
+                  "name": "expr",
+                  "children": [{
+                    "name": "literal",
+                    "attributes": {
+                      "value": 5.0,
+                      "type": "number"
+                    }
+                  }]
+                }, {
+                  "name": "expr",
+                  "children": [{
+                    "name": "literal",
+                    "attributes": {
+                      "value": 12.0,
+                      "type": "number"
+                    }
+                  }]
+                }]
+              }]
+            }]
+          }, {
+            "name": "expr",
+            "children": [{
+              "name": "literal",
+              "attributes": {
+                "value": "section.inc.utl",
+                "type": "string"
+              }
+            }]
+          }]
+        }]
+      }]
     }]
+  }]
 }

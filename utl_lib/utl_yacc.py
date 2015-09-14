@@ -55,7 +55,6 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         ('left', 'AND'),
         ('left', 'DOUBLEAMP'),
         ('nonassoc', 'ASSIGN', 'ASSIGNOP'),
-        ('left', 'FILTER'),
         ('nonassoc', 'IS', 'NOT', 'EQ', 'NEQ'),
         ('nonassoc', 'LT', 'GT', 'LTE', 'GTE'),  # relational operators <, >, <=, >=
         ('left', 'PLUS', 'MINUS'),
@@ -63,11 +62,12 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         ('nonassoc', 'UMINUS'),  # same precedence as *, since  -5 == -1 * 5
         ('right', 'EXCLAMATION'),
         ('nonassoc', 'RANGE', 'COLON'),
+        ('left', 'FILTER'),
         ('left', 'COMMA'),
         ('right', 'LPAREN', 'LBRACKET'),
         # fixes shift/reduce conflict between array reference and array literal
         ('nonassoc', 'RBRACKET'),
-        ('left', 'DOT'),
+        ('right', 'DOT'),
     )
 
     def _filtered_token(self):
