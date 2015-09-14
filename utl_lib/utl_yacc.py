@@ -334,9 +334,9 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                 p[0] = value
 
     def p_if_stmt(self, p):
-        '''if_stmt : IF expr statement_list elseif_stmts else_stmt END'''
+        '''if_stmt : IF expr eostmt statement_list elseif_stmts else_stmt END'''
         for handler in self.handlers:
-            value = handler.if_stmt(p[2], p[3], p[4], p[5])
+            value = handler.if_stmt(p[2], p[4], p[5], p[6])
             if p[0] is None:
                 p[0] = value
 
