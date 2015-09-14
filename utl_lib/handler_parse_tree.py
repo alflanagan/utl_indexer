@@ -58,7 +58,7 @@ class UTLParseHandlerParseTree(UTLParseHandler):
 
     def arg(self, expr, name=None):
         assert expr is not None
-        return ASTNode('arg', False, {'name': name}, [expr])
+        return ASTNode('arg', False, {'name': name} if name is not None else {}, [expr])
 
     def arg_list(self, arg, arg_list=None):
         assert arg is not None
@@ -144,10 +144,13 @@ class UTLParseHandlerParseTree(UTLParseHandler):
             return ASTNode('expr', False, {'operator': first}, [second])
         # first is literal, ID, array ref, macro_call
         if isinstance(first, ASTNode):
-            return ASTNode('expr', False, {'operator': None}, [first])
+            # we could have {'operator': None} or the like as child here, to allow caller to
+            # assume "expr" node has "operator" attribute, but then code still has to check
+            # whether it's an actual operator
+            return ASTNode('expr', False, {}, [first])
         # ID
         id_node = ASTNode('id', True, {'symbol': first}, [])
-        return ASTNode('expr', False, {'operator': None}, [id_node])
+        return ASTNode('expr', False, {}, [id_node])
 
     def for_stmt(self, expr, as_clause=None, statement_list=None):
         assert expr is not None
@@ -202,7 +205,8 @@ class UTLParseHandlerParseTree(UTLParseHandler):
 
     def param_decl(self, param_id, default_value=None):
         assert param_id
-        return ASTNode('param_decl', default_value is None, {'name': param_id},
+        return ASTNode('param_decl', default_value is None,
+                       {'name': param_id} if param_id is not None else {},
                        [default_value] if default_value is not None else [])
 
     def param_list(self, param_decl, param_list=None):
