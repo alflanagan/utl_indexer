@@ -165,8 +165,10 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
 
     def p_arg(self, p):
         '''arg : expr
-               | STRING COLON expr
-               | ID COLON expr'''
+               | STRING COLON expr %prec RBRACKET
+               | ID COLON expr %prec RBRACKET'''
+        # shift/reduce between expr->STRING, expr->ID, and STRING COLON, ID COLON
+        # is there a better way to handle shift/reduce than explicitly settting precedence?
         for handler in self.handlers:
             if len(p) == 4:
                 value = handler.arg(p[3], p[1])
@@ -361,7 +363,10 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         '''macro_call : expr LPAREN RPAREN
                       | expr LPAREN arg_list RPAREN'''
         for handler in self.handlers:
-            value = handler.macro_call(p[1], self._(p, 3))
+            if len(p) == 4:
+                value = handler.macro_call(p[1], None)
+            else:
+                value = handler.macro_call(p[1], p[3])
             if p[0] is None:
                 p[0] = value
 

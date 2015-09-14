@@ -65,7 +65,7 @@ class UTLParseHandlerParseTree(UTLParseHandler):
         if arg_list is None:
             return ASTNode('arg_list', False, {}, [arg])
         else:
-            arg_list.add_child(arg)
+            arg_list.add_first_child(arg)
             return arg_list
 
     def array_elems(self, expr, array_elems=None):
