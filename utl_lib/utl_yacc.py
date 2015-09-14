@@ -198,9 +198,10 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
 
     def p_array_literal(self, p):
         '''array_literal : LBRACKET RBRACKET
-                         | LBRACKET array_elems RBRACKET'''
+                         | LBRACKET array_elems RBRACKET
+                         | LBRACKET array_elems COMMA RBRACKET'''
         for handler in self.handlers:
-            value = handler.array_literal(p[2] if len(p) == 4 else None)
+            value = handler.array_literal(p[2] if len(p) >= 4 else None)
             if p[0] is None:
                 p[0] = value
 

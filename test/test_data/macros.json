@@ -1,876 +1,934 @@
 {
-    "name": "utldoc",
+  "name": "utldoc",
+  "children": [{
+    "name": "statement_list",
     "children": [{
-        "name": "statement_list",
+      "name": "statement",
+      "children": [{
+        "name": "macro_defn",
         "children": [{
-            "name": "statement",
-            "children": [{
-                "name": "macro_defn",
-                "children": [{
-                    "name": "macro_decl",
-                    "children": [{
-                        "name": "id",
-                        "attributes": {
-                            "symbol": "fred"
-                        }
-                    }]
-                }, {
-                    "name": "statement_list",
-                    "children": [{
-                        "name": "statement",
-                        "children": [{
-                            "name": "expr",
-                            "children": [{
-                                "name": "id",
-                                "attributes": {
-                                    "symbol": "a"
-                                }
-                            }, {
-                                "name": "rexpr",
-                                "attributes": {
-                                    "operator": "="
-                                },
-                                "children": [{
-                                    "name": "expr",
-                                    "children": [{
-                                        "name": "id",
-                                        "attributes": {
-                                            "symbol": "b"
-                                        }
-                                    }, {
-                                        "name": "rexpr",
-                                        "attributes": {
-                                            "operator": "+"
-                                        },
-                                        "children": [{
-                                            "name": "expr",
-                                            "children": [{
-                                                "name": "literal",
-                                                "attributes": {
-                                                    "type": "number",
-                                                    "value": 3.0
-                                                }
-                                            }]
-                                        }]
-                                    }]
-                                }]
-                            }]
-                        }]
-                    }, {
-                        "name": "statement",
-                        "children": [{
-                            "name": "echo"
-                        }]
-                    }, {
-                        "name": "statement",
-                        "children": [{
-                            "name": "echo",
-                            "children": [{
-                                "name": "expr",
-                                "children": [{
-                                    "name": "id",
-                                    "attributes": {
-                                        "symbol": "a"
-                                    }
-                                }]
-                            }]
-                        }]
-                    }]
-                }]
-            }]
+          "name": "macro_decl",
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "fred"
+            }
+          }]
         }, {
+          "name": "statement_list",
+          "children": [{
             "name": "statement",
             "children": [{
-                "name": "macro_defn",
-                "children": [{
-                    "name": "macro_decl",
-                    "children": [{
-                        "name": "id",
-                        "attributes": {
-                            "symbol": "core_base_nav_class_name"
-                        }
-                    }, {
-                        "name": "param_list",
-                        "children": [{
-                            "name": "param_decl",
-                            "attributes": {
-                                "name": "nav_text"
-                            }
-                        }]
-                    }]
-                }, {
-                    "name": "statement_list",
-                    "children": [{
-                        "name": "statement",
-                        "children": [{
-                            "name": "expr",
-                            "children": [{
-                                "name": "id",
-                                "attributes": {
-                                    "symbol": "dquote_escaped"
-                                }
-                            }, {
-                                "name": "rexpr",
-                                "attributes": {
-                                    "operator": "="
-                                },
-                                "children": [{
-                                    "name": "expr",
-                                    "children": [{
-                                        "name": "literal",
-                                        "attributes": {
-                                            "value": "there's an \\\"embedded\\\" dquote here",
-                                            "type": "string"
-                                        }
-                                    }]
-                                }]
-                            }]
-                        }]
-                    }, {
-                        "name": "statement",
-                        "children": [{
-                            "name": "return_stmt",
-                            "children": [{
-                                "name": "expr",
-                                "children": [{
-                                    "name": "id",
-                                    "attributes": {
-                                        "symbol": "nav_text"
-                                    }
-                                }, {
-                                    "name": "rexpr",
-                                    "attributes": {
-                                        "operator": "|"
-                                    },
-                                    "children": [{
-                                        "name": "expr",
-                                        "children": [{
-                                            "name": "id",
-                                            "attributes": {
-                                                "symbol": "lowercase"
-                                            }
-                                        }, {
-                                            "name": "rexpr",
-                                            "attributes": {
-                                                "operator": "|"
-                                            },
-                                            "children": [{
-                                                "name": "expr",
-                                                "children": [{
-                                                    "name": "id",
-                                                    "attributes": {
-                                                        "symbol": "regex"
-                                                    }
-                                                }, {
-                                                    "name": "rexpr",
-                                                    "attributes": {
-                                                        "operator": "("
-                                                    },
-                                                    "children": [{
-                                                        "name": "arg_list",
-                                                        "children": [{
-                                                            "name": "arg",
-                                                            "children": [{
-                                                                "name": "expr",
-                                                                "children": [{
-                                                                    "name": "literal",
-                                                                    "attributes": {
-                                                                        "value": "/[\\&\\(\\)\\[\\]\\{\\}\\!\\@\\#\\$\\%\\^\\*\\+\\=\\,\\.\\/\\<\\>\\?\\;\\:\\'\\~\\`]/",
-                                                                        "type": "string"
-                                                                    }
-                                                                }]
-                                                            }]
-                                                        }, {
-                                                            "name": "arg",
-                                                            "children": [{
-                                                                "name": "expr",
-                                                                "children": [{
-                                                                    "name": "literal",
-                                                                    "attributes": {
-                                                                        "value": "",
-                                                                        "type": "string"
-                                                                    }
-                                                                }]
-                                                            }]
-                                                        }]
-                                                    }, {
-                                                        "name": "rexpr",
-                                                        "attributes": {
-                                                            "operator": "|"
-                                                        },
-                                                        "children": [{
-                                                            "name": "expr",
-                                                            "children": [{
-                                                                "name": "id",
-                                                                "attributes": {
-                                                                    "symbol": "regex"
-                                                                }
-                                                            }, {
-                                                                "name": "rexpr",
-                                                                "attributes": {
-                                                                    "operator": "("
-                                                                },
-                                                                "children": [{
-                                                                    "name": "arg_list",
-                                                                    "children": [{
-                                                                        "name": "arg",
-                                                                        "children": [{
-                                                                            "name": "expr",
-                                                                            "children": [{
-                                                                                "name": "literal",
-                                                                                "attributes": {
-                                                                                    "value": "/\\_+/",
-                                                                                    "type": "string"
-                                                                                }
-                                                                            }]
-                                                                        }]
-                                                                    }, {
-                                                                        "name": "arg",
-                                                                        "children": [{
-                                                                            "name": "expr",
-                                                                            "children": [{
-                                                                                "name": "literal",
-                                                                                "attributes": {
-                                                                                    "value": "_",
-                                                                                    "type": "string"
-                                                                                }
-                                                                            }]
-                                                                        }]
-                                                                    }]
-                                                                }, {
-                                                                    "name": "rexpr",
-                                                                    "attributes": {
-                                                                        "operator": "|"
-                                                                    },
-                                                                    "children": [{
-                                                                        "name": "expr",
-                                                                        "children": [{
-                                                                            "name": "id",
-                                                                            "attributes": {
-                                                                                "symbol": "regex"
-                                                                            }
-                                                                        }, {
-                                                                            "name": "rexpr",
-                                                                            "attributes": {
-                                                                                "operator": "("
-                                                                            },
-                                                                            "children": [{
-                                                                                "name": "arg_list",
-                                                                                "children": [{
-                                                                                    "name": "arg",
-                                                                                    "children": [{
-                                                                                        "name": "expr",
-                                                                                        "children": [{
-                                                                                            "name": "literal",
-                                                                                            "attributes": {
-                                                                                                "value": "/[\\s-]+/",
-                                                                                                "type": "string"
-                                                                                            }
-                                                                                        }]
-                                                                                    }]
-                                                                                }, {
-                                                                                    "name": "arg",
-                                                                                    "children": [{
-                                                                                        "name": "expr",
-                                                                                        "children": [{
-                                                                                            "name": "literal",
-                                                                                            "attributes": {
-                                                                                                "value": "-",
-                                                                                                "type": "string"
-                                                                                            }
-                                                                                        }]
-                                                                                    }]
-                                                                                }]
-                                                                            }]
-                                                                        }]
-                                                                    }]
-                                                                }]
-                                                            }]
-                                                        }]
-                                                    }]
-                                                }]
-                                            }]
-                                        }]
-                                    }]
-                                }]
-                            }]
-                        }]
-                    }]
-                }]
-            }]
-        }, {
-            "name": "statement",
-            "children": [{
+              "name": "expr",
+              "attributes": {
+                "operator": "="
+              },
+              "children": [{
                 "name": "expr",
                 "children": [{
+                  "name": "id",
+                  "attributes": {
+                    "symbol": "a"
+                  }
+                }]
+              }, {
+                "name": "expr",
+                "attributes": {
+                  "operator": "+"
+                },
+                "children": [{
+                  "name": "expr",
+                  "children": [{
                     "name": "id",
                     "attributes": {
-                        "symbol": "really.really.quite.useless"
+                      "symbol": "b"
                     }
+                  }]
                 }, {
-                    "name": "rexpr",
+                  "name": "expr",
+                  "children": [{
+                    "name": "literal",
                     "attributes": {
-                        "operator": "("
-                    },
-                    "children": [{
-                        "name": "arg_list",
-                        "children": [{
-                            "name": "arg",
-                            "children": [{
-                                "name": "expr",
-                                "children": [{
-                                    "name": "literal",
-                                    "attributes": {
-                                        "value": "php",
-                                        "type": "string"
-                                    }
-                                }]
-                            }]
-                        }]
-                    }]
+                      "type": "number",
+                      "value": 3.0
+                    }
+                  }]
                 }]
+              }]
             }]
-        }, {
+          }, {
             "name": "statement",
             "children": [{
+              "name": "echo"
+            }]
+          }, {
+            "name": "statement",
+            "children": [{
+              "name": "echo",
+              "children": [{
                 "name": "expr",
                 "children": [{
-                    "name": "id",
-                    "attributes": {
-                        "symbol": "wilma"
-                    }
-                }, {
-                    "name": "rexpr",
-                    "attributes": {
-                        "operator": "("
-                    },
-                    "children": [{
-                        "name": "arg_list",
-                        "children": [{
-                            "name": "arg",
-                            "children": [{
-                                "name": "expr",
-                                "children": [{
-                                    "name": "literal",
-                                    "attributes": {
-                                        "value": 1.0,
-                                        "type": "number"
-                                    }
-                                }]
-                            }]
-                        }, {
-                            "name": "arg",
-                            "children": [{
-                                "name": "expr",
-                                "children": [{
-                                    "name": "literal",
-                                    "attributes": {
-                                        "value": 2.0,
-                                        "type": "number"
-                                    }
-                                }]
-                            }]
-                        }, {
-                            "name": "arg",
-                            "children": [{
-                                "name": "expr",
-                                "children": [{
-                                    "name": "literal",
-                                    "attributes": {
-                                        "value": 3.0,
-                                        "type": "number"
-                                    }
-                                }]
-                            }]
-                        }]
-                    }]
+                  "name": "id",
+                  "attributes": {
+                    "symbol": "a"
+                  }
                 }]
+              }]
             }]
-        }, {
-            "name": "statement",
-            "children": [{
-                "name": "macro_defn",
-                "children": [{
-                    "name": "macro_decl",
-                    "children": [{
-                        "name": "id",
-                        "attributes": {
-                            "symbol": "empty_but_legal"
-                        }
-                    }]
-                }]
-            }]
-        }, {
-            "name": "statement",
-            "children": [{
-                "name": "macro_defn",
-                "children": [{
-                    "name": "macro_decl",
-                    "children": [{
-                        "name": "id",
-                        "attributes": {
-                            "symbol": "fairly.useless"
-                        }
-                    }]
-                }, {
-                    "name": "statement_list",
-                    "children": [{
-                        "name": "statement",
-                        "children": [{
-                            "name": "echo",
-                            "children": [{
-                                "name": "expr",
-                                "children": [{
-                                    "name": "literal",
-                                    "attributes": {
-                                        "value": "useless",
-                                        "type": "string"
-                                    }
-                                }]
-                            }]
-                        }]
-                    }]
-                }]
-            }]
-        }, {
-            "name": "statement",
-            "children": [{
-                "name": "macro_defn",
-                "children": [{
-                    "name": "macro_decl",
-                    "children": [{
-                        "name": "id",
-                        "attributes": {
-                            "symbol": "really.really.quite.useless"
-                        }
-                    }, {
-                        "name": "param_list",
-                        "children": [{
-                            "name": "param_decl",
-                            "attributes": {
-                                "name": "arg1"
-                            }
-                        }]
-                    }]
-                }, {
-                    "name": "statement_list",
-                    "children": [{
-                        "name": "statement",
-                        "children": [{
-                            "name": "echo",
-                            "children": [{
-                                "name": "expr",
-                                "children": [{
-                                    "name": "id",
-                                    "attributes": {
-                                        "symbol": "arg1"
-                                    }
-                                }]
-                            }]
-                        }]
-                    }]
-                }]
-            }]
-        }, {
-            "name": "statement",
-            "children": [{
-                "name": "macro_defn",
-                "children": [{
-                    "name": "macro_decl",
-                    "children": [{
-                        "name": "id",
-                        "attributes": {
-                            "symbol": "multi_arguments"
-                        }
-                    }, {
-                        "name": "param_list",
-                        "children": [{
-                            "name": "param_decl",
-                            "attributes": {
-                                "name": "arg1"
-                            }
-                        }, {
-                            "name": "param_decl",
-                            "attributes": {
-                                "name": "arg2"
-                            }
-                        }, {
-                            "name": "param_decl",
-                            "attributes": {
-                                "name": "arg3",
-                                "default": {
-                                    "name": "expr",
-                                    "children": [{
-                                        "name": "literal",
-                                        "attributes": {
-                                            "value": false,
-                                            "type": "boolean"
-                                        }
-                                    }]
-                                }
-                            }
-                        }, {
-                            "name": "param_decl",
-                            "attributes": {
-                                "name": "arg4"
-                            }
-                        }]
-                    }]
-                }, {
-                    "name": "statement_list",
-                    "children": [{
-                        "name": "statement",
-                        "children": [{
-                            "name": "echo",
-                            "children": [{
-                                "name": "expr",
-                                "children": [{
-                                    "name": "id",
-                                    "attributes": {
-                                        "symbol": "arg1"
-                                    }
-                                }, {
-                                    "name": "rexpr",
-                                    "attributes": {
-                                        "operator": "+"
-                                    },
-                                    "children": [{
-                                        "name": "expr",
-                                        "children": [{
-                                            "name": "id",
-                                            "attributes": {
-                                                "symbol": "arg2"
-                                            }
-                                        }]
-                                    }]
-                                }]
-                            }]
-                        }]
-                    }]
-                }]
-            }]
-        }, {
-            "name": "statement",
-            "children": [{
-                "name": "macro_defn",
-                "children": [{
-                    "name": "macro_decl",
-                    "children": [{
-                        "name": "id",
-                        "attributes": {
-                            "symbol": "core_base_library_relatedAssets"
-                        }
-                    }, {
-                        "name": "param_list",
-                        "children": [{
-                            "name": "param_decl",
-                            "attributes": {
-                                "name": "types",
-                                "default": {
-                                    "name": "expr",
-                                    "children": [{
-                                        "name": "literal",
-                                        "attributes": {
-                                            "value": "",
-                                            "type": "array"
-                                        },
-                                        "children": [{
-                                            "name": "array_literal",
-                                            "children": [{
-                                                "name": "array_elems",
-                                                "children": [{
-                                                    "name": "expr",
-                                                    "children": [{
-                                                        "name": "literal",
-                                                        "attributes": {
-                                                            "value": "article",
-                                                            "type": "string"
-                                                        }
-                                                    }]
-                                                }, {
-                                                    "name": "expr",
-                                                    "children": [{
-                                                        "name": "literal",
-                                                        "attributes": {
-                                                            "value": "image",
-                                                            "type": "string"
-                                                        }
-                                                    }]
-                                                }, {
-                                                    "name": "expr",
-                                                    "children": [{
-                                                        "name": "literal",
-                                                        "attributes": {
-                                                            "value": "pdf",
-                                                            "type": "string"
-                                                        }
-                                                    }]
-                                                }, {
-                                                    "name": "expr",
-                                                    "children": [{
-                                                        "name": "literal",
-                                                        "attributes": {
-                                                            "value": "zip",
-                                                            "type": "string"
-                                                        }
-                                                    }]
-                                                }, {
-                                                    "name": "expr",
-                                                    "children": [{
-                                                        "name": "literal",
-                                                        "attributes": {
-                                                            "value": "audio",
-                                                            "type": "string"
-                                                        }
-                                                    }]
-                                                }, {
-                                                    "name": "expr",
-                                                    "children": [{
-                                                        "name": "literal",
-                                                        "attributes": {
-                                                            "value": "link",
-                                                            "type": "string"
-                                                        }
-                                                    }]
-                                                }, {
-                                                    "name": "expr",
-                                                    "children": [{
-                                                        "name": "literal",
-                                                        "attributes": {
-                                                            "value": "flash",
-                                                            "type": "string"
-                                                        }
-                                                    }]
-                                                }, {
-                                                    "name": "expr",
-                                                    "children": [{
-                                                        "name": "literal",
-                                                        "attributes": {
-                                                            "value": "html",
-                                                            "type": "string"
-                                                        }
-                                                    }]
-                                                }, {
-                                                    "name": "expr",
-                                                    "children": [{
-                                                        "name": "literal",
-                                                        "attributes": {
-                                                            "value": "poll",
-                                                            "type": "string"
-                                                        }
-                                                    }]
-                                                }, {
-                                                    "name": "expr",
-                                                    "children": [{
-                                                        "name": "literal",
-                                                        "attributes": {
-                                                            "value": "collection",
-                                                            "type": "string"
-                                                        }
-                                                    }]
-                                                }, {
-                                                    "name": "expr",
-                                                    "children": [{
-                                                        "name": "literal",
-                                                        "attributes": {
-                                                            "value": "table",
-                                                            "type": "string"
-                                                        }
-                                                    }]
-                                                }, {
-                                                    "name": "expr",
-                                                    "children": [{
-                                                        "name": "literal",
-                                                        "attributes": {
-                                                            "value": "video",
-                                                            "type": "string"
-                                                        }
-                                                    }]
-                                                }, {
-                                                    "name": "expr",
-                                                    "children": [{
-                                                        "name": "literal",
-                                                        "attributes": {
-                                                            "value": "youtube",
-                                                            "type": "string"
-                                                        }
-                                                    }]
-                                                }, {
-                                                    "name": "expr",
-                                                    "children": [{
-                                                        "name": "literal",
-                                                        "attributes": {
-                                                            "value": "vmix",
-                                                            "type": "string"
-                                                        }
-                                                    }]
-                                                }, {
-                                                    "name": "expr",
-                                                    "children": [{
-                                                        "name": "literal",
-                                                        "attributes": {
-                                                            "value": "highlights",
-                                                            "type": "string"
-                                                        }
-                                                    }]
-                                                }, {
-                                                    "name": "expr",
-                                                    "children": [{
-                                                        "name": "literal",
-                                                        "attributes": {
-                                                            "value": "quote",
-                                                            "type": "string"
-                                                        }
-                                                    }]
-                                                }, {
-                                                    "name": "expr",
-                                                    "children": [{
-                                                        "name": "literal",
-                                                        "attributes": {
-                                                            "value": "refer",
-                                                            "type": "string"
-                                                        }
-                                                    }]
-                                                }, {
-                                                    "name": "expr",
-                                                    "children": [{
-                                                        "name": "literal",
-                                                        "attributes": {
-                                                            "value": "update",
-                                                            "type": "string"
-                                                        }
-                                                    }]
-                                                }, {
-                                                    "name": "expr",
-                                                    "children": [{
-                                                        "name": "literal",
-                                                        "attributes": {
-                                                            "value": "correction",
-                                                            "type": "string"
-                                                        }
-                                                    }]
-                                                }, {
-                                                    "name": "expr",
-                                                    "children": [{
-                                                        "name": "literal",
-                                                        "attributes": {
-                                                            "value": "ad",
-                                                            "type": "string"
-                                                        }
-                                                    }]
-                                                }, {
-                                                    "name": "expr",
-                                                    "children": [{
-                                                        "name": "literal",
-                                                        "attributes": {
-                                                            "value": "coupon",
-                                                            "type": "string"
-                                                        }
-                                                    }]
-                                                }, {
-                                                    "name": "expr",
-                                                    "children": [{
-                                                        "name": "literal",
-                                                        "attributes": {
-                                                            "value": "pdfdisplayad",
-                                                            "type": "string"
-                                                        }
-                                                    }]
-                                                }, {
-                                                    "name": "expr",
-                                                    "children": [{
-                                                        "name": "literal",
-                                                        "attributes": {
-                                                            "value": "realestate",
-                                                            "type": "string"
-                                                        }
-                                                    }]
-                                                }, {
-                                                    "name": "expr",
-                                                    "children": [{
-                                                        "name": "literal",
-                                                        "attributes": {
-                                                            "value": "vehicle",
-                                                            "type": "string"
-                                                        }
-                                                    }]
-                                                }, {
-                                                    "name": "expr",
-                                                    "children": [{
-                                                        "name": "literal",
-                                                        "attributes": {
-                                                            "value": "business",
-                                                            "type": "string"
-                                                        }
-                                                    }]
-                                                }, {
-                                                    "name": "expr",
-                                                    "children": [{
-                                                        "name": "literal",
-                                                        "attributes": {
-                                                            "value": "event",
-                                                            "type": "string"
-                                                        }
-                                                    }]
-                                                }]
-                                            }]
-                                        }]
-                                    }]
-                                }
-                            }
-                        }, {
-                            "name": "param_decl",
-                            "attributes": {
-                                "name": "asset",
-                                "default": {
-                                    "name": "expr",
-                                    "children": [{
-                                        "name": "id",
-                                        "attributes": {
-                                            "symbol": "this.asset"
-                                        }
-                                    }]
-                                }
-                            }
-                        }]
-                    }]
-                }, {
-                    "name": "statement_list",
-                    "children": [{
-                        "name": "statement",
-                        "children": [{
-                            "name": "if_stmt",
-                            "children": [{
-                                "name": "expr",
-                                "children": [{
-                                    "name": "id",
-                                    "attributes": {
-                                        "symbol": "asset"
-                                    }
-                                }]
-                            }, {
-                                "name": "statement_list",
-                                "children": [{
-                                    "name": "statement",
-                                    "children": [{
-                                        "name": "echo",
-                                        "children": [{
-                                            "name": "expr",
-                                            "children": [{
-                                                "name": "literal",
-                                                "attributes": {
-                                                    "value": "related",
-                                                    "type": "string"
-                                                }
-                                            }]
-                                        }]
-                                    }]
-                                }]
-                            }]
-                        }]
-                    }]
-                }]
-            }]
+          }]
         }]
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "macro_defn",
+        "children": [{
+          "name": "macro_decl",
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "core_base_nav_class_name"
+            }
+          }, {
+            "name": "param_list",
+            "children": [{
+              "name": "param_decl",
+              "attributes": {
+                "name": "nav_text"
+              }
+            }]
+          }]
+        }, {
+          "name": "statement_list",
+          "children": [{
+            "name": "statement",
+            "children": [{
+              "name": "expr",
+              "attributes": {
+                "operator": "="
+              },
+              "children": [{
+                "name": "expr",
+                "children": [{
+                  "name": "id",
+                  "attributes": {
+                    "symbol": "dquote_escaped"
+                  }
+                }]
+              }, {
+                "name": "expr",
+                "children": [{
+                  "name": "literal",
+                  "attributes": {
+                    "type": "string",
+                    "value": "there's an \\\"embedded\\\" dquote here"
+                  }
+                }]
+              }]
+            }]
+          }, {
+            "name": "statement",
+            "children": [{
+              "name": "return_stmt",
+              "children": [{
+                "name": "expr",
+                "attributes": {
+                  "operator": "|"
+                },
+                "children": [{
+                  "name": "expr",
+                  "attributes": {
+                    "operator": "|"
+                  },
+                  "children": [{
+                    "name": "expr",
+                    "attributes": {
+                      "operator": "|"
+                    },
+                    "children": [{
+                      "name": "expr",
+                      "attributes": {
+                        "operator": "|"
+                      },
+                      "children": [{
+                        "name": "expr",
+                        "children": [{
+                          "name": "id",
+                          "attributes": {
+                            "symbol": "nav_text"
+                          }
+                        }]
+                      }, {
+                        "name": "expr",
+                        "children": [{
+                          "name": "id",
+                          "attributes": {
+                            "symbol": "lowercase"
+                          }
+                        }]
+                      }]
+                    }, {
+                      "name": "expr",
+                      "children": [{
+                        "name": "macro_call",
+                        "children": [{
+                          "name": "expr",
+                          "children": [{
+                            "name": "id",
+                            "attributes": {
+                              "symbol": "regex"
+                            }
+                          }]
+                        }, {
+                          "name": "arg_list",
+                          "children": [{
+                            "name": "arg",
+                            "children": [{
+                              "name": "expr",
+                              "children": [{
+                                "name": "literal",
+                                "attributes": {
+                                  "type": "string",
+                                  "value": "/[\\&\\(\\)\\[\\]\\{\\}\\!\\@\\#\\$\\%\\^\\*\\+\\=\\,\\.\\/\\<\\>\\?\\;\\:\\'\\~\\`]/"
+                                }
+                              }]
+                            }]
+                          }, {
+                            "name": "arg",
+                            "children": [{
+                              "name": "expr",
+                              "children": [{
+                                "name": "literal",
+                                "attributes": {
+                                  "type": "string",
+                                  "value": ""
+                                }
+                              }]
+                            }]
+                          }]
+                        }]
+                      }]
+                    }]
+                  }, {
+                    "name": "expr",
+                    "children": [{
+                      "name": "macro_call",
+                      "children": [{
+                        "name": "expr",
+                        "children": [{
+                          "name": "id",
+                          "attributes": {
+                            "symbol": "regex"
+                          }
+                        }]
+                      }, {
+                        "name": "arg_list",
+                        "children": [{
+                          "name": "arg",
+                          "children": [{
+                            "name": "expr",
+                            "children": [{
+                              "name": "literal",
+                              "attributes": {
+                                "type": "string",
+                                "value": "/\\_+/"
+                              }
+                            }]
+                          }]
+                        }, {
+                          "name": "arg",
+                          "children": [{
+                            "name": "expr",
+                            "children": [{
+                              "name": "literal",
+                              "attributes": {
+                                "type": "string",
+                                "value": "_"
+                              }
+                            }]
+                          }]
+                        }]
+                      }]
+                    }]
+                  }]
+                }, {
+                  "name": "expr",
+                  "children": [{
+                    "name": "macro_call",
+                    "children": [{
+                      "name": "expr",
+                      "children": [{
+                        "name": "id",
+                        "attributes": {
+                          "symbol": "regex"
+                        }
+                      }]
+                    }, {
+                      "name": "arg_list",
+                      "children": [{
+                        "name": "arg",
+                        "children": [{
+                          "name": "expr",
+                          "children": [{
+                            "name": "literal",
+                            "attributes": {
+                              "type": "string",
+                              "value": "/[\\s-]+/"
+                            }
+                          }]
+                        }]
+                      }, {
+                        "name": "arg",
+                        "children": [{
+                          "name": "expr",
+                          "children": [{
+                            "name": "literal",
+                            "attributes": {
+                              "type": "string",
+                              "value": "-"
+                            }
+                          }]
+                        }]
+                      }]
+                    }]
+                  }]
+                }]
+              }]
+            }]
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "expr",
+        "children": [{
+          "name": "macro_call",
+          "children": [{
+            "name": "expr",
+            "attributes": {
+              "operator": "."
+            },
+            "children": [{
+              "name": "expr",
+              "children": [{
+                "name": "id",
+                "attributes": {
+                  "symbol": "really"
+                }
+              }]
+            }, {
+              "name": "expr",
+              "attributes": {
+                "operator": "."
+              },
+              "children": [{
+                "name": "expr",
+                "children": [{
+                  "name": "id",
+                  "attributes": {
+                    "symbol": "really"
+                  }
+                }]
+              }, {
+                "name": "expr",
+                "attributes": {
+                  "operator": "."
+                },
+                "children": [{
+                  "name": "expr",
+                  "children": [{
+                    "name": "id",
+                    "attributes": {
+                      "symbol": "quite"
+                    }
+                  }]
+                }, {
+                  "name": "expr",
+                  "children": [{
+                    "name": "id",
+                    "attributes": {
+                      "symbol": "useless"
+                    }
+                  }]
+                }]
+              }]
+            }]
+          }, {
+            "name": "arg_list",
+            "children": [{
+              "name": "arg",
+              "children": [{
+                "name": "expr",
+                "children": [{
+                  "name": "literal",
+                  "attributes": {
+                    "type": "string",
+                    "value": "php"
+                  }
+                }]
+              }]
+            }]
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "expr",
+        "children": [{
+          "name": "macro_call",
+          "children": [{
+            "name": "expr",
+            "children": [{
+              "name": "id",
+              "attributes": {
+                "symbol": "wilma"
+              }
+            }]
+          }, {
+            "name": "arg_list",
+            "children": [{
+              "name": "arg",
+              "children": [{
+                "name": "expr",
+                "children": [{
+                  "name": "literal",
+                  "attributes": {
+                    "type": "number",
+                    "value": 1.0
+                  }
+                }]
+              }]
+            }, {
+              "name": "arg",
+              "children": [{
+                "name": "expr",
+                "children": [{
+                  "name": "literal",
+                  "attributes": {
+                    "type": "number",
+                    "value": 2.0
+                  }
+                }]
+              }]
+            }, {
+              "name": "arg",
+              "children": [{
+                "name": "expr",
+                "children": [{
+                  "name": "literal",
+                  "attributes": {
+                    "type": "number",
+                    "value": 3.0
+                  }
+                }]
+              }]
+            }]
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "macro_defn",
+        "children": [{
+          "name": "macro_decl",
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "empty_but_legal"
+            }
+          }]
+        }, {
+          "name": "statement_list"
+        }]
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "macro_defn",
+        "children": [{
+          "name": "macro_decl",
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "fairly.useless"
+            }
+          }]
+        }, {
+          "name": "statement_list",
+          "children": [{
+            "name": "statement",
+            "children": [{
+              "name": "echo",
+              "children": [{
+                "name": "expr",
+                "children": [{
+                  "name": "literal",
+                  "attributes": {
+                    "type": "string",
+                    "value": "useless"
+                  }
+                }]
+              }]
+            }]
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "macro_defn",
+        "children": [{
+          "name": "macro_decl",
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "really.really.quite.useless"
+            }
+          }, {
+            "name": "param_list",
+            "children": [{
+              "name": "param_decl",
+              "attributes": {
+                "name": "arg1"
+              }
+            }]
+          }]
+        }, {
+          "name": "statement_list",
+          "children": [{
+            "name": "statement",
+            "children": [{
+              "name": "echo",
+              "children": [{
+                "name": "expr",
+                "children": [{
+                  "name": "id",
+                  "attributes": {
+                    "symbol": "arg1"
+                  }
+                }]
+              }]
+            }]
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "macro_defn",
+        "children": [{
+          "name": "macro_decl",
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "multi_arguments"
+            }
+          }, {
+            "name": "param_list",
+            "children": [{
+              "name": "param_decl",
+              "attributes": {
+                "name": "arg1"
+              }
+            }, {
+              "name": "param_decl",
+              "attributes": {
+                "name": "arg2"
+              }
+            }, {
+              "name": "param_decl",
+              "attributes": {
+                "name": "arg3"
+              },
+              "children": [{
+                "name": "expr",
+                "children": [{
+                  "name": "literal",
+                  "attributes": {
+                    "type": "boolean",
+                    "value": false
+                  }
+                }]
+              }]
+            }, {
+              "name": "param_decl",
+              "attributes": {
+                "name": "arg4"
+              }
+            }]
+          }]
+        }, {
+          "name": "statement_list",
+          "children": [{
+            "name": "statement",
+            "children": [{
+              "name": "echo",
+              "children": [{
+                "name": "expr",
+                "attributes": {
+                  "operator": "+"
+                },
+                "children": [{
+                  "name": "expr",
+                  "children": [{
+                    "name": "id",
+                    "attributes": {
+                      "symbol": "arg1"
+                    }
+                  }]
+                }, {
+                  "name": "expr",
+                  "children": [{
+                    "name": "id",
+                    "attributes": {
+                      "symbol": "arg2"
+                    }
+                  }]
+                }]
+              }]
+            }]
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "macro_defn",
+        "children": [{
+          "name": "macro_decl",
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "core_base_library_relatedAssets"
+            }
+          }, {
+            "name": "param_list",
+            "children": [{
+              "name": "param_decl",
+              "attributes": {
+                "name": "types"
+              },
+              "children": [{
+                "name": "expr",
+                "children": [{
+                  "name": "literal",
+                  "attributes": {
+                    "type": "array",
+                    "value": "[..]"
+                  },
+                  "children": [{
+                    "name": "array_literal",
+                    "children": [{
+                      "name": "array_elems",
+                      "children": [{
+                        "name": "expr",
+                        "children": [{
+                          "name": "literal",
+                          "attributes": {
+                            "type": "string",
+                            "value": "article"
+                          }
+                        }]
+                      }, {
+                        "name": "expr",
+                        "children": [{
+                          "name": "literal",
+                          "attributes": {
+                            "type": "string",
+                            "value": "image"
+                          }
+                        }]
+                      }, {
+                        "name": "expr",
+                        "children": [{
+                          "name": "literal",
+                          "attributes": {
+                            "type": "string",
+                            "value": "pdf"
+                          }
+                        }]
+                      }, {
+                        "name": "expr",
+                        "children": [{
+                          "name": "literal",
+                          "attributes": {
+                            "type": "string",
+                            "value": "zip"
+                          }
+                        }]
+                      }, {
+                        "name": "expr",
+                        "children": [{
+                          "name": "literal",
+                          "attributes": {
+                            "type": "string",
+                            "value": "audio"
+                          }
+                        }]
+                      }, {
+                        "name": "expr",
+                        "children": [{
+                          "name": "literal",
+                          "attributes": {
+                            "type": "string",
+                            "value": "link"
+                          }
+                        }]
+                      }, {
+                        "name": "expr",
+                        "children": [{
+                          "name": "literal",
+                          "attributes": {
+                            "type": "string",
+                            "value": "flash"
+                          }
+                        }]
+                      }, {
+                        "name": "expr",
+                        "children": [{
+                          "name": "literal",
+                          "attributes": {
+                            "type": "string",
+                            "value": "html"
+                          }
+                        }]
+                      }, {
+                        "name": "expr",
+                        "children": [{
+                          "name": "literal",
+                          "attributes": {
+                            "type": "string",
+                            "value": "poll"
+                          }
+                        }]
+                      }, {
+                        "name": "expr",
+                        "children": [{
+                          "name": "literal",
+                          "attributes": {
+                            "type": "string",
+                            "value": "collection"
+                          }
+                        }]
+                      }, {
+                        "name": "expr",
+                        "children": [{
+                          "name": "literal",
+                          "attributes": {
+                            "type": "string",
+                            "value": "table"
+                          }
+                        }]
+                      }, {
+                        "name": "expr",
+                        "children": [{
+                          "name": "literal",
+                          "attributes": {
+                            "type": "string",
+                            "value": "video"
+                          }
+                        }]
+                      }, {
+                        "name": "expr",
+                        "children": [{
+                          "name": "literal",
+                          "attributes": {
+                            "type": "string",
+                            "value": "youtube"
+                          }
+                        }]
+                      }, {
+                        "name": "expr",
+                        "children": [{
+                          "name": "literal",
+                          "attributes": {
+                            "type": "string",
+                            "value": "vmix"
+                          }
+                        }]
+                      }, {
+                        "name": "expr",
+                        "children": [{
+                          "name": "literal",
+                          "attributes": {
+                            "type": "string",
+                            "value": "highlights"
+                          }
+                        }]
+                      }, {
+                        "name": "expr",
+                        "children": [{
+                          "name": "literal",
+                          "attributes": {
+                            "type": "string",
+                            "value": "quote"
+                          }
+                        }]
+                      }, {
+                        "name": "expr",
+                        "children": [{
+                          "name": "literal",
+                          "attributes": {
+                            "type": "string",
+                            "value": "refer"
+                          }
+                        }]
+                      }, {
+                        "name": "expr",
+                        "children": [{
+                          "name": "literal",
+                          "attributes": {
+                            "type": "string",
+                            "value": "update"
+                          }
+                        }]
+                      }, {
+                        "name": "expr",
+                        "children": [{
+                          "name": "literal",
+                          "attributes": {
+                            "type": "string",
+                            "value": "correction"
+                          }
+                        }]
+                      }, {
+                        "name": "expr",
+                        "children": [{
+                          "name": "literal",
+                          "attributes": {
+                            "type": "string",
+                            "value": "ad"
+                          }
+                        }]
+                      }, {
+                        "name": "expr",
+                        "children": [{
+                          "name": "literal",
+                          "attributes": {
+                            "type": "string",
+                            "value": "coupon"
+                          }
+                        }]
+                      }, {
+                        "name": "expr",
+                        "children": [{
+                          "name": "literal",
+                          "attributes": {
+                            "type": "string",
+                            "value": "pdfdisplayad"
+                          }
+                        }]
+                      }, {
+                        "name": "expr",
+                        "children": [{
+                          "name": "literal",
+                          "attributes": {
+                            "type": "string",
+                            "value": "realestate"
+                          }
+                        }]
+                      }, {
+                        "name": "expr",
+                        "children": [{
+                          "name": "literal",
+                          "attributes": {
+                            "type": "string",
+                            "value": "vehicle"
+                          }
+                        }]
+                      }, {
+                        "name": "expr",
+                        "children": [{
+                          "name": "literal",
+                          "attributes": {
+                            "type": "string",
+                            "value": "business"
+                          }
+                        }]
+                      }, {
+                        "name": "expr",
+                        "children": [{
+                          "name": "literal",
+                          "attributes": {
+                            "type": "string",
+                            "value": "event"
+                          }
+                        }]
+                      }]
+                    }]
+                  }]
+                }]
+              }]
+            }, {
+              "name": "param_decl",
+              "attributes": {
+                "name": "asset"
+              },
+              "children": [{
+                "name": "expr",
+                "attributes": {
+                  "operator": "."
+                },
+                "children": [{
+                  "name": "expr",
+                  "children": [{
+                    "name": "id",
+                    "attributes": {
+                      "symbol": "this"
+                    }
+                  }]
+                }, {
+                  "name": "expr",
+                  "children": [{
+                    "name": "id",
+                    "attributes": {
+                      "symbol": "asset"
+                    }
+                  }]
+                }]
+              }]
+            }]
+          }]
+        }, {
+          "name": "statement_list",
+          "children": [{
+            "name": "statement",
+            "children": [{
+              "name": "if_stmt",
+              "children": [{
+                "name": "expr",
+                "children": [{
+                  "name": "id",
+                  "attributes": {
+                    "symbol": "asset"
+                  }
+                }]
+              }, {
+                "name": "statement_list",
+                "children": [{
+                  "name": "statement",
+                  "children": [{
+                    "name": "echo",
+                    "children": [{
+                      "name": "expr",
+                      "children": [{
+                        "name": "literal",
+                        "attributes": {
+                          "type": "string",
+                          "value": "related"
+                        }
+                      }]
+                    }]
+                  }]
+                }]
+              }]
+            }]
+          }]
+        }]
+      }]
     }]
+  }]
 }
