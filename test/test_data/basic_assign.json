@@ -8,24 +8,24 @@
         "name": "echo",
         "children": [{
           "name": "expr",
+          "attributes": {
+            "operator": "+"
+          },
           "children": [{
-            "name": "id",
-            "attributes": {
-              "symbol": "a"
-            }
-          }, {
-            "name": "rexpr",
-            "attributes": {
-              "operator": "+"
-            },
+            "name": "expr",
             "children": [{
-              "name": "expr",
-              "children": [{
-                "name": "id",
-                "attributes": {
-                  "symbol": "b"
-                }
-              }]
+              "name": "id",
+              "attributes": {
+                "symbol": "a"
+              }
+            }]
+          }, {
+            "name": "expr",
+            "children": [{
+              "name": "id",
+              "attributes": {
+                "symbol": "b"
+              }
             }]
           }]
         }]
@@ -36,26 +36,26 @@
         "name": "echo",
         "children": [{
           "name": "expr",
+          "attributes": {
+            "operator": "-"
+          },
           "children": [{
-            "name": "literal",
-            "attributes": {
-              "type": "number",
-              "value": 5.0
-            }
-          }, {
-            "name": "rexpr",
-            "attributes": {
-              "operator": "-"
-            },
+            "name": "expr",
             "children": [{
-              "name": "expr",
-              "children": [{
-                "name": "literal",
-                "attributes": {
-                  "type": "number",
-                  "value": 7.0
-                }
-              }]
+              "name": "literal",
+              "attributes": {
+                "type": "number",
+                "value": 5.0
+              }
+            }]
+          }, {
+            "name": "expr",
+            "children": [{
+              "name": "literal",
+              "attributes": {
+                "type": "number",
+                "value": 7.0
+              }
             }]
           }]
         }]
@@ -66,25 +66,25 @@
         "name": "echo",
         "children": [{
           "name": "expr",
+          "attributes": {
+            "operator": "|"
+          },
           "children": [{
-            "name": "literal",
-            "attributes": {
-              "type": "string",
-              "value": "barney rubble"
-            }
-          }, {
-            "name": "rexpr",
-            "attributes": {
-              "operator": "|"
-            },
+            "name": "expr",
             "children": [{
-              "name": "expr",
-              "children": [{
-                "name": "id",
-                "attributes": {
-                  "symbol": "html"
-                }
-              }]
+              "name": "literal",
+              "attributes": {
+                "type": "string",
+                "value": "barney rubble"
+              }
+            }]
+          }, {
+            "name": "expr",
+            "children": [{
+              "name": "id",
+              "attributes": {
+                "symbol": "html"
+              }
             }]
           }]
         }]
@@ -93,15 +93,35 @@
       "name": "statement",
       "children": [{
         "name": "expr",
+        "attributes": {
+          "operator": "="
+        },
         "children": [{
-          "name": "id",
+          "name": "expr",
           "attributes": {
-            "symbol": "sally.isfine"
-          }
+            "operator": "."
+          },
+          "children": [{
+            "name": "expr",
+            "children": [{
+              "name": "id",
+              "attributes": {
+                "symbol": "sally"
+              }
+            }]
+          }, {
+            "name": "expr",
+            "children": [{
+              "name": "id",
+              "attributes": {
+                "symbol": "isfine"
+              }
+            }]
+          }]
         }, {
-          "name": "rexpr",
+          "name": "expr",
           "attributes": {
-            "operator": "="
+            "operator": "/"
           },
           "children": [{
             "name": "expr",
@@ -111,46 +131,14 @@
                 "type": "number",
                 "value": 12.0
               }
-            }, {
-              "name": "rexpr",
-              "attributes": {
-                "operator": "/"
-              },
-              "children": [{
-                "name": "expr",
-                "children": [{
-                  "name": "literal",
-                  "attributes": {
-                    "type": "number",
-                    "value": 6.0
-                  }
-                }]
-              }]
             }]
-          }]
-        }]
-      }]
-    }, {
-      "name": "statement",
-      "children": [{
-        "name": "expr",
-        "children": [{
-          "name": "id",
-          "attributes": {
-            "symbol": "sally.fineis"
-          }
-        }, {
-          "name": "rexpr",
-          "attributes": {
-            "operator": "="
-          },
-          "children": [{
+          }, {
             "name": "expr",
             "children": [{
               "name": "literal",
               "attributes": {
-                "type": "string",
-                "value": "bat"
+                "type": "number",
+                "value": 6.0
               }
             }]
           }]
@@ -160,15 +148,13 @@
       "name": "statement",
       "children": [{
         "name": "expr",
+        "attributes": {
+          "operator": "="
+        },
         "children": [{
-          "name": "id",
+          "name": "expr",
           "attributes": {
-            "symbol": "fred"
-          }
-        }, {
-          "name": "rexpr",
-          "attributes": {
-            "operator": "="
+            "operator": "."
           },
           "children": [{
             "name": "expr",
@@ -177,21 +163,24 @@
               "attributes": {
                 "symbol": "sally"
               }
-            }, {
-              "name": "rexpr",
-              "attributes": {
-                "operator": "is"
-              },
-              "children": [{
-                "name": "expr",
-                "children": [{
-                  "name": "id",
-                  "attributes": {
-                    "symbol": "fine"
-                  }
-                }]
-              }]
             }]
+          }, {
+            "name": "expr",
+            "children": [{
+              "name": "id",
+              "attributes": {
+                "symbol": "fineis"
+              }
+            }]
+          }]
+        }, {
+          "name": "expr",
+          "children": [{
+            "name": "literal",
+            "attributes": {
+              "type": "string",
+              "value": "bat"
+            }
           }]
         }]
       }]
@@ -199,23 +188,36 @@
       "name": "statement",
       "children": [{
         "name": "expr",
+        "attributes": {
+          "operator": "="
+        },
         "children": [{
-          "name": "id",
-          "attributes": {
-            "symbol": "fred.breakthis"
-          }
+          "name": "expr",
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "fred"
+            }
+          }]
         }, {
-          "name": "rexpr",
+          "name": "expr",
           "attributes": {
-            "operator": "="
+            "operator": "is"
           },
           "children": [{
             "name": "expr",
             "children": [{
-              "name": "literal",
+              "name": "id",
               "attributes": {
-                "value": 0.0,
-                "type": "number"
+                "symbol": "sally"
+              }
+            }]
+          }, {
+            "name": "expr",
+            "children": [{
+              "name": "id",
+              "attributes": {
+                "symbol": "fine"
               }
             }]
           }]
@@ -225,67 +227,13 @@
       "name": "statement",
       "children": [{
         "name": "expr",
+        "attributes": {
+          "operator": "="
+        },
         "children": [{
-          "name": "id",
+          "name": "expr",
           "attributes": {
-            "symbol": "fred.thisbreak"
-          }
-        }, {
-          "name": "rexpr",
-          "attributes": {
-            "operator": "="
-          },
-          "children": [{
-            "name": "expr",
-            "children": [{
-              "name": "literal",
-              "attributes": {
-                "value": 2.0,
-                "type": "number"
-              }
-            }]
-          }]
-        }]
-      }]
-    }, {
-      "name": "statement",
-      "children": [{
-        "name": "expr",
-        "children": [{
-          "name": "id",
-          "attributes": {
-            "symbol": "empty"
-          }
-        }, {
-          "name": "rexpr",
-          "attributes": {
-            "operator": "="
-          },
-          "children": [{
-            "name": "expr",
-            "children": [{
-              "name": "literal",
-              "attributes": {
-                "value": "",
-                "type": "string"
-              }
-            }]
-          }]
-        }]
-      }]
-    }, {
-      "name": "statement",
-      "children": [{
-        "name": "expr",
-        "children": [{
-          "name": "id",
-          "attributes": {
-            "symbol": "barney"
-          }
-        }, {
-          "name": "rexpr",
-          "attributes": {
-            "operator": "="
+            "operator": "."
           },
           "children": [{
             "name": "expr",
@@ -294,21 +242,129 @@
               "attributes": {
                 "symbol": "fred"
               }
-            }, {
-              "name": "rexpr",
+            }]
+          }, {
+            "name": "expr",
+            "children": [{
+              "name": "id",
               "attributes": {
-                "operator": "*"
-              },
-              "children": [{
-                "name": "expr",
-                "children": [{
-                  "name": "literal",
-                  "attributes": {
-                    "value": 3.0,
-                    "type": "number"
-                  }
-                }]
-              }]
+                "symbol": "breakthis"
+              }
+            }]
+          }]
+        }, {
+          "name": "expr",
+          "children": [{
+            "name": "literal",
+            "attributes": {
+              "type": "number",
+              "value": 0.0
+            }
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "expr",
+        "attributes": {
+          "operator": "="
+        },
+        "children": [{
+          "name": "expr",
+          "attributes": {
+            "operator": "."
+          },
+          "children": [{
+            "name": "expr",
+            "children": [{
+              "name": "id",
+              "attributes": {
+                "symbol": "fred"
+              }
+            }]
+          }, {
+            "name": "expr",
+            "children": [{
+              "name": "id",
+              "attributes": {
+                "symbol": "thisbreak"
+              }
+            }]
+          }]
+        }, {
+          "name": "expr",
+          "children": [{
+            "name": "literal",
+            "attributes": {
+              "type": "number",
+              "value": 2.0
+            }
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "expr",
+        "attributes": {
+          "operator": "="
+        },
+        "children": [{
+          "name": "expr",
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "empty"
+            }
+          }]
+        }, {
+          "name": "expr",
+          "children": [{
+            "name": "literal",
+            "attributes": {
+              "type": "string",
+              "value": ""
+            }
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "expr",
+        "attributes": {
+          "operator": "="
+        },
+        "children": [{
+          "name": "expr",
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "barney"
+            }
+          }]
+        }, {
+          "name": "expr",
+          "attributes": {
+            "operator": "*"
+          },
+          "children": [{
+            "name": "expr",
+            "children": [{
+              "name": "id",
+              "attributes": {
+                "symbol": "fred"
+              }
+            }]
+          }, {
+            "name": "expr",
+            "children": [{
+              "name": "literal",
+              "attributes": {
+                "type": "number",
+                "value": 3.0
+              }
             }]
           }]
         }]
@@ -325,38 +381,129 @@
       "name": "statement",
       "children": [{
         "name": "expr",
+        "attributes": {
+          "operator": "="
+        },
         "children": [{
-          "name": "id",
-          "attributes": {
-            "symbol": "abool"
-          }
+          "name": "expr",
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "abool"
+            }
+          }]
         }, {
-          "name": "rexpr",
+          "name": "expr",
           "attributes": {
-            "operator": "="
+            "operator": "=="
           },
           "children": [{
             "name": "expr",
             "children": [{
               "name": "literal",
               "attributes": {
-                "value": 3.0,
-                "type": "number"
+                "type": "number",
+                "value": 3.0
               }
-            }, {
-              "name": "rexpr",
+            }]
+          }, {
+            "name": "expr",
+            "children": [{
+              "name": "literal",
               "attributes": {
-                "operator": "=="
-              },
+                "type": "number",
+                "value": 4.0
+              }
+            }]
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "expr",
+        "attributes": {
+          "operator": "="
+        },
+        "children": [{
+          "name": "expr",
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "a"
+            }
+          }]
+        }, {
+          "name": "expr",
+          "children": [{
+            "name": "literal",
+            "attributes": {
+              "type": "number",
+              "value": 3.0
+            }
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "expr",
+        "attributes": {
+          "operator": "="
+        },
+        "children": [{
+          "name": "expr",
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "b"
+            }
+          }]
+        }, {
+          "name": "expr",
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "fred"
+            }
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "expr",
+        "attributes": {
+          "operator": "="
+        },
+        "children": [{
+          "name": "expr",
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "wilma"
+            }
+          }]
+        }, {
+          "name": "expr",
+          "children": [{
+            "name": "array_ref",
+            "children": [{
+              "name": "expr",
               "children": [{
-                "name": "expr",
-                "children": [{
-                  "name": "literal",
-                  "attributes": {
-                    "value": 4.0,
-                    "type": "number"
-                  }
-                }]
+                "name": "id",
+                "attributes": {
+                  "symbol": "e"
+                }
+              }]
+            }, {
+              "name": "expr",
+              "children": [{
+                "name": "literal",
+                "attributes": {
+                  "type": "number",
+                  "value": 12.0
+                }
               }]
             }]
           }]
@@ -366,23 +513,67 @@
       "name": "statement",
       "children": [{
         "name": "expr",
+        "attributes": {
+          "operator": "="
+        },
         "children": [{
-          "name": "id",
-          "attributes": {
-            "symbol": "a"
-          }
+          "name": "expr",
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "c"
+            }
+          }]
         }, {
-          "name": "rexpr",
+          "name": "expr",
           "attributes": {
-            "operator": "="
+            "operator": "*"
           },
           "children": [{
             "name": "expr",
+            "attributes": {
+              "operator": "*"
+            },
             "children": [{
-              "name": "literal",
+              "name": "expr",
+              "children": [{
+                "name": "id",
+                "attributes": {
+                  "symbol": "a"
+                }
+              }]
+            }, {
+              "name": "expr",
+              "children": [{
+                "name": "expr",
+                "attributes": {
+                  "operator": "+"
+                },
+                "children": [{
+                  "name": "expr",
+                  "children": [{
+                    "name": "id",
+                    "attributes": {
+                      "symbol": "a"
+                    }
+                  }]
+                }, {
+                  "name": "expr",
+                  "children": [{
+                    "name": "id",
+                    "attributes": {
+                      "symbol": "b"
+                    }
+                  }]
+                }]
+              }]
+            }]
+          }, {
+            "name": "expr",
+            "children": [{
+              "name": "id",
               "attributes": {
-                "value": 3.0,
-                "type": "number"
+                "symbol": "b"
               }
             }]
           }]
@@ -392,17 +583,183 @@
       "name": "statement",
       "children": [{
         "name": "expr",
+        "attributes": {
+          "operator": "="
+        },
         "children": [{
-          "name": "id",
-          "attributes": {
-            "symbol": "b"
-          }
+          "name": "expr",
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "d"
+            }
+          }]
         }, {
-          "name": "rexpr",
+          "name": "expr",
+          "attributes": {
+            "operator": "+"
+          },
+          "children": [{
+            "name": "expr",
+            "attributes": {
+              "operator": "*"
+            },
+            "children": [{
+              "name": "expr",
+              "children": [{
+                "name": "id",
+                "attributes": {
+                  "symbol": "a"
+                }
+              }]
+            }, {
+              "name": "expr",
+              "children": [{
+                "name": "id",
+                "attributes": {
+                  "symbol": "a"
+                }
+              }]
+            }]
+          }, {
+            "name": "expr",
+            "attributes": {
+              "operator": "*"
+            },
+            "children": [{
+              "name": "expr",
+              "children": [{
+                "name": "id",
+                "attributes": {
+                  "symbol": "b"
+                }
+              }]
+            }, {
+              "name": "expr",
+              "children": [{
+                "name": "id",
+                "attributes": {
+                  "symbol": "b"
+                }
+              }]
+            }]
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "expr",
+        "attributes": {
+          "operator": "="
+        },
+        "children": [{
+          "name": "expr",
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "e"
+            }
+          }]
+        }, {
+          "name": "expr",
+          "attributes": {
+            "operator": "-"
+          },
+          "children": [{
+            "name": "expr",
+            "attributes": {
+              "operator": "%"
+            },
+            "children": [{
+              "name": "expr",
+              "children": [{
+                "name": "id",
+                "attributes": {
+                  "symbol": "a"
+                }
+              }]
+            }, {
+              "name": "expr",
+              "children": [{
+                "name": "id",
+                "attributes": {
+                  "symbol": "b"
+                }
+              }]
+            }]
+          }, {
+            "name": "expr",
+            "attributes": {
+              "operator": "%"
+            },
+            "children": [{
+              "name": "expr",
+              "children": [{
+                "name": "id",
+                "attributes": {
+                  "symbol": "b"
+                }
+              }]
+            }, {
+              "name": "expr",
+              "children": [{
+                "name": "id",
+                "attributes": {
+                  "symbol": "c"
+                }
+              }]
+            }]
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "default_assignment",
+        "children": [{
+          "name": "expr",
           "attributes": {
             "operator": "="
           },
           "children": [{
+            "name": "expr",
+            "children": [{
+              "name": "id",
+              "attributes": {
+                "symbol": "a"
+              }
+            }]
+          }, {
+            "name": "expr",
+            "children": [{
+              "name": "literal",
+              "attributes": {
+                "type": "number",
+                "value": 3.0
+              }
+            }]
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "default_assignment",
+        "children": [{
+          "name": "expr",
+          "attributes": {
+            "operator": "="
+          },
+          "children": [{
+            "name": "expr",
+            "children": [{
+              "name": "id",
+              "attributes": {
+                "symbol": "b"
+              }
+            }]
+          }, {
             "name": "expr",
             "children": [{
               "name": "id",
@@ -417,13 +774,85 @@
       "name": "statement",
       "children": [{
         "name": "expr",
+        "attributes": {
+          "operator": "-="
+        },
         "children": [{
-          "name": "id",
-          "attributes": {
-            "symbol": "wilma"
-          }
+          "name": "expr",
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "c"
+            }
+          }]
         }, {
-          "name": "rexpr",
+          "name": "expr",
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "sally"
+            }
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "expr",
+        "attributes": {
+          "operator": "*="
+        },
+        "children": [{
+          "name": "expr",
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "d"
+            }
+          }]
+        }, {
+          "name": "expr",
+          "children": [{
+            "name": "literal",
+            "attributes": {
+              "type": "number",
+              "value": 7.0
+            }
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "expr",
+        "attributes": {
+          "operator": "/="
+        },
+        "children": [{
+          "name": "expr",
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "d"
+            }
+          }]
+        }, {
+          "name": "expr",
+          "children": [{
+            "name": "literal",
+            "attributes": {
+              "type": "number",
+              "value": 3.0
+            }
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "default_assignment",
+        "children": [{
+          "name": "expr",
           "attributes": {
             "operator": "="
           },
@@ -434,185 +863,36 @@
               "attributes": {
                 "symbol": "e"
               }
-            }, {
-              "name": "rexpr",
+            }]
+          }, {
+            "name": "expr",
+            "attributes": {
+              "operator": "-"
+            },
+            "children": [{
+              "name": "expr",
               "attributes": {
-                "operator": "["
+                "operator": "%"
               },
               "children": [{
                 "name": "expr",
                 "children": [{
-                  "name": "literal",
+                  "name": "id",
                   "attributes": {
-                    "value": 12.0,
-                    "type": "number"
+                    "symbol": "a"
+                  }
+                }]
+              }, {
+                "name": "expr",
+                "children": [{
+                  "name": "id",
+                  "attributes": {
+                    "symbol": "b"
                   }
                 }]
               }]
-            }]
-          }]
-        }]
-      }]
-    }, {
-      "name": "statement",
-      "children": [{
-        "name": "expr",
-        "children": [{
-          "name": "id",
-          "attributes": {
-            "symbol": "c"
-          }
-        }, {
-          "name": "rexpr",
-          "attributes": {
-            "operator": "="
-          },
-          "children": [{
-            "name": "expr",
-            "children": [{
-              "name": "id",
-              "attributes": {
-                "symbol": "a"
-              }
             }, {
-              "name": "rexpr",
-              "attributes": {
-                "operator": "*"
-              },
-              "children": [{
-                "name": "expr",
-                "attributes": {
-                  "operator": "("
-                },
-                "children": [{
-                  "name": "expr",
-                  "children": [{
-                    "name": "id",
-                    "attributes": {
-                      "symbol": "a"
-                    }
-                  }, {
-                    "name": "rexpr",
-                    "attributes": {
-                      "operator": "+"
-                    },
-                    "children": [{
-                      "name": "expr",
-                      "children": [{
-                        "name": "id",
-                        "attributes": {
-                          "symbol": "b"
-                        }
-                      }]
-                    }]
-                  }]
-                }, {
-                  "name": "rexpr",
-                  "attributes": {
-                    "operator": "*"
-                  },
-                  "children": [{
-                    "name": "expr",
-                    "children": [{
-                      "name": "id",
-                      "attributes": {
-                        "symbol": "b"
-                      }
-                    }]
-                  }]
-                }]
-              }]
-            }]
-          }]
-        }]
-      }]
-    },
-
-    {
-      "name": "statement",
-      "children": [{
-        "name": "expr",
-        "children": [{
-          "name": "id",
-          "attributes": {"symbol": "d"}
-        }, {
-          "name": "rexpr",
-          "attributes": {"operator": "=" },
-          "children": [
-            {
               "name": "expr",
-              "children": [
-                {
-                  "name": "id",
-                  "attributes": { "symbol": "a" }
-                }, {
-                  "name": "rexpr",
-                  "attributes": { "operator": "*" },
-                  "children": [
-                    {
-                      "name": "expr",
-                      "children": [
-                        {
-                          "name": "id",
-                          "attributes": { "symbol": "a" }
-                        }]
-                    }]
-                }]
-            }, {
-              "name": "rexpr",
-              "attributes": { "operator": "+" },
-              "children": [
-                {
-                  "name": "expr",
-                  "children": [
-                    {
-                      "name": "id",
-                      "attributes": { "symbol": "b" }
-                    }, {
-                      "name": "rexpr",
-                      "attributes": { "operator": "*" },
-                      "children": [
-                        {
-                          "name": "expr",
-                          "children": [
-                            {
-                              "name": "id",
-                              "attributes": { "symbol": "b" }
-                            }]
-                        }]
-                    }]
-                  }]
-                }]
-              }]
-            }]
-          }]
-        }]
-      }]
-    },
-
-     {
-      "name": "statement",
-      "children": [{
-        "name": "expr",
-        "children": [{
-          "name": "id",
-          "attributes": {
-            "symbol": "e"
-          }
-        }, {
-          "name": "rexpr",
-          "attributes": {
-            "operator": "="
-          },
-          "children": [{
-            "name": "expr",
-            "children": [{
-              "name": "id",
-              "attributes": {
-                "symbol": "a"
-              }
-            }, {
-              "name": "rexpr",
               "attributes": {
                 "operator": "%"
               },
@@ -623,522 +903,15 @@
                   "attributes": {
                     "symbol": "b"
                   }
-                }, {
-                  "name": "rexpr",
-                  "attributes": {
-                    "operator": "-"
-                  },
-                  "children": [{
-                    "name": "expr",
-                    "children": [{
-                      "name": "id",
-                      "attributes": {
-                        "symbol": "b"
-                      }
-                    }, {
-                      "name": "rexpr",
-                      "attributes": {
-                        "operator": "%"
-                      },
-                      "children": [{
-                        "name": "expr",
-                        "children": [{
-                          "name": "id",
-                          "attributes": {
-                            "symbol": "c"
-                          }
-                        }]
-                      }]
-                    }]
-                  }]
                 }]
-              }]
-            }]
-          }]
-        }]
-      }]
-    }, {
-      "name": "statement",
-      "children": [{
-        "name": "default_assignment",
-        "children": [{
-          "name": "expr",
-          "children": [{
-            "name": "id",
-            "attributes": {
-              "symbol": "a"
-            }
-          }, {
-            "name": "rexpr",
-            "attributes": {
-              "operator": "="
-            },
-            "children": [{
-              "name": "expr",
-              "children": [{
-                "name": "literal",
-                "attributes": {
-                  "value": 3.0,
-                  "type": "number"
-                }
-              }]
-            }]
-          }]
-        }]
-      }]
-    }, {
-      "name": "statement",
-      "children": [{
-        "name": "default_assignment",
-        "children": [{
-          "name": "expr",
-          "children": [{
-            "name": "id",
-            "attributes": {
-              "symbol": "b"
-            }
-          }, {
-            "name": "rexpr",
-            "attributes": {
-              "operator": "="
-            },
-            "children": [{
-              "name": "expr",
-              "children": [{
-                "name": "id",
-                "attributes": {
-                  "symbol": "fred"
-                }
-              }]
-            }]
-          }]
-        }]
-      }]
-    }, {
-      "name": "statement",
-      "children": [{
-        "name": "expr",
-        "children": [{
-          "name": "id",
-          "attributes": {
-            "symbol": "c"
-          }
-        }, {
-          "name": "rexpr",
-          "attributes": {
-            "operator": "-="
-          },
-          "children": [{
-            "name": "expr",
-            "children": [{
-              "name": "id",
-              "attributes": {
-                "symbol": "sally"
-              }
-            }]
-          }]
-        }]
-      }]
-    }, {
-      "name": "statement",
-      "children": [{
-        "name": "expr",
-        "children": [{
-          "name": "id",
-          "attributes": {
-            "symbol": "d"
-          }
-        }, {
-          "name": "rexpr",
-          "attributes": {
-            "operator": "*="
-          },
-          "children": [{
-            "name": "expr",
-            "children": [{
-              "name": "literal",
-              "attributes": {
-                "value": 7.0,
-                "type": "number"
-              }
-            }]
-          }]
-        }]
-      }]
-    }, {
-      "name": "statement",
-      "children": [{
-        "name": "expr",
-        "children": [{
-          "name": "id",
-          "attributes": {
-            "symbol": "d"
-          }
-        }, {
-          "name": "rexpr",
-          "attributes": {
-            "operator": "/="
-          },
-          "children": [{
-            "name": "expr",
-            "children": [{
-              "name": "literal",
-              "attributes": {
-                "value": 3.0,
-                "type": "number"
-              }
-            }]
-          }]
-        }]
-      }]
-    }, {
-      "name": "statement",
-      "children": [{
-        "name": "default_assignment",
-        "children": [{
-          "name": "expr",
-          "children": [{
-            "name": "id",
-            "attributes": {
-              "symbol": "e"
-            }
-          }, {
-            "name": "rexpr",
-            "attributes": {
-              "operator": "="
-            },
-            "children": [{
-              "name": "expr",
-              "children": [{
-                "name": "id",
-                "attributes": {
-                  "symbol": "a"
-                }
               }, {
-                "name": "rexpr",
-                "attributes": {
-                  "operator": "%"
-                },
+                "name": "expr",
                 "children": [{
-                  "name": "expr",
-                  "children": [{
-                    "name": "id",
-                    "attributes": {
-                      "symbol": "b"
-                    }
-                  }, {
-                    "name": "rexpr",
-                    "attributes": {
-                      "operator": "-"
-                    },
-                    "children": [{
-                      "name": "expr",
-                      "children": [{
-                        "name": "id",
-                        "attributes": {
-                          "symbol": "b"
-                        }
-                      }, {
-                        "name": "rexpr",
-                        "attributes": {
-                          "operator": "%"
-                        },
-                        "children": [{
-                          "name": "expr",
-                          "children": [{
-                            "name": "id",
-                            "attributes": {
-                              "symbol": "c"
-                            }
-                          }]
-                        }]
-                      }]
-                    }]
-                  }]
+                  "name": "id",
+                  "attributes": {
+                    "symbol": "c"
+                  }
                 }]
-              }]
-            }]
-          }]
-        }]
-      }]
-    }, {
-      "name": "statement",
-      "children": [{
-        "name": "expr",
-        "children": [{
-          "name": "id",
-          "attributes": {
-            "symbol": "array"
-          }
-        }, {
-          "name": "rexpr",
-          "attributes": {
-            "operator": "="
-          },
-          "children": [{
-            "name": "expr",
-            "children": [{
-              "name": "literal",
-              "attributes": {
-                "value": "",
-                "type": "array"
-              },
-              "children": [{
-                "name": "array_literal",
-                "children": [{
-                  "name": "array_elems",
-                  "children": [{
-                    "name": "expr",
-                    "children": [{
-                      "name": "literal",
-                      "attributes": {
-                        "value": 1.0,
-                        "type": "number"
-                      }
-                    }]
-                  }, {
-                    "name": "expr",
-                    "children": [{
-                      "name": "literal",
-                      "attributes": {
-                        "value": 2.0,
-                        "type": "number"
-                      }
-                    }]
-                  }, {
-                    "name": "expr",
-                    "children": [{
-                      "name": "literal",
-                      "attributes": {
-                        "value": "fred",
-                        "type": "string"
-                      }
-                    }]
-                  }, {
-                    "name": "expr",
-                    "children": [{
-                      "name": "literal",
-                      "attributes": {
-                        "value": 3.0,
-                        "type": "number"
-                      }
-                    }]
-                  }, {
-                    "name": "expr",
-                    "children": [{
-                      "name": "id",
-                      "attributes": {
-                        "symbol": "wilma"
-                      }
-                    }, {
-                      "name": "rexpr",
-                      "attributes": {
-                        "operator": "("
-                      },
-                      "children": [{
-                        "name": "arg_list",
-                        "children": [{
-                          "name": "arg",
-                          "children": [{
-                            "name": "expr",
-                            "children": [{
-                              "name": "literal",
-                              "attributes": {
-                                "value": 7.0,
-                                "type": "number"
-                              }
-                            }]
-                          }]
-                        }]
-                      }, {
-                        "name": "rexpr",
-                        "attributes": {
-                          "operator": "|"
-                        },
-                        "children": [{
-                          "name": "expr",
-                          "children": [{
-                            "name": "id",
-                            "attributes": {
-                              "symbol": "fred"
-                            }
-                          }]
-                        }]
-                      }]
-                    }]
-                  }]
-                }]
-              }]
-            }]
-          }]
-        }]
-      }]
-    }, {
-      "name": "statement",
-      "children": [{
-        "name": "expr",
-        "children": [{
-          "name": "id",
-          "attributes": {
-            "symbol": "obj"
-          }
-        }, {
-          "name": "rexpr",
-          "attributes": {
-            "operator": "="
-          },
-          "children": [{
-            "name": "expr",
-            "children": [{
-              "name": "literal",
-              "attributes": {
-                "value": "",
-                "type": "array"
-              },
-              "children": [{
-                "name": "array_literal",
-                "children": [{
-                  "name": "key_value_elems",
-                  "children": [{
-                    "name": "key_value",
-                    "children": [{
-                      "name": "expr",
-                      "children": [{
-                        "name": "literal",
-                        "attributes": {
-                          "value": "one",
-                          "type": "string"
-                        }
-                      }]
-                    }, {
-                      "name": "expr",
-                      "children": [{
-                        "name": "literal",
-                        "attributes": {
-                          "value": 2.0,
-                          "type": "number"
-                        }
-                      }]
-                    }]
-                  }, {
-                    "name": "key_value",
-                    "children": [{
-                      "name": "expr",
-                      "children": [{
-                        "name": "literal",
-                        "attributes": {
-                          "value": "two",
-                          "type": "string"
-                        }
-                      }]
-                    }, {
-                      "name": "expr",
-                      "children": [{
-                        "name": "literal",
-                        "attributes": {
-                          "value": 3.0,
-                          "type": "number"
-                        }
-                      }]
-                    }]
-                  }]
-                }]
-              }]
-            }]
-          }]
-        }]
-      }]
-    }, {
-      "name": "statement",
-      "children": [{
-        "name": "expr",
-        "children": [{
-          "name": "id",
-          "attributes": {
-            "symbol": "obj.one"
-          }
-        }, {
-          "name": "rexpr",
-          "attributes": {
-            "operator": "="
-          },
-          "children": [{
-            "name": "expr",
-            "children": [{
-              "name": "literal",
-              "attributes": {
-                "value": 3.0,
-                "type": "number"
-              }
-            }]
-          }]
-        }]
-      }]
-    }, {
-      "name": "statement",
-      "children": [{
-        "name": "expr",
-        "children": [{
-          "name": "id",
-          "attributes": {
-            "symbol": "obj"
-          }
-        }, {
-          "name": "rexpr",
-          "attributes": {
-            "operator": "["
-          },
-          "children": [{
-            "name": "expr",
-            "children": [{
-              "name": "literal",
-              "attributes": {
-                "value": "two",
-                "type": "string"
-              }
-            }]
-          }, {
-            "name": "rexpr",
-            "attributes": {
-              "operator": "="
-            },
-            "children": [{
-              "name": "expr",
-              "children": [{
-                "name": "literal",
-                "attributes": {
-                  "value": 7.0,
-                  "type": "number"
-                }
-              }]
-            }]
-          }]
-        }]
-      }]
-    }, {
-      "name": "statement",
-      "children": [{
-        "name": "expr",
-        "children": [{
-          "name": "id",
-          "attributes": {
-            "symbol": "n"
-          }
-        }, {
-          "name": "rexpr",
-          "attributes": {
-            "operator": "="
-          },
-          "children": [{
-            "name": "expr",
-            "children": [{
-              "name": "literal",
-              "attributes": {
-                "value": "",
-                "type": "array"
-              },
-              "children": [{
-                "name": "array_literal"
               }]
             }]
           }]
@@ -1149,77 +922,374 @@
       "children": [{
         "name": "expr",
         "attributes": {
-          "operator": "("
+          "operator": "="
         },
         "children": [{
           "name": "expr",
           "children": [{
             "name": "id",
             "attributes": {
-              "symbol": "a"
+              "symbol": "array"
             }
-          }, {
-            "name": "rexpr",
+          }]
+        }, {
+          "name": "expr",
+          "children": [{
+            "name": "literal",
             "attributes": {
-              "operator": "*"
+              "type": "array",
+              "value": "[..]"
             },
+            "children": [{
+              "name": "array_literal",
+              "children": [{
+                "name": "array_elems",
+                "children": [{
+                  "name": "expr",
+                  "children": [{
+                    "name": "literal",
+                    "attributes": {
+                      "type": "number",
+                      "value": 1.0
+                    }
+                  }]
+                }, {
+                  "name": "expr",
+                  "children": [{
+                    "name": "literal",
+                    "attributes": {
+                      "type": "number",
+                      "value": 2.0
+                    }
+                  }]
+                }, {
+                  "name": "expr",
+                  "children": [{
+                    "name": "literal",
+                    "attributes": {
+                      "type": "string",
+                      "value": "fred"
+                    }
+                  }]
+                }, {
+                  "name": "expr",
+                  "children": [{
+                    "name": "literal",
+                    "attributes": {
+                      "type": "number",
+                      "value": 3.0
+                    }
+                  }]
+                }, {
+                  "name": "expr",
+                  "attributes": {
+                    "operator": "|"
+                  },
+                  "children": [{
+                    "name": "expr",
+                    "children": [{
+                      "name": "macro_call",
+                      "children": [{
+                        "name": "expr",
+                        "children": [{
+                          "name": "id",
+                          "attributes": {
+                            "symbol": "wilma"
+                          }
+                        }]
+                      }, {
+                        "name": "arg_list",
+                        "children": [{
+                          "name": "arg",
+                          "children": [{
+                            "name": "expr",
+                            "children": [{
+                              "name": "literal",
+                              "attributes": {
+                                "type": "number",
+                                "value": 7.0
+                              }
+                            }]
+                          }]
+                        }]
+                      }]
+                    }]
+                  }, {
+                    "name": "expr",
+                    "children": [{
+                      "name": "id",
+                      "attributes": {
+                        "symbol": "fred"
+                      }
+                    }]
+                  }]
+                }]
+              }]
+            }]
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "expr",
+        "attributes": {
+          "operator": "="
+        },
+        "children": [{
+          "name": "expr",
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "obj"
+            }
+          }]
+        }, {
+          "name": "expr",
+          "children": [{
+            "name": "literal",
+            "attributes": {
+              "type": "array",
+              "value": "[..]"
+            },
+            "children": [{
+              "name": "array_literal",
+              "children": [{
+                "name": "array_elems",
+                "children": [{
+                  "name": "expr",
+                  "attributes": {
+                    "operator": ":"
+                  },
+                  "children": [{
+                    "name": "expr",
+                    "children": [{
+                      "name": "literal",
+                      "attributes": {
+                        "type": "string",
+                        "value": "one"
+                      }
+                    }]
+                  }, {
+                    "name": "expr",
+                    "children": [{
+                      "name": "literal",
+                      "attributes": {
+                        "type": "number",
+                        "value": 2.0
+                      }
+                    }]
+                  }]
+                }, {
+                  "name": "expr",
+                  "attributes": {
+                    "operator": ":"
+                  },
+                  "children": [{
+                    "name": "expr",
+                    "children": [{
+                      "name": "literal",
+                      "attributes": {
+                        "type": "string",
+                        "value": "two"
+                      }
+                    }]
+                  }, {
+                    "name": "expr",
+                    "children": [{
+                      "name": "literal",
+                      "attributes": {
+                        "type": "number",
+                        "value": 3.0
+                      }
+                    }]
+                  }]
+                }]
+              }]
+            }]
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "expr",
+        "attributes": {
+          "operator": "="
+        },
+        "children": [{
+          "name": "expr",
+          "attributes": {
+            "operator": "."
+          },
+          "children": [{
+            "name": "expr",
+            "children": [{
+              "name": "id",
+              "attributes": {
+                "symbol": "obj"
+              }
+            }]
+          }, {
+            "name": "expr",
+            "children": [{
+              "name": "id",
+              "attributes": {
+                "symbol": "one"
+              }
+            }]
+          }]
+        }, {
+          "name": "expr",
+          "children": [{
+            "name": "literal",
+            "attributes": {
+              "type": "number",
+              "value": 3.0
+            }
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "expr",
+        "attributes": {
+          "operator": "="
+        },
+        "children": [{
+          "name": "expr",
+          "children": [{
+            "name": "array_ref",
             "children": [{
               "name": "expr",
               "children": [{
                 "name": "id",
                 "attributes": {
-                  "symbol": "a"
+                  "symbol": "obj"
+                }
+              }]
+            }, {
+              "name": "expr",
+              "children": [{
+                "name": "literal",
+                "attributes": {
+                  "type": "string",
+                  "value": "two"
                 }
               }]
             }]
           }]
         }, {
-          "name": "rexpr",
+          "name": "expr",
+          "children": [{
+            "name": "literal",
+            "attributes": {
+              "type": "number",
+              "value": 7.0
+            }
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "expr",
+        "attributes": {
+          "operator": "="
+        },
+        "children": [{
+          "name": "expr",
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "n"
+            }
+          }]
+        }, {
+          "name": "expr",
+          "children": [{
+            "name": "literal",
+            "attributes": {
+              "type": "array",
+              "value": "[..]"
+            },
+            "children": [{
+              "name": "array_literal"
+            }]
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "expr",
+        "attributes": {
+          "operator": "="
+        },
+        "children": [{
+          "name": "expr",
           "attributes": {
             "operator": "+"
           },
           "children": [{
             "name": "expr",
-            "attributes": {
-              "operator": "("
-            },
             "children": [{
               "name": "expr",
-              "children": [{
-                "name": "id",
-                "attributes": {
-                  "symbol": "b"
-                }
-              }, {
-                "name": "rexpr",
-                "attributes": {
-                  "operator": "*"
-                },
-                "children": [{
-                  "name": "expr",
-                  "children": [{
-                    "name": "id",
-                    "attributes": {
-                      "symbol": "b"
-                    }
-                  }]
-                }]
-              }]
-            }, {
-              "name": "rexpr",
               "attributes": {
-                "operator": "="
+                "operator": "*"
               },
               "children": [{
                 "name": "expr",
                 "children": [{
                   "name": "id",
                   "attributes": {
-                    "symbol": "c"
+                    "symbol": "a"
+                  }
+                }]
+              }, {
+                "name": "expr",
+                "children": [{
+                  "name": "id",
+                  "attributes": {
+                    "symbol": "a"
                   }
                 }]
               }]
             }]
+          }, {
+            "name": "expr",
+            "children": [{
+              "name": "expr",
+              "attributes": {
+                "operator": "*"
+              },
+              "children": [{
+                "name": "expr",
+                "children": [{
+                  "name": "id",
+                  "attributes": {
+                    "symbol": "b"
+                  }
+                }]
+              }, {
+                "name": "expr",
+                "children": [{
+                  "name": "id",
+                  "attributes": {
+                    "symbol": "b"
+                  }
+                }]
+              }]
+            }]
+          }]
+        }, {
+          "name": "expr",
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "c"
+            }
           }]
         }]
       }]
