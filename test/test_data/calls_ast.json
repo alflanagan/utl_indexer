@@ -1,23 +1,19 @@
 {
   "name": "statement_list",
   "children": [{
-    "name": "operator",
-    "attributes": {
-      "symbol": "("
-    },
+    "name": "macro_call",
     "children": [{
       "name": "id",
       "attributes": {
         "symbol": "fred"
       }
+    }, {
+      "name": "arg_list"
     }]
   }, {
     "name": "call",
     "children": [{
-      "name": "operator",
-      "attributes": {
-        "symbol": "("
-      },
+      "name": "macro_call",
       "children": [{
         "name": "id",
         "attributes": {
@@ -37,10 +33,7 @@
       }]
     }]
   }, {
-    "name": "operator",
-    "attributes": {
-      "symbol": "("
-    },
+    "name": "macro_call",
     "children": [{
       "name": "id",
       "attributes": {
@@ -59,10 +52,66 @@
       }]
     }]
   }, {
-    "name": "operator",
-    "attributes": {
-      "symbol": "("
-    },
+    "name": "macro_call",
+    "children": [{
+      "name": "id",
+      "attributes": {
+        "symbol": "barney"
+      }
+    }, {
+      "name": "arg_list",
+      "children": [{
+        "name": "arg",
+        "children": [{
+          "name": "literal",
+          "attributes": {
+            "value": 1.0
+          }
+        }]
+      }, {
+        "name": "arg",
+        "children": [{
+          "name": "literal",
+          "attributes": {
+            "value": 2.0
+          }
+        }]
+      }, {
+        "name": "arg",
+        "children": [{
+          "name": "literal",
+          "attributes": {
+            "value": 3.0
+          }
+        }]
+      }, {
+        "name": "arg",
+        "children": [{
+          "name": "literal",
+          "attributes": {
+            "value": 4.0
+          }
+        }]
+      }, {
+        "name": "arg",
+        "children": [{
+          "name": "literal",
+          "attributes": {
+            "value": 5.0
+          }
+        }]
+      }, {
+        "name": "arg",
+        "children": [{
+          "name": "literal",
+          "attributes": {
+            "value": 6.0
+          }
+        }]
+      }]
+    }]
+  }, {
+    "name": "macro_call",
     "children": [{
       "name": "id",
       "attributes": {
@@ -81,10 +130,7 @@
       }]
     }]
   }, {
-    "name": "operator",
-    "attributes": {
-      "symbol": "("
-    },
+    "name": "macro_call",
     "children": [{
       "name": "id",
       "attributes": {
@@ -116,10 +162,7 @@
   }, {
     "name": "call",
     "children": [{
-      "name": "operator",
-      "attributes": {
-        "symbol": "("
-      },
+      "name": "macro_call",
       "children": [{
         "name": "id",
         "attributes": {
@@ -141,10 +184,7 @@
   }, {
     "name": "call",
     "children": [{
-      "name": "operator",
-      "attributes": {
-        "symbol": "("
-      },
+      "name": "macro_call",
       "children": [{
         "name": "id",
         "attributes": {
@@ -177,50 +217,44 @@
   }, {
     "name": "if",
     "children": [{
-      "name": "operator",
+      "name": "expr",
       "attributes": {
-        "symbol": "("
+        "operator": "."
       },
       "children": [{
-        "name": "id",
-        "attributes": {
-          "symbol": "cms.url"
-        }
-      }, {
-        "name": "arg_list",
-        "children": [{
-          "name": "arg",
-          "attributes": {
-            "keyword": "app"
-          },
-          "children": [{
-            "name": "literal",
-            "attributes": {
-              "value": "user"
-            }
-          }]
-        }]
-      }, {
-        "name": "rexpr",
-        "attributes": {
-          "symbol": "."
-        },
+        "name": "macro_call",
         "children": [{
           "name": "id",
           "attributes": {
-            "symbol": "path"
+            "symbol": "cms.url"
           }
+        }, {
+          "name": "arg_list",
+          "children": [{
+            "name": "arg",
+            "attributes": {
+              "keyword": "app"
+            },
+            "children": [{
+              "name": "literal",
+              "attributes": {
+                "value": "user"
+              }
+            }]
+          }]
         }]
+      }, {
+        "name": "id",
+        "attributes": {
+          "symbol": "path"
+        }
       }]
     }, {
       "name": "statement_list",
       "children": [{
         "name": "echo",
         "children": [{
-          "name": "operator",
-          "attributes": {
-            "symbol": "("
-          },
+          "name": "macro_call",
           "children": [{
             "name": "id",
             "attributes": {
@@ -243,11 +277,15 @@
           }]
         }]
       }]
+    }, {
+      "name": "elseif_stmts"
+    }, {
+      "name": "else"
     }]
   }, {
-    "name": "operator",
+    "name": "expr",
     "attributes": {
-      "symbol": "="
+      "operator": "="
     },
     "children": [{
       "name": "id",
@@ -255,24 +293,18 @@
         "symbol": "child_image"
       }
     }, {
-      "name": "operator",
-      "attributes": {
-        "symbol": "["
-      },
+      "name": "array_ref",
       "children": [{
-        "name": "operator",
-        "attributes": {
-          "symbol": "("
-        },
+        "name": "macro_call",
         "children": [{
           "name": "id",
           "attributes": {
             "symbol": "asset.items"
           }
         }, {
-          "name": "arg-list",
+          "name": "arg_list",
           "children": [{
-            "name": "keyword-arg",
+            "name": "arg",
             "attributes": {
               "keyword": "type"
             },

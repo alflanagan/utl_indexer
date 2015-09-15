@@ -116,7 +116,7 @@ class UTLParseHandlerAST(UTLParseHandler):
     def elseif_stmts(self, elseif_stmt, elseif_stmts=None):
         assert elseif_stmt is not None
         if elseif_stmts is not None:
-            elseif_stmts.add_child(elseif_stmt)
+            elseif_stmts.add_first_child(elseif_stmt)
         else:
             elseif_stmts = ASTNode('elseif_stmts', False, {}, [elseif_stmt])
         return elseif_stmts
