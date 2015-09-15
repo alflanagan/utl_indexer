@@ -32,47 +32,50 @@ class UTLParseHandlerAST(UTLParseHandler):
     def utldoc(self, statement_list):
         return statement_list
 
-    def statement_list(self, statement, statement_list=None):
+    def statement_list(self, statement=None, statement_list=None):
         if statement_list is None:
-            return ASTNode('statement_list', False, {}, [statement] if statement else [])
-        else:
-            assert statement_list.symbol == 'statement_list'
-            if statement:
-                statement_list.add_first_child(statement)
-            return statement_list
+            if statement is None:
+                return None
+            return ASTNode('statement_list', False, {}, [statement])
+        assert statement_list.symbol == 'statement_list'
+        if statement:
+            statement_list.add_first_child(statement)
+        return statement_list
 
     def statement(self, statement):
+        assert statement is not None
         if isinstance(statement, str):
-            if statement in UTLLexer.reserved:  # is a keyword
+            if statement in UTLLexer.reserved:  # is a keyword - break, continue, exit, etc.
                 return ASTNode(statement, True, {}, [])
             else:
                 return ASTNode('document', True, {'text': statement}, [])
-        if statement:  # ignore null statements
-            assert isinstance(statement, ASTNode)
-            return statement
+        assert isinstance(statement, ASTNode)
+        return statement
 
     # -------------------------------------------------------------------------------------------
     # regular productions
     # -------------------------------------------------------------------------------------------
     def abbrev_if_stmt(self, expr, statement):
+        assert expr is not None
+        # make statement into statement_list to match regular if
         statement_list = ASTNode('statement_list', False, {}, [statement])
         return ASTNode('if', False, {}, [expr, statement_list])
 
     def arg(self, expr, name=None):
-        if name:
-            return ASTNode('arg', False, {'keyword': name}, [expr])
-        else:
-            return ASTNode('arg', False, {}, [expr])
+        assert expr is not None
+        return ASTNode('arg', False, {'keyword': name} if name is not None else {}, [expr])
 
     def arg_list(self, arg, arg_list=None):
-        if not arg_list:
-            return ASTNode('arg_list', True, {}, [arg] if arg else [])
+        assert arg is not None
+        if arg_list is None:
+            return ASTNode('arg_list', True, {}, [arg])
         else:
             arg_list.add_first_child(arg)
             return arg_list
 
     def array_elems(self, expr, array_elems=None):
         """Elements for a simple array (not key/value pairs)."""
+        assert expr is not None
         if array_elems is None:
             return ASTNode('array_elems', False, {}, [expr])
         else:
@@ -83,7 +86,9 @@ class UTLParseHandlerAST(UTLParseHandler):
         return ASTNode('array_literal', False, {}, [elements] if elements else [])
 
     def array_ref(self, variable, index):
-        pass
+        assert variable is not None
+        assert index is not None
+        return ASTNode('array_ref', False, {}, [variable, index])
 
     def as_clause(self, var1, var2=None):
         # We handle target variables as attributes of for node. So, we just need to return the
@@ -97,58 +102,59 @@ class UTLParseHandlerAST(UTLParseHandler):
         return ASTNode('default', False, {}, [assignment])
 
     def dotted_id(self, this_id, id_suffix=None):
-        if id_suffix:
+        if id_suffix is not None:
             id_suffix.attributes['symbol'] = this_id + '.' + id_suffix.attributes['symbol']
             return id_suffix
         return ASTNode('id', True, {'symbol': this_id}, [])
 
     def echo_stmt(self, expr):
-        return ASTNode('echo', False, {}, [expr] if expr else [])
+        return ASTNode('echo', False, {}, [expr] if expr is not None else [])
 
     def else_stmt(self, statement_list):
-        return ASTNode('else', False, {}, [statement_list])
+        return ASTNode('else', False, {}, [statement_list] if statement_list is not None else [])
 
     def elseif_stmts(self, elseif_stmt, elseif_stmts=None):
-        if elseif_stmts:
+        assert elseif_stmt is not None
+        if elseif_stmts is not None:
             elseif_stmts.add_child(elseif_stmt)
         else:
             elseif_stmts = ASTNode('elseif_stmts', False, {}, [elseif_stmt])
         return elseif_stmts
 
     def elseif_stmt(self, expr, statement_list):
+        assert expr is not None
+        if statement_list is None:
+            statement_list = ASTNode('statement_list', True, {}, [])
         return ASTNode('elseif', False, {}, [expr, statement_list])
 
-    def expr(self, first, second, third):
+    def expr(self, first, second=None, third=None):
+        assert first is not None
+        # first possible values:
+        #    NOT|EXCLAMATION|PLUS|MINUS|ID|literal|array_ref|macro_call|paren_expr|expr
+        if isinstance(first, str):
+            if second is not None:
+                if first.lower() in ('not', '!', '-', '+', ):
+                    return ASTNode('expr', False, {'operator': first.lower()}, [second])
+                else:
+                    raise UTLParseError("Unrecognized operator: '{}'".format(first))
+            else:
+                return ASTNode("id", True, {"symbol": first}, [])
+        elif second is None:
+            return first
 
-        if isinstance(first, str) and first.lower() in ('not', '!', '-', '+', ):
-            return ASTNode('unary-op', False, {'operator': first.lower()}, [second])
+        # special case: reduce dotted ID expressions
+        if second == '.':
+            if first.symbol == 'id' and third.symbol == 'id':
+                parts = [first.attributes["symbol"], third.attributes["symbol"]]
+                return ASTNode("id", True, {"symbol": ".".join(parts)}, [])
 
-        # LPAREN expr RPAREN rexpr
-        if first == '(':
-            # here, LPAREN is NOT a macro call
-            # and we don't need the () in the AST
-            if not third:
-                return second
-            # merge the nodes under rexpr operator
-            return ASTNode("operator", False, {"symbol": third.attributes["symbol"]},
-                           [second] + third.children)
-
-        # literal rexpr | dotted_id rexpr
-        if first.symbol in ['literal', 'id']:
-            if not second:
-                return first
-            if second.symbol in ("(", "[", ):
-                return ASTNode("operator", {"symbol": third.attributes["symbol"]},
-                               [ASTNode("operator", {"symbol": second.symbol},
-                                        [first] + second.children)] + third.children)
-            # start is LHS, expr1 child is RHS, merge under rexpr operator
-            assert third is None
-            return ASTNode("operator", False, {"symbol": second.attributes["symbol"]},
-                           [first] + second.children)
-        # uh, oops
-        raise UTLParseError("expr handler got unexpected operator: {}".format(first))
+        # if we got this far, it's a binary op
+        assert third is not None
+        assert isinstance(second, str)
+        return ASTNode('expr', False, {'operator': second.lower()}, [first, third])
 
     def for_stmt(self, expr, as_clause=None, statement_list=None):
+        assert expr is not None
         attrs = {}
         if as_clause is not None:
             attrs["name1"] = as_clause[0]
@@ -158,6 +164,8 @@ class UTLParseHandlerAST(UTLParseHandler):
                        [expr, statement_list] if statement_list else [expr])
 
     def if_stmt(self, expr, statement_list=None, elseif_stmts=None, else_stmt=None):
+        assert expr is not None
+        # so 'if' node always looks same, create empty nodes for missing ones
         if statement_list is None:
             statement_list = ASTNode("statement_list", True, {}, [])
         if elseif_stmts is None:
@@ -173,10 +181,10 @@ class UTLParseHandlerAST(UTLParseHandler):
     def literal(self, literal):
         return ASTNode("literal", True, {"value": literal}, [])
 
-    def macro_call(self, macro_epxr, arg_list=None):
+    def macro_call(self, macro_expr, arg_list=None):
         if arg_list is None:
             arg_list = ASTNode("arg_list", True, {}, [])
-        return ASTNode("macro_call", False, {}, [arg_list])
+        return ASTNode("macro_call", False, {}, [macro_expr, arg_list])
 
     def macro_decl(self, macro_name, param_list=None):
         if isinstance(macro_name, ASTNode):
