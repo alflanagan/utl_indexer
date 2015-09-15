@@ -125,10 +125,11 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
     def p_statement_list(self, p):
         ''' statement_list : statement
                            | statement statement_list'''
-        for handler in self.handlers:
-            value = handler.statement_list(p[1], self._(p, 2))
-            if p[0] is None:
-                p[0] = value
+        if p[1] is not None or self._(p, 2) is not None:
+            for handler in self.handlers:
+                value = handler.statement_list(p[1], self._(p, 2))
+                if p[0] is None:
+                    p[0] = value
 
     def p_statement(self, p):
         '''statement : eostmt

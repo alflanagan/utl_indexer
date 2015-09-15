@@ -76,7 +76,7 @@ class UTLParseHandler(object):
         '''The top-level node for a UTL document.'''
         return None
 
-    def statement_list(self, statement, statement_list=None):
+    def statement_list(self, statement=None, statement_list=None):
         '''A statement_list production. `statement_list`, if not :py:attr:`None`, is the
         statement list seen so far; `statement` is the result of the current statement parse.
 
@@ -199,7 +199,7 @@ class UTLParseHandler(object):
         """End statement marker. Unlikely to be useful, but if you need it, it's here."""
         return None
 
-    def expr(self, first, second, third):
+    def expr(self, first, second=None, third=None):
         """An expression production.
         first is: not|!|expr|literal|ID|LBRACKET|LPAREN|array_ref
         second is: expr|PLUS|MINUS|TIMES|DIV|MODULUS|FILTER|DOUBLEBAR|RANGE|NEQ|LTE|OR|LT|EQ|IS|
