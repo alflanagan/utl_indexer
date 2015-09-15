@@ -30,9 +30,9 @@ class UTLParseHandler(object):
         one wants to continue processing and report all syntax errors
         encountered.
     """
-    #-------------------------------------------------------------------------------------------
+    # -------------------------------------------------------------------------------------------
     # admin stuff
-    #-------------------------------------------------------------------------------------------
+    # -------------------------------------------------------------------------------------------
     def __init__(self, exception_on_error=False, *args, **kwargs):
         """Exists to provide an end point for super() calls."""
         super().__init__(*args, **kwargs)
@@ -69,9 +69,9 @@ class UTLParseHandler(object):
                 sys.stderr.write("Syntax error in input line {}, column {} after '{}'!\n"
                                  "".format(p.lineno, lineoffset, p.value))
 
-    #-------------------------------------------------------------------------------------------
+    # -------------------------------------------------------------------------------------------
     # top-level productions
-    #-------------------------------------------------------------------------------------------
+    # -------------------------------------------------------------------------------------------
     def utldoc(self, statement_list):
         '''The top-level node for a UTL document.'''
         return None
@@ -93,9 +93,9 @@ class UTLParseHandler(object):
         """
         return None
 
-    #-------------------------------------------------------------------------------------------
+    # -------------------------------------------------------------------------------------------
     # regular productions
-    #-------------------------------------------------------------------------------------------
+    # -------------------------------------------------------------------------------------------
     def abbrev_if_stmt(self, expr, statement):
         """A shortcut if statement, which executes the single statement `statement` if `expr`
         evaluates as true.
@@ -217,7 +217,7 @@ class UTLParseHandler(object):
         """
         return None
 
-    def if_stmt(self, expr, statement_list, elseif_stmts=None, else_stmt=None):
+    def if_stmt(self, expr, statement_list=None, elseif_stmts=None, else_stmt=None):
         """An if statement.
 
         :param expr: the test expression. `statement_list` is executed only if this resolves to
@@ -248,7 +248,8 @@ class UTLParseHandler(object):
     def macro_call(self, macro_expr, arg_list=None):
         """A macro procedure call.
 
-        :param ASTNode macro_expr: An expression, either an ID with the macro name or some expression that resolves to a macro reference.
+        :param ASTNode macro_expr: An expression, either an ID with the macro name or some
+            expression that resolves to a macro reference.
 
         :param ASTNode arg_list: The list of arguments, if any.
 

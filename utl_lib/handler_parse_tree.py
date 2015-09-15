@@ -2,7 +2,7 @@
 """A parse handler to construct a parse tree from a UTL document."""
 
 from utl_lib.ast_node import ASTNode
-from utl_lib.utl_parse_handler import UTLParseHandler, UTLParseError
+from utl_lib.utl_parse_handler import UTLParseHandler
 from utl_lib.utl_lex import UTLLexer
 # pylint: disable=too-many-public-methods,missing-docstring
 
@@ -160,9 +160,10 @@ class UTLParseHandlerParseTree(UTLParseHandler):
             statement_list = ASTNode('statement_list', True, {}, [])
         return ASTNode('for_stmt', False, {}, [expr, as_clause, statement_list])
 
-    def if_stmt(self, expr, statement_list, elseif_stmts=None, else_stmt=None):
+    def if_stmt(self, expr, statement_list=None, elseif_stmts=None, else_stmt=None):
         assert expr is not None
-        assert statement_list is not None
+        if statement_list is None:  # yes, oddly this is valid
+            statement_list = ASTNode("statement_list", True, {}, [])
         kids = [expr, statement_list]
         if elseif_stmts is not None:
             kids.append(elseif_stmts)
