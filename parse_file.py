@@ -7,6 +7,7 @@ import sys
 from utl_lib.utl_yacc import UTLParser
 from utl_lib.handler_ast import UTLParseHandlerAST
 from utl_lib.handler_parse_tree import UTLParseHandlerParseTree
+from utl_lib.handler_print_productions import UTLPrintProductionsHandler
 
 
 def get_args():
@@ -22,20 +23,30 @@ def get_args():
                         help="Format output as JSON (default: human-readable)")
     parser.add_argument('--ast', action='store_true',
                         help="Generate an Abstract Syntax Tree (default: parse tree)")
+    parser.add_argument('--print', action='store_true',
+                        help="Print out each production as it is encountered")
+    parser.add_argument('--printonly', action='store_true',
+                        help="Print each production as encountered, don't print parse result")
     return parser.parse_args()
 
 
 def do_parse(program_text, args):
     """Open a file, parse it, return resulting parse."""
     if args.ast:
-        handler = UTLParseHandlerAST()
+        handlers = [UTLParseHandlerAST()]
+    elif args.printonly:
+        handlers = [UTLPrintProductionsHandler()]
     else:
-        handler = UTLParseHandlerParseTree()
-    myparser = UTLParser([handler])
+        handlers = [UTLParseHandlerParseTree()]
+
+    if args.print and not args.printonly:
+        handlers.append(UTLPrintProductionsHandler())
+
+    myparser = UTLParser(handlers)
     results = myparser.parse(program_text, debug=args.debug, print_tokens=args.show_lex)
     if results:
         print(results.json_format() if args.json else results.format())
-    else:
+    elif not args.printonly:
         sys.stderr.write('Parse FAILED!\n')
 
 

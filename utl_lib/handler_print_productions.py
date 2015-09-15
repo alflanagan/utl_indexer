@@ -1,263 +1,162 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """A UTLParseHandler child that does nothing except print out the productions that are found.
 
-Great for debugging.
-"""
+Mostly useful for debugging.
 
+| © 2015 BH Media Group, Inc.
+| BH Media Group Digital Development
+
+.. codeauthor:: A. Lloyd Flanagan <aflanagan@bhmginc.com>
+
+"""
 from utl_lib.utl_parse_handler import UTLParseHandler
 
 
 # pylint: disable=unused-argument,too-many-public-methods
 class UTLPrintProductionsHandler(UTLParseHandler):
     """A UTLParseHandler implementation that simply prints the productions as they occur.
+
+    :param boolean exception_on_error: If True, a syntax error will raise a
+        :py:class:`UTLParseError`, which will effectively end processing. Usually
+        one wants to continue processing and report all syntax errors
+        encountered.
     """
+    # -------------------------------------------------------------------------------------------
+    # admin stuff
+    # -------------------------------------------------------------------------------------------
+    def __init__(self, exception_on_error=False, *args, **kwargs):
+        super().__init__(exception_on_error, *args, **kwargs)
 
-    def utldoc(self, child):
-        '''The top-level node for a UTL document. `child` could be a DOCUMENT but is normally a
-        statement_list.
+    # -------------------------------------------------------------------------------------------
+    # top-level productions
+    # -------------------------------------------------------------------------------------------
+    def utldoc(self, statement_list):
+        print("utldoc")
+        print("-" * 80)
+        # it's important we return non-None value, as some productions short-circuit if they
+        # have no children
+        return "utldoc"
 
-        '''
-        print('utldoc: {}'.format(child))
-        return None
+    def statement_list(self, statement=None, statement_list=None):
+        print("statement_list")
+        return "statement_list"
 
-    def statement_list(self, statement, statement_list=None):
-        '''A statement_list production. `statement_list`, if not :py:attr:`None`, is the
-        statement list seen so far; `statement` is the result of the current statement parse.
+    def statement(self, statement):
+        print("statement")
+        return "statement"
 
-        '''
-        return None
+    # -------------------------------------------------------------------------------------------
+    # regular productions
+    # -------------------------------------------------------------------------------------------
+    def abbrev_if_stmt(self, expr, statement):
+        print("abbrev_if_stmt")
+        return "abbrev_if_stmt"
 
-    def statement(self, child_or_text, is_document=False):
-        """A single statement, usually terminated with a ';' or a '%]'.
+    def arg(self, expr, name=None):
+        print("arg")
+        return "arg"
 
-        If `is_document` is :py:attr:`True`, then `child_or_text` is the contents of a DOCUMENT.
+    def arg_list(self, arg, arg_list=None):
+        print("arg_list")
+        return "arg_list"
 
-        Otherwise, `child_or_text` will be the text of a token, or the result of a production.
+    def array_elems(self, expr, array_elems=None):
+        print("array_elems")
+        return "array_elems"
 
-        Tokens that may be provided include 'continue', 'break', and 'exit'.
+    def array_literal(self, elements=None):
+        print("array_literal")
+        return "array_literal"
 
-        """
-        # NOTE: above not satisfactory from library user's perspective. FIXME
-        return None
+    def array_ref(self, variable, index):
+        print("array_ref")
+        return "array_ref"
 
-    def end_stmt(self, marker_text):
-        """End statement marker. Unlikely to be useful, but if you need it, it's here."""
-        return None
+    def as_clause(self, var1, var2=None):
+        print("as_clause")
+        return "as_clause"
+
+    def call_stmt(self, macro_call):
+        print("call_stmt")
+        return "call_stmt"
+
+    def default_assignment(self, assignment):
+        print("default_assignment")
+        return "default_assignment"
+
+    def dotted_id(self, this_id, id_suffix=None):
+        print("dotted_id")
+        return "dotted_id"
 
     def echo_stmt(self, expr):
-        """An echo statement. `expr` is the object to be echoed, or :py:attr:`None`."""
-        return None
-
-    def expr(self, expr, term, op):  # pylint: disable=C0103
-        """Any of various types of expression. Parameters may be present, or None, based on the expression type.
-
-        :param expr: result of another expr or method_call production.
-
-        :param term: The right-hand side of some productions
-
-        :param op: The operator, for those which don't generate a specialized production.
-
-        """
-        return None
-
-    def param_list(self, param_decl, param_list):
-        '''A list of parameters for a macro definition.
-
-        :param param_decl: A parameter declaration.
-
-        :param param_list: The parameter list of which `param_decl` is a part, if this is not
-            the first production in the list.
-
-        '''
-        return None
-
-    def param_decl(self, param_id, param_assign):
-        """A parameter declaration. One parameter should have a value, the other should be
-        :py:attr:`None`.
-
-        :param str param_id: The parameter name.
-
-        :param param_assign: The result of an assignment production, representing a parameter
-        with a default value.
-
-        """
-        return None
-
-    def arg_list(self, arg, arg_list):
-        '''An argument list, as in a macro call. `arg` is an argument (see :py:meth:`arg`).
-        `arg_list`, if not None, is the output of previous processing of this argument list.
-
-        '''
-        return None
-
-    def arg(self, argument_or_key, value):
-        """An argument, as in a macro call. Arguments can be in two formats, either a plain
-        expression or a key-value pair (separated by ':')
-
-        """
-        return None
-
-    def assignment(self, target, expr, op, default):   # pylint: disable=C0103
-        """An assignment, either through the equal operator (=) or one of the various
-        operate-and-assign operators (e.g. +=).
-
-        `target` is the LHS of the assignment (assigned to)
-        `expr` is the RHS of the assignement (assigned from)
-        `op` is the actual operator used
-        `default` is :py:attr:`True` of the 'default' keyword was used.
-
-        """
-        return None
-
-    def method_call(self, method_name, arglist):
-        """A method call. `arglist` (the list of arguments) is optional."""
-        return None
-
-    def full_id(self, this_id, prefix):
-        """An ID, possibly part of a dotted ID. `prefix`, if present, is the part of the ID
-        which came before the current value.
-
-        Input of 'cms.this.block' would thus trigger ``full_id('block', 'cms.this')`` among
-        its productions.
-
-        Unlike most other methods, this one does something (probably) useful without override:
-
-        :returns str: `this_id`, then `prefix`, separated by a period.
-
-        """
-        if prefix:
-            return this_id + "." + prefix
-        else:
-            return this_id
-
-    def term(self, factor, op, term):   # pylint: disable=C0103
-        """A term from an expression, with operator '*', '/', '%', or just a factor.
-
-        :param factor: a result from a :py:meth:`factor` production.
-
-        :param str op: The operator, if applicable.
-
-        :param term: The output from any part of the term already processed.
-
-        """
-        return None
-
-    def factor(self, node, keyword, paren_expr):
-        """Any one of several 'atomic' elements in an expr. Generally only one of the parameters
-        will have a value, depending on which production was followed.
-
-        :param node: if present, the result of a sub-production like literal or full_id.
-
-        :param str keyword: a keyword ('false', 'true', 'null') or :py:attr:`None`
-
-        :param paren_expr: the result of an expr production, which was enclosed by parentheses.
-
-        """
-        return None
-
-    def literal(self, value):
-        """A literal number or string occurring in the source, like '3.0' or 'fred'. Use
-        ``isinstance(value, str)`` to determine type if that is relevant to your app.
-
-        """
-        return None
-
-    def array_ref(self, name, expr):
-        """An array reference to array `name` with index the value of `expr`."""
-        return None
-
-    def if_stmt(self, expr, statement_list, elseif_stmts, else_stmt):
-        """An if statement. `expr` and `statment_list` are required.
-
-        :param expr: the test expression. `statement_list` is executed only if this resolves to
-            :py:attr:`True`.
-
-        :param statement_list: The statements to execute if the test is true.
-
-        :param elseif_stmts: 0 to many elseif statements giving alternate conditions.
-
-        :param else_stmt: The statements to execute if all tests return :py:attr:`False`.
-
-        """
-        return None
-
-    def elseif_stmts(self, elseif_stmt, elseif_stmts=None):
-        """A production for elseif statements (can also be written 'else if')"""
-        return None
-
-    def elseif_stmt(self, expr, statement_list):
-        """An elseif clause, with a `statement_list` to be executed if `expr` is
-        :py:attr:`True`.
-
-        """
-        return None
+        print("echo_stmt")
+        return "echo_stmt"
 
     def else_stmt(self, statement_list):
-        """An else clause."""
-        return None
+        print("else_stmt")
+        return "else_stmt"
 
-    def return_stmt(self, expr):
-        """A return statement. If `expr` is not :py:attr:`None`, it is the return value."""
-        return None
+    def elseif_stmts(self, elseif_stmt, elseif_stmts=None):
+        print("elseif_stmts")
+        return "elseif_stmts"
 
-    def macro_defn(self, macro_decl, statement_list):
-        """A macro definition with declaration `macro_decl` containing statements
-        `statement_list`.
+    def elseif_stmt(self, expr, statement_list):
+        print("elseif_stmt")
+        return "elseif_stmt"
 
-        """
-        return None
+    def eostmt(self, marker_text):
+        print("eostmt")
+        return "eostmt"
 
-    def macro_decl(self, macro_id, param_list):
-        """A macro definition. `macro_id` is the name of the macro, `param_list` is the list of
-        formal parameters, or :py:attr:`None`.
+    def expr(self, first, second=None, third=None):
+        print("expr")
+        return "expr"
 
-        """
-        return None
+    def for_stmt(self, expr, as_clause=None, statement_list=None):
+        print("for")
+        return "for"
 
-    def for_stmt(self, expr, for_var, statement_list):
-        """A for statement, which executes `statement_list` once for each item in the value of
-        `expr` (assumed to be a collection). If for_var is not :py:attr:`None`, the current item
-        is assigned to a variable of that name for each loop.
-
-        """
-        return None
+    def if_stmt(self, expr, statement_list=None, elseif_stmts=None, else_stmt=None):
+        print("if")
+        return "if"
 
     def include_stmt(self, filename):
-        """An include statement to insert the contents of file `filename`."""
-        return None
+        print("include")
+        return "include"
 
-    def abbrev_if_stmt(self, expr, statement):
-        """A shortcut if statement, which executes the single statement `statement` if `expr`
-        evaluates as true.
+    def literal(self, literal):
+        print("literal")
+        return "literal"
 
-        """
-        return None
+    def macro_call(self, macro_expr, arg_list=None):
+        print("macro_call")
+        return "macro_call"
+
+    def macro_decl(self, macro_name, param_list=None):
+        print("macro_decl")
+        return "macro_decl"
+
+    def macro_defn(self, macro_decl, statement_list=None):
+        print("macro_defn")
+        return "macro_defn"
+
+    def param_decl(self, param_id, default_value=None):
+        print("param_decl")
+        return "param_decl"
+
+    def param_list(self, param_decl, param_list=None):
+        print("param_list")
+        return "param_list"
+
+    def paren_expr(self, expr):
+        print("paren_expr")
+        return "paren_expr"
+
+    def return_stmt(self, expr=None):
+        print("return_stmt")
+        return "return_stmt"
 
     def while_stmt(self, expr, statement_list):
-        """A while statement, where `expr` is the test and `statement_list` is the body."""
-        return None
-
-    def call_stmt(self, method_call):
-        """A call statement, with the keyword call preceding a method call."""
-        return None
-
-    def error(self, p):
-        """Method called when a syntax error occurs. `p` is a production object with the state
-        of the parser at the point where the error was detected.
-
-        The default method raises UTLParseError with context information.
-        """
-        if p is None:
-            print("Syntax error at end of document!")
-            print("Remaining symbol stack is:")
-            print(p.parser.symstack)
-        else:
-            the_lexer = p.lexer
-            badline = the_lexer.lexdata.split('\n')[p.lineno-1]
-            lineoffset = the_lexer.lexdata.rfind('\n', 0, the_lexer.lexpos)
-            if lineoffset == -1:  # we're on first line
-                lineoffset = 0
-            lineoffset = the_lexer.lexpos - lineoffset
-            print("Syntax error in input line {} after '{}'!".format(p.lineno, p.value))
-            print(badline)
-            print("{}^".format(' ' * (lineoffset - 1)))
+        print("while_stmt")
+        return "while_stmt"
