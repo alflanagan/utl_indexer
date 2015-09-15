@@ -19,9 +19,9 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         yacc warnings.
 
     """
-    #-------------------------------------------------------------------------------------------
+    # -------------------------------------------------------------------------------------------
     # admin stuff
-    #-------------------------------------------------------------------------------------------
+    # -------------------------------------------------------------------------------------------
     def __init__(self, handlers=None, debug=False):
         self.parsed = False
         # Some tokens get processed out before parsing
@@ -59,14 +59,14 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         ('nonassoc', 'LT', 'GT', 'LTE', 'GTE'),  # relational operators <, >, <=, >=
         ('left', 'PLUS', 'MINUS'),
         ('left', 'TIMES', 'DIV', 'MODULUS'),
-        ('nonassoc', 'UMINUS'),  # same precedence as *, since  -5 == -1 * 5
         ('right', 'EXCLAMATION'),
         ('nonassoc', 'RANGE', 'COLON'),
         ('left', 'FILTER'),
         ('left', 'COMMA'),
+        ('right', 'UMINUS'),
         ('right', 'LPAREN', 'LBRACKET'),
         # fixes shift/reduce conflict between array reference and array literal
-        ('nonassoc', 'RBRACKET'),
+        ('left', 'RBRACKET'),
         ('right', 'DOT'),
     )
 
@@ -112,9 +112,9 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         for handler in self.handlers:
             handler.error(p, self.parser)
 
-    #-------------------------------------------------------------------------------------------
+    # -------------------------------------------------------------------------------------------
     # top-level productions
-    #-------------------------------------------------------------------------------------------
+    # -------------------------------------------------------------------------------------------
     def p_utldoc(self, p):
         '''utldoc : statement_list'''
         for handler in self.handlers:
@@ -153,9 +153,9 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                 if p[0] is None:
                     p[0] = value
 
-    #-------------------------------------------------------------------------------------------
+    # -------------------------------------------------------------------------------------------
     # regular productions
-    #-------------------------------------------------------------------------------------------
+    # -------------------------------------------------------------------------------------------
     def p_abbrev_if_stmt(self, p):
         '''abbrev_if_stmt : IF expr THEN statement'''
         for handler in self.handlers:
@@ -292,6 +292,8 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                 | EXCLAMATION expr
                 | expr PLUS expr
                 | expr MINUS expr
+                | PLUS expr %prec UMINUS
+                | MINUS expr %prec UMINUS
                 | expr TIMES expr
                 | expr DIV expr
                 | expr MODULUS expr
@@ -390,8 +392,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
 
     def p_param_decl(self, p):
         '''param_decl : ID
-                      | ID ASSIGN expr
-                      | ID ASSIGN unary_expr'''
+                      | ID ASSIGN expr'''
         for handler in self.handlers:
             value = handler.param_decl(p[1], self._(p, 3))
             if p[0] is None:
@@ -417,18 +418,9 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
 
     def p_return_stmt(self, p):
         '''return_stmt : RETURN expr
-                       | RETURN unary_expr
                        | RETURN'''
         for handler in self.handlers:
             value = handler.return_stmt(self._(p, 2))
-            if p[0] is None:
-                p[0] = value
-
-    def p_unary_expr(self, p):
-        '''unary_expr : MINUS expr %prec UMINUS
-                      | PLUS expr %prec UMINUS'''
-        for handler in self.handlers:
-            value = handler.unary_expr(p[1], p[2])
             if p[0] is None:
                 p[0] = value
 

@@ -10,19 +10,414 @@
           "operator": "="
         },
         "children": [{
-          "name": "id",
-          "attributes": {
-            "symbol": "a"
-          }
+          "name": "expr",
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "a"
+            }
+          }]
         }, {
-          "name": "literal",
+          "name": "expr",
           "attributes": {
-            "type": "number",
-            "value": -3
-          }
+            "operator": "-"
+          },
+          "children": [{
+            "name": "expr",
+            "children": [{
+              "name": "literal",
+              "attributes": {
+                "value": 3.0,
+                "type": "number"
+              }
+            }]
+          }]
         }]
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "if_stmt",
+        "children": [{
+          "name": "expr",
+          "attributes": {
+            "operator": "&&"
+          },
+          "children": [{
+            "name": "expr",
+            "attributes": {
+              "operator": "<"
+            },
+            "children": [{
+              "name": "expr",
+              "attributes": {
+                "operator": "-"
+              },
+              "children": [{
+                "name": "expr",
+                "children": [{
+                  "name": "expr",
+                  "attributes": {
+                    "operator": "/"
+                  },
+                  "children": [{
+                    "name": "expr",
+                    "attributes": {
+                      "operator": "."
+                    },
+                    "children": [{
+                      "name": "expr",
+                      "children": [{
+                        "name": "id",
+                        "attributes": {
+                          "symbol": "myCapturePreviewImage"
+                        }
+                      }]
+                    }, {
+                      "name": "expr",
+                      "children": [{
+                        "name": "id",
+                        "attributes": {
+                          "symbol": "width"
+                        }
+                      }]
+                    }]
+                  }, {
+                    "name": "expr",
+                    "attributes": {
+                      "operator": "."
+                    },
+                    "children": [{
+                      "name": "expr",
+                      "children": [{
+                        "name": "id",
+                        "attributes": {
+                          "symbol": "myCapturePreviewImage"
+                        }
+                      }]
+                    }, {
+                      "name": "expr",
+                      "children": [{
+                        "name": "id",
+                        "attributes": {
+                          "symbol": "height"
+                        }
+                      }]
+                    }]
+                  }]
+                }]
+              }, {
+                "name": "expr",
+                "children": [{
+                  "name": "expr",
+                  "attributes": {
+                    "operator": "/"
+                  },
+                  "children": [{
+                    "name": "expr",
+                    "attributes": {
+                      "operator": "."
+                    },
+                    "children": [{
+                      "name": "expr",
+                      "children": [{
+                        "name": "id",
+                        "attributes": {
+                          "symbol": "asset"
+                        }
+                      }]
+                    }, {
+                      "name": "expr",
+                      "attributes": {
+                        "operator": "."
+                      },
+                      "children": [{
+                        "name": "expr",
+                        "children": [{
+                          "name": "id",
+                          "attributes": {
+                            "symbol": "hi_res"
+                          }
+                        }]
+                      }, {
+                        "name": "expr",
+                        "children": [{
+                          "name": "id",
+                          "attributes": {
+                            "symbol": "width"
+                          }
+                        }]
+                      }]
+                    }]
+                  }, {
+                    "name": "expr",
+                    "attributes": {
+                      "operator": "."
+                    },
+                    "children": [{
+                      "name": "expr",
+                      "children": [{
+                        "name": "id",
+                        "attributes": {
+                          "symbol": "asset"
+                        }
+                      }]
+                    }, {
+                      "name": "expr",
+                      "attributes": {
+                        "operator": "."
+                      },
+                      "children": [{
+                        "name": "expr",
+                        "children": [{
+                          "name": "id",
+                          "attributes": {
+                            "symbol": "hi_res"
+                          }
+                        }]
+                      }, {
+                        "name": "expr",
+                        "children": [{
+                          "name": "id",
+                          "attributes": {
+                            "symbol": "height"
+                          }
+                        }]
+                      }]
+                    }]
+                  }]
+                }]
+              }]
+            }, {
+              "name": "expr",
+              "attributes": {
+                "operator": "/"
+              },
+              "children": [{
+                "name": "expr",
+                "children": [{
+                  "name": "literal",
+                  "attributes": {
+                    "value": 1.0,
+                    "type": "number"
+                  }
+                }]
+              }, {
+                "name": "expr",
+                "children": [{
+                  "name": "literal",
+                  "attributes": {
+                    "value": 100.0,
+                    "type": "number"
+                  }
+                }]
+              }]
+            }]
+          }, {
+            "name": "expr",
+            "attributes": {
+              "operator": ">"
+            },
+            "children": [{
+              "name": "expr",
+              "attributes": {
+                "operator": "-"
+              },
+              "children": [{
+                "name": "expr",
+                "children": [{
+                  "name": "expr",
+                  "attributes": {
+                    "operator": "/"
+                  },
+                  "children": [{
+                    "name": "expr",
+                    "attributes": {
+                      "operator": "."
+                    },
+                    "children": [{
+                      "name": "expr",
+                      "children": [{
+                        "name": "id",
+                        "attributes": {
+                          "symbol": "myCapturePreviewImage"
+                        }
+                      }]
+                    }, {
+                      "name": "expr",
+                      "children": [{
+                        "name": "id",
+                        "attributes": {
+                          "symbol": "width"
+                        }
+                      }]
+                    }]
+                  }, {
+                    "name": "expr",
+                    "attributes": {
+                      "operator": "."
+                    },
+                    "children": [{
+                      "name": "expr",
+                      "children": [{
+                        "name": "id",
+                        "attributes": {
+                          "symbol": "myCapturePreviewImage"
+                        }
+                      }]
+                    }, {
+                      "name": "expr",
+                      "children": [{
+                        "name": "id",
+                        "attributes": {
+                          "symbol": "height"
+                        }
+                      }]
+                    }]
+                  }]
+                }]
+              }, {
+                "name": "expr",
+                "children": [{
+                  "name": "expr",
+                  "attributes": {
+                    "operator": "/"
+                  },
+                  "children": [{
+                    "name": "expr",
+                    "attributes": {
+                      "operator": "."
+                    },
+                    "children": [{
+                      "name": "expr",
+                      "children": [{
+                        "name": "id",
+                        "attributes": {
+                          "symbol": "asset"
+                        }
+                      }]
+                    }, {
+                      "name": "expr",
+                      "attributes": {
+                        "operator": "."
+                      },
+                      "children": [{
+                        "name": "expr",
+                        "children": [{
+                          "name": "id",
+                          "attributes": {
+                            "symbol": "hi_res"
+                          }
+                        }]
+                      }, {
+                        "name": "expr",
+                        "children": [{
+                          "name": "id",
+                          "attributes": {
+                            "symbol": "width"
+                          }
+                        }]
+                      }]
+                    }]
+                  }, {
+                    "name": "expr",
+                    "attributes": {
+                      "operator": "."
+                    },
+                    "children": [{
+                      "name": "expr",
+                      "children": [{
+                        "name": "id",
+                        "attributes": {
+                          "symbol": "asset"
+                        }
+                      }]
+                    }, {
+                      "name": "expr",
+                      "attributes": {
+                        "operator": "."
+                      },
+                      "children": [{
+                        "name": "expr",
+                        "children": [{
+                          "name": "id",
+                          "attributes": {
+                            "symbol": "hi_res"
+                          }
+                        }]
+                      }, {
+                        "name": "expr",
+                        "children": [{
+                          "name": "id",
+                          "attributes": {
+                            "symbol": "height"
+                          }
+                        }]
+                      }]
+                    }]
+                  }]
+                }]
+              }]
+            }, {
+              "name": "expr",
+              "attributes": {
+                "operator": "/"
+              },
+              "children": [{
+                "name": "expr",
+                "attributes": {
+                  "operator": "-"
+                },
+                "children": [{
+                  "name": "expr",
+                  "children": [{
+                    "name": "literal",
+                    "attributes": {
+                      "value": 1.0,
+                      "type": "number"
+                    }
+                  }]
+                }]
+              }, {
+                "name": "expr",
+                "children": [{
+                  "name": "literal",
+                  "attributes": {
+                    "value": 100.0,
+                    "type": "number"
+                  }
+                }]
+              }]
+            }]
+          }]
+        }, {
+          "name": "statement_list",
+          "children": [{
+            "name": "statement",
+            "children": [{
+              "name": "echo",
+              "children": [{
+                "name": "expr",
+                "children": [{
+                  "name": "literal",
+                  "attributes": {
+                    "value": "wtf?",
+                    "type": "string"
+                  }
+                }]
+              }]
+            }]
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "document",
+        "attributes": {
+          "text": "\n"
+        }
       }]
     }]
   }]
-}]
 }

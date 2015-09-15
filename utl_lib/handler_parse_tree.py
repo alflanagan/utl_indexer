@@ -15,15 +15,15 @@ class UTLParseHandlerParseTree(UTLParseHandler):
     This makes it particularly useful for debugging the parsing process.
 
     """
-    #-------------------------------------------------------------------------------------------
+    # -------------------------------------------------------------------------------------------
     # admin stuff
-    #-------------------------------------------------------------------------------------------
+    # -------------------------------------------------------------------------------------------
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    #-------------------------------------------------------------------------------------------
+    # -------------------------------------------------------------------------------------------
     # top-level productions
-    #-------------------------------------------------------------------------------------------
+    # -------------------------------------------------------------------------------------------
     def utldoc(self, statement_list):
         return ASTNode('utldoc', False, {}, [statement_list])
 
@@ -48,9 +48,9 @@ class UTLParseHandlerParseTree(UTLParseHandler):
         # eostmt, for one, doesn't need to appear in output
         return None
 
-    #-------------------------------------------------------------------------------------------
+    # -------------------------------------------------------------------------------------------
     # regular productions
-    #-------------------------------------------------------------------------------------------
+    # -------------------------------------------------------------------------------------------
     def abbrev_if_stmt(self, expr, statement):
         assert expr is not None
         return ASTNode('abbrev_if_stmt', False, {},
@@ -129,7 +129,7 @@ class UTLParseHandlerParseTree(UTLParseHandler):
     def expr(self, first, second, third):
         """An expression production
 
-            first is: not|!|expr|literal|ID|LBRACKET|LPAREN
+            first is: not|!|expr|literal|ID|LBRACKET|LPAREN|MINUS|PLUS
 
             second is: expr|PLUS|MINUS|TIMES|DIV|MODULUS|FILTER|DOUBLEBAR|RANGE|NEQ|LTE|OR|LT|EQ|IS|
                        GT|AND|GTE|DOUBLEAMP|DOT|ASSIGN|ASSIGNOP|COMMA|COLON
@@ -140,7 +140,7 @@ class UTLParseHandlerParseTree(UTLParseHandler):
         assert first is not None
         if third is not None:
             return ASTNode('expr', False, {'operator': second}, [first, third])
-        elif second is not None: # first is a unary operator
+        elif second is not None:  # first is a unary operator
             return ASTNode('expr', False, {'operator': first}, [second])
         # first is literal, ID, array ref, macro_call
         if isinstance(first, ASTNode):
@@ -223,11 +223,6 @@ class UTLParseHandlerParseTree(UTLParseHandler):
 
     def return_stmt(self, expr=None):
         return ASTNode('return_stmt', expr is None, {}, [expr] if expr else [])
-
-    def unary_expr(self, unary_op, expr):
-        assert unary_op is not None
-        assert expr is not None
-        return ASTNode("unary_expr", False, {"operator": unary_op}, [expr])
 
     def while_stmt(self, expr, statement_list):
         assert expr is not None
