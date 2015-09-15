@@ -1,5 +1,13 @@
 #!/usr/bin/env python3
-"""A base class to handle parsing operations for a UTL file."""
+# -*- coding: utf-8 -*-
+"""A base class to handle parsing operations for a UTL file.
+
+| © 2015 BH Media Group, Inc.
+| BH Media Group Digital Development
+
+.. codeauthor:: A. Lloyd Flanagan <aflanagan@bhmginc.com>
+
+"""
 import sys
 
 

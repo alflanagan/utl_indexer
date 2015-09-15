@@ -1,6 +1,13 @@
 #!/usr/bin/env python3
-"""A parse handler to construct an AST from a UTL document."""
+# -*- coding: utf-8 -*-
+"""A parse handler to construct an AST from a UTL document.
 
+| © 2015 BH Media Group, Inc.
+| BH Media Group Digital Development
+
+.. codeauthor:: A. Lloyd Flanagan <aflanagan@bhmginc.com>
+
+"""
 from utl_lib.ast_node import ASTNode
 from utl_lib.utl_parse_handler import UTLParseHandler, UTLParseError
 from utl_lib.utl_lex import UTLLexer
