@@ -121,9 +121,10 @@ class UTLParseHandlerParseTree(UTLParseHandler):
             elseif_stmts = ASTNode('elseif_stmts', {}, [elseif_stmt])
         return elseif_stmts
 
-    def elseif_stmt(self, expr, statement_list):
+    def elseif_stmt(self, expr, statement_list=None):
         assert expr is not None
-        assert statement_list is not None
+        if statement_list is None:
+            statement_list = ASTNode('statement_list', {}, [])
         return ASTNode('elseif_stmt', {}, [expr, statement_list])
 
     def expr(self, first, second=None, third=None):
@@ -225,7 +226,7 @@ class UTLParseHandlerParseTree(UTLParseHandler):
     def return_stmt(self, expr=None):
         return ASTNode('return_stmt', {}, [expr] if expr else [])
 
-    def while_stmt(self, expr, statement_list):
+    def while_stmt(self, expr, statement_list=None):
         assert expr is not None
         if statement_list is None:
             statement_list = ASTNode('statement_list', {}, [])

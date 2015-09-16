@@ -40,12 +40,11 @@ class UTLParseHandlerAST(UTLParseHandler):
         return statement_list
 
     def statement_list(self, statement=None, statement_list=None):
+        assert statement is not None or statement_list is not None
         if statement_list is None:
-            if statement is None:
-                return None
             return ASTNode('statement_list', {}, [statement])
         assert statement_list.symbol == 'statement_list'
-        if statement:
+        if statement is not None:
             statement_list.add_first_child(statement)
         return statement_list
 
@@ -128,7 +127,7 @@ class UTLParseHandlerAST(UTLParseHandler):
             elseif_stmts = ASTNode('elseif_stmts', {}, [elseif_stmt])
         return elseif_stmts
 
-    def elseif_stmt(self, expr, statement_list):
+    def elseif_stmt(self, expr, statement_list=None):
         assert expr is not None
         if statement_list is None:
             statement_list = ASTNode('statement_list', {}, [])
@@ -140,10 +139,7 @@ class UTLParseHandlerAST(UTLParseHandler):
         #    NOT|EXCLAMATION|PLUS|MINUS|ID|literal|array_ref|macro_call|paren_expr|expr
         if isinstance(first, str):
             if second is not None:
-                if first.lower() in ('not', '!', '-', '+', ):
-                    return ASTNode('expr', {'operator': first.lower()}, [second])
-                else:
-                    raise UTLParseError("Unrecognized operator: '{}'".format(first))
+                return ASTNode('expr', {'operator': first.lower()}, [second])
             else:
                 return ASTNode("id", {"symbol": first}, [])
         elif second is None:
@@ -215,8 +211,7 @@ class UTLParseHandlerAST(UTLParseHandler):
                            [])
 
     def param_list(self, param_decl, param_list=None):
-        if not (param_decl or param_list):
-            return None
+        assert param_decl is not None
         if not param_list:  # first declaration processed
             return ASTNode('param_list', {}, [param_decl])
         else:

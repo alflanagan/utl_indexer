@@ -41,6 +41,31 @@
           }]
         }]
       }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "while_stmt",
+        "children": [{
+          "name": "expr",
+          "children": [{
+            "name": "literal",
+            "attributes": {
+              "type": "boolean",
+              "value": true
+            }
+          }]
+        }, {
+          "name": "statement_list"
+        }]
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "document",
+        "attributes": {
+          "text": "\n"
+        }
+      }]
     }]
   }]
 }

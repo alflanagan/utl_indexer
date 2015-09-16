@@ -45,6 +45,7 @@
 %]
 [% if fred != wilma;
    echo "oops";
+   elseif fred == betty;
    end; %]
 [% if 2 == 3 then "hello" %]
 [%

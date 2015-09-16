@@ -196,7 +196,7 @@ class UTLParseHandler(object):
         """A production for elseif statements (can also be written 'else if')"""
         return None
 
-    def elseif_stmt(self, expr, statement_list):
+    def elseif_stmt(self, expr, statement_list=None):
         """An elseif clause, with a `statement_list` to be executed if `expr` is
         :py:attr:`True`.
 
