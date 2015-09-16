@@ -220,7 +220,7 @@ class UTLParseHandlerAST(UTLParseHandler):
         if not param_list:  # first declaration processed
             return ASTNode('param_list', {}, [param_decl])
         else:
-            param_list.add_child(param_decl)
+            param_list.add_first_child(param_decl)
             return param_list
 
     def paren_expr(self, expr):

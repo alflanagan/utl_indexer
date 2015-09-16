@@ -1,0 +1,67 @@
+{
+  "name": "statement_list",
+  "children": [{
+    "name": "include",
+    "attributes": {
+      "file": {
+        "name": "literal",
+        "attributes": {
+          "value": "fred.utl"
+        }
+      }
+    }
+  }, {
+    "name": "include",
+    "attributes": {
+      "file": {
+        "name": "id",
+        "attributes": {
+          "symbol": "appMacros"
+        }
+      }
+    }
+  }, {
+    "name": "include",
+    "attributes": {
+      "file": {
+        "name": "expr",
+        "attributes": {
+          "operator": "+"
+        },
+        "children": [{
+          "name": "expr",
+          "attributes": {
+            "operator": "+"
+          },
+          "children": [{
+            "name": "literal",
+            "attributes": {
+              "value": "fred"
+            }
+          }, {
+            "name": "expr",
+            "attributes": {
+              "operator": "*"
+            },
+            "children": [{
+              "name": "literal",
+              "attributes": {
+                "value": 5.0
+              }
+            }, {
+              "name": "literal",
+              "attributes": {
+                "value": 12.0
+              }
+            }]
+          }]
+        }, {
+          "name": "literal",
+          "attributes": {
+            "value": "section.inc.utl"
+          }
+        }]
+      }
+    }
+  }]
+}

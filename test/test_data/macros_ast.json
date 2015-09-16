@@ -1,0 +1,592 @@
+{
+  "name": "statement_list",
+  "children": [{
+    "name": "macro-defn",
+    "attributes": {
+      "name": "fred"
+    },
+    "children": [{
+      "name": "macro-decl",
+      "attributes": {
+        "name": "fred"
+      }
+    }, {
+      "name": "statement_list",
+      "children": [{
+        "name": "expr",
+        "attributes": {
+          "operator": "="
+        },
+        "children": [{
+          "name": "id",
+          "attributes": {
+            "symbol": "a"
+          }
+        }, {
+          "name": "expr",
+          "attributes": {
+            "operator": "+"
+          },
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "b"
+            }
+          }, {
+            "name": "literal",
+            "attributes": {
+              "value": 3.0
+            }
+          }]
+        }]
+      }, {
+        "name": "echo"
+      }, {
+        "name": "echo",
+        "children": [{
+          "name": "id",
+          "attributes": {
+            "symbol": "a"
+          }
+        }]
+      }]
+    }]
+  }, {
+    "name": "macro-defn",
+    "attributes": {
+      "name": "core_base_nav_class_name"
+    },
+    "children": [{
+      "name": "macro-decl",
+      "attributes": {
+        "name": "core_base_nav_class_name"
+      },
+      "children": [{
+        "name": "param_list",
+        "children": [{
+          "name": "param_decl",
+          "attributes": {
+            "name": "nav_text"
+          }
+        }]
+      }]
+    }, {
+      "name": "statement_list",
+      "children": [{
+        "name": "expr",
+        "attributes": {
+          "operator": "="
+        },
+        "children": [{
+          "name": "id",
+          "attributes": {
+            "symbol": "dquote_escaped"
+          }
+        }, {
+          "name": "literal",
+          "attributes": {
+            "value": "there's an \\\"embedded\\\" dquote here"
+          }
+        }]
+      }, {
+        "name": "return",
+        "children": [{
+          "name": "expr",
+          "attributes": {
+            "operator": "|"
+          },
+          "children": [{
+            "name": "expr",
+            "attributes": {
+              "operator": "|"
+            },
+            "children": [{
+              "name": "expr",
+              "attributes": {
+                "operator": "|"
+              },
+              "children": [{
+                "name": "expr",
+                "attributes": {
+                  "operator": "|"
+                },
+                "children": [{
+                  "name": "id",
+                  "attributes": {
+                    "symbol": "nav_text"
+                  }
+                }, {
+                  "name": "id",
+                  "attributes": {
+                    "symbol": "lowercase"
+                  }
+                }]
+              }, {
+                "name": "macro_call",
+                "children": [{
+                  "name": "id",
+                  "attributes": {
+                    "symbol": "regex"
+                  }
+                }, {
+                  "name": "arg_list",
+                  "children": [{
+                    "name": "arg",
+                    "children": [{
+                      "name": "literal",
+                      "attributes": {
+                        "value": "/[\\&\\(\\)\\[\\]\\{\\}\\!\\@\\#\\$\\%\\^\\*\\+\\=\\,\\.\\/\\<\\>\\?\\;\\:\\'\\~\\`]/"
+                      }
+                    }]
+                  }, {
+                    "name": "arg",
+                    "children": [{
+                      "name": "literal",
+                      "attributes": {
+                        "value": ""
+                      }
+                    }]
+                  }]
+                }]
+              }]
+            }, {
+              "name": "macro_call",
+              "children": [{
+                "name": "id",
+                "attributes": {
+                  "symbol": "regex"
+                }
+              }, {
+                "name": "arg_list",
+                "children": [{
+                  "name": "arg",
+                  "children": [{
+                    "name": "literal",
+                    "attributes": {
+                      "value": "/\\_+/"
+                    }
+                  }]
+                }, {
+                  "name": "arg",
+                  "children": [{
+                    "name": "literal",
+                    "attributes": {
+                      "value": "_"
+                    }
+                  }]
+                }]
+              }]
+            }]
+          }, {
+            "name": "macro_call",
+            "children": [{
+              "name": "id",
+              "attributes": {
+                "symbol": "regex"
+              }
+            }, {
+              "name": "arg_list",
+              "children": [{
+                "name": "arg",
+                "children": [{
+                  "name": "literal",
+                  "attributes": {
+                    "value": "/[\\s-]+/"
+                  }
+                }]
+              }, {
+                "name": "arg",
+                "children": [{
+                  "name": "literal",
+                  "attributes": {
+                    "value": "-"
+                  }
+                }]
+              }]
+            }]
+          }]
+        }]
+      }]
+    }]
+  }, {
+    "name": "macro_call",
+    "children": [{
+      "name": "id",
+      "attributes": {
+        "symbol": "really.really.quite.useless"
+      }
+    }, {
+      "name": "arg_list",
+      "children": [{
+        "name": "arg",
+        "children": [{
+          "name": "literal",
+          "attributes": {
+            "value": "php"
+          }
+        }]
+      }]
+    }]
+  }, {
+    "name": "macro_call",
+    "children": [{
+      "name": "id",
+      "attributes": {
+        "symbol": "wilma"
+      }
+    }, {
+      "name": "arg_list",
+      "children": [{
+        "name": "arg",
+        "children": [{
+          "name": "literal",
+          "attributes": {
+            "value": 1.0
+          }
+        }]
+      }, {
+        "name": "arg",
+        "children": [{
+          "name": "literal",
+          "attributes": {
+            "value": 2.0
+          }
+        }]
+      }, {
+        "name": "arg",
+        "children": [{
+          "name": "literal",
+          "attributes": {
+            "value": 3.0
+          }
+        }]
+      }]
+    }]
+  }, {
+    "name": "macro-defn",
+    "attributes": {
+      "name": "empty_but_legal"
+    },
+    "children": [{
+      "name": "macro-decl",
+      "attributes": {
+        "name": "empty_but_legal"
+      }
+    }]
+  }, {
+    "name": "macro-defn",
+    "attributes": {
+      "name": "fairly.useless"
+    },
+    "children": [{
+      "name": "macro-decl",
+      "attributes": {
+        "name": "fairly.useless"
+      }
+    }, {
+      "name": "statement_list",
+      "children": [{
+        "name": "echo",
+        "children": [{
+          "name": "literal",
+          "attributes": {
+            "value": "useless"
+          }
+        }]
+      }]
+    }]
+  }, {
+    "name": "macro-defn",
+    "attributes": {
+      "name": "really.really.quite.useless"
+    },
+    "children": [{
+      "name": "macro-decl",
+      "attributes": {
+        "name": "really.really.quite.useless"
+      },
+      "children": [{
+        "name": "param_list",
+        "children": [{
+          "name": "param_decl",
+          "attributes": {
+            "name": "arg1"
+          }
+        }]
+      }]
+    }, {
+      "name": "statement_list",
+      "children": [{
+        "name": "echo",
+        "children": [{
+          "name": "id",
+          "attributes": {
+            "symbol": "arg1"
+          }
+        }]
+      }]
+    }]
+  }, {
+    "name": "macro-defn",
+    "attributes": {
+      "name": "multi_arguments"
+    },
+    "children": [{
+      "name": "macro-decl",
+      "attributes": {
+        "name": "multi_arguments"
+      },
+      "children": [{
+        "name": "param_list",
+        "children": [{
+          "name": "param_decl",
+          "attributes": {
+            "name": "arg1"
+          }
+        }, {
+          "name": "param_decl",
+          "attributes": {
+            "name": "arg2"
+          }
+        }, {
+          "name": "param_decl",
+          "attributes": {
+            "name": "arg3",
+            "default": {
+              "name": "literal",
+              "attributes": {
+                "value": "false"
+              }
+            }
+          }
+        }, {
+          "name": "param_decl",
+          "attributes": {
+            "name": "arg4"
+          }
+        }]
+      }]
+    }, {
+      "name": "statement_list",
+      "children": [{
+        "name": "echo",
+        "children": [{
+          "name": "expr",
+          "attributes": {
+            "operator": "+"
+          },
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "arg1"
+            }
+          }, {
+            "name": "id",
+            "attributes": {
+              "symbol": "arg2"
+            }
+          }]
+        }]
+      }]
+    }]
+  }, {
+    "name": "macro-defn",
+    "attributes": {
+      "name": "core_base_library_relatedAssets"
+    },
+    "children": [{
+      "name": "macro-decl",
+      "attributes": {
+        "name": "core_base_library_relatedAssets"
+      },
+      "children": [{
+        "name": "param_list",
+        "children": [{
+          "name": "param_decl",
+          "attributes": {
+            "name": "types",
+            "default": {
+              "name": "literal",
+              "attributes": {
+                "value": {
+                  "name": "array_literal",
+                  "children": [{
+                    "name": "array_elems",
+                    "children": [{
+                      "name": "literal",
+                      "attributes": {
+                        "value": "article"
+                      }
+                    }, {
+                      "name": "literal",
+                      "attributes": {
+                        "value": "image"
+                      }
+                    }, {
+                      "name": "literal",
+                      "attributes": {
+                        "value": "pdf"
+                      }
+                    }, {
+                      "name": "literal",
+                      "attributes": {
+                        "value": "zip"
+                      }
+                    }, {
+                      "name": "literal",
+                      "attributes": {
+                        "value": "audio"
+                      }
+                    }, {
+                      "name": "literal",
+                      "attributes": {
+                        "value": "link"
+                      }
+                    }, {
+                      "name": "literal",
+                      "attributes": {
+                        "value": "flash"
+                      }
+                    }, {
+                      "name": "literal",
+                      "attributes": {
+                        "value": "html"
+                      }
+                    }, {
+                      "name": "literal",
+                      "attributes": {
+                        "value": "poll"
+                      }
+                    }, {
+                      "name": "literal",
+                      "attributes": {
+                        "value": "collection"
+                      }
+                    }, {
+                      "name": "literal",
+                      "attributes": {
+                        "value": "table"
+                      }
+                    }, {
+                      "name": "literal",
+                      "attributes": {
+                        "value": "video"
+                      }
+                    }, {
+                      "name": "literal",
+                      "attributes": {
+                        "value": "youtube"
+                      }
+                    }, {
+                      "name": "literal",
+                      "attributes": {
+                        "value": "vmix"
+                      }
+                    }, {
+                      "name": "literal",
+                      "attributes": {
+                        "value": "highlights"
+                      }
+                    }, {
+                      "name": "literal",
+                      "attributes": {
+                        "value": "quote"
+                      }
+                    }, {
+                      "name": "literal",
+                      "attributes": {
+                        "value": "refer"
+                      }
+                    }, {
+                      "name": "literal",
+                      "attributes": {
+                        "value": "update"
+                      }
+                    }, {
+                      "name": "literal",
+                      "attributes": {
+                        "value": "correction"
+                      }
+                    }, {
+                      "name": "literal",
+                      "attributes": {
+                        "value": "ad"
+                      }
+                    }, {
+                      "name": "literal",
+                      "attributes": {
+                        "value": "coupon"
+                      }
+                    }, {
+                      "name": "literal",
+                      "attributes": {
+                        "value": "pdfdisplayad"
+                      }
+                    }, {
+                      "name": "literal",
+                      "attributes": {
+                        "value": "realestate"
+                      }
+                    }, {
+                      "name": "literal",
+                      "attributes": {
+                        "value": "vehicle"
+                      }
+                    }, {
+                      "name": "literal",
+                      "attributes": {
+                        "value": "business"
+                      }
+                    }, {
+                      "name": "literal",
+                      "attributes": {
+                        "value": "event"
+                      }
+                    }]
+                  }]
+                }
+              }
+            }
+          }
+        }, {
+          "name": "param_decl",
+          "attributes": {
+            "name": "asset",
+            "default": {
+              "name": "id",
+              "attributes": {
+                "symbol": "this.asset"
+              }
+            }
+          }
+        }]
+      }]
+    }, {
+      "name": "statement_list",
+      "children": [{
+        "name": "if",
+        "children": [{
+          "name": "id",
+          "attributes": {
+            "symbol": "asset"
+          }
+        }, {
+          "name": "statement_list",
+          "children": [{
+            "name": "echo",
+            "children": [{
+              "name": "literal",
+              "attributes": {
+                "value": "related"
+              }
+            }]
+          }]
+        }, {
+          "name": "elseif_stmts"
+        }, {
+          "name": "else"
+        }]
+      }]
+    }]
+  }]
+}
