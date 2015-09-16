@@ -104,7 +104,7 @@ class UTLLexer(object):
 
     def __init__(self, **kwargs):
         self.lexer = lex.lex(module=self, **kwargs)
-        self.ateof = True;
+        self.ateof = True
 
     def input(self, s):
         """Push new input `s` to the lexer."""
