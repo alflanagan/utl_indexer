@@ -23,16 +23,20 @@ class ASTNode(object):
 
     :param str symbol_name: A name for the node, usually related to the rule that produced it.
 
-    :param Boolean is_term: :py:attr:`True` if this is a terminal node (never has children).
-
     :param dict attrs: key-value pairs attaching arbitrary attributes to this node. For
         attributes that are not common to all nodes.
 
     :param list children: iterator of nodes, which will be attached as children.
 
+    :param str source_file: name of file containing the production that created this node.
+
+    :param int start_pos: the position in source_file of the first character matched by the rule for this production.
+
+    :param int end_pos: the position in `source_file` of the last character matched.
+
     """
 
-    def __init__(self, symbol_name, is_term, attrs=None, children=None):
+    def __init__(self, symbol_name, attrs, children):
         if not symbol_name:
             raise ASTNodeError('ASTNode must have a valid name')
         self.children = []
@@ -41,7 +45,6 @@ class ASTNode(object):
                 self.add_child(child)
         self.parent = None  # set by parent in add_child
         self.symbol = symbol_name
-        self.terminal = is_term
         self.attributes = {} if attrs is None else attrs
 
     def __eq__(self, other):  # pylint: disable=R0911
@@ -51,7 +54,6 @@ class ASTNode(object):
         if not isinstance(other, ASTNode):
             return False
         if (self.symbol != other.symbol or
-                self.terminal != other.terminal or
                 set(self.attributes.keys()) != set(other.attributes.keys())):
             return False
         for key in self.attributes:
@@ -91,7 +93,7 @@ class ASTNode(object):
         """Returns a new instance of :py:class:`utl_lib.ast_node.ASTNode` whose attributes have
         the same values as this.
         """
-        return ASTNode(self.symbol, self.terminal, self.attributes.copy(),
+        return ASTNode(self.symbol, self.attributes.copy(),
                        [kid.copy() for kid in self.children])
 
     def add_first_child(self, child):
@@ -152,9 +154,7 @@ class ASTNode(object):
                 child_list += ", {}".format(child.symbol)
             else:
                 child_list = child.symbol
-        return 'ASTNode("{}", {}, ..., [{}])'.format(self.symbol,
-                                                     "True" if self.terminal else "False",
-                                                     child_list)
+        return 'ASTNode("{}", ..., [{}])'.format(self.symbol, child_list)
 
     def format(self):
         """Walks the tree from this node, printing it out in a format which, if not pretty, is

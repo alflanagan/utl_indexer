@@ -8,7 +8,7 @@
 .. codeauthor:: A. Lloyd Flanagan <aflanagan@bhmginc.com>
 
 """
-# pylint: disable=too-few-public-methods
+# pylint: disable=too-few-public-methods,invalid-name
 import json
 
 import utl_parse_test
@@ -23,8 +23,8 @@ class TestCaseUTLTestCase(utl_parse_test.TestCaseUTL):
 
         """
         self.assertEqual(5, 5)
-        expected1 = {"name": "id", "attributes": {"symbol": "fred",},}
-        node1 = ASTNode("id", True, {"symbol": "fred",}, [])
+        expected1 = {"name": "id", "attributes": {"symbol": "fred"}}
+        node1 = ASTNode("id", {"symbol": "fred"}, [])
         self.assertMatchesJSON(node1, expected1)
 
 

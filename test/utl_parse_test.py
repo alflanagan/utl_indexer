@@ -13,11 +13,10 @@ import os
 import json
 from html import unescape  # since we escape entities in DOCUMENT text
 
-from testplus import unittest_plus, mock_objects
+from testplus import unittest_plus, mock_objects  # pylint: disable=W0611
 
 from utl_lib.ast_node import ASTNode
 from utl_lib.utl_yacc import UTLParser
-from utl_lib.handler_parse_tree import UTLParseHandlerParseTree
 
 
 class TestCaseUTL(unittest_plus.TestCasePlus):
@@ -74,15 +73,15 @@ class TestCaseUTL(unittest_plus.TestCasePlus):
         self.assertListEqual([kid.symbol for kid in node.children],
                              expected_kids)
         for index, child in enumerate(node.children):
-            try:
-                self.assertMatchesJSON(child, expected['children'][index])
-            except AssertionError:
-                if getattr(self, "printed", False) != True:
-                    print('-' * 80)
-                    print(child.format())
-                    print('-' * 80)
-                    self.printed = True
-                raise
+            # try:
+            self.assertMatchesJSON(child, expected['children'][index])
+            # except AssertionError:
+            #     if not getattr(self, "printed", False):
+            #         print('-' * 80)
+            #         print(child.format())
+            #         print('-' * 80)
+            #         self.printed = True  # pylint: disable=W0201
+            #     raise
 
     def assertJSONFileMatches(self, handler, utl_filename, json_filename):  # pylint: disable=invalid-name
         """Asserts :py:meth:`assertMatchesJSON` on the contents of ``utl_filename`` and
@@ -98,9 +97,7 @@ class TestCaseUTL(unittest_plus.TestCasePlus):
 
 
 # re-export other stuff from unittest_plus, so callers don't have to import it
-main = unittest_plus.main
-
-mock_objects = mock_objects
+main = unittest_plus.main  # pylint: disable=invalid-name
 
 # Local Variables:
 # python-indent-offset: 4

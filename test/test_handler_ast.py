@@ -22,8 +22,8 @@ class UTLParseHandlerASTTestCase(utl_parse_test.TestCaseUTL):
     def test_create(self):
         """Unit test for :py:meth:`utl_lib.handler_ast.UTLParseHandlerAST`."""
         handler = UTLParseHandlerAST()
-        utldoc = handler.utldoc(ASTNode('statement_list', False, {}, []))
-        self.assertEqual(utldoc, ASTNode('statement_list', False, {}, []))
+        utldoc = handler.utldoc(ASTNode('statement_list', {}, []))
+        self.assertEqual(utldoc, ASTNode('statement_list', {}, []))
 
     def assertJSONFileMatches(self, utl_filename, json_filename, output_filename=""):  # pylint: disable=W0221
         """Wrapper function that supplies correct handler to
