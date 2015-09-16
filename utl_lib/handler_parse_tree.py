@@ -24,10 +24,10 @@ class UTLParseHandlerParseTree(UTLParseHandler):
     # -------------------------------------------------------------------------------------------
     # top-level productions
     # -------------------------------------------------------------------------------------------
-    def utldoc(self, statement_list):
+    def utldoc(self, parser, statement_list):
         return ASTNode('utldoc', {}, [statement_list])
 
-    def statement_list(self, statement=None, statement_list=None):
+    def statement_list(self, parser, statement=None, statement_list=None):
         if statement_list is None:
             return ASTNode('statement_list', {},
                            [statement] if statement is not None else [])
@@ -36,7 +36,7 @@ class UTLParseHandlerParseTree(UTLParseHandler):
                 statement_list.add_first_child(statement)
             return statement_list
 
-    def statement(self, statement):
+    def statement(self, parser, statement):
         if isinstance(statement, str):
             if statement in UTLLexer.reserved:  # is a keyword (break, return, continue)
                 return ASTNode('statement', {}, [ASTNode(statement, {}, [])])
@@ -51,16 +51,16 @@ class UTLParseHandlerParseTree(UTLParseHandler):
     # -------------------------------------------------------------------------------------------
     # regular productions
     # -------------------------------------------------------------------------------------------
-    def abbrev_if_stmt(self, expr, statement):
+    def abbrev_if_stmt(self, parser, expr, statement):
         assert expr is not None
         return ASTNode('abbrev_if_stmt', {},
                        [expr, statement] if statement is not None else [expr])
 
-    def arg(self, expr, name=None):
+    def arg(self, parser, expr, name=None):
         assert expr is not None
         return ASTNode('arg', {'name': name} if name is not None else {}, [expr])
 
-    def arg_list(self, arg, arg_list=None):
+    def arg_list(self, parser, arg, arg_list=None):
         assert arg is not None
         if arg_list is None:
             return ASTNode('arg_list', {}, [arg])
@@ -68,52 +68,52 @@ class UTLParseHandlerParseTree(UTLParseHandler):
             arg_list.add_first_child(arg)
             return arg_list
 
-    def array_elems(self, expr, array_elems=None):
+    def array_elems(self, parser, expr, array_elems=None):
         if array_elems is not None:
             if expr is not None:
                 array_elems.add_child(expr)
             return array_elems
         return ASTNode('array_elems', {}, [expr] if expr is not None else [])
 
-    def array_literal(self, elements=None):
+    def array_literal(self, parser, elements=None):
         return ASTNode('array_literal', {},
                        [elements] if elements is not None else [])
 
-    def array_ref(self, variable, index):
+    def array_ref(self, parser, variable, index):
         assert variable is not None
         assert index is not None
         return ASTNode('array_ref', {}, [variable, index])
 
-    def as_clause(self, var1, var2=None):
+    def as_clause(self, parser, var1, var2=None):
         assert var1 is not None
         kids = [ASTNode('id', {"symbol": var1}, [])]
         if var2 is not None:
             kids += [ASTNode('id', {'symbol': var2}, [])]
         return ASTNode('as_clause', {}, kids)
 
-    def call_stmt(self, macro_call):
+    def call_stmt(self, parser, macro_call):
         assert macro_call is not None
         return ASTNode('call_stmt', {}, [macro_call])
 
-    def default_assignment(self, assignment):
+    def default_assignment(self, parser, assignment):
         assert assignment is not None
         return ASTNode('default_assignment', {}, [assignment])
 
-    def dotted_id(self, this_id, id_suffix=None):
+    def dotted_id(self, parser, this_id, id_suffix=None):
         assert this_id is not None
         if id_suffix:
             id_suffix.attributes['symbol'] = this_id + '.' + id_suffix.attributes['symbol']
             return id_suffix
         return ASTNode('id', {'symbol': this_id}, [])
 
-    def echo_stmt(self, expr):
+    def echo_stmt(self, parser, expr):
         return ASTNode('echo', {}, [expr] if expr is not None else [])
 
-    def else_stmt(self, statement_list):
+    def else_stmt(self, parser, statement_list):
         assert statement_list is not None
         return ASTNode('else_stmt', {}, [statement_list])
 
-    def elseif_stmts(self, elseif_stmt, elseif_stmts=None):
+    def elseif_stmts(self, parser, elseif_stmt, elseif_stmts=None):
         assert elseif_stmt is not None
         if elseif_stmts is not None:
             elseif_stmts.add_first_child(elseif_stmt)
@@ -121,13 +121,13 @@ class UTLParseHandlerParseTree(UTLParseHandler):
             elseif_stmts = ASTNode('elseif_stmts', {}, [elseif_stmt])
         return elseif_stmts
 
-    def elseif_stmt(self, expr, statement_list=None):
+    def elseif_stmt(self, parser, expr, statement_list=None):
         assert expr is not None
         if statement_list is None:
             statement_list = ASTNode('statement_list', {}, [])
         return ASTNode('elseif_stmt', {}, [expr, statement_list])
 
-    def expr(self, first, second=None, third=None):
+    def expr(self, parser, first, second=None, third=None):
         """An expression production
 
             first is: not|!|expr|literal|ID|LBRACKET|LPAREN|MINUS|PLUS
@@ -153,7 +153,7 @@ class UTLParseHandlerParseTree(UTLParseHandler):
         id_node = ASTNode('id', {'symbol': first}, [])
         return ASTNode('expr', {}, [id_node])
 
-    def for_stmt(self, expr, as_clause=None, statement_list=None):
+    def for_stmt(self, parser, expr, as_clause=None, statement_list=None):
         assert expr is not None
         if as_clause is None:
             as_clause = ASTNode('as_clause', {}, [])
@@ -161,7 +161,7 @@ class UTLParseHandlerParseTree(UTLParseHandler):
             statement_list = ASTNode('statement_list', {}, [])
         return ASTNode('for_stmt', {}, [expr, as_clause, statement_list])
 
-    def if_stmt(self, expr, statement_list=None, elseif_stmts=None, else_stmt=None):
+    def if_stmt(self, parser, expr, statement_list=None, elseif_stmts=None, else_stmt=None):
         assert expr is not None
         if statement_list is None:  # yes, oddly this is valid
             statement_list = ASTNode("statement_list", {}, [])
@@ -172,11 +172,11 @@ class UTLParseHandlerParseTree(UTLParseHandler):
             kids.append(else_stmt)
         return ASTNode('if_stmt', {}, kids)
 
-    def include_stmt(self, filename):
+    def include_stmt(self, parser, filename):
         assert filename is not None
         return ASTNode('include_stmt', {}, [filename])
 
-    def literal(self, literal):
+    def literal(self, parser, literal):
         assert literal is not None
         if isinstance(literal, str):
             if literal in ['true', 'false']:
@@ -189,29 +189,29 @@ class UTLParseHandlerParseTree(UTLParseHandler):
         else:
             return ASTNode('literal', {'type': 'array', 'value': '[..]'}, [literal])
 
-    def macro_call(self, macro_expr, arg_list=None):
+    def macro_call(self, parser, macro_expr, arg_list=None):
         assert macro_expr
         return ASTNode('macro_call', {},
                        [macro_expr, arg_list] if arg_list is not None else [macro_expr])
 
-    def macro_decl(self, macro_name, param_list=None):
+    def macro_decl(self, parser, macro_name, param_list=None):
         assert macro_name
         return ASTNode('macro_decl', {},
                        [macro_name, param_list] if param_list else [macro_name])
 
-    def macro_defn(self, macro_decl, statement_list=None):
+    def macro_defn(self, parser, macro_decl, statement_list=None):
         assert macro_decl
         if statement_list is None:
             statement_list = ASTNode('statement_list', {}, [])
         return ASTNode('macro_defn', {}, [macro_decl, statement_list])
 
-    def param_decl(self, param_id, default_value=None):
+    def param_decl(self, parser, param_id, default_value=None):
         assert param_id
         return ASTNode('param_decl',
                        {'name': param_id} if param_id is not None else {},
                        [default_value] if default_value is not None else [])
 
-    def param_list(self, param_decl, param_list=None):
+    def param_list(self, parser, param_decl, param_list=None):
         assert param_decl
         if param_list is not None:
             param_list.add_first_child(param_decl)
@@ -219,14 +219,14 @@ class UTLParseHandlerParseTree(UTLParseHandler):
         else:
             return ASTNode('param_list', {}, [param_decl])
 
-    def paren_expr(self, expr):
+    def paren_expr(self, parser, expr):
         assert expr
         return expr
 
-    def return_stmt(self, expr=None):
+    def return_stmt(self, parser, expr=None):
         return ASTNode('return_stmt', {}, [expr] if expr else [])
 
-    def while_stmt(self, expr, statement_list=None):
+    def while_stmt(self, parser, expr, statement_list=None):
         assert expr is not None
         if statement_list is None:
             statement_list = ASTNode('statement_list', {}, [])

@@ -110,7 +110,14 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         # is there an expr on the stack?
         # if so, remove it, push "ECHO", push expr.
         for handler in self.handlers:
-            handler.error(p, self.parser)
+            handler.error(self, p)
+
+    @property
+    def symstack(self):
+        # great, the property gets called when yacc.yacc() is called
+        if hasattr(self, 'parser'):
+            return self.parser.symstack
+        return None
 
     # -------------------------------------------------------------------------------------------
     # top-level productions
@@ -118,7 +125,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
     def p_utldoc(self, p):
         '''utldoc : statement_list'''
         for handler in self.handlers:
-            value = handler.utldoc(p[1])
+            value = handler.utldoc(self, p[1])
             if p[0] is None:
                 p[0] = value
 
@@ -127,7 +134,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                            | statement statement_list'''
         if p[1] is not None or self._(p, 2) is not None:
             for handler in self.handlers:
-                value = handler.statement_list(p[1], self._(p, 2))
+                value = handler.statement_list(self, p[1], self._(p, 2))
                 if p[0] is None:
                     p[0] = value
 
@@ -150,7 +157,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                      | EXIT eostmt'''
         if p[1] is not None:  # skip empty statements
             for handler in self.handlers:
-                value = handler.statement(p[1])
+                value = handler.statement(self, p[1])
                 if p[0] is None:
                     p[0] = value
 
@@ -160,7 +167,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
     def p_abbrev_if_stmt(self, p):
         '''abbrev_if_stmt : IF expr THEN statement'''
         for handler in self.handlers:
-            value = handler.abbrev_if_stmt(p[2], p[4])
+            value = handler.abbrev_if_stmt(self, p[2], p[4])
             if p[0] is None:
                 p[0] = value
 
@@ -172,9 +179,9 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         # is there a better way to handle shift/reduce than explicitly settting precedence?
         for handler in self.handlers:
             if len(p) == 4:
-                value = handler.arg(p[3], p[1])
+                value = handler.arg(self, p[3], p[1])
             else:
-                value = handler.arg(p[1], None)
+                value = handler.arg(self, p[1], None)
             if p[0] is None:
                 p[0] = value
 
@@ -182,7 +189,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         '''arg_list : arg
                     | arg COMMA arg_list'''
         for handler in self.handlers:
-            value = handler.arg_list(p[1], self._(p, 3))
+            value = handler.arg_list(self, p[1], self._(p, 3))
             if p[0] is None:
                 p[0] = value
 
@@ -191,9 +198,9 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                        | array_elems COMMA expr'''
         for handler in self.handlers:
             if len(p) == 2:
-                value = handler.array_elems(p[1], None)
+                value = handler.array_elems(self, p[1], None)
             else:
-                value = handler.array_elems(p[3], p[1])
+                value = handler.array_elems(self, p[3], p[1])
             if p[0] is None:
                 p[0] = value
 
@@ -202,7 +209,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                          | LBRACKET array_elems RBRACKET
                          | LBRACKET array_elems COMMA RBRACKET'''
         for handler in self.handlers:
-            value = handler.array_literal(p[2] if len(p) >= 4 else None)
+            value = handler.array_literal(self, p[2] if len(p) >= 4 else None)
             if p[0] is None:
                 p[0] = value
 
@@ -210,7 +217,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         '''array_ref : expr LBRACKET expr RBRACKET'''
         # of course, not all array literal expressions are valid for array reference
         for handler in self.handlers:
-            value = handler.array_ref(p[1], p[3])
+            value = handler.array_ref(self, p[1], p[3])
             if p[0] is None:
                 p[0] = value
 
@@ -220,21 +227,21 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                      | AS ID COMMA ID'''
         if len(p) > 1:
             for handler in self.handlers:
-                value = handler.as_clause(p[2], self._(p, 4))
+                value = handler.as_clause(self, p[2], self._(p, 4))
                 if p[0] is None:
                     p[0] = value
 
     def p_call_stmt(self, p):
         '''call_stmt : CALL macro_call'''
         for handler in self.handlers:
-            value = handler.call_stmt(p[2])
+            value = handler.call_stmt(self, p[2])
             if p[0] is None:
                 p[0] = value
 
     def p_default_assignment(self, p):
         '''default_assignment : DEFAULT expr'''
         for handler in self.handlers:
-            value = handler.default_assignment(p[2])
+            value = handler.default_assignment(self, p[2])
             if p[0] is None:
                 p[0] = value
 
@@ -242,7 +249,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         '''dotted_id : ID
                      | ID DOT dotted_id'''
         for handler in self.handlers:
-            value = handler.dotted_id(p[1], self._(p, 3))
+            value = handler.dotted_id(self, p[1], self._(p, 3))
             if p[0] is None:
                 p[0] = value
 
@@ -250,7 +257,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         '''echo_stmt : ECHO
                      | ECHO expr'''
         for handler in self.handlers:
-            value = handler.echo_stmt(self._(p, 2))
+            value = handler.echo_stmt(self, self._(p, 2))
             if p[0] is None:
                 p[0] = value
 
@@ -259,7 +266,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                      | ELSE statement_list'''
         if len(p) > 1:
             for handler in self.handlers:
-                value = handler.else_stmt(p[2])
+                value = handler.else_stmt(self, p[2])
                 if p[0] is None:
                     p[0] = value
 
@@ -268,14 +275,14 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                         | elseif_stmt elseif_stmts'''
         if len(p) > 1:
             for handler in self.handlers:
-                value = handler.elseif_stmts(p[1], p[2])
+                value = handler.elseif_stmts(self, p[1], p[2])
                 if p[0] is None:
                     p[0] = value
 
     def p_elseif_stmt(self, p):
         '''elseif_stmt : ELSEIF expr statement_list'''
         for handler in self.handlers:
-            value = handler.elseif_stmt(p[2], p[3])
+            value = handler.elseif_stmt(self, p[2], p[3])
             if p[0] is None:
                 p[0] = value
 
@@ -284,7 +291,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                   | EOF
                   | END_UTL'''
         for handler in self.handlers:
-            value = handler.eostmt(p[1])
+            value = handler.eostmt(self, p[1])
             if p[0] is None:
                 p[0] = value
 
@@ -321,7 +328,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                 | expr ASSIGNOP expr
                 | expr COLON expr'''
         for handler in self.handlers:
-            value = handler.expr(p[1], self._(p, 2), self._(p, 3))
+            value = handler.expr(self, p[1], self._(p, 2), self._(p, 3))
             if p[0] is None:
                 p[0] = value
 
@@ -331,9 +338,9 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         for handler in self.handlers:
             if len(p) == 8:
                 # account for EACH
-                value = handler.for_stmt(p[3], p[4], p[6])
+                value = handler.for_stmt(self, p[3], p[4], p[6])
             else:
-                value = handler.for_stmt(p[2], p[3], p[5])
+                value = handler.for_stmt(self, p[2], p[3], p[5])
             if p[0] is None:
                 p[0] = value
 
@@ -342,16 +349,16 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                    | IF expr eostmt elseif_stmts else_stmt END'''
         for handler in self.handlers:
             if len(p) == 8:
-                value = handler.if_stmt(p[2], p[4], p[5], p[6])
+                value = handler.if_stmt(self, p[2], p[4], p[5], p[6])
             else:
-                value = handler.if_stmt(p[2], None, p[4], p[5])
+                value = handler.if_stmt(self, p[2], None, p[4], p[5])
             if p[0] is None:
                 p[0] = value
 
     def p_include_stmt(self, p):
         '''include_stmt : INCLUDE expr'''
         for handler in self.handlers:
-            value = handler.include_stmt(p[2])
+            value = handler.include_stmt(self, p[2])
             if p[0] is None:
                 p[0] = value
 
@@ -363,7 +370,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                    | NULL
                    | array_literal'''
         for handler in self.handlers:
-            value = handler.literal(p[1])
+            value = handler.literal(self, p[1])
             if p[0] is None:
                 p[0] = value
 
@@ -372,9 +379,9 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                       | expr LPAREN arg_list RPAREN'''
         for handler in self.handlers:
             if len(p) == 4:
-                value = handler.macro_call(p[1], None)
+                value = handler.macro_call(self, p[1], None)
             else:
-                value = handler.macro_call(p[1], p[3])
+                value = handler.macro_call(self, p[1], p[3])
             if p[0] is None:
                 p[0] = value
 
@@ -383,7 +390,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                       | MACRO dotted_id LPAREN param_list RPAREN
         '''
         for handler in self.handlers:
-            value = handler.macro_decl(p[2], self._(p, 4))
+            value = handler.macro_decl(self, p[2], self._(p, 4))
             if p[0] is None:
                 p[0] = value
 
@@ -391,7 +398,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         '''macro_defn : macro_decl eostmt statement_list END
                       | macro_decl eostmt END'''
         for handler in self.handlers:
-            value = handler.macro_defn(p[1], p[3] if p[3] != 'end' else None)
+            value = handler.macro_defn(self, p[1], p[3] if p[3] != 'end' else None)
             if p[0] is None:
                 p[0] = value
 
@@ -399,7 +406,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         '''param_decl : ID
                       | ID ASSIGN expr'''
         for handler in self.handlers:
-            value = handler.param_decl(p[1], self._(p, 3))
+            value = handler.param_decl(self, p[1], self._(p, 3))
             if p[0] is None:
                 p[0] = value
 
@@ -409,7 +416,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                       | param_decl '''
         if len(p) > 1:
             for handler in self.handlers:
-                value = handler.param_list(p[1], self._(p, 3))
+                value = handler.param_list(self, p[1], self._(p, 3))
                 if p[0] is None:
                     p[0] = value
 
@@ -417,7 +424,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         '''paren_expr : LPAREN expr RPAREN'''
         if p[2] is not None:
             for handler in self.handlers:
-                value = handler.paren_expr(p[2])
+                value = handler.paren_expr(self, p[2])
                 if p[0] is None:
                     p[0] = value
 
@@ -425,13 +432,13 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         '''return_stmt : RETURN expr
                        | RETURN'''
         for handler in self.handlers:
-            value = handler.return_stmt(self._(p, 2))
+            value = handler.return_stmt(self, self._(p, 2))
             if p[0] is None:
                 p[0] = value
 
     def p_while_stmt(self, p):
         '''while_stmt : WHILE expr statement_list END'''
         for handler in self.handlers:
-            value = handler.while_stmt(p[2], p[3])
+            value = handler.while_stmt(self, p[2], p[3])
             if p[0] is None:
                 p[0] = value

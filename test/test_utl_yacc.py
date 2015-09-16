@@ -167,6 +167,8 @@ class UTLParserTestCase(utl_parse_test.TestCaseUTL):
         parser = UTLParser([handler], debug=False)
         with open(self.data_file('syntax_error.utl'), 'r') as datain:
             self.assertRaises(UTLParseError, parser.parse, datain.read())
+        # just to verify that symstack works
+        self.assertEqual(parser.symstack[0].type, '$end')
 
     def test_syntax_error_stderr(self):
         """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with invalid syntax when no
