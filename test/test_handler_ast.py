@@ -66,11 +66,27 @@ class UTLParseHandlerASTTestCase(utl_parse_test.TestCaseUTL):
         """Unit test :py:meth:`utl_lib.handler_ast.UTLParseHandlerAST` with include statements."""
         self.assertJSONFileMatches('includes.utl', 'includes_ast.json')
 
-#        test_data/operators.utl
-#        test_data/unary_exprs.utl
-#        test_data/keywords.utl
-#        test_data/precedence.utl
-#        test_data/while.utl
+    def test_keywords(self):
+        """Unit test :py:meth:`utl_lib.handler_ast.UTLParseHandlerAST` with keywords."""
+        self.assertJSONFileMatches('keywords.utl', 'keywords_ast.json')
+
+    def test_while(self):
+        """Unit test :py:meth:`utl_lib.handler_ast.UTLParseHandlerAST` with while statements."""
+        self.assertJSONFileMatches('while.utl', 'while_ast.json')
+
+    def test_unary_exprs(self):
+        """Unit test :py:meth:`utl_lib.handler_ast.UTLParseHandlerAST` with exprs w/unary
+        operators.
+
+        """
+        self.assertJSONFileMatches('unary_exprs.utl', 'unary_exprs_ast.json')
+
+    def test_precedence(self):
+        """Unit test :py:meth:`utl_lib.handler_ast.UTLParseHandlerAST` with exprs whose parse is
+        determined by operator precedence.
+
+        """
+        self.assertJSONFileMatches('precedence.utl', 'precedence_ast.json')
 
 
 if __name__ == '__main__':

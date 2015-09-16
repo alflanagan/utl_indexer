@@ -1,0 +1,169 @@
+{
+  "name": "statement_list",
+  "children": [{
+    "name": "expr",
+    "attributes": {
+      "operator": "-"
+    },
+    "children": [{
+      "name": "expr",
+      "attributes": {
+        "operator": "*"
+      },
+      "children": [{
+        "name": "literal",
+        "attributes": {
+          "value": 5.0
+        }
+      }, {
+        "name": "literal",
+        "attributes": {
+          "value": 7.0
+        }
+      }]
+    }, {
+      "name": "expr",
+      "attributes": {
+        "operator": "*"
+      },
+      "children": [{
+        "name": "literal",
+        "attributes": {
+          "value": 3.0
+        }
+      }, {
+        "name": "literal",
+        "attributes": {
+          "value": 4.0
+        }
+      }]
+    }]
+  }, {
+    "name": "expr",
+    "attributes": {
+      "operator": ".."
+    },
+    "children": [{
+      "name": "array_ref",
+      "children": [{
+        "name": "id",
+        "attributes": {
+          "symbol": "m"
+        }
+      }, {
+        "name": "literal",
+        "attributes": {
+          "value": 5.0
+        }
+      }]
+    }, {
+      "name": "macro_call",
+      "children": [{
+        "name": "id",
+        "attributes": {
+          "symbol": "fred"
+        }
+      }, {
+        "name": "arg_list",
+        "children": [{
+          "name": "arg",
+          "children": [{
+            "name": "literal",
+            "attributes": {
+              "value": 3.0
+            }
+          }]
+        }]
+      }]
+    }]
+  }, {
+    "name": "expr",
+    "attributes": {
+      "operator": "-"
+    },
+    "children": [{
+      "name": "literal",
+      "attributes": {
+        "value": 5.0
+      }
+    }, {
+      "name": "expr",
+      "attributes": {
+        "operator": "-"
+      },
+      "children": [{
+        "name": "literal",
+        "attributes": {
+          "value": 7.0
+        }
+      }]
+    }]
+  }, {
+    "name": "expr",
+    "attributes": {
+      "operator": "-"
+    },
+    "children": [{
+      "name": "literal",
+      "attributes": {
+        "value": 5.0
+      }
+    }, {
+      "name": "expr",
+      "attributes": {
+        "operator": "+"
+      },
+      "children": [{
+        "name": "literal",
+        "attributes": {
+          "value": 7.0
+        }
+      }]
+    }]
+  }, {
+    "name": "expr",
+    "attributes": {
+      "operator": "+"
+    },
+    "children": [{
+      "name": "literal",
+      "attributes": {
+        "value": 5.0
+      }
+    }, {
+      "name": "expr",
+      "attributes": {
+        "operator": "-"
+      },
+      "children": [{
+        "name": "expr",
+        "attributes": {
+          "operator": "-"
+        },
+        "children": [{
+          "name": "expr",
+          "attributes": {
+            "operator": "-"
+          },
+          "children": [{
+            "name": "expr",
+            "attributes": {
+              "operator": "-"
+            },
+            "children": [{
+              "name": "literal",
+              "attributes": {
+                "value": 7.0
+              }
+            }]
+          }]
+        }]
+      }]
+    }]
+  }, {
+    "name": "document",
+    "attributes": {
+      "text": "\n"
+    }
+  }]
+}

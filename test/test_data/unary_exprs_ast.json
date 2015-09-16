@@ -1,0 +1,181 @@
+{
+  "name": "statement_list",
+  "children": [{
+    "name": "expr",
+    "attributes": {
+      "operator": "="
+    },
+    "children": [{
+      "name": "id",
+      "attributes": {
+        "symbol": "a"
+      }
+    }, {
+      "name": "expr",
+      "attributes": {
+        "operator": "-"
+      },
+      "children": [{
+        "name": "literal",
+        "attributes": {
+          "value": 3.0
+        }
+      }]
+    }]
+  }, {
+    "name": "if",
+    "children": [{
+      "name": "expr",
+      "attributes": {
+        "operator": "&&"
+      },
+      "children": [{
+        "name": "expr",
+        "attributes": {
+          "operator": "<"
+        },
+        "children": [{
+          "name": "expr",
+          "attributes": {
+            "operator": "-"
+          },
+          "children": [{
+            "name": "expr",
+            "attributes": {
+              "operator": "/"
+            },
+            "children": [{
+              "name": "id",
+              "attributes": {
+                "symbol": "myCapturePreviewImage.width"
+              }
+            }, {
+              "name": "id",
+              "attributes": {
+                "symbol": "myCapturePreviewImage.height"
+              }
+            }]
+          }, {
+            "name": "expr",
+            "attributes": {
+              "operator": "/"
+            },
+            "children": [{
+              "name": "id",
+              "attributes": {
+                "symbol": "asset.hi_res.width"
+              }
+            }, {
+              "name": "id",
+              "attributes": {
+                "symbol": "asset.hi_res.height"
+              }
+            }]
+          }]
+        }, {
+          "name": "expr",
+          "attributes": {
+            "operator": "/"
+          },
+          "children": [{
+            "name": "literal",
+            "attributes": {
+              "value": 1.0
+            }
+          }, {
+            "name": "literal",
+            "attributes": {
+              "value": 100.0
+            }
+          }]
+        }]
+      }, {
+        "name": "expr",
+        "attributes": {
+          "operator": ">"
+        },
+        "children": [{
+          "name": "expr",
+          "attributes": {
+            "operator": "-"
+          },
+          "children": [{
+            "name": "expr",
+            "attributes": {
+              "operator": "/"
+            },
+            "children": [{
+              "name": "id",
+              "attributes": {
+                "symbol": "myCapturePreviewImage.width"
+              }
+            }, {
+              "name": "id",
+              "attributes": {
+                "symbol": "myCapturePreviewImage.height"
+              }
+            }]
+          }, {
+            "name": "expr",
+            "attributes": {
+              "operator": "/"
+            },
+            "children": [{
+              "name": "id",
+              "attributes": {
+                "symbol": "asset.hi_res.width"
+              }
+            }, {
+              "name": "id",
+              "attributes": {
+                "symbol": "asset.hi_res.height"
+              }
+            }]
+          }]
+        }, {
+          "name": "expr",
+          "attributes": {
+            "operator": "/"
+          },
+          "children": [{
+            "name": "expr",
+            "attributes": {
+              "operator": "-"
+            },
+            "children": [{
+              "name": "literal",
+              "attributes": {
+                "value": 1.0
+              }
+            }]
+          }, {
+            "name": "literal",
+            "attributes": {
+              "value": 100.0
+            }
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement_list",
+      "children": [{
+        "name": "echo",
+        "children": [{
+          "name": "literal",
+          "attributes": {
+            "value": "wtf?"
+          }
+        }]
+      }]
+    }, {
+      "name": "elseif_stmts"
+    }, {
+      "name": "else"
+    }]
+  }, {
+    "name": "document",
+    "attributes": {
+      "text": "\n"
+    }
+  }]
+}

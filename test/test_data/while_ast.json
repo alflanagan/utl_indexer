@@ -1,0 +1,46 @@
+{
+  "name": "statement_list",
+  "children": [{
+    "name": "while",
+    "children": [{
+      "name": "expr",
+      "attributes": {
+        "operator": "=="
+      },
+      "children": [{
+        "name": "id",
+        "attributes": {
+          "symbol": "foo"
+        }
+      }, {
+        "name": "id",
+        "attributes": {
+          "symbol": "bar"
+        }
+      }]
+    }, {
+      "name": "statement_list",
+      "children": [{
+        "name": "document",
+        "attributes": {
+          "text": "\nstuff happens\n"
+        }
+      }]
+    }]
+  }, {
+    "name": "while",
+    "children": [{
+      "name": "literal",
+      "attributes": {
+        "value": "true"
+      }
+    }, {
+      "name": "statement_list"
+    }]
+  }, {
+    "name": "document",
+    "attributes": {
+      "text": "\n"
+    }
+  }]
+}

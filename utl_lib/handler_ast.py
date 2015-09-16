@@ -232,5 +232,7 @@ class UTLParseHandlerAST(UTLParseHandler):
     def return_stmt(self, expr=None):
         return ASTNode('return', {}, [expr] if expr else [])
 
-    def while_stmt(self, expr, statement_list):
+    def while_stmt(self, expr, statement_list=None):
+        if statement_list is None:
+            statement_list = ASTNode("statement_list", {}, [])
         return ASTNode('while', {}, [expr, statement_list])

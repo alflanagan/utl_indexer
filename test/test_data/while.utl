@@ -1,3 +1,5 @@
 [% while foo == bar %]
 stuff happens
-[% end %]
+[% end;
+while true;
+end %]
