@@ -85,8 +85,8 @@
             "children": [{
               "name": "literal",
               "attributes": {
-                "value": true,
-                "type": "boolean"
+                "type": "boolean",
+                "value": true
               }
             }]
           }]
@@ -169,8 +169,8 @@
                     "children": [{
                       "name": "literal",
                       "attributes": {
-                        "value": "core_services_manager",
-                        "type": "string"
+                        "type": "string",
+                        "value": "core_services_manager"
                       }
                     }]
                   }]
@@ -187,8 +187,8 @@
               "children": [{
                 "name": "literal",
                 "attributes": {
-                  "value": "<!-- error loading Services Component -->",
-                  "type": "string"
+                  "type": "string",
+                  "value": "<!-- error loading Services Component -->"
                 }
               }]
             }]
@@ -253,8 +253,8 @@
                     "children": [{
                       "name": "literal",
                       "attributes": {
-                        "value": "core_services_manager",
-                        "type": "string"
+                        "type": "string",
+                        "value": "core_services_manager"
                       }
                     }]
                   }]
@@ -273,8 +273,8 @@
                 "children": [{
                   "name": "literal",
                   "attributes": {
-                    "value": "<!-- error loading Services Component -->",
-                    "type": "string"
+                    "type": "string",
+                    "value": "<!-- error loading Services Component -->"
                   }
                 }]
               }]
@@ -308,8 +308,8 @@
                 "children": [{
                   "name": "literal",
                   "attributes": {
-                    "value": "bTracker",
-                    "type": "string"
+                    "type": "string",
+                    "value": "bTracker"
                   }
                 }]
               }]
@@ -375,8 +375,8 @@
                           "children": [{
                             "name": "literal",
                             "attributes": {
-                              "value": "mode",
-                              "type": "string"
+                              "type": "string",
+                              "value": "mode"
                             }
                           }]
                         }]
@@ -388,8 +388,8 @@
                   "children": [{
                     "name": "literal",
                     "attributes": {
-                      "value": "jqm",
-                      "type": "string"
+                      "type": "string",
+                      "value": "jqm"
                     }
                   }]
                 }]
@@ -422,8 +422,8 @@
                     "children": [{
                       "name": "literal",
                       "attributes": {
-                        "value": "sServiceClass",
-                        "type": "string"
+                        "type": "string",
+                        "value": "sServiceClass"
                       }
                     }]
                   }]
@@ -433,8 +433,8 @@
                 "children": [{
                   "name": "literal",
                   "attributes": {
-                    "value": "managed-service",
-                    "type": "string"
+                    "type": "string",
+                    "value": "managed-service"
                   }
                 }]
               }]
@@ -464,8 +464,8 @@
             "children": [{
               "name": "literal",
               "attributes": {
-                "value": true,
-                "type": "boolean"
+                "type": "boolean",
+                "value": true
               }
             }]
           }]
@@ -577,8 +577,8 @@
                   "children": [{
                     "name": "literal",
                     "attributes": {
-                      "value": "q",
-                      "type": "string"
+                      "type": "string",
+                      "value": "q"
                     }
                   }]
                 }]
@@ -610,8 +610,8 @@
                 "children": [{
                   "name": "literal",
                   "attributes": {
-                    "value": ",",
-                    "type": "string"
+                    "type": "string",
+                    "value": ","
                   }
                 }]
               }, {
@@ -673,8 +673,8 @@
                             "children": [{
                               "name": "literal",
                               "attributes": {
-                                "value": "q",
-                                "type": "string"
+                                "type": "string",
+                                "value": "q"
                               }
                             }]
                           }]
@@ -702,8 +702,8 @@
                             "children": [{
                               "name": "literal",
                               "attributes": {
-                                "value": " ",
-                                "type": "string"
+                                "type": "string",
+                                "value": " "
                               }
                             }]
                           }]
@@ -714,8 +714,8 @@
                             "children": [{
                               "name": "literal",
                               "attributes": {
-                                "value": ",",
-                                "type": "string"
+                                "type": "string",
+                                "value": ","
                               }
                             }]
                           }]
@@ -774,8 +774,8 @@
                 "children": [{
                   "name": "literal",
                   "attributes": {
-                    "value": "probably an error but legal",
-                    "type": "string"
+                    "type": "string",
+                    "value": "probably an error but legal"
                   }
                 }]
               }]
@@ -818,8 +818,8 @@
                     "children": [{
                       "name": "literal",
                       "attributes": {
-                        "value": "still_legal",
-                        "type": "string"
+                        "type": "string",
+                        "value": "still_legal"
                       }
                     }]
                   }]
@@ -845,8 +845,8 @@
               "children": [{
                 "name": "literal",
                 "attributes": {
-                  "value": 7.0,
-                  "type": "number"
+                  "type": "number",
+                  "value": 7.0
                 }
               }]
             }, {
@@ -854,8 +854,8 @@
               "children": [{
                 "name": "literal",
                 "attributes": {
-                  "value": 15.0,
-                  "type": "number"
+                  "type": "number",
+                  "value": 15.0
                 }
               }]
             }]
@@ -885,8 +885,8 @@
                       "children": [{
                         "name": "literal",
                         "attributes": {
-                          "value": "something",
-                          "type": "string"
+                          "type": "string",
+                          "value": "something"
                         }
                       }]
                     }]
@@ -919,8 +919,8 @@
             "children": [{
               "name": "literal",
               "attributes": {
-                "value": 3.0,
-                "type": "number"
+                "type": "number",
+                "value": 3.0
               }
             }]
           }]
@@ -949,8 +949,8 @@
                       "children": [{
                         "name": "literal",
                         "attributes": {
-                          "value": "hello",
-                          "type": "string"
+                          "type": "string",
+                          "value": "hello"
                         }
                       }]
                     }]
@@ -983,8 +983,8 @@
                   "children": [{
                     "name": "literal",
                     "attributes": {
-                      "value": 5.0,
-                      "type": "number"
+                      "type": "number",
+                      "value": 5.0
                     }
                   }]
                 }]
@@ -1014,8 +1014,8 @@
                           "children": [{
                             "name": "literal",
                             "attributes": {
-                              "value": 7.0,
-                              "type": "number"
+                              "type": "number",
+                              "value": 7.0
                             }
                           }]
                         }]
@@ -1026,8 +1026,8 @@
                           "children": [{
                             "name": "literal",
                             "attributes": {
-                              "value": 12.0,
-                              "type": "number"
+                              "type": "number",
+                              "value": 12.0
                             }
                           }]
                         }]
@@ -1038,8 +1038,8 @@
                           "children": [{
                             "name": "literal",
                             "attributes": {
-                              "value": 2.0,
-                              "type": "number"
+                              "type": "number",
+                              "value": 2.0
                             }
                           }]
                         }]
@@ -1095,8 +1095,8 @@
                     "children": [{
                       "name": "literal",
                       "attributes": {
-                        "value": 0.0,
-                        "type": "number"
+                        "type": "number",
+                        "value": 0.0
                       }
                     }]
                   }]
@@ -1124,8 +1124,8 @@
                     "children": [{
                       "name": "literal",
                       "attributes": {
-                        "value": "large",
-                        "type": "string"
+                        "type": "string",
+                        "value": "large"
                       }
                     }]
                   }]
@@ -1224,8 +1224,8 @@
                                 "children": [{
                                   "name": "literal",
                                   "attributes": {
-                                    "value": 12.0,
-                                    "type": "number"
+                                    "type": "number",
+                                    "value": 12.0
                                   }
                                 }]
                               }, {
@@ -1233,8 +1233,8 @@
                                 "children": [{
                                   "name": "literal",
                                   "attributes": {
-                                    "value": 3.0,
-                                    "type": "number"
+                                    "type": "number",
+                                    "value": 3.0
                                   }
                                 }]
                               }]
@@ -1243,8 +1243,8 @@
                               "children": [{
                                 "name": "literal",
                                 "attributes": {
-                                  "value": 4.0,
-                                  "type": "number"
+                                  "type": "number",
+                                  "value": 4.0
                                 }
                               }]
                             }]
@@ -1257,8 +1257,8 @@
                     "children": [{
                       "name": "literal",
                       "attributes": {
-                        "value": 3.0,
-                        "type": "number"
+                        "type": "number",
+                        "value": 3.0
                       }
                     }]
                   }]
@@ -1289,8 +1289,8 @@
                           "children": [{
                             "name": "literal",
                             "attributes": {
-                              "value": 12.0,
-                              "type": "number"
+                              "type": "number",
+                              "value": 12.0
                             }
                           }]
                         }]
@@ -1304,8 +1304,8 @@
                           "children": [{
                             "name": "literal",
                             "attributes": {
-                              "value": 47.0,
-                              "type": "number"
+                              "type": "number",
+                              "value": 47.0
                             }
                           }]
                         }]
@@ -1343,8 +1343,8 @@
                         "children": [{
                           "name": "literal",
                           "attributes": {
-                            "value": "goodbye",
-                            "type": "string"
+                            "type": "string",
+                            "value": "goodbye"
                           }
                         }]
                       }]
@@ -1520,8 +1520,8 @@
                 "children": [{
                   "name": "literal",
                   "attributes": {
-                    "value": 1.0,
-                    "type": "number"
+                    "type": "number",
+                    "value": 1.0
                   }
                 }]
               }, {
@@ -1529,8 +1529,8 @@
                 "children": [{
                   "name": "literal",
                   "attributes": {
-                    "value": 100.0,
-                    "type": "number"
+                    "type": "number",
+                    "value": 100.0
                   }
                 }]
               }]
@@ -1690,8 +1690,8 @@
                 "children": [{
                   "name": "literal",
                   "attributes": {
-                    "value": 1.0,
-                    "type": "number"
+                    "type": "number",
+                    "value": 1.0
                   }
                 }]
               }, {
@@ -1699,8 +1699,8 @@
                 "children": [{
                   "name": "literal",
                   "attributes": {
-                    "value": 100.0,
-                    "type": "number"
+                    "type": "number",
+                    "value": 100.0
                   }
                 }]
               }]
@@ -1717,8 +1717,8 @@
                 "children": [{
                   "name": "literal",
                   "attributes": {
-                    "value": "wtf?",
-                    "type": "string"
+                    "type": "string",
+                    "value": "wtf?"
                   }
                 }]
               }]
@@ -1833,8 +1833,8 @@
                 "children": [{
                   "name": "literal",
                   "attributes": {
-                    "value": true,
-                    "type": "boolean"
+                    "type": "boolean",
+                    "value": true
                   }
                 }]
               }]
@@ -1898,8 +1898,8 @@
                 "children": [{
                   "name": "literal",
                   "attributes": {
-                    "value": "oops",
-                    "type": "string"
+                    "type": "string",
+                    "value": "oops"
                   }
                 }]
               }]
@@ -1929,8 +1929,8 @@
             "children": [{
               "name": "literal",
               "attributes": {
-                "value": 2.0,
-                "type": "number"
+                "type": "number",
+                "value": 2.0
               }
             }]
           }, {
@@ -1938,8 +1938,8 @@
             "children": [{
               "name": "literal",
               "attributes": {
-                "value": 3.0,
-                "type": "number"
+                "type": "number",
+                "value": 3.0
               }
             }]
           }]
@@ -1950,9 +1950,166 @@
             "children": [{
               "name": "literal",
               "attributes": {
-                "value": "hello",
-                "type": "string"
+                "type": "string",
+                "value": "hello"
               }
+            }]
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "document",
+        "attributes": {
+          "text": "\n"
+        }
+      }]
+    }, {
+      "name": "statement",
+      "children": [{
+        "name": "if_stmt",
+        "children": [{
+          "name": "expr",
+          "attributes": {
+            "operator": "&&"
+          },
+          "children": [{
+            "name": "expr",
+            "attributes": {
+              "operator": "&&"
+            },
+            "children": [{
+              "name": "expr",
+              "attributes": {
+                "operator": "=="
+              },
+              "children": [{
+                "name": "expr",
+                "children": [{
+                  "name": "id",
+                  "attributes": {
+                    "symbol": "navigation"
+                  }
+                }]
+              }, {
+                "name": "expr",
+                "children": [{
+                  "name": "literal",
+                  "attributes": {
+                    "type": "string",
+                    "value": "mega"
+                  }
+                }]
+              }]
+            }, {
+              "name": "expr",
+              "attributes": {
+                "operator": ">"
+              },
+              "children": [{
+                "name": "expr",
+                "attributes": {
+                  "operator": "."
+                },
+                "children": [{
+                  "name": "expr",
+                  "children": [{
+                    "name": "id",
+                    "attributes": {
+                      "symbol": "nav_item"
+                    }
+                  }]
+                }, {
+                  "name": "expr",
+                  "attributes": {
+                    "operator": "."
+                  },
+                  "children": [{
+                    "name": "expr",
+                    "children": [{
+                      "name": "id",
+                      "attributes": {
+                        "symbol": "children"
+                      }
+                    }]
+                  }, {
+                    "name": "expr",
+                    "children": [{
+                      "name": "id",
+                      "attributes": {
+                        "symbol": "length"
+                      }
+                    }]
+                  }]
+                }]
+              }, {
+                "name": "expr",
+                "children": [{
+                  "name": "literal",
+                  "attributes": {
+                    "type": "number",
+                    "value": 0.0
+                  }
+                }]
+              }]
+            }]
+          }, {
+            "name": "expr",
+            "attributes": {
+              "operator": "!="
+            },
+            "children": [{
+              "name": "expr",
+              "children": [{
+                "name": "id",
+                "attributes": {
+                  "symbol": "item_mega_excluded"
+                }
+              }]
+            }, {
+              "name": "expr",
+              "children": [{
+                "name": "literal",
+                "attributes": {
+                  "type": "boolean",
+                  "value": true
+                }
+              }]
+            }]
+          }]
+        }, {
+          "name": "statement_list"
+        }, {
+          "name": "else_stmt",
+          "children": [{
+            "name": "statement_list",
+            "children": [{
+              "name": "statement",
+              "children": [{
+                "name": "expr",
+                "attributes": {
+                  "operator": "="
+                },
+                "children": [{
+                  "name": "expr",
+                  "children": [{
+                    "name": "id",
+                    "attributes": {
+                      "symbol": "parent_none_check"
+                    }
+                  }]
+                }, {
+                  "name": "expr",
+                  "children": [{
+                    "name": "literal",
+                    "attributes": {
+                      "type": "string",
+                      "value": "display:none;"
+                    }
+                  }]
+                }]
+              }]
             }]
           }]
         }]
