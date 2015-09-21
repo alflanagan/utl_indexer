@@ -28,17 +28,13 @@ class ASTNode(object):
 
     :param list children: iterator of nodes, which will be attached as children.
 
-    :param str source_file: name of file containing the production that created this node.
-
-    :param int start_pos: the position in source_file of the first character matched by the rule for this production.
-
-    :param int end_pos: the position in `source_file` of the last character matched.
-
     """
 
     def __init__(self, symbol_name, attrs, children):
         if not symbol_name:
             raise ASTNodeError('ASTNode must have a valid name')
+        if attrs is not None:
+            assert hasattr(attrs, 'keys')
         self.children = []
         if children:
             for child in children:
@@ -200,7 +196,8 @@ class ASTNode(object):
                 value = self.attributes[key]
                 if self.symbol == 'document':
                     # special handling of HTML content
-                    value = value.replace('"', '&quot;')
+                    if hasattr(value, 'replace'):  # don't try replace() on ints, etc
+                        value = value.replace('"', '&quot;')
                 if isinstance(value, ASTNode):
                     result += '"{}": {},\n'.format(key, value.json_format())
                 else:
