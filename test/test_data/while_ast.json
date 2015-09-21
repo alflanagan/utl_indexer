@@ -1,46 +1,78 @@
 {
   "name": "statement_list",
+  "attributes": {
+    "line": 6,
+    "file": "while.utl"
+  },
   "children": [{
     "name": "while",
+    "attributes": {
+      "line": 3,
+      "file": "while.utl"
+    },
     "children": [{
       "name": "expr",
       "attributes": {
-        "operator": "=="
+        "operator": "==",
+        "line": 1,
+        "file": "while.utl"
       },
       "children": [{
         "name": "id",
         "attributes": {
+          "line": 1,
+          "file": "while.utl",
           "symbol": "foo"
         }
       }, {
         "name": "id",
         "attributes": {
+          "line": 1,
+          "file": "while.utl",
           "symbol": "bar"
         }
       }]
     }, {
       "name": "statement_list",
+      "attributes": {
+        "line": 3,
+        "file": "while.utl"
+      },
       "children": [{
         "name": "document",
         "attributes": {
-          "text": "\nstuff happens\n"
+          "text": "\nstuff happens\n",
+          "line": 3,
+          "file": "while.utl"
         }
       }]
     }]
   }, {
     "name": "while",
+    "attributes": {
+      "line": 5,
+      "file": "while.utl"
+    },
     "children": [{
       "name": "literal",
       "attributes": {
-        "value": "true"
+        "value": "true",
+        "line": 4,
+        "file": "while.utl"
       }
     }, {
-      "name": "statement_list"
+      "name": "statement_list",
+      "attributes": {
+        "line": 5,
+        "file": "while.utl"
+      }
     }]
   }, {
     "name": "document",
     "attributes": {
-      "text": "\n"
+      "text": "\n",
+      "line": 6,
+      "file": "while.utl"
     }
   }]
 }

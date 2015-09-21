@@ -1,32 +1,66 @@
 {
   "name": "statement_list",
+  "attributes": {
+    "file": "calls.utl",
+    "line": 16
+  },
   "children": [{
     "name": "macro_call",
+    "attributes": {
+      "file": "calls.utl",
+      "line": 1
+    },
     "children": [{
       "name": "id",
       "attributes": {
+        "file": "calls.utl",
+        "line": 1,
         "symbol": "fred"
       }
     }, {
-      "name": "arg_list"
+      "name": "arg_list",
+      "attributes": {
+        "file": "calls.utl",
+        "line": 1
+      }
     }]
   }, {
     "name": "call",
+    "attributes": {
+      "file": "calls.utl",
+      "line": 2
+    },
     "children": [{
       "name": "macro_call",
+      "attributes": {
+        "file": "calls.utl",
+        "line": 2
+      },
       "children": [{
         "name": "id",
         "attributes": {
+          "file": "calls.utl",
+          "line": 2,
           "symbol": "cms.component.load"
         }
       }, {
         "name": "arg_list",
+        "attributes": {
+          "file": "calls.utl",
+          "line": 2
+        },
         "children": [{
           "name": "arg",
+          "attributes": {
+            "file": "calls.utl",
+            "line": 2
+          },
           "children": [{
             "name": "literal",
             "attributes": {
-              "value": "core_base_editorial"
+              "value": "core_base_editorial",
+              "file": "calls.utl",
+              "line": 2
             }
           }]
         }]
@@ -34,148 +68,266 @@
     }]
   }, {
     "name": "macro_call",
+    "attributes": {
+      "file": "calls.utl",
+      "line": 3
+    },
     "children": [{
       "name": "id",
       "attributes": {
+        "file": "calls.utl",
+        "line": 3,
         "symbol": "barney"
       }
     }, {
       "name": "arg_list",
+      "attributes": {
+        "file": "calls.utl",
+        "line": 3
+      },
       "children": [{
         "name": "arg",
+        "attributes": {
+          "file": "calls.utl",
+          "line": 3
+        },
         "children": [{
           "name": "literal",
           "attributes": {
-            "value": 3.0
+            "value": 3.0,
+            "file": "calls.utl",
+            "line": 3
           }
         }]
       }]
     }]
   }, {
     "name": "macro_call",
+    "attributes": {
+      "file": "calls.utl",
+      "line": 4
+    },
     "children": [{
       "name": "id",
       "attributes": {
+        "file": "calls.utl",
+        "line": 4,
         "symbol": "barney"
       }
     }, {
       "name": "arg_list",
+      "attributes": {
+        "file": "calls.utl",
+        "line": 4
+      },
       "children": [{
         "name": "arg",
+        "attributes": {
+          "file": "calls.utl",
+          "line": 4
+        },
         "children": [{
           "name": "literal",
           "attributes": {
-            "value": 1.0
+            "value": 1.0,
+            "file": "calls.utl",
+            "line": 4
           }
         }]
       }, {
         "name": "arg",
+        "attributes": {
+          "file": "calls.utl",
+          "line": 4
+        },
         "children": [{
           "name": "literal",
           "attributes": {
-            "value": 2.0
+            "value": 2.0,
+            "file": "calls.utl",
+            "line": 4
           }
         }]
       }, {
         "name": "arg",
+        "attributes": {
+          "file": "calls.utl",
+          "line": 4
+        },
         "children": [{
           "name": "literal",
           "attributes": {
-            "value": 3.0
+            "value": 3.0,
+            "file": "calls.utl",
+            "line": 4
           }
         }]
       }, {
         "name": "arg",
+        "attributes": {
+          "file": "calls.utl",
+          "line": 4
+        },
         "children": [{
           "name": "literal",
           "attributes": {
-            "value": 4.0
+            "value": 4.0,
+            "file": "calls.utl",
+            "line": 4
           }
         }]
       }, {
         "name": "arg",
+        "attributes": {
+          "file": "calls.utl",
+          "line": 4
+        },
         "children": [{
           "name": "literal",
           "attributes": {
-            "value": 5.0
+            "value": 5.0,
+            "file": "calls.utl",
+            "line": 4
           }
         }]
       }, {
         "name": "arg",
+        "attributes": {
+          "file": "calls.utl",
+          "line": 4
+        },
         "children": [{
           "name": "literal",
           "attributes": {
-            "value": 6.0
+            "value": 6.0,
+            "file": "calls.utl",
+            "line": 4
           }
         }]
       }]
     }]
   }, {
     "name": "macro_call",
+    "attributes": {
+      "file": "calls.utl",
+      "line": 5
+    },
     "children": [{
       "name": "id",
       "attributes": {
+        "file": "calls.utl",
+        "line": 5,
         "symbol": "wilma"
       }
     }, {
       "name": "arg_list",
+      "attributes": {
+        "file": "calls.utl",
+        "line": 5
+      },
       "children": [{
         "name": "arg",
+        "attributes": {
+          "file": "calls.utl",
+          "line": 5
+        },
         "children": [{
           "name": "literal",
           "attributes": {
-            "value": "betty"
+            "value": "betty",
+            "file": "calls.utl",
+            "line": 5
           }
         }]
       }]
     }]
   }, {
     "name": "macro_call",
+    "attributes": {
+      "file": "calls.utl",
+      "line": 6
+    },
     "children": [{
       "name": "id",
       "attributes": {
+        "file": "calls.utl",
+        "line": 6,
         "symbol": "pebbles"
       }
     }, {
       "name": "arg_list",
+      "attributes": {
+        "file": "calls.utl",
+        "line": 6
+      },
       "children": [{
         "name": "arg",
         "attributes": {
+          "file": "calls.utl",
+          "line": 6,
           "keyword": "mom"
         },
         "children": [{
           "name": "literal",
           "attributes": {
-            "value": "betty"
+            "value": "betty",
+            "file": "calls.utl",
+            "line": 6
           }
         }]
       }, {
         "name": "arg",
+        "attributes": {
+          "file": "calls.utl",
+          "line": 6
+        },
         "children": [{
           "name": "literal",
           "attributes": {
-            "value": 5.0
+            "value": 5.0,
+            "file": "calls.utl",
+            "line": 6
           }
         }]
       }]
     }]
   }, {
     "name": "call",
+    "attributes": {
+      "file": "calls.utl",
+      "line": 7
+    },
     "children": [{
       "name": "macro_call",
+      "attributes": {
+        "file": "calls.utl",
+        "line": 7
+      },
       "children": [{
         "name": "id",
         "attributes": {
+          "file": "calls.utl",
+          "line": 7,
           "symbol": "barney"
         }
       }, {
         "name": "arg_list",
+        "attributes": {
+          "file": "calls.utl",
+          "line": 7
+        },
         "children": [{
           "name": "arg",
+          "attributes": {
+            "file": "calls.utl",
+            "line": 7
+          },
           "children": [{
             "name": "literal",
             "attributes": {
-              "value": 3.0
+              "value": 3.0,
+              "file": "calls.utl",
+              "line": 7
             }
           }]
         }]
@@ -183,32 +335,56 @@
     }]
   }, {
     "name": "call",
+    "attributes": {
+      "file": "calls.utl",
+      "line": 8
+    },
     "children": [{
       "name": "macro_call",
+      "attributes": {
+        "file": "calls.utl",
+        "line": 8
+      },
       "children": [{
         "name": "id",
         "attributes": {
+          "file": "calls.utl",
+          "line": 8,
           "symbol": "pebbles"
         }
       }, {
         "name": "arg_list",
+        "attributes": {
+          "file": "calls.utl",
+          "line": 8
+        },
         "children": [{
           "name": "arg",
           "attributes": {
+            "file": "calls.utl",
+            "line": 8,
             "keyword": "mom"
           },
           "children": [{
             "name": "literal",
             "attributes": {
-              "value": "betty"
+              "value": "betty",
+              "file": "calls.utl",
+              "line": 8
             }
           }]
         }, {
           "name": "arg",
+          "attributes": {
+            "file": "calls.utl",
+            "line": 8
+          },
           "children": [{
             "name": "literal",
             "attributes": {
-              "value": 5.0
+              "value": 5.0,
+              "file": "calls.utl",
+              "line": 8
             }
           }]
         }]
@@ -216,29 +392,49 @@
     }]
   }, {
     "name": "if",
+    "attributes": {
+      "file": "calls.utl",
+      "line": 12
+    },
     "children": [{
       "name": "expr",
       "attributes": {
+        "file": "calls.utl",
+        "line": 10,
         "operator": "."
       },
       "children": [{
         "name": "macro_call",
+        "attributes": {
+          "file": "calls.utl",
+          "line": 10
+        },
         "children": [{
           "name": "id",
           "attributes": {
+            "file": "calls.utl",
+            "line": 10,
             "symbol": "cms.url"
           }
         }, {
           "name": "arg_list",
+          "attributes": {
+            "file": "calls.utl",
+            "line": 10
+          },
           "children": [{
             "name": "arg",
             "attributes": {
+              "file": "calls.utl",
+              "line": 10,
               "keyword": "app"
             },
             "children": [{
               "name": "literal",
               "attributes": {
-                "value": "user"
+                "value": "user",
+                "file": "calls.utl",
+                "line": 10
               }
             }]
           }]
@@ -246,31 +442,55 @@
       }, {
         "name": "id",
         "attributes": {
+          "file": "calls.utl",
+          "line": 10,
           "symbol": "path"
         }
       }]
     }, {
       "name": "statement_list",
+      "attributes": {
+        "file": "calls.utl",
+        "line": 12
+      },
       "children": [{
         "name": "echo",
+        "attributes": {
+          "file": "calls.utl",
+          "line": 11
+        },
         "children": [{
           "name": "macro_call",
+          "attributes": {
+            "file": "calls.utl",
+            "line": 11
+          },
           "children": [{
             "name": "id",
             "attributes": {
+              "file": "calls.utl",
+              "line": 11,
               "symbol": "cms.url"
             }
           }, {
             "name": "arg_list",
+            "attributes": {
+              "file": "calls.utl",
+              "line": 11
+            },
             "children": [{
               "name": "arg",
               "attributes": {
+                "file": "calls.utl",
+                "line": 11,
                 "keyword": "app"
               },
               "children": [{
                 "name": "literal",
                 "attributes": {
-                  "value": "user"
+                  "value": "user",
+                  "file": "calls.utl",
+                  "line": 11
                 }
               }]
             }]
@@ -278,40 +498,70 @@
         }]
       }]
     }, {
-      "name": "elseif_stmts"
+      "name": "elseif_stmts",
+      "attributes": {
+        "file": "calls.utl",
+        "line": 12
+      }
     }, {
-      "name": "else"
+      "name": "else",
+      "attributes": {
+        "file": "calls.utl",
+        "line": 12
+      }
     }]
   }, {
     "name": "expr",
     "attributes": {
+      "file": "calls.utl",
+      "line": 13,
       "operator": "="
     },
     "children": [{
       "name": "id",
       "attributes": {
+        "file": "calls.utl",
+        "line": 13,
         "symbol": "child_image"
       }
     }, {
       "name": "array_ref",
+      "attributes": {
+        "file": "calls.utl",
+        "line": 13
+      },
       "children": [{
         "name": "macro_call",
+        "attributes": {
+          "file": "calls.utl",
+          "line": 13
+        },
         "children": [{
           "name": "id",
           "attributes": {
+            "file": "calls.utl",
+            "line": 13,
             "symbol": "asset.items"
           }
         }, {
           "name": "arg_list",
+          "attributes": {
+            "file": "calls.utl",
+            "line": 13
+          },
           "children": [{
             "name": "arg",
             "attributes": {
+              "file": "calls.utl",
+              "line": 13,
               "keyword": "type"
             },
             "children": [{
               "name": "literal",
               "attributes": {
-                "value": "image"
+                "value": "image",
+                "file": "calls.utl",
+                "line": 13
               }
             }]
           }]
@@ -319,13 +569,17 @@
       }, {
         "name": "literal",
         "attributes": {
-          "value": 0.0
+          "value": 0.0,
+          "file": "calls.utl",
+          "line": 13
         }
       }]
     }]
   }, {
     "name": "document",
     "attributes": {
+      "file": "calls.utl",
+      "line": 16,
       "text": "\n"
     }
   }]

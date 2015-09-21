@@ -35,9 +35,11 @@ class UTLParseHandlerAST(UTLParseHandler):
 
     def _context(self, parser, other_attrs=None):
         """Returns a dictionary of info about the production context."""
+        # TODO: sometimes, parser.lexer.lineno is 1 greater than expected, but usually not.
+        # figure out why and fix.
         attrs = {"file": parser.filename,
                  # line number is 1-based
-                 "line": parser.lexer.lexdata[:parser.lexer.lexmatch.start()-1].count('\n') + 1}
+                 "line": parser.lexer.lineno}
         if other_attrs is not None:
             attrs.update(other_attrs)
         return attrs

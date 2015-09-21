@@ -1,14 +1,21 @@
 {
   "name": "statement_list",
+  "attributes": {
+    "file": "includes.utl",
+    "line": 5
+  },
   "children": [{
     "name": "include",
     "attributes": {
       "file": {
         "name": "literal",
         "attributes": {
-          "value": "fred.utl"
+          "file": "includes.utl",
+          "value": "fred.utl",
+          "line": 2
         }
-      }
+      },
+      "line": 2
     }
   }, {
     "name": "include",
@@ -16,9 +23,12 @@
       "file": {
         "name": "id",
         "attributes": {
+          "file": "includes.utl",
+          "line": 3,
           "symbol": "appMacros"
         }
-      }
+      },
+      "line": 3
     }
   }, {
     "name": "include",
@@ -26,42 +36,57 @@
       "file": {
         "name": "expr",
         "attributes": {
+          "file": "includes.utl",
+          "line": 5,
           "operator": "+"
         },
         "children": [{
           "name": "expr",
           "attributes": {
+            "file": "includes.utl",
+            "line": 4,
             "operator": "+"
           },
           "children": [{
             "name": "literal",
             "attributes": {
-              "value": "fred"
+              "file": "includes.utl",
+              "value": "fred",
+              "line": 4
             }
           }, {
             "name": "expr",
             "attributes": {
+              "file": "includes.utl",
+              "line": 4,
               "operator": "*"
             },
             "children": [{
               "name": "literal",
               "attributes": {
-                "value": 5.0
+                "file": "includes.utl",
+                "value": 5.0,
+                "line": 4
               }
             }, {
               "name": "literal",
               "attributes": {
-                "value": 12.0
+                "file": "includes.utl",
+                "value": 12.0,
+                "line": 4
               }
             }]
           }]
         }, {
           "name": "literal",
           "attributes": {
-            "value": "section.inc.utl"
+            "file": "includes.utl",
+            "value": "section.inc.utl",
+            "line": 5
           }
         }]
-      }
+      },
+      "line": 5
     }
   }]
 }

@@ -1,181 +1,265 @@
 {
   "name": "statement_list",
+  "attributes": {
+    "file": "unary_exprs.utl",
+    "line": 9
+  },
   "children": [{
     "name": "expr",
     "attributes": {
-      "operator": "="
+      "operator": "=",
+      "file": "unary_exprs.utl",
+      "line": 3
     },
     "children": [{
       "name": "id",
       "attributes": {
-        "symbol": "a"
+        "symbol": "a",
+        "file": "unary_exprs.utl",
+        "line": 3
       }
     }, {
       "name": "expr",
       "attributes": {
-        "operator": "-"
+        "operator": "-",
+        "file": "unary_exprs.utl",
+        "line": 3
       },
       "children": [{
         "name": "literal",
         "attributes": {
-          "value": 3.0
+          "value": 3.0,
+          "file": "unary_exprs.utl",
+          "line": 3
         }
       }]
     }]
   }, {
     "name": "if",
+    "attributes": {
+      "file": "unary_exprs.utl",
+      "line": 6
+    },
     "children": [{
       "name": "expr",
       "attributes": {
-        "operator": "&&"
+        "operator": "&&",
+        "file": "unary_exprs.utl",
+        "line": 4
       },
       "children": [{
         "name": "expr",
         "attributes": {
-          "operator": "<"
+          "operator": "<",
+          "file": "unary_exprs.utl",
+          "line": 4
         },
         "children": [{
           "name": "expr",
           "attributes": {
-            "operator": "-"
+            "operator": "-",
+            "file": "unary_exprs.utl",
+            "line": 4
           },
           "children": [{
             "name": "expr",
             "attributes": {
-              "operator": "/"
+              "operator": "/",
+              "file": "unary_exprs.utl",
+              "line": 4
             },
             "children": [{
               "name": "id",
               "attributes": {
-                "symbol": "myCapturePreviewImage.width"
+                "symbol": "myCapturePreviewImage.width",
+                "file": "unary_exprs.utl",
+                "line": 4
               }
             }, {
               "name": "id",
               "attributes": {
-                "symbol": "myCapturePreviewImage.height"
+                "symbol": "myCapturePreviewImage.height",
+                "file": "unary_exprs.utl",
+                "line": 4
               }
             }]
           }, {
             "name": "expr",
             "attributes": {
-              "operator": "/"
+              "operator": "/",
+              "file": "unary_exprs.utl",
+              "line": 4
             },
             "children": [{
               "name": "id",
               "attributes": {
-                "symbol": "asset.hi_res.width"
+                "symbol": "asset.hi_res.width",
+                "file": "unary_exprs.utl",
+                "line": 4
               }
             }, {
               "name": "id",
               "attributes": {
-                "symbol": "asset.hi_res.height"
+                "symbol": "asset.hi_res.height",
+                "file": "unary_exprs.utl",
+                "line": 4
               }
             }]
           }]
         }, {
           "name": "expr",
           "attributes": {
-            "operator": "/"
+            "operator": "/",
+            "file": "unary_exprs.utl",
+            "line": 4
           },
           "children": [{
             "name": "literal",
             "attributes": {
-              "value": 1.0
+              "value": 1.0,
+              "file": "unary_exprs.utl",
+              "line": 4
             }
           }, {
             "name": "literal",
             "attributes": {
-              "value": 100.0
+              "value": 100.0,
+              "file": "unary_exprs.utl",
+              "line": 4
             }
           }]
         }]
       }, {
         "name": "expr",
         "attributes": {
-          "operator": ">"
+          "operator": ">",
+          "file": "unary_exprs.utl",
+          "line": 4
         },
         "children": [{
           "name": "expr",
           "attributes": {
-            "operator": "-"
+            "operator": "-",
+            "file": "unary_exprs.utl",
+            "line": 4
           },
           "children": [{
             "name": "expr",
             "attributes": {
-              "operator": "/"
+              "operator": "/",
+              "file": "unary_exprs.utl",
+              "line": 4
             },
             "children": [{
               "name": "id",
               "attributes": {
-                "symbol": "myCapturePreviewImage.width"
+                "symbol": "myCapturePreviewImage.width",
+                "file": "unary_exprs.utl",
+                "line": 4
               }
             }, {
               "name": "id",
               "attributes": {
-                "symbol": "myCapturePreviewImage.height"
+                "symbol": "myCapturePreviewImage.height",
+                "file": "unary_exprs.utl",
+                "line": 4
               }
             }]
           }, {
             "name": "expr",
             "attributes": {
-              "operator": "/"
+              "operator": "/",
+              "file": "unary_exprs.utl",
+              "line": 4
             },
             "children": [{
               "name": "id",
               "attributes": {
-                "symbol": "asset.hi_res.width"
+                "symbol": "asset.hi_res.width",
+                "file": "unary_exprs.utl",
+                "line": 4
               }
             }, {
               "name": "id",
               "attributes": {
-                "symbol": "asset.hi_res.height"
+                "symbol": "asset.hi_res.height",
+                "file": "unary_exprs.utl",
+                "line": 4
               }
             }]
           }]
         }, {
           "name": "expr",
           "attributes": {
-            "operator": "/"
+            "operator": "/",
+            "file": "unary_exprs.utl",
+            "line": 4
           },
           "children": [{
             "name": "expr",
             "attributes": {
-              "operator": "-"
+              "operator": "-",
+              "file": "unary_exprs.utl",
+              "line": 4
             },
             "children": [{
               "name": "literal",
               "attributes": {
-                "value": 1.0
+                "value": 1.0,
+                "file": "unary_exprs.utl",
+                "line": 4
               }
             }]
           }, {
             "name": "literal",
             "attributes": {
-              "value": 100.0
+              "value": 100.0,
+              "file": "unary_exprs.utl",
+              "line": 4
             }
           }]
         }]
       }]
     }, {
       "name": "statement_list",
+      "attributes": {
+        "file": "unary_exprs.utl",
+        "line": 6
+      },
       "children": [{
         "name": "echo",
+        "attributes": {
+          "file": "unary_exprs.utl",
+          "line": 5
+        },
         "children": [{
           "name": "literal",
           "attributes": {
-            "value": "wtf?"
+            "value": "wtf?",
+            "file": "unary_exprs.utl",
+            "line": 5
           }
         }]
       }]
     }, {
-      "name": "elseif_stmts"
+      "name": "elseif_stmts",
+      "attributes": {
+        "file": "unary_exprs.utl",
+        "line": 6
+      }
     }, {
-      "name": "else"
+      "name": "else",
+      "attributes": {
+        "file": "unary_exprs.utl",
+        "line": 6
+      }
     }]
   }, {
     "name": "document",
     "attributes": {
-      "text": "\n"
+      "text": "\n",
+      "file": "unary_exprs.utl",
+      "line": 9
     }
   }]
 }
