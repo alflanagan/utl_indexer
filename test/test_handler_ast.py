@@ -36,7 +36,7 @@ class UTLParseHandlerASTTestCase(utl_parse_test.TestCaseUTL):
             parser = UTLParser([UTLParseHandlerAST()])
             with open(os.path.join(self.data_dir, utl_filename), 'r') as utlin:
                 with open(os.path.join(self.data_dir, output_filename), "w") as jsonout:
-                    jsonout.write(parser.parse(utlin.read()).json_format())
+                    jsonout.write(parser.parse(utlin.read(), filename=utl_filename).json_format())
         super().assertJSONFileMatches(UTLParseHandlerAST(),
                                       utl_filename, json_filename)
 

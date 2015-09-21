@@ -90,7 +90,7 @@ class TestCaseUTL(unittest_plus.TestCasePlus):
         """
         parser = UTLParser([handler], debug=False)
         with open(self.data_file(utl_filename), 'r') as utlin:
-            item1 = parser.parse(utlin.read())
+            item1 = parser.parse(utlin.read(), filename=utl_filename)
         with open(self.data_file(json_filename), 'r') as jsonin:
             expected = json.load(jsonin)
         self.assertMatchesJSON(item1, expected)

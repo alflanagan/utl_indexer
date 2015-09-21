@@ -136,7 +136,7 @@
           "name": "literal",
           "attributes": {
             "line": 8,
-            "value": "there's an \"embedded\" dquote here",
+            "value": "there's an \\\"embedded\\\" dquote here",
             "file": "macros.utl"
           }
         }]
