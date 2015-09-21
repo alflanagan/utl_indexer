@@ -9,7 +9,7 @@
 
 """
 from utl_lib.ast_node import ASTNode
-from utl_lib.utl_parse_handler import UTLParseHandler, UTLParseError
+from utl_lib.utl_parse_handler import UTLParseHandler
 from utl_lib.utl_lex import UTLLexer
 # pylint: disable=too-many-public-methods,missing-docstring
 
@@ -33,6 +33,15 @@ class UTLParseHandlerAST(UTLParseHandler):
                 label,
                 expr.format().replace('\n', '\n*    ') if isinstance(expr, ASTNode) else expr))
 
+    def _context(self, parser, other_attrs=None):
+        """Returns a dictionary of info about the production context."""
+        attrs = {"file": parser.filename,
+                 # line number is 1-based
+                 "line": parser.lexer.lexdata[:parser.lexer.lexmatch.start()-1].count('\n') + 1}
+        if other_attrs is not None:
+            attrs.update(other_attrs)
+        return attrs
+
     # -------------------------------------------------------------------------------------------
     # top-level productions
     # -------------------------------------------------------------------------------------------
@@ -42,7 +51,7 @@ class UTLParseHandlerAST(UTLParseHandler):
     def statement_list(self, parser, statement=None, statement_list=None):
         assert statement is not None or statement_list is not None
         if statement_list is None:
-            return ASTNode('statement_list', {}, [statement])
+            return ASTNode('statement_list', self._context(parser), [statement])
         assert statement_list.symbol == 'statement_list'
         if statement is not None:
             statement_list.add_first_child(statement)
@@ -52,9 +61,9 @@ class UTLParseHandlerAST(UTLParseHandler):
         assert statement is not None
         if isinstance(statement, str):
             if statement in UTLLexer.reserved:  # is a keyword - break, continue, exit, etc.
-                return ASTNode(statement, {}, [])
+                return ASTNode(statement, self._context(parser), [])
             else:
-                return ASTNode('document', {'text': statement}, [])
+                return ASTNode('document', self._context(parser, {'text': statement}), [])
         assert isinstance(statement, ASTNode)
         return statement
 
@@ -65,16 +74,19 @@ class UTLParseHandlerAST(UTLParseHandler):
         assert expr is not None
         # make statement into statement_list to match regular if
         statement_list = ASTNode('statement_list', {}, [statement])
-        return ASTNode('if', {}, [expr, statement_list])
+        return ASTNode('if', self._context(parser), [expr, statement_list])
 
     def arg(self, parser, expr, name=None):
         assert expr is not None
-        return ASTNode('arg', {'keyword': name} if name is not None else {}, [expr])
+        attrs = self._context(parser)
+        if name is not None:
+            attrs['keyword'] = name
+        return ASTNode('arg', attrs, [expr])
 
     def arg_list(self, parser, arg, arg_list=None):
         assert arg is not None
         if arg_list is None:
-            return ASTNode('arg_list', {}, [arg])
+            return ASTNode('arg_list', self._context(parser), [arg])
         else:
             arg_list.add_first_child(arg)
             return arg_list
@@ -83,18 +95,17 @@ class UTLParseHandlerAST(UTLParseHandler):
         """Elements for a simple array (not key/value pairs)."""
         assert expr is not None
         if array_elems is None:
-            return ASTNode('array_elems', {}, [expr])
-        else:
-            array_elems.add_child(expr)
-            return array_elems
+            return ASTNode('array_elems', self._context(parser), [expr])
+        array_elems.add_child(expr)
+        return array_elems
 
     def array_literal(self, parser, elements=None):
-        return ASTNode('array_literal', {}, [elements] if elements else [])
+        return ASTNode('array_literal', self._context(parser), [elements] if elements else [])
 
     def array_ref(self, parser, variable, index):
         assert variable is not None
         assert index is not None
-        return ASTNode('array_ref', {}, [variable, index])
+        return ASTNode('array_ref', self._context(parser), [variable, index])
 
     def as_clause(self, parser, var1, var2=None):
         # We handle target variables as attributes of for node. So, we just need to return the
@@ -102,36 +113,38 @@ class UTLParseHandlerAST(UTLParseHandler):
         return (var1, var2, )
 
     def call_stmt(self, parser, macro_call):
-        return ASTNode('call', {}, [macro_call])
+        return ASTNode('call', self._context(parser), [macro_call])
 
     def default_assignment(self, parser, assignment):
-        return ASTNode('default', {}, [assignment])
+        return ASTNode('default', self._context(parser), [assignment])
 
     def dotted_id(self, parser, this_id, id_suffix=None):
         if id_suffix is not None:
             id_suffix.attributes['symbol'] = this_id + '.' + id_suffix.attributes['symbol']
             return id_suffix
-        return ASTNode('id', {'symbol': this_id}, [])
+        attrs = self._context(parser, {'symbol': this_id})
+        return ASTNode('id', attrs, [])
 
     def echo_stmt(self, parser, expr):
-        return ASTNode('echo', {}, [expr] if expr is not None else [])
+        return ASTNode('echo', self._context(parser), [expr] if expr is not None else [])
 
     def else_stmt(self, parser, statement_list):
-        return ASTNode('else', {}, [statement_list] if statement_list is not None else [])
+        return ASTNode('else', self._context(parser),
+                       [statement_list] if statement_list is not None else [])
 
     def elseif_stmts(self, parser, elseif_stmt, elseif_stmts=None):
         assert elseif_stmt is not None
         if elseif_stmts is not None:
             elseif_stmts.add_first_child(elseif_stmt)
         else:
-            elseif_stmts = ASTNode('elseif_stmts', {}, [elseif_stmt])
+            elseif_stmts = ASTNode('elseif_stmts', self._context(parser), [elseif_stmt])
         return elseif_stmts
 
     def elseif_stmt(self, parser, expr, statement_list=None):
         assert expr is not None
         if statement_list is None:
-            statement_list = ASTNode('statement_list', {}, [])
-        return ASTNode('elseif', {}, [expr, statement_list])
+            statement_list = ASTNode('statement_list', self._context(parser), [])
+        return ASTNode('elseif', self._context(parser), [expr, statement_list])
 
     def expr(self, parser, first, second=None, third=None):
         assert first is not None
@@ -139,9 +152,9 @@ class UTLParseHandlerAST(UTLParseHandler):
         #    NOT|EXCLAMATION|PLUS|MINUS|ID|literal|array_ref|macro_call|paren_expr|expr
         if isinstance(first, str):
             if second is not None:
-                return ASTNode('expr', {'operator': first.lower()}, [second])
+                return ASTNode('expr', self._context(parser, {'operator': first.lower()}), [second])
             else:
-                return ASTNode("id", {"symbol": first}, [])
+                return ASTNode("id", self._context(parser, {"symbol": first}), [])
         elif second is None:
             return first
 
@@ -149,12 +162,12 @@ class UTLParseHandlerAST(UTLParseHandler):
         if second == '.':
             if first.symbol == 'id' and third.symbol == 'id':
                 parts = [first.attributes["symbol"], third.attributes["symbol"]]
-                return ASTNode("id", {"symbol": ".".join(parts)}, [])
+                return ASTNode("id", self._context(parser, {"symbol": ".".join(parts)}), [])
 
         # if we got this far, it's a binary op
         assert third is not None
         assert isinstance(second, str)
-        return ASTNode('expr', {'operator': second.lower()}, [first, third])
+        return ASTNode('expr', self._context(parser, {'operator': second.lower()}), [first, third])
 
     def for_stmt(self, parser, expr, as_clause=None, statement_list=None):
         assert expr is not None
@@ -163,57 +176,58 @@ class UTLParseHandlerAST(UTLParseHandler):
             attrs["name1"] = as_clause[0]
             if as_clause[1] is not None:
                 attrs["name2"] = as_clause[1]
-        return ASTNode('for', attrs,
+        return ASTNode('for', self._context(parser, attrs),
                        [expr, statement_list] if statement_list else [expr])
 
     def if_stmt(self, parser, expr, statement_list=None, elseif_stmts=None, else_stmt=None):
         assert expr is not None
         # so 'if' node always looks same, create empty nodes for missing ones
+        attrs = self._context(parser)
         if statement_list is None:
-            statement_list = ASTNode("statement_list", {}, [])
+            statement_list = ASTNode("statement_list", attrs, [])
         if elseif_stmts is None:
-            elseif_stmts = ASTNode("elseif_stmts", {}, [])
+            elseif_stmts = ASTNode("elseif_stmts", attrs, [])
         if else_stmt is None:
-            else_stmt = ASTNode("else", {}, [])
+            else_stmt = ASTNode("else", attrs, [])
         kids = [expr, statement_list, elseif_stmts, else_stmt]
-        return ASTNode('if', {}, kids)
+        return ASTNode('if', attrs, kids)
 
     def include_stmt(self, parser, filename):
-        return ASTNode('include', {'file': filename}, [])
+        return ASTNode('include', self._context(parser, {'file': filename}), [])
 
     def literal(self, parser, literal):
-        return ASTNode("literal", {"value": literal}, [])
+        return ASTNode("literal", self._context(parser, {"value": literal}), [])
 
     def macro_call(self, parser, macro_expr, arg_list=None):
         if arg_list is None:
-            arg_list = ASTNode("arg_list", {}, [])
-        return ASTNode("macro_call", {}, [macro_expr, arg_list])
+            arg_list = ASTNode("arg_list", self._context(parser), [])
+        return ASTNode("macro_call", self._context(parser), [macro_expr, arg_list])
 
     def macro_decl(self, parser, macro_name, param_list=None):
         if isinstance(macro_name, ASTNode):
             assert macro_name.symbol == 'id'
             macro_name = macro_name.attributes['symbol']
-        return ASTNode('macro-decl', {'name': macro_name},
+        return ASTNode('macro-decl', self._context(parser, {'name': macro_name}),
                        [param_list] if param_list else [])
 
     def macro_defn(self, parser, macro_decl, statement_list=None):
         return ASTNode('macro-defn',
-                       {'name': macro_decl.attributes['name']},
+                       self._context(parser, {'name': macro_decl.attributes['name']}),
                        [macro_decl, statement_list] if statement_list else [macro_decl])
 
     def param_decl(self, parser, param_id, default_value=None):
         if not default_value:
-            return ASTNode('param_decl', {'name': param_id}, [])
+            return ASTNode('param_decl', self._context(parser, {'name': param_id}), [])
         else:
             return ASTNode('param_decl',
-                           {'name': param_id,
-                            'default': default_value},
+                           self._context(parser, {'name': param_id,
+                                                  'default': default_value}),
                            [])
 
     def param_list(self, parser, param_decl, param_list=None):
         assert param_decl is not None
         if not param_list:  # first declaration processed
-            return ASTNode('param_list', {}, [param_decl])
+            return ASTNode('param_list', self._context(parser), [param_decl])
         else:
             param_list.add_first_child(param_decl)
             return param_list
@@ -225,9 +239,9 @@ class UTLParseHandlerAST(UTLParseHandler):
             return expr
 
     def return_stmt(self, parser, expr=None):
-        return ASTNode('return', {}, [expr] if expr else [])
+        return ASTNode('return', self._context(parser), [expr] if expr else [])
 
     def while_stmt(self, parser, expr, statement_list=None):
         if statement_list is None:
-            statement_list = ASTNode("statement_list", {}, [])
-        return ASTNode('while', {}, [expr, statement_list])
+            statement_list = ASTNode("statement_list", self._context(parser), [])
+        return ASTNode('while', self._context(parser), [expr, statement_list])
