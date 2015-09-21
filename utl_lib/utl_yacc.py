@@ -33,8 +33,9 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         self.utl_lexer = UTLLexer()
         self.lexer = self.utl_lexer.lexer
         self.print_tokens = False  # may be set by parse()
-        self.handlers = handlers
+        self.filename = ''  # may be set by parse()
         self.error_count = 0
+        self.handlers = handlers
         """List of UTLParseHandler objects. Only the first one to return something besides
         :py:attr:`None` determines the return value from a production."""
         # silently accept single handler, don't except non-handlers
@@ -87,11 +88,13 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         except IndexError:
             return None
 
-    def parse(self, input_text=None, debug=False, tracking=False, print_tokens=False):
+    def parse(self, input_text=None, debug=False, tracking=False, print_tokens=False,
+              filename=''):
         """Parses the code in `input_text`, returns result.
 
         """
         self.print_tokens = print_tokens
+        self.filename = filename
         return self.parser.parse(input=input_text, lexer=self.utl_lexer, debug=debug,
                                  tokenfunc=self._filtered_token, tracking=tracking)
 

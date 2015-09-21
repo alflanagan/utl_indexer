@@ -3,6 +3,7 @@
 
 import argparse
 import sys
+import os
 
 from utl_lib.utl_yacc import UTLParser
 from utl_lib.handler_ast import UTLParseHandlerAST
@@ -43,7 +44,8 @@ def do_parse(program_text, args):
         handlers.append(UTLPrintProductionsHandler())
 
     myparser = UTLParser(handlers)
-    results = myparser.parse(program_text, debug=args.debug, print_tokens=args.show_lex)
+    results = myparser.parse(program_text, debug=args.debug, print_tokens=args.show_lex,
+                             filename=os.path.basename(args.utl_file.name))
     if results:
         print(results.json_format() if args.json else results.format())
     elif not args.printonly:
