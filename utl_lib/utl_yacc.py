@@ -295,7 +295,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                   | END_UTL'''
         for handler in self.handlers:
             value = handler.eostmt(self, p[1])
-            if p[0] is None:
+            if p[0] is None:  # pragma: no cover
                 p[0] = value
 
     def p_expr(self, p):

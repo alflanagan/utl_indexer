@@ -182,6 +182,17 @@ class UTLParserTestCase(utl_parse_test.TestCaseUTL):
         self.assertIn('in statement', fake_stderr.logged)
         self.assertIn('line 2', fake_stderr.logged)
 
+    def _check_multiple_handlers(self, parser, filepart):
+        """Helper function: use parser to parse UTL file named `filepart`.utl, compare to JSON
+        results in file `filepart`.json.
+
+        """
+        with open(self.data_file(filepart + '.utl'), 'r') as utlin:
+            item1 = parser.parse(utlin.read())
+        with open(self.data_file(filepart + '.json'), 'r') as jsonin:
+            expected = json.load(jsonin)
+        self.assertMatchesJSON(item1, expected)
+
     def test_with_multiple_handlers(self):
         """Unit test of :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with more than one handler
         attached.
@@ -194,11 +205,13 @@ class UTLParserTestCase(utl_parse_test.TestCaseUTL):
         #     but does not modify existing p[0] values
         parser = UTLParser([handler1, handler2], debug=False)
         # results of parse should depend ONLY on handler1
-        with open(self.data_file('macros.utl'), 'r') as utlin:
-            item1 = parser.parse(utlin.read())
-        with open(self.data_file('macros.json'), 'r') as jsonin:
-            expected = json.load(jsonin)
-        self.assertMatchesJSON(item1, expected)
+        self._check_multiple_handlers(parser, 'basic_assign')
+        self._check_multiple_handlers(parser, 'calls')
+        self._check_multiple_handlers(parser, 'for_stmt')
+        self._check_multiple_handlers(parser, 'if_stmts')
+        self._check_multiple_handlers(parser, 'includes')
+        self._check_multiple_handlers(parser, 'keywords')
+        self._check_multiple_handlers(parser, 'macros')
 
 
 if __name__ == '__main__':
