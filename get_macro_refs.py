@@ -2,10 +2,13 @@
 """Program to generate a macro declaration and use cross-reference from a UTL file."""
 
 import argparse
-import sys
+import os
+from collections import defaultdict
 
+from utl_lib.macro_xref import UTLMacroXref
+from utl_lib.handler_ast import UTLParseHandlerAST
 from utl_lib.utl_yacc import UTLParser
-from utl_lib.handler_macro_xref import UTLParseHandlerMacroXref
+
 
 def get_args():
     """Parses command-line arguments, returns namespace with values."""
@@ -21,17 +24,23 @@ def get_args():
 
 def do_parse(program_text, args):
     """Open a file, parse it, return resulting parse."""
-    handler = UTLParseHandlerMacroXref()
+    handler = UTLParseHandlerAST()
     myparser = UTLParser([handler])
-    myparser.parse(program_text, debug=args.debug, print_tokens=False)
-    if handler.macro_defns:
+    utldoc = myparser.parse(program_text, debug=args.debug, print_tokens=False,
+                            filename=os.path.basename(args.utl_file.name))
+    xref = UTLMacroXref(utldoc, program_text)
+    if xref.macros:
         print("-- MACROS DEFINED --")
-    for defn in handler.macro_defns:
-        print(defn)
-    if handler.macro_calls:
-        print("-- MACROS CALLED --")
-    for call in handler.macro_calls:
-        print(call)
+        for macro in xref.macros:
+            # print('-' * 120)
+            print('    {}'.format(macro))
+    if xref.references:
+        print('-- MACRO REFS --')
+        lines_summary = defaultdict(list)
+        for ref in xref.references:
+            lines_summary[ref["macro"]].append(ref["line"])
+        for mname in lines_summary:
+            print('    {}: {}'.format(mname, lines_summary[mname]))
 
 
 def main(args):

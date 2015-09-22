@@ -34,18 +34,20 @@ class UTLParseHandlerAST(UTLParseHandler):
                 expr.format().replace('\n', '\n*    ') if isinstance(expr, ASTNode) else expr))
 
     def _context(self, parser, other_attrs=None):
-        """Returns a dictionary of info about the production context."""
+        """Returns a dictionary of info about the production context. Items in dictionary
+        `other_attrs` are added to, and may override, the returned context attributes.
+
+        """
         # TODO: sometimes, parser.lexer.lineno is 1 greater than expected, but usually not.
         # figure out why and fix.
-        attrs = {"file": parser.filename,
-                 # line number is 1-based
-                 "line": parser.lexer.lineno,
-                 "start": parser.lexer.lexmatch.start(),
-                 "end": parser.lexer.lexmatch.end(),
-                 }
-
-        if other_attrs is not None:
-            attrs.update(other_attrs)
+        lm = parser.lexer.lexmatch
+        attrs = other_attrs.copy() if other_attrs is not None else {}
+        attrs.update({"file": parser.filename,
+                      # line number is 1-based
+                      "line": parser.lexer.lineno,
+                      "start": lm.start(),
+                      "end": lm.end(),
+                      })
         return attrs
 
     # -------------------------------------------------------------------------------------------
@@ -207,18 +209,31 @@ class UTLParseHandlerAST(UTLParseHandler):
     def macro_call(self, parser, macro_expr, arg_list=None):
         if arg_list is None:
             arg_list = ASTNode("arg_list", self._context(parser), [])
-        return ASTNode("macro_call", self._context(parser), [macro_expr, arg_list])
+        code = parser.lexer.lexdata
+        start = macro_expr.attributes["start"]
+        end = macro_expr.attributes["end"]
+        attrs = {"call_start": start,
+                 # everything before opening (; may be ID, may be expr
+                 "macro_expr": code[start:end]
+                 }
+        return ASTNode("macro_call", self._context(parser, attrs), [macro_expr, arg_list])
 
     def macro_decl(self, parser, macro_name, param_list=None):
+        # if macro_name is a string, the production was
         if isinstance(macro_name, ASTNode):
             assert macro_name.symbol == 'id'
             macro_name = macro_name.attributes['symbol']
-        return ASTNode('macro-decl', self._context(parser, {'name': macro_name}),
+        lex = parser.lexer
+        # starting at the macro name, search backwards for the token "macro"
+        macro_pos = lex.lexdata[:lex.lexmatch.start()].rfind('macro')
+        return ASTNode('macro-decl', self._context(parser, {'name': macro_name,
+                                                            'macro_start': macro_pos}),
                        [param_list] if param_list else [])
 
     def macro_defn(self, parser, macro_decl, statement_list=None):
         return ASTNode('macro-defn',
-                       self._context(parser, {'name': macro_decl.attributes['name']}),
+                       self._context(parser, {"start": macro_decl.attributes["macro_start"],
+                                              "name": macro_decl.attributes["name"]}),
                        [macro_decl, statement_list] if statement_list else [macro_decl])
 
     def param_decl(self, parser, param_id, default_value=None):
