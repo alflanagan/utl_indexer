@@ -94,6 +94,7 @@ class UTLParseHandlerASTTestCase(utl_parse_test.TestCaseUTL):
         # call to macro_decl() with string for macro name
         handler = UTLParseHandlerAST()
         parser = UTLParser([handler])
+        parser.parse("[% a = b + c %]")
         handler.macro_decl(parser, "forbin")
         handler.paren_expr(parser, None)
 

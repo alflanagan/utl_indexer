@@ -39,7 +39,11 @@ class UTLParseHandlerAST(UTLParseHandler):
         # figure out why and fix.
         attrs = {"file": parser.filename,
                  # line number is 1-based
-                 "line": parser.lexer.lineno}
+                 "line": parser.lexer.lineno,
+                 "start": parser.lexer.lexmatch.start(),
+                 "end": parser.lexer.lexmatch.end(),
+                 }
+
         if other_attrs is not None:
             attrs.update(other_attrs)
         return attrs

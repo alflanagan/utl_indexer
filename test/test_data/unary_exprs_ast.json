@@ -1,108 +1,138 @@
 {
   "name": "statement_list",
   "attributes": {
-    "file": "unary_exprs.utl",
-    "line": 9
+    "start": 352,
+    "line": 9,
+    "end": 353,
+    "file": "unary_exprs.utl"
   },
   "children": [{
     "name": "expr",
     "attributes": {
       "operator": "=",
-      "file": "unary_exprs.utl",
-      "line": 3
+      "start": 87,
+      "line": 3,
+      "end": 88,
+      "file": "unary_exprs.utl"
     },
     "children": [{
       "name": "id",
       "attributes": {
         "symbol": "a",
-        "file": "unary_exprs.utl",
-        "line": 3
+        "start": 82,
+        "line": 3,
+        "end": 83,
+        "file": "unary_exprs.utl"
       }
     }, {
       "name": "expr",
       "attributes": {
         "operator": "-",
-        "file": "unary_exprs.utl",
-        "line": 3
+        "start": 87,
+        "line": 3,
+        "end": 88,
+        "file": "unary_exprs.utl"
       },
       "children": [{
         "name": "literal",
         "attributes": {
           "value": 3.0,
-          "file": "unary_exprs.utl",
-          "line": 3
+          "start": 87,
+          "line": 3,
+          "end": 88,
+          "file": "unary_exprs.utl"
         }
       }]
     }]
   }, {
     "name": "if",
     "attributes": {
-      "file": "unary_exprs.utl",
-      "line": 6
+      "start": 343,
+      "line": 6,
+      "end": 346,
+      "file": "unary_exprs.utl"
     },
     "children": [{
       "name": "expr",
       "attributes": {
         "operator": "&&",
-        "file": "unary_exprs.utl",
-        "line": 4
+        "start": 315,
+        "line": 4,
+        "end": 318,
+        "file": "unary_exprs.utl"
       },
       "children": [{
         "name": "expr",
         "attributes": {
           "operator": "<",
-          "file": "unary_exprs.utl",
-          "line": 4
+          "start": 201,
+          "line": 4,
+          "end": 204,
+          "file": "unary_exprs.utl"
         },
         "children": [{
           "name": "expr",
           "attributes": {
             "operator": "-",
-            "file": "unary_exprs.utl",
-            "line": 4
+            "start": 189,
+            "line": 4,
+            "end": 195,
+            "file": "unary_exprs.utl"
           },
           "children": [{
             "name": "expr",
             "attributes": {
               "operator": "/",
-              "file": "unary_exprs.utl",
-              "line": 4
+              "start": 146,
+              "line": 4,
+              "end": 152,
+              "file": "unary_exprs.utl"
             },
             "children": [{
               "name": "id",
               "attributes": {
                 "symbol": "myCapturePreviewImage.width",
-                "file": "unary_exprs.utl",
-                "line": 4
+                "start": 118,
+                "line": 4,
+                "end": 123,
+                "file": "unary_exprs.utl"
               }
             }, {
               "name": "id",
               "attributes": {
                 "symbol": "myCapturePreviewImage.height",
-                "file": "unary_exprs.utl",
-                "line": 4
+                "start": 146,
+                "line": 4,
+                "end": 152,
+                "file": "unary_exprs.utl"
               }
             }]
           }, {
             "name": "expr",
             "attributes": {
               "operator": "/",
-              "file": "unary_exprs.utl",
-              "line": 4
+              "start": 189,
+              "line": 4,
+              "end": 195,
+              "file": "unary_exprs.utl"
             },
             "children": [{
               "name": "id",
               "attributes": {
                 "symbol": "asset.hi_res.width",
-                "file": "unary_exprs.utl",
-                "line": 4
+                "start": 170,
+                "line": 4,
+                "end": 175,
+                "file": "unary_exprs.utl"
               }
             }, {
               "name": "id",
               "attributes": {
                 "symbol": "asset.hi_res.height",
-                "file": "unary_exprs.utl",
-                "line": 4
+                "start": 189,
+                "line": 4,
+                "end": 195,
+                "file": "unary_exprs.utl"
               }
             }]
           }]
@@ -110,22 +140,28 @@
           "name": "expr",
           "attributes": {
             "operator": "/",
-            "file": "unary_exprs.utl",
-            "line": 4
+            "start": 201,
+            "line": 4,
+            "end": 204,
+            "file": "unary_exprs.utl"
           },
           "children": [{
             "name": "literal",
             "attributes": {
               "value": 1.0,
-              "file": "unary_exprs.utl",
-              "line": 4
+              "start": 199,
+              "line": 4,
+              "end": 200,
+              "file": "unary_exprs.utl"
             }
           }, {
             "name": "literal",
             "attributes": {
               "value": 100.0,
-              "file": "unary_exprs.utl",
-              "line": 4
+              "start": 201,
+              "line": 4,
+              "end": 204,
+              "file": "unary_exprs.utl"
             }
           }]
         }]
@@ -133,58 +169,74 @@
         "name": "expr",
         "attributes": {
           "operator": ">",
-          "file": "unary_exprs.utl",
-          "line": 4
+          "start": 315,
+          "line": 4,
+          "end": 318,
+          "file": "unary_exprs.utl"
         },
         "children": [{
           "name": "expr",
           "attributes": {
             "operator": "-",
-            "file": "unary_exprs.utl",
-            "line": 4
+            "start": 302,
+            "line": 4,
+            "end": 308,
+            "file": "unary_exprs.utl"
           },
           "children": [{
             "name": "expr",
             "attributes": {
               "operator": "/",
-              "file": "unary_exprs.utl",
-              "line": 4
+              "start": 259,
+              "line": 4,
+              "end": 265,
+              "file": "unary_exprs.utl"
             },
             "children": [{
               "name": "id",
               "attributes": {
                 "symbol": "myCapturePreviewImage.width",
-                "file": "unary_exprs.utl",
-                "line": 4
+                "start": 231,
+                "line": 4,
+                "end": 236,
+                "file": "unary_exprs.utl"
               }
             }, {
               "name": "id",
               "attributes": {
                 "symbol": "myCapturePreviewImage.height",
-                "file": "unary_exprs.utl",
-                "line": 4
+                "start": 259,
+                "line": 4,
+                "end": 265,
+                "file": "unary_exprs.utl"
               }
             }]
           }, {
             "name": "expr",
             "attributes": {
               "operator": "/",
-              "file": "unary_exprs.utl",
-              "line": 4
+              "start": 302,
+              "line": 4,
+              "end": 308,
+              "file": "unary_exprs.utl"
             },
             "children": [{
               "name": "id",
               "attributes": {
                 "symbol": "asset.hi_res.width",
-                "file": "unary_exprs.utl",
-                "line": 4
+                "start": 283,
+                "line": 4,
+                "end": 288,
+                "file": "unary_exprs.utl"
               }
             }, {
               "name": "id",
               "attributes": {
                 "symbol": "asset.hi_res.height",
-                "file": "unary_exprs.utl",
-                "line": 4
+                "start": 302,
+                "line": 4,
+                "end": 308,
+                "file": "unary_exprs.utl"
               }
             }]
           }]
@@ -192,30 +244,38 @@
           "name": "expr",
           "attributes": {
             "operator": "/",
-            "file": "unary_exprs.utl",
-            "line": 4
+            "start": 315,
+            "line": 4,
+            "end": 318,
+            "file": "unary_exprs.utl"
           },
           "children": [{
             "name": "expr",
             "attributes": {
               "operator": "-",
-              "file": "unary_exprs.utl",
-              "line": 4
+              "start": 313,
+              "line": 4,
+              "end": 314,
+              "file": "unary_exprs.utl"
             },
             "children": [{
               "name": "literal",
               "attributes": {
                 "value": 1.0,
-                "file": "unary_exprs.utl",
-                "line": 4
+                "start": 313,
+                "line": 4,
+                "end": 314,
+                "file": "unary_exprs.utl"
               }
             }]
           }, {
             "name": "literal",
             "attributes": {
               "value": 100.0,
-              "file": "unary_exprs.utl",
-              "line": 4
+              "start": 315,
+              "line": 4,
+              "end": 318,
+              "file": "unary_exprs.utl"
             }
           }]
         }]
@@ -223,43 +283,55 @@
     }, {
       "name": "statement_list",
       "attributes": {
-        "file": "unary_exprs.utl",
-        "line": 6
+        "start": 343,
+        "line": 6,
+        "end": 346,
+        "file": "unary_exprs.utl"
       },
       "children": [{
         "name": "echo",
         "attributes": {
-          "file": "unary_exprs.utl",
-          "line": 5
+          "start": 330,
+          "line": 5,
+          "end": 336,
+          "file": "unary_exprs.utl"
         },
         "children": [{
           "name": "literal",
           "attributes": {
             "value": "wtf?",
-            "file": "unary_exprs.utl",
-            "line": 5
+            "start": 330,
+            "line": 5,
+            "end": 336,
+            "file": "unary_exprs.utl"
           }
         }]
       }]
     }, {
       "name": "elseif_stmts",
       "attributes": {
-        "file": "unary_exprs.utl",
-        "line": 6
+        "start": 343,
+        "line": 6,
+        "end": 346,
+        "file": "unary_exprs.utl"
       }
     }, {
       "name": "else",
       "attributes": {
-        "file": "unary_exprs.utl",
-        "line": 6
+        "start": 343,
+        "line": 6,
+        "end": 346,
+        "file": "unary_exprs.utl"
       }
     }]
   }, {
     "name": "document",
     "attributes": {
       "text": "\n",
-      "file": "unary_exprs.utl",
-      "line": 9
+      "start": 352,
+      "line": 9,
+      "end": 353,
+      "file": "unary_exprs.utl"
     }
   }]
 }

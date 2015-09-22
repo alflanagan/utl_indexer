@@ -1,63 +1,81 @@
 {
   "name": "statement_list",
   "attributes": {
+    "end": 687,
     "line": 36,
+    "start": 686,
     "file": "basic_assign.utl"
   },
   "children": [{
     "name": "echo",
     "attributes": {
+      "end": 15,
       "line": 2,
+      "start": 14,
       "file": "basic_assign.utl"
     },
     "children": [{
       "name": "expr",
       "attributes": {
+        "end": 15,
         "line": 2,
+        "start": 14,
         "operator": "+",
         "file": "basic_assign.utl"
       },
       "children": [{
         "name": "id",
         "attributes": {
+          "end": 11,
+          "symbol": "a",
           "line": 2,
-          "file": "basic_assign.utl",
-          "symbol": "a"
+          "start": 10,
+          "file": "basic_assign.utl"
         }
       }, {
         "name": "id",
         "attributes": {
+          "end": 15,
+          "symbol": "b",
           "line": 2,
-          "file": "basic_assign.utl",
-          "symbol": "b"
+          "start": 14,
+          "file": "basic_assign.utl"
         }
       }]
     }]
   }, {
     "name": "echo",
     "attributes": {
+      "end": 29,
       "line": 3,
+      "start": 28,
       "file": "basic_assign.utl"
     },
     "children": [{
       "name": "expr",
       "attributes": {
+        "end": 29,
         "line": 3,
+        "start": 28,
         "operator": "-",
         "file": "basic_assign.utl"
       },
       "children": [{
         "name": "literal",
         "attributes": {
-          "line": 3,
+          "end": 25,
           "value": 5.0,
+          "line": 3,
+          "start": 24,
           "file": "basic_assign.utl"
         }
       }, {
         "name": "literal",
         "attributes": {
-          "line": 3,
+          "end": 29,
           "value": 7.0,
+          "line": 3,
+          "start": 28,
           "file": "basic_assign.utl"
         }
       }]
@@ -65,65 +83,83 @@
   }, {
     "name": "echo",
     "attributes": {
+      "end": 60,
       "line": 4,
+      "start": 56,
       "file": "basic_assign.utl"
     },
     "children": [{
       "name": "expr",
       "attributes": {
+        "end": 60,
         "line": 4,
+        "start": 56,
         "operator": "|",
         "file": "basic_assign.utl"
       },
       "children": [{
         "name": "literal",
         "attributes": {
-          "line": 4,
+          "end": 53,
           "value": "barney rubble",
+          "line": 4,
+          "start": 38,
           "file": "basic_assign.utl"
         }
       }, {
         "name": "id",
         "attributes": {
+          "end": 60,
+          "symbol": "html",
           "line": 4,
-          "file": "basic_assign.utl",
-          "symbol": "html"
+          "start": 56,
+          "file": "basic_assign.utl"
         }
       }]
     }]
   }, {
     "name": "expr",
     "attributes": {
+      "end": 130,
       "line": 6,
+      "start": 129,
       "operator": "=",
       "file": "basic_assign.utl"
     },
     "children": [{
       "name": "id",
       "attributes": {
+        "end": 121,
+        "symbol": "sally.isfine",
         "line": 6,
-        "file": "basic_assign.utl",
-        "symbol": "sally.isfine"
+        "start": 115,
+        "file": "basic_assign.utl"
       }
     }, {
       "name": "expr",
       "attributes": {
+        "end": 130,
         "line": 6,
+        "start": 129,
         "operator": "/",
         "file": "basic_assign.utl"
       },
       "children": [{
         "name": "literal",
         "attributes": {
-          "line": 6,
+          "end": 126,
           "value": 12.0,
+          "line": 6,
+          "start": 124,
           "file": "basic_assign.utl"
         }
       }, {
         "name": "literal",
         "attributes": {
-          "line": 6,
+          "end": 130,
           "value": 6.0,
+          "line": 6,
+          "start": 129,
           "file": "basic_assign.utl"
         }
       }]
@@ -131,161 +167,205 @@
   }, {
     "name": "expr",
     "attributes": {
+      "end": 154,
       "line": 7,
+      "start": 149,
       "operator": "=",
       "file": "basic_assign.utl"
     },
     "children": [{
       "name": "id",
       "attributes": {
+        "end": 146,
+        "symbol": "sally.fineis",
         "line": 7,
-        "file": "basic_assign.utl",
-        "symbol": "sally.fineis"
+        "start": 140,
+        "file": "basic_assign.utl"
       }
     }, {
       "name": "literal",
       "attributes": {
-        "line": 7,
+        "end": 154,
         "value": "bat",
+        "line": 7,
+        "start": 149,
         "file": "basic_assign.utl"
       }
     }]
   }, {
     "name": "expr",
     "attributes": {
+      "end": 178,
       "line": 8,
+      "start": 174,
       "operator": "=",
       "file": "basic_assign.utl"
     },
     "children": [{
       "name": "id",
       "attributes": {
+        "end": 162,
+        "symbol": "fred",
         "line": 8,
-        "file": "basic_assign.utl",
-        "symbol": "fred"
+        "start": 158,
+        "file": "basic_assign.utl"
       }
     }, {
       "name": "expr",
       "attributes": {
+        "end": 178,
         "line": 8,
+        "start": 174,
         "operator": "is",
         "file": "basic_assign.utl"
       },
       "children": [{
         "name": "id",
         "attributes": {
+          "end": 173,
+          "symbol": "sally",
           "line": 8,
-          "file": "basic_assign.utl",
-          "symbol": "sally"
+          "start": 171,
+          "file": "basic_assign.utl"
         }
       }, {
         "name": "id",
         "attributes": {
+          "end": 178,
+          "symbol": "fine",
           "line": 8,
-          "file": "basic_assign.utl",
-          "symbol": "fine"
+          "start": 174,
+          "file": "basic_assign.utl"
         }
       }]
     }]
   }, {
     "name": "expr",
     "attributes": {
+      "end": 238,
       "line": 10,
+      "start": 237,
       "operator": "=",
       "file": "basic_assign.utl"
     },
     "children": [{
       "name": "id",
       "attributes": {
+        "end": 234,
+        "symbol": "fred.breakthis",
         "line": 10,
-        "file": "basic_assign.utl",
-        "symbol": "fred.breakthis"
+        "start": 225,
+        "file": "basic_assign.utl"
       }
     }, {
       "name": "literal",
       "attributes": {
-        "line": 10,
+        "end": 238,
         "value": 0.0,
+        "line": 10,
+        "start": 237,
         "file": "basic_assign.utl"
       }
     }]
   }, {
     "name": "expr",
     "attributes": {
+      "end": 260,
       "line": 11,
+      "start": 259,
       "operator": "=",
       "file": "basic_assign.utl"
     },
     "children": [{
       "name": "id",
       "attributes": {
+        "end": 256,
+        "symbol": "fred.thisbreak",
         "line": 11,
-        "file": "basic_assign.utl",
-        "symbol": "fred.thisbreak"
+        "start": 247,
+        "file": "basic_assign.utl"
       }
     }, {
       "name": "literal",
       "attributes": {
-        "line": 11,
+        "end": 260,
         "value": 2.0,
+        "line": 11,
+        "start": 259,
         "file": "basic_assign.utl"
       }
     }]
   }, {
     "name": "expr",
     "attributes": {
+      "end": 274,
       "line": 12,
+      "start": 272,
       "operator": "=",
       "file": "basic_assign.utl"
     },
     "children": [{
       "name": "id",
       "attributes": {
+        "end": 269,
+        "symbol": "empty",
         "line": 12,
-        "file": "basic_assign.utl",
-        "symbol": "empty"
+        "start": 264,
+        "file": "basic_assign.utl"
       }
     }, {
       "name": "literal",
       "attributes": {
-        "line": 12,
+        "end": 274,
         "value": "",
+        "line": 12,
+        "start": 272,
         "file": "basic_assign.utl"
       }
     }]
   }, {
     "name": "expr",
     "attributes": {
+      "end": 295,
       "line": 13,
+      "start": 294,
       "operator": "=",
       "file": "basic_assign.utl"
     },
     "children": [{
       "name": "id",
       "attributes": {
+        "end": 284,
+        "symbol": "barney",
         "line": 13,
-        "file": "basic_assign.utl",
-        "symbol": "barney"
+        "start": 278,
+        "file": "basic_assign.utl"
       }
     }, {
       "name": "expr",
       "attributes": {
+        "end": 295,
         "line": 13,
+        "start": 294,
         "operator": "*",
         "file": "basic_assign.utl"
       },
       "children": [{
         "name": "id",
         "attributes": {
+          "end": 291,
+          "symbol": "fred",
           "line": 13,
-          "file": "basic_assign.utl",
-          "symbol": "fred"
+          "start": 287,
+          "file": "basic_assign.utl"
         }
       }, {
         "name": "literal",
         "attributes": {
-          "line": 13,
+          "end": 295,
           "value": 3.0,
+          "line": 13,
+          "start": 294,
           "file": "basic_assign.utl"
         }
       }]
@@ -293,43 +373,55 @@
   }, {
     "name": "document",
     "attributes": {
-      "line": 16,
+      "end": 329,
       "text": "\n here's some text\n ",
+      "line": 16,
+      "start": 324,
       "file": "basic_assign.utl"
     }
   }, {
     "name": "expr",
     "attributes": {
+      "end": 338,
       "line": 16,
+      "start": 337,
       "operator": "=",
       "file": "basic_assign.utl"
     },
     "children": [{
       "name": "id",
       "attributes": {
+        "end": 329,
+        "symbol": "abool",
         "line": 16,
-        "file": "basic_assign.utl",
-        "symbol": "abool"
+        "start": 324,
+        "file": "basic_assign.utl"
       }
     }, {
       "name": "expr",
       "attributes": {
+        "end": 338,
         "line": 16,
+        "start": 337,
         "operator": "==",
         "file": "basic_assign.utl"
       },
       "children": [{
         "name": "literal",
         "attributes": {
-          "line": 16,
+          "end": 333,
           "value": 3.0,
+          "line": 16,
+          "start": 332,
           "file": "basic_assign.utl"
         }
       }, {
         "name": "literal",
         "attributes": {
-          "line": 16,
+          "end": 338,
           "value": 4.0,
+          "line": 16,
+          "start": 337,
           "file": "basic_assign.utl"
         }
       }]
@@ -337,79 +429,101 @@
   }, {
     "name": "expr",
     "attributes": {
+      "end": 347,
       "line": 17,
+      "start": 346,
       "operator": "=",
       "file": "basic_assign.utl"
     },
     "children": [{
       "name": "id",
       "attributes": {
+        "end": 343,
+        "symbol": "a",
         "line": 17,
-        "file": "basic_assign.utl",
-        "symbol": "a"
+        "start": 342,
+        "file": "basic_assign.utl"
       }
     }, {
       "name": "literal",
       "attributes": {
-        "line": 17,
+        "end": 347,
         "value": 3.0,
+        "line": 17,
+        "start": 346,
         "file": "basic_assign.utl"
       }
     }]
   }, {
     "name": "expr",
     "attributes": {
+      "end": 359,
       "line": 18,
+      "start": 355,
       "operator": "=",
       "file": "basic_assign.utl"
     },
     "children": [{
       "name": "id",
       "attributes": {
+        "end": 352,
+        "symbol": "b",
         "line": 18,
-        "file": "basic_assign.utl",
-        "symbol": "b"
+        "start": 351,
+        "file": "basic_assign.utl"
       }
     }, {
       "name": "id",
       "attributes": {
+        "end": 359,
+        "symbol": "fred",
         "line": 18,
-        "file": "basic_assign.utl",
-        "symbol": "fred"
+        "start": 355,
+        "file": "basic_assign.utl"
       }
     }]
   }, {
     "name": "expr",
     "attributes": {
+      "end": 375,
       "line": 19,
+      "start": 373,
       "operator": "=",
       "file": "basic_assign.utl"
     },
     "children": [{
       "name": "id",
       "attributes": {
+        "end": 368,
+        "symbol": "wilma",
         "line": 19,
-        "file": "basic_assign.utl",
-        "symbol": "wilma"
+        "start": 363,
+        "file": "basic_assign.utl"
       }
     }, {
       "name": "array_ref",
       "attributes": {
+        "end": 375,
         "line": 19,
+        "start": 373,
         "file": "basic_assign.utl"
       },
       "children": [{
         "name": "id",
         "attributes": {
+          "end": 372,
+          "symbol": "e",
           "line": 19,
-          "file": "basic_assign.utl",
-          "symbol": "e"
+          "start": 371,
+          "file": "basic_assign.utl"
         }
       }, {
         "name": "literal",
         "attributes": {
-          "line": 19,
+          "end": 375,
           "value": 12.0,
+          "line": 19,
+          "start": 373,
           "file": "basic_assign.utl"
         }
       }]
@@ -417,133 +531,169 @@
   }, {
     "name": "expr",
     "attributes": {
+      "end": 399,
       "line": 20,
+      "start": 398,
       "operator": "=",
       "file": "basic_assign.utl"
     },
     "children": [{
       "name": "id",
       "attributes": {
+        "end": 381,
+        "symbol": "c",
         "line": 20,
-        "file": "basic_assign.utl",
-        "symbol": "c"
+        "start": 380,
+        "file": "basic_assign.utl"
       }
     }, {
       "name": "expr",
       "attributes": {
+        "end": 399,
         "line": 20,
+        "start": 398,
         "operator": "*",
         "file": "basic_assign.utl"
       },
       "children": [{
         "name": "expr",
         "attributes": {
+          "end": 394,
           "line": 20,
+          "start": 393,
           "operator": "*",
           "file": "basic_assign.utl"
         },
         "children": [{
           "name": "id",
           "attributes": {
+            "end": 385,
+            "symbol": "a",
             "line": 20,
-            "file": "basic_assign.utl",
-            "symbol": "a"
+            "start": 384,
+            "file": "basic_assign.utl"
           }
         }, {
           "name": "expr",
           "attributes": {
+            "end": 394,
             "line": 20,
+            "start": 393,
             "operator": "+",
             "file": "basic_assign.utl"
           },
           "children": [{
             "name": "id",
             "attributes": {
+              "end": 390,
+              "symbol": "a",
               "line": 20,
-              "file": "basic_assign.utl",
-              "symbol": "a"
+              "start": 389,
+              "file": "basic_assign.utl"
             }
           }, {
             "name": "id",
             "attributes": {
+              "end": 394,
+              "symbol": "b",
               "line": 20,
-              "file": "basic_assign.utl",
-              "symbol": "b"
+              "start": 393,
+              "file": "basic_assign.utl"
             }
           }]
         }]
       }, {
         "name": "id",
         "attributes": {
+          "end": 399,
+          "symbol": "b",
           "line": 20,
-          "file": "basic_assign.utl",
-          "symbol": "b"
+          "start": 398,
+          "file": "basic_assign.utl"
         }
       }]
     }]
   }, {
     "name": "expr",
     "attributes": {
+      "end": 420,
       "line": 21,
+      "start": 419,
       "operator": "=",
       "file": "basic_assign.utl"
     },
     "children": [{
       "name": "id",
       "attributes": {
+        "end": 404,
+        "symbol": "d",
         "line": 21,
-        "file": "basic_assign.utl",
-        "symbol": "d"
+        "start": 403,
+        "file": "basic_assign.utl"
       }
     }, {
       "name": "expr",
       "attributes": {
+        "end": 420,
         "line": 21,
+        "start": 419,
         "operator": "+",
         "file": "basic_assign.utl"
       },
       "children": [{
         "name": "expr",
         "attributes": {
+          "end": 412,
           "line": 21,
+          "start": 411,
           "operator": "*",
           "file": "basic_assign.utl"
         },
         "children": [{
           "name": "id",
           "attributes": {
+            "end": 408,
+            "symbol": "a",
             "line": 21,
-            "file": "basic_assign.utl",
-            "symbol": "a"
+            "start": 407,
+            "file": "basic_assign.utl"
           }
         }, {
           "name": "id",
           "attributes": {
+            "end": 412,
+            "symbol": "a",
             "line": 21,
-            "file": "basic_assign.utl",
-            "symbol": "a"
+            "start": 411,
+            "file": "basic_assign.utl"
           }
         }]
       }, {
         "name": "expr",
         "attributes": {
+          "end": 420,
           "line": 21,
+          "start": 419,
           "operator": "*",
           "file": "basic_assign.utl"
         },
         "children": [{
           "name": "id",
           "attributes": {
+            "end": 416,
+            "symbol": "b",
             "line": 21,
-            "file": "basic_assign.utl",
-            "symbol": "b"
+            "start": 415,
+            "file": "basic_assign.utl"
           }
         }, {
           "name": "id",
           "attributes": {
+            "end": 420,
+            "symbol": "b",
             "line": 21,
-            "file": "basic_assign.utl",
-            "symbol": "b"
+            "start": 419,
+            "file": "basic_assign.utl"
           }
         }]
       }]
@@ -551,66 +701,84 @@
   }, {
     "name": "expr",
     "attributes": {
+      "end": 441,
       "line": 22,
+      "start": 440,
       "operator": "=",
       "file": "basic_assign.utl"
     },
     "children": [{
       "name": "id",
       "attributes": {
+        "end": 425,
+        "symbol": "e",
         "line": 22,
-        "file": "basic_assign.utl",
-        "symbol": "e"
+        "start": 424,
+        "file": "basic_assign.utl"
       }
     }, {
       "name": "expr",
       "attributes": {
+        "end": 441,
         "line": 22,
+        "start": 440,
         "operator": "-",
         "file": "basic_assign.utl"
       },
       "children": [{
         "name": "expr",
         "attributes": {
+          "end": 433,
           "line": 22,
+          "start": 432,
           "operator": "%",
           "file": "basic_assign.utl"
         },
         "children": [{
           "name": "id",
           "attributes": {
+            "end": 429,
+            "symbol": "a",
             "line": 22,
-            "file": "basic_assign.utl",
-            "symbol": "a"
+            "start": 428,
+            "file": "basic_assign.utl"
           }
         }, {
           "name": "id",
           "attributes": {
+            "end": 433,
+            "symbol": "b",
             "line": 22,
-            "file": "basic_assign.utl",
-            "symbol": "b"
+            "start": 432,
+            "file": "basic_assign.utl"
           }
         }]
       }, {
         "name": "expr",
         "attributes": {
+          "end": 441,
           "line": 22,
+          "start": 440,
           "operator": "%",
           "file": "basic_assign.utl"
         },
         "children": [{
           "name": "id",
           "attributes": {
+            "end": 437,
+            "symbol": "b",
             "line": 22,
-            "file": "basic_assign.utl",
-            "symbol": "b"
+            "start": 436,
+            "file": "basic_assign.utl"
           }
         }, {
           "name": "id",
           "attributes": {
+            "end": 441,
+            "symbol": "c",
             "line": 22,
-            "file": "basic_assign.utl",
-            "symbol": "c"
+            "start": 440,
+            "file": "basic_assign.utl"
           }
         }]
       }]
@@ -618,28 +786,36 @@
   }, {
     "name": "default",
     "attributes": {
+      "end": 458,
       "line": 23,
+      "start": 457,
       "file": "basic_assign.utl"
     },
     "children": [{
       "name": "expr",
       "attributes": {
+        "end": 458,
         "line": 23,
+        "start": 457,
         "operator": "=",
         "file": "basic_assign.utl"
       },
       "children": [{
         "name": "id",
         "attributes": {
+          "end": 454,
+          "symbol": "a",
           "line": 23,
-          "file": "basic_assign.utl",
-          "symbol": "a"
+          "start": 453,
+          "file": "basic_assign.utl"
         }
       }, {
         "name": "literal",
         "attributes": {
-          "line": 23,
+          "end": 458,
           "value": 3.0,
+          "line": 23,
+          "start": 457,
           "file": "basic_assign.utl"
         }
       }]
@@ -647,167 +823,213 @@
   }, {
     "name": "default",
     "attributes": {
+      "end": 478,
       "line": 24,
+      "start": 474,
       "file": "basic_assign.utl"
     },
     "children": [{
       "name": "expr",
       "attributes": {
+        "end": 478,
         "line": 24,
+        "start": 474,
         "operator": "=",
         "file": "basic_assign.utl"
       },
       "children": [{
         "name": "id",
         "attributes": {
+          "end": 471,
+          "symbol": "b",
           "line": 24,
-          "file": "basic_assign.utl",
-          "symbol": "b"
+          "start": 470,
+          "file": "basic_assign.utl"
         }
       }, {
         "name": "id",
         "attributes": {
+          "end": 478,
+          "symbol": "fred",
           "line": 24,
-          "file": "basic_assign.utl",
-          "symbol": "fred"
+          "start": 474,
+          "file": "basic_assign.utl"
         }
       }]
     }]
   }, {
     "name": "expr",
     "attributes": {
+      "end": 492,
       "line": 25,
+      "start": 487,
       "operator": "-=",
       "file": "basic_assign.utl"
     },
     "children": [{
       "name": "id",
       "attributes": {
+        "end": 486,
+        "symbol": "c",
         "line": 25,
-        "file": "basic_assign.utl",
-        "symbol": "c"
+        "start": 484,
+        "file": "basic_assign.utl"
       }
     }, {
       "name": "id",
       "attributes": {
+        "end": 492,
+        "symbol": "sally",
         "line": 25,
-        "file": "basic_assign.utl",
-        "symbol": "sally"
+        "start": 487,
+        "file": "basic_assign.utl"
       }
     }]
   }, {
     "name": "expr",
     "attributes": {
+      "end": 502,
       "line": 26,
+      "start": 501,
       "operator": "*=",
       "file": "basic_assign.utl"
     },
     "children": [{
       "name": "id",
       "attributes": {
+        "end": 500,
+        "symbol": "d",
         "line": 26,
-        "file": "basic_assign.utl",
-        "symbol": "d"
+        "start": 498,
+        "file": "basic_assign.utl"
       }
     }, {
       "name": "literal",
       "attributes": {
-        "line": 26,
+        "end": 502,
         "value": 7.0,
+        "line": 26,
+        "start": 501,
         "file": "basic_assign.utl"
       }
     }]
   }, {
     "name": "expr",
     "attributes": {
+      "end": 512,
       "line": 27,
+      "start": 511,
       "operator": "/=",
       "file": "basic_assign.utl"
     },
     "children": [{
       "name": "id",
       "attributes": {
+        "end": 510,
+        "symbol": "d",
         "line": 27,
-        "file": "basic_assign.utl",
-        "symbol": "d"
+        "start": 508,
+        "file": "basic_assign.utl"
       }
     }, {
       "name": "literal",
       "attributes": {
-        "line": 27,
+        "end": 512,
         "value": 3.0,
+        "line": 27,
+        "start": 511,
         "file": "basic_assign.utl"
       }
     }]
   }, {
     "name": "default",
     "attributes": {
+      "end": 541,
       "line": 28,
+      "start": 540,
       "file": "basic_assign.utl"
     },
     "children": [{
       "name": "expr",
       "attributes": {
+        "end": 541,
         "line": 28,
+        "start": 540,
         "operator": "=",
         "file": "basic_assign.utl"
       },
       "children": [{
         "name": "id",
         "attributes": {
+          "end": 525,
+          "symbol": "e",
           "line": 28,
-          "file": "basic_assign.utl",
-          "symbol": "e"
+          "start": 524,
+          "file": "basic_assign.utl"
         }
       }, {
         "name": "expr",
         "attributes": {
+          "end": 541,
           "line": 28,
+          "start": 540,
           "operator": "-",
           "file": "basic_assign.utl"
         },
         "children": [{
           "name": "expr",
           "attributes": {
+            "end": 533,
             "line": 28,
+            "start": 532,
             "operator": "%",
             "file": "basic_assign.utl"
           },
           "children": [{
             "name": "id",
             "attributes": {
+              "end": 529,
+              "symbol": "a",
               "line": 28,
-              "file": "basic_assign.utl",
-              "symbol": "a"
+              "start": 528,
+              "file": "basic_assign.utl"
             }
           }, {
             "name": "id",
             "attributes": {
+              "end": 533,
+              "symbol": "b",
               "line": 28,
-              "file": "basic_assign.utl",
-              "symbol": "b"
+              "start": 532,
+              "file": "basic_assign.utl"
             }
           }]
         }, {
           "name": "expr",
           "attributes": {
+            "end": 541,
             "line": 28,
+            "start": 540,
             "operator": "%",
             "file": "basic_assign.utl"
           },
           "children": [{
             "name": "id",
             "attributes": {
+              "end": 537,
+              "symbol": "b",
               "line": 28,
-              "file": "basic_assign.utl",
-              "symbol": "b"
+              "start": 536,
+              "file": "basic_assign.utl"
             }
           }, {
             "name": "id",
             "attributes": {
+              "end": 541,
+              "symbol": "c",
               "line": 28,
-              "file": "basic_assign.utl",
-              "symbol": "c"
+              "start": 540,
+              "file": "basic_assign.utl"
             }
           }]
         }]
@@ -816,98 +1038,126 @@
   }, {
     "name": "expr",
     "attributes": {
+      "end": 586,
       "line": 29,
+      "start": 582,
       "operator": "=",
       "file": "basic_assign.utl"
     },
     "children": [{
       "name": "id",
       "attributes": {
+        "end": 550,
+        "symbol": "array",
         "line": 29,
-        "file": "basic_assign.utl",
-        "symbol": "array"
+        "start": 545,
+        "file": "basic_assign.utl"
       }
     }, {
       "name": "literal",
       "attributes": {
-        "line": 29,
+        "end": 586,
         "value": {
           "name": "array_literal",
           "attributes": {
+            "end": 586,
             "line": 29,
+            "start": 582,
             "file": "basic_assign.utl"
           },
           "children": [{
             "name": "array_elems",
             "attributes": {
+              "end": 555,
               "line": 29,
+              "start": 554,
               "file": "basic_assign.utl"
             },
             "children": [{
               "name": "literal",
               "attributes": {
-                "line": 29,
+                "end": 555,
                 "value": 1.0,
+                "line": 29,
+                "start": 554,
                 "file": "basic_assign.utl"
               }
             }, {
               "name": "literal",
               "attributes": {
-                "line": 29,
+                "end": 558,
                 "value": 2.0,
+                "line": 29,
+                "start": 557,
                 "file": "basic_assign.utl"
               }
             }, {
               "name": "literal",
               "attributes": {
-                "line": 29,
+                "end": 566,
                 "value": "fred",
+                "line": 29,
+                "start": 560,
                 "file": "basic_assign.utl"
               }
             }, {
               "name": "literal",
               "attributes": {
-                "line": 29,
+                "end": 571,
                 "value": 3.0,
+                "line": 29,
+                "start": 568,
                 "file": "basic_assign.utl"
               }
             }, {
               "name": "expr",
               "attributes": {
+                "end": 586,
                 "line": 29,
+                "start": 582,
                 "operator": "|",
                 "file": "basic_assign.utl"
               },
               "children": [{
                 "name": "macro_call",
                 "attributes": {
+                  "end": 580,
                   "line": 29,
+                  "start": 579,
                   "file": "basic_assign.utl"
                 },
                 "children": [{
                   "name": "id",
                   "attributes": {
+                    "end": 578,
+                    "symbol": "wilma",
                     "line": 29,
-                    "file": "basic_assign.utl",
-                    "symbol": "wilma"
+                    "start": 573,
+                    "file": "basic_assign.utl"
                   }
                 }, {
                   "name": "arg_list",
                   "attributes": {
+                    "end": 580,
                     "line": 29,
+                    "start": 579,
                     "file": "basic_assign.utl"
                   },
                   "children": [{
                     "name": "arg",
                     "attributes": {
+                      "end": 580,
                       "line": 29,
+                      "start": 579,
                       "file": "basic_assign.utl"
                     },
                     "children": [{
                       "name": "literal",
                       "attributes": {
-                        "line": 29,
+                        "end": 580,
                         "value": 7.0,
+                        "line": 29,
+                        "start": 579,
                         "file": "basic_assign.utl"
                       }
                     }]
@@ -916,255 +1166,325 @@
               }, {
                 "name": "id",
                 "attributes": {
+                  "end": 586,
+                  "symbol": "fred",
                   "line": 29,
-                  "file": "basic_assign.utl",
-                  "symbol": "fred"
+                  "start": 582,
+                  "file": "basic_assign.utl"
                 }
               }]
             }]
           }]
         },
+        "line": 29,
+        "start": 582,
         "file": "basic_assign.utl"
       }
     }]
   }, {
     "name": "expr",
     "attributes": {
+      "end": 614,
       "line": 30,
+      "start": 613,
       "operator": "=",
       "file": "basic_assign.utl"
     },
     "children": [{
       "name": "id",
       "attributes": {
+        "end": 594,
+        "symbol": "obj",
         "line": 30,
-        "file": "basic_assign.utl",
-        "symbol": "obj"
+        "start": 591,
+        "file": "basic_assign.utl"
       }
     }, {
       "name": "literal",
       "attributes": {
-        "line": 30,
+        "end": 614,
         "value": {
           "name": "array_literal",
           "attributes": {
+            "end": 614,
             "line": 30,
+            "start": 613,
             "file": "basic_assign.utl"
           },
           "children": [{
             "name": "array_elems",
             "attributes": {
+              "end": 605,
               "line": 30,
+              "start": 604,
               "file": "basic_assign.utl"
             },
             "children": [{
               "name": "expr",
               "attributes": {
+                "end": 605,
                 "line": 30,
+                "start": 604,
                 "operator": ":",
                 "file": "basic_assign.utl"
               },
               "children": [{
                 "name": "literal",
                 "attributes": {
-                  "line": 30,
+                  "end": 603,
                   "value": "one",
+                  "line": 30,
+                  "start": 598,
                   "file": "basic_assign.utl"
                 }
               }, {
                 "name": "literal",
                 "attributes": {
-                  "line": 30,
+                  "end": 605,
                   "value": 2.0,
+                  "line": 30,
+                  "start": 604,
                   "file": "basic_assign.utl"
                 }
               }]
             }, {
               "name": "expr",
               "attributes": {
+                "end": 614,
                 "line": 30,
+                "start": 613,
                 "operator": ":",
                 "file": "basic_assign.utl"
               },
               "children": [{
                 "name": "literal",
                 "attributes": {
-                  "line": 30,
+                  "end": 612,
                   "value": "two",
+                  "line": 30,
+                  "start": 607,
                   "file": "basic_assign.utl"
                 }
               }, {
                 "name": "literal",
                 "attributes": {
-                  "line": 30,
+                  "end": 614,
                   "value": 3.0,
+                  "line": 30,
+                  "start": 613,
                   "file": "basic_assign.utl"
                 }
               }]
             }]
           }]
         },
+        "line": 30,
+        "start": 613,
         "file": "basic_assign.utl"
       }
     }]
   }, {
     "name": "expr",
     "attributes": {
+      "end": 630,
       "line": 31,
+      "start": 629,
       "operator": "=",
       "file": "basic_assign.utl"
     },
     "children": [{
       "name": "id",
       "attributes": {
+        "end": 626,
+        "symbol": "obj.one",
         "line": 31,
-        "file": "basic_assign.utl",
-        "symbol": "obj.one"
+        "start": 623,
+        "file": "basic_assign.utl"
       }
     }, {
       "name": "literal",
       "attributes": {
-        "line": 31,
+        "end": 630,
         "value": 3.0,
+        "line": 31,
+        "start": 629,
         "file": "basic_assign.utl"
       }
     }]
   }, {
     "name": "expr",
     "attributes": {
+      "end": 648,
       "line": 32,
+      "start": 647,
       "operator": "=",
       "file": "basic_assign.utl"
     },
     "children": [{
       "name": "array_ref",
       "attributes": {
+        "end": 643,
         "line": 32,
+        "start": 638,
         "file": "basic_assign.utl"
       },
       "children": [{
         "name": "id",
         "attributes": {
+          "end": 637,
+          "symbol": "obj",
           "line": 32,
-          "file": "basic_assign.utl",
-          "symbol": "obj"
+          "start": 634,
+          "file": "basic_assign.utl"
         }
       }, {
         "name": "literal",
         "attributes": {
-          "line": 32,
+          "end": 643,
           "value": "two",
+          "line": 32,
+          "start": 638,
           "file": "basic_assign.utl"
         }
       }]
     }, {
       "name": "literal",
       "attributes": {
-        "line": 32,
+        "end": 648,
         "value": 7.0,
+        "line": 32,
+        "start": 647,
         "file": "basic_assign.utl"
       }
     }]
   }, {
     "name": "expr",
     "attributes": {
+      "end": 653,
       "line": 33,
+      "start": 652,
       "operator": "=",
       "file": "basic_assign.utl"
     },
     "children": [{
       "name": "id",
       "attributes": {
+        "end": 653,
+        "symbol": "n",
         "line": 33,
-        "file": "basic_assign.utl",
-        "symbol": "n"
+        "start": 652,
+        "file": "basic_assign.utl"
       }
     }, {
       "name": "literal",
       "attributes": {
-        "line": 33,
+        "end": 653,
         "value": {
           "name": "array_literal",
           "attributes": {
+            "end": 653,
             "line": 33,
+            "start": 652,
             "file": "basic_assign.utl"
           }
         },
+        "line": 33,
+        "start": 652,
         "file": "basic_assign.utl"
       }
     }]
   }, {
     "name": "expr",
     "attributes": {
+      "end": 686,
       "line": 35,
+      "start": 684,
       "operator": "=",
       "file": "basic_assign.utl"
     },
     "children": [{
       "name": "expr",
       "attributes": {
+        "end": 678,
         "line": 34,
+        "start": 677,
         "operator": "+",
         "file": "basic_assign.utl"
       },
       "children": [{
         "name": "expr",
         "attributes": {
+          "end": 668,
           "line": 34,
+          "start": 667,
           "operator": "*",
           "file": "basic_assign.utl"
         },
         "children": [{
           "name": "id",
           "attributes": {
+            "end": 664,
+            "symbol": "a",
             "line": 34,
-            "file": "basic_assign.utl",
-            "symbol": "a"
+            "start": 663,
+            "file": "basic_assign.utl"
           }
         }, {
           "name": "id",
           "attributes": {
+            "end": 668,
+            "symbol": "a",
             "line": 34,
-            "file": "basic_assign.utl",
-            "symbol": "a"
+            "start": 667,
+            "file": "basic_assign.utl"
           }
         }]
       }, {
         "name": "expr",
         "attributes": {
+          "end": 678,
           "line": 34,
+          "start": 677,
           "operator": "*",
           "file": "basic_assign.utl"
         },
         "children": [{
           "name": "id",
           "attributes": {
+            "end": 674,
+            "symbol": "b",
             "line": 34,
-            "file": "basic_assign.utl",
-            "symbol": "b"
+            "start": 673,
+            "file": "basic_assign.utl"
           }
         }, {
           "name": "id",
           "attributes": {
+            "end": 678,
+            "symbol": "b",
             "line": 34,
-            "file": "basic_assign.utl",
-            "symbol": "b"
+            "start": 677,
+            "file": "basic_assign.utl"
           }
         }]
       }]
     }, {
       "name": "id",
       "attributes": {
+        "end": 686,
+        "symbol": "c",
         "line": 35,
-        "file": "basic_assign.utl",
-        "symbol": "c"
+        "start": 684,
+        "file": "basic_assign.utl"
       }
     }]
   }, {
     "name": "document",
     "attributes": {
-      "line": 36,
+      "end": 687,
       "text": "\n",
+      "line": 36,
+      "start": 686,
       "file": "basic_assign.utl"
     }
   }]

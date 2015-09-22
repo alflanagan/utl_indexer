@@ -1,12 +1,16 @@
 {
   "name": "statement_list",
   "attributes": {
+    "end": 361,
+    "start": 359,
     "file": "for_stmt.utl",
     "line": 19
   },
   "children": [{
     "name": "for",
     "attributes": {
+      "end": 72,
+      "start": 69,
       "file": "for_stmt.utl",
       "name1": "item",
       "line": 4
@@ -14,6 +18,8 @@
     "children": [{
       "name": "id",
       "attributes": {
+        "end": 20,
+        "start": 18,
         "file": "for_stmt.utl",
         "line": 1,
         "symbol": "array_data"
@@ -21,19 +27,25 @@
     }, {
       "name": "statement_list",
       "attributes": {
+        "end": 72,
+        "start": 69,
         "file": "for_stmt.utl",
         "line": 4
       },
       "children": [{
         "name": "document",
         "attributes": {
+          "end": 66,
+          "start": 58,
           "file": "for_stmt.utl",
-          "line": 3,
-          "text": "\n      stuff happens\n      "
+          "text": "\n      stuff happens\n      ",
+          "line": 3
         }
       }, {
         "name": "continue",
         "attributes": {
+          "end": 72,
+          "start": 69,
           "file": "for_stmt.utl",
           "line": 4
         }
@@ -42,12 +54,16 @@
   }, {
     "name": "for",
     "attributes": {
+      "end": 114,
+      "start": 111,
       "file": "for_stmt.utl",
       "line": 7
     },
     "children": [{
       "name": "expr",
       "attributes": {
+        "end": 86,
+        "start": 84,
         "file": "for_stmt.utl",
         "line": 5,
         "operator": ".."
@@ -55,36 +71,46 @@
       "children": [{
         "name": "literal",
         "attributes": {
+          "end": 79,
+          "start": 78,
           "file": "for_stmt.utl",
-          "line": 5,
-          "value": 1.0
+          "value": 1.0,
+          "line": 5
         }
       }, {
         "name": "literal",
         "attributes": {
+          "end": 86,
+          "start": 84,
           "file": "for_stmt.utl",
-          "line": 5,
-          "value": 10.0
+          "value": 10.0,
+          "line": 5
         }
       }]
     }, {
       "name": "statement_list",
       "attributes": {
+        "end": 114,
+        "start": 111,
         "file": "for_stmt.utl",
         "line": 7
       },
       "children": [{
         "name": "document",
         "attributes": {
+          "end": 114,
+          "start": 111,
           "file": "for_stmt.utl",
-          "line": 7,
-          "text": "\n  more stuff happens\n"
+          "text": "\n  more stuff happens\n",
+          "line": 7
         }
       }]
     }]
   }, {
     "name": "for",
     "attributes": {
+      "end": 170,
+      "start": 167,
       "file": "for_stmt.utl",
       "name1": "item",
       "line": 10
@@ -92,6 +118,8 @@
     "children": [{
       "name": "id",
       "attributes": {
+        "end": 137,
+        "start": 135,
         "file": "for_stmt.utl",
         "line": 8,
         "symbol": "array_data"
@@ -99,21 +127,27 @@
     }, {
       "name": "statement_list",
       "attributes": {
+        "end": 170,
+        "start": 167,
         "file": "for_stmt.utl",
         "line": 10
       },
       "children": [{
         "name": "document",
         "attributes": {
+          "end": 170,
+          "start": 167,
           "file": "for_stmt.utl",
-          "line": 10,
-          "text": "\n  even more stuff\n"
+          "text": "\n  even more stuff\n",
+          "line": 10
         }
       }]
     }]
   }, {
     "name": "for",
     "attributes": {
+      "end": 239,
+      "start": 236,
       "file": "for_stmt.utl",
       "name1": "item",
       "line": 13
@@ -121,6 +155,8 @@
     "children": [{
       "name": "id",
       "attributes": {
+        "end": 194,
+        "start": 192,
         "file": "for_stmt.utl",
         "line": 11,
         "symbol": "array_data"
@@ -128,40 +164,52 @@
     }, {
       "name": "statement_list",
       "attributes": {
+        "end": 239,
+        "start": 236,
         "file": "for_stmt.utl",
         "line": 13
       },
       "children": [{
         "name": "document",
         "attributes": {
+          "end": 223,
+          "start": 218,
           "file": "for_stmt.utl",
-          "line": 12,
-          "text": "\n  even more "
+          "text": "\n  even more ",
+          "line": 12
         }
       }, {
         "name": "break",
         "attributes": {
+          "end": 233,
+          "start": 227,
           "file": "for_stmt.utl",
           "line": 13
         }
       }, {
         "name": "document",
         "attributes": {
+          "end": 239,
+          "start": 236,
           "file": "for_stmt.utl",
-          "line": 13,
-          "text": "stuff\n"
+          "text": "stuff\n",
+          "line": 13
         }
       }]
     }]
   }, {
     "name": "for",
     "attributes": {
+      "end": 297,
+      "start": 294,
       "file": "for_stmt.utl",
       "line": 16
     },
     "children": [{
       "name": "id",
       "attributes": {
+        "end": 263,
+        "start": 261,
         "file": "for_stmt.utl",
         "line": 14,
         "symbol": "array_data"
@@ -169,29 +217,37 @@
     }, {
       "name": "statement_list",
       "attributes": {
+        "end": 297,
+        "start": 294,
         "file": "for_stmt.utl",
         "line": 16
       },
       "children": [{
         "name": "document",
         "attributes": {
+          "end": 297,
+          "start": 294,
           "file": "for_stmt.utl",
-          "line": 16,
-          "text": "\n  do len(array_data) times\n"
+          "text": "\n  do len(array_data) times\n",
+          "line": 16
         }
       }]
     }]
   }, {
     "name": "for",
     "attributes": {
-      "file": "for_stmt.utl",
-      "name2": "beta",
       "name1": "alpha",
-      "line": 19
+      "line": 19,
+      "end": 361,
+      "start": 359,
+      "file": "for_stmt.utl",
+      "name2": "beta"
     },
     "children": [{
       "name": "id",
       "attributes": {
+        "end": 317,
+        "start": 315,
         "file": "for_stmt.utl",
         "line": 17,
         "symbol": "array_data"
@@ -199,12 +255,16 @@
     }, {
       "name": "statement_list",
       "attributes": {
+        "end": 358,
+        "start": 355,
         "file": "for_stmt.utl",
         "line": 19
       },
       "children": [{
         "name": "expr",
         "attributes": {
+          "end": 352,
+          "start": 348,
           "file": "for_stmt.utl",
           "line": 18,
           "operator": "+="
@@ -212,6 +272,8 @@
         "children": [{
           "name": "id",
           "attributes": {
+            "end": 339,
+            "start": 337,
             "file": "for_stmt.utl",
             "line": 18,
             "symbol": "c"
@@ -219,6 +281,8 @@
         }, {
           "name": "expr",
           "attributes": {
+            "end": 352,
+            "start": 348,
             "file": "for_stmt.utl",
             "line": 18,
             "operator": "*"
@@ -226,6 +290,8 @@
           "children": [{
             "name": "id",
             "attributes": {
+              "end": 345,
+              "start": 340,
               "file": "for_stmt.utl",
               "line": 18,
               "symbol": "alpha"
@@ -233,6 +299,8 @@
           }, {
             "name": "id",
             "attributes": {
+              "end": 352,
+              "start": 348,
               "file": "for_stmt.utl",
               "line": 18,
               "symbol": "beta"
