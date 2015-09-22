@@ -13,6 +13,7 @@ import json
 
 import utl_parse_test
 from utl_lib.ast_node import ASTNode
+from utl_lib.handler_parse_tree import UTLParseHandlerParseTree
 
 
 class TestCaseUTLTestCase(utl_parse_test.TestCaseUTL):
@@ -26,6 +27,20 @@ class TestCaseUTLTestCase(utl_parse_test.TestCaseUTL):
         expected1 = {"name": "id", "attributes": {"symbol": "fred"}}
         node1 = ASTNode("id", {"symbol": "fred"}, [])
         self.assertMatchesJSON(node1, expected1)
+        node2 = ASTNode('expr',
+                        {'value': ASTNode('literal', {'value': 5}, [])},
+                        [])
+        expected2 = {"name": "expr",
+                     "attributes": {"value": {"name": "literal",
+                                              "attributes": {"value": 5}},},}
+        self.assertMatchesJSON(node2, expected2)
+
+    def test_assertJSONFileMatches(self):
+        """Unit tests for
+        :py:meth:`utl_indexer.test.utl_parse_test.TestCaseUTL.assertJSONFileMatches`.
+
+        """
+        self.assertJSONFileMatches(UTLParseHandlerParseTree(), 'while.utl', 'while.json')
 
 
 if __name__ == '__main__':
