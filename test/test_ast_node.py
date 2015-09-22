@@ -31,7 +31,7 @@ class ASTNodeTestCase(unittest_plus.TestCasePlus):
         self.assertDictEqual(item2.attributes, {'a': 2, 'b': 'wilma'})
         self.assertSequenceEqual(item2.children, [item1])
         self.assertIs(item2.children[0].parent, item2)
-        item3 = ASTNode('barney', {}, [item1, item2])
+        item3 = ASTNode('barney', None, [item1, item2])
         self.assertSequenceEqual(item3.children, [item1, item2])
 
     def test_bad_create(self):
@@ -223,6 +223,8 @@ class ASTNodeTestCase(unittest_plus.TestCasePlus):
         self.assertEqual(document.json_format(),
                          '{"name": "document",\n"attributes": {"text": ' +
                          '"<div>some &quot; embedded HTML</div>"}}')
+        document = ASTNode('document', {"text": 2}, [])
+        self.assertEqual(document.json_format(), '{"name": "document",\n"attributes": {"text": 2}}')
 
 
 if __name__ == '__main__':
