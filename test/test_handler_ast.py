@@ -89,6 +89,14 @@ class UTLParseHandlerASTTestCase(utl_parse_test.TestCaseUTL):
         """
         self.assertJSONFileMatches('precedence.utl', 'precedence_ast.json')
 
+    def test_special(self):
+        """A couple of method calls to exercise specific cases."""
+        # call to macro_decl() with string for macro name
+        handler = UTLParseHandlerAST()
+        parser = UTLParser([handler])
+        handler.macro_decl(parser, "forbin")
+        handler.paren_expr(parser, None)
+
 
 if __name__ == '__main__':
     utl_parse_test.main()
