@@ -132,7 +132,7 @@
         "end": 121,
         "symbol": "sally.isfine",
         "line": 6,
-        "start": 115,
+        "start": 109,
         "file": "basic_assign.utl"
       }
     }, {
@@ -179,7 +179,7 @@
         "end": 146,
         "symbol": "sally.fineis",
         "line": 7,
-        "start": 140,
+        "start": 134,
         "file": "basic_assign.utl"
       }
     }, {
@@ -254,7 +254,7 @@
         "end": 234,
         "symbol": "fred.breakthis",
         "line": 10,
-        "start": 225,
+        "start": 220,
         "file": "basic_assign.utl"
       }
     }, {
@@ -282,7 +282,7 @@
         "end": 256,
         "symbol": "fred.thisbreak",
         "line": 11,
-        "start": 247,
+        "start": 242,
         "file": "basic_assign.utl"
       }
     }, {
@@ -503,9 +503,9 @@
     }, {
       "name": "array_ref",
       "attributes": {
-        "end": 375,
+        "end": 376,
         "line": 19,
-        "start": 373,
+        "start": 371,
         "file": "basic_assign.utl"
       },
       "children": [{
@@ -1123,7 +1123,8 @@
                 "attributes": {
                   "end": 580,
                   "line": 29,
-                  "start": 579,
+                  "start": 573,
+                  "macro_expr":  "wilma",
                   "file": "basic_assign.utl"
                 },
                 "children": [{
@@ -1298,7 +1299,7 @@
         "end": 626,
         "symbol": "obj.one",
         "line": 31,
-        "start": 623,
+        "start": 619,
         "file": "basic_assign.utl"
       }
     }, {
@@ -1323,9 +1324,9 @@
     "children": [{
       "name": "array_ref",
       "attributes": {
-        "end": 643,
+        "end": 644,
         "line": 32,
-        "start": 638,
+        "start": 634,
         "file": "basic_assign.utl"
       },
       "children": [{

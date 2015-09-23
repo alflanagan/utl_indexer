@@ -41,13 +41,14 @@ class UTLParseHandlerAST(UTLParseHandler):
         # TODO: sometimes, parser.lexer.lineno is 1 greater than expected, but usually not.
         # figure out why and fix.
         lm = parser.lexer.lexmatch
-        attrs = other_attrs.copy() if other_attrs is not None else {}
-        attrs.update({"file": parser.filename,
-                      # line number is 1-based
-                      "line": parser.lexer.lineno,
-                      "start": lm.start(),
-                      "end": lm.end(),
-                      })
+        attrs = {"file": parser.filename,
+                 # line number is 1-based
+                 "line": parser.lexer.lineno,
+                 "start": lm.start(),
+                 "end": lm.end(),
+                 }
+        if other_attrs:
+            attrs.update(other_attrs)
         return attrs
 
     # -------------------------------------------------------------------------------------------
@@ -113,7 +114,12 @@ class UTLParseHandlerAST(UTLParseHandler):
     def array_ref(self, parser, variable, index):
         assert variable is not None
         assert index is not None
-        return ASTNode('array_ref', self._context(parser), [variable, index])
+        # parser lexical context is for index, set start from variable instead
+        # end doesn't include "]" character, so add 1
+        attrs = {"start": variable.attributes["start"],
+                 "line": variable.attributes["line"],
+                 "end": index.attributes["end"] + 1,}
+        return ASTNode('array_ref', self._context(parser, attrs), [variable, index])
 
     def as_clause(self, parser, var1, var2=None):
         # We handle target variables as attributes of for node. So, we just need to return the
@@ -170,7 +176,10 @@ class UTLParseHandlerAST(UTLParseHandler):
         if second == '.':
             if first.symbol == 'id' and third.symbol == 'id':
                 parts = [first.attributes["symbol"], third.attributes["symbol"]]
-                return ASTNode("id", self._context(parser, {"symbol": ".".join(parts)}), [])
+                attrs = {"symbol": ".".join(parts)}
+                # lexer context here is for 2nd symbol, so override "start" to include first symbol
+                attrs["start"] = first.attributes["start"]
+                return ASTNode("id", self._context(parser, attrs), [])
 
         # if we got this far, it's a binary op
         assert third is not None
@@ -210,11 +219,11 @@ class UTLParseHandlerAST(UTLParseHandler):
         if arg_list is None:
             arg_list = ASTNode("arg_list", self._context(parser), [])
         code = parser.lexer.lexdata
+        # parser lexer context may not include entire macro_expr, reset start
         start = macro_expr.attributes["start"]
-        end = macro_expr.attributes["end"]
-        attrs = {"call_start": start,
+        attrs = {"start": start,
                  # everything before opening (; may be ID, may be expr
-                 "macro_expr": code[start:end]
+                 "macro_expr": code[start:macro_expr.attributes["end"]]
                  }
         return ASTNode("macro_call", self._context(parser, attrs), [macro_expr, arg_list])
 
@@ -227,12 +236,13 @@ class UTLParseHandlerAST(UTLParseHandler):
         # starting at the macro name, search backwards for the token "macro"
         macro_pos = lex.lexdata[:lex.lexmatch.start()].rfind('macro')
         return ASTNode('macro_decl', self._context(parser, {'name': macro_name,
-                                                            'macro_start': macro_pos}),
+                                                            'start': macro_pos}),
                        [param_list] if param_list else [])
 
     def macro_defn(self, parser, macro_decl, statement_list=None):
         return ASTNode('macro_defn',
-                       self._context(parser, {"start": macro_decl.attributes["macro_start"],
+                       # set start to the beginning of macro_decl, not statement_list
+                       self._context(parser, {"start": macro_decl.attributes["start"],
                                               "name": macro_decl.attributes["name"]}),
                        [macro_decl, statement_list] if statement_list else [macro_decl])
 

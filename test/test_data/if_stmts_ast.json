@@ -46,7 +46,7 @@
         "attributes": {
           "end": 97,
           "line": 1,
-          "start": 86,
+          "start": 70,
           "symbol": "cms.site.custom.alpha_omega",
           "file": "if_stmts.utl"
         }
@@ -126,15 +126,16 @@
         "attributes": {
           "end": 228,
           "line": 4,
-          "start": 224,
-          "file": "if_stmts.utl"
+          "start": 180,
+          "file": "if_stmts.utl",
+          "macro_expr": "cms.component.load"
         },
         "children": [{
           "name": "id",
           "attributes": {
             "end": 198,
             "line": 4,
-            "start": 194,
+            "start": 180,
             "symbol": "cms.component.load",
             "file": "if_stmts.utl"
           }
@@ -211,15 +212,16 @@
         "attributes": {
           "end": 327,
           "line": 5,
-          "start": 304,
-          "file": "if_stmts.utl"
+          "start": 285,
+          "file": "if_stmts.utl",
+          "macro_expr": "cms.component.load"
         },
         "children": [{
           "name": "id",
           "attributes": {
             "end": 303,
             "line": 5,
-            "start": 299,
+            "start": 285,
             "symbol": "cms.component.load",
             "file": "if_stmts.utl"
           }
@@ -316,9 +318,9 @@
       "children": [{
         "name": "array_ref",
         "attributes": {
-          "end": 406,
+          "end": 407,
           "line": 6,
-          "start": 396,
+          "start": 390,
           "file": "if_stmts.utl"
         },
         "children": [{
@@ -363,15 +365,16 @@
             "attributes": {
               "end": 437,
               "line": 6,
-              "start": 431,
-              "file": "if_stmts.utl"
+              "start": 413,
+              "file": "if_stmts.utl",
+              "macro_expr": "cms.request.param"
             },
             "children": [{
               "name": "id",
               "attributes": {
                 "end": 430,
                 "line": 6,
-                "start": 425,
+                "start": 413,
                 "symbol": "cms.request.param",
                 "file": "if_stmts.utl"
               }
@@ -435,9 +438,9 @@
         "children": [{
           "name": "array_ref",
           "attributes": {
-            "end": 477,
+            "end": 478,
             "line": 7,
-            "start": 462,
+            "start": 456,
             "file": "if_stmts.utl"
           },
           "children": [{
@@ -545,8 +548,9 @@
         "attributes": {
           "end": 592,
           "line": 10,
-          "start": 590,
-          "file": "if_stmts.utl"
+          "start": 545,
+          "file": "if_stmts.utl",
+          "macro_expr": "core_base_library_assetFlags"
         },
         "children": [{
           "name": "id",
@@ -626,15 +630,16 @@
       "attributes": {
         "end": 642,
         "line": 12,
-        "start": 638,
-        "file": "if_stmts.utl"
+        "start": 615,
+        "file": "if_stmts.utl",
+        "macro_expr": "cms.request.param"
       },
       "children": [{
         "name": "id",
         "attributes": {
           "end": 632,
           "line": 12,
-          "start": 627,
+          "start": 615,
           "symbol": "cms.request.param",
           "file": "if_stmts.utl"
         }
@@ -727,15 +732,16 @@
                 "attributes": {
                   "end": 687,
                   "line": 12,
-                  "start": 684,
-                  "file": "if_stmts.utl"
+                  "start": 666,
+                  "file": "if_stmts.utl",
+                  "macro_expr": "cms.request.param"
                 },
                 "children": [{
                   "name": "id",
                   "attributes": {
                     "end": 683,
                     "line": 12,
-                    "start": 678,
+                    "start": 666,
                     "symbol": "cms.request.param",
                     "file": "if_stmts.utl"
                   }
@@ -772,8 +778,9 @@
                 "attributes": {
                   "end": 706,
                   "line": 12,
-                  "start": 703,
-                  "file": "if_stmts.utl"
+                  "start": 691,
+                  "file": "if_stmts.utl",
+                  "macro_expr": "replace"
                 },
                 "children": [{
                   "name": "id",
@@ -1039,8 +1046,9 @@
         "attributes": {
           "end": 877,
           "line": 21,
-          "start": 866,
-          "file": "if_stmts.utl"
+          "start": 860,
+          "file": "if_stmts.utl",
+          "macro_expr": "print"
         },
         "children": [{
           "name": "id",
@@ -1146,8 +1154,9 @@
         "attributes": {
           "end": 918,
           "line": 24,
-          "start": 911,
-          "file": "if_stmts.utl"
+          "start": 905,
+          "file": "if_stmts.utl",
+          "macro_expr": "print"
         },
         "children": [{
           "name": "id",
@@ -1244,8 +1253,9 @@
             "attributes": {
               "end": 969,
               "line": 26,
-              "start": 968,
-              "file": "if_stmts.utl"
+              "start": 945,
+              "file": "if_stmts.utl",
+              "macro_expr": "scream_in_panic"
             },
             "children": [{
               "name": "id",
@@ -1344,16 +1354,16 @@
             "attributes": {
               "end": 992,
               "line": 27,
-              "start": 987,
+              "start": 981,
               "symbol": "photo.width",
               "file": "if_stmts.utl"
             }
           }, {
             "name": "array_ref",
             "attributes": {
-              "end": 1007,
+              "end": 1008,
               "line": 27,
-              "start": 1006,
+              "start": 996,
               "file": "if_stmts.utl"
             },
             "children": [{
@@ -1436,16 +1446,16 @@
             "attributes": {
               "end": 1060,
               "line": 29,
-              "start": 1055,
+              "start": 1049,
               "symbol": "photo.width",
               "file": "if_stmts.utl"
             }
           }, {
             "name": "array_ref",
             "attributes": {
-              "end": 1097,
+              "end": 1098,
               "line": 29,
-              "start": 1096,
+              "start": 1064,
               "file": "if_stmts.utl"
             },
             "children": [{
@@ -1453,15 +1463,16 @@
               "attributes": {
                 "end": 1094,
                 "line": 29,
-                "start": 1093,
-                "file": "if_stmts.utl"
+                "start": 1064,
+                "file": "if_stmts.utl",
+                "macro_expr": "fred.mymacro.mycall"
               },
               "children": [{
                 "name": "id",
                 "attributes": {
                   "end": 1083,
                   "line": 29,
-                  "start": 1077,
+                  "start": 1064,
                   "symbol": "fred.mymacro.mycall",
                   "file": "if_stmts.utl"
                 }
@@ -1555,15 +1566,16 @@
             "attributes": {
               "end": 1128,
               "line": 30,
-              "start": 1126,
-              "file": "if_stmts.utl"
+              "start": 1105,
+              "file": "if_stmts.utl",
+              "macro_expr": "array_of_methods[12]"
             },
             "children": [{
               "name": "array_ref",
               "attributes": {
-                "end": 1124,
+                "end": 1125,
                 "line": 30,
-                "start": 1122,
+                "start": 1105,
                 "file": "if_stmts.utl"
               },
               "children": [{
@@ -1637,8 +1649,9 @@
           "attributes": {
             "end": 1159,
             "line": 32,
-            "start": 1150,
-            "file": "if_stmts.utl"
+            "start": 1144,
+            "file": "if_stmts.utl",
+            "macro_expr": "print"
           },
           "children": [{
             "name": "id",
@@ -1729,7 +1742,7 @@
               "attributes": {
                 "end": 1202,
                 "line": 34,
-                "start": 1197,
+                "start": 1175,
                 "symbol": "myCapturePreviewImage.width",
                 "file": "if_stmts.utl"
               }
@@ -1738,7 +1751,7 @@
               "attributes": {
                 "end": 1231,
                 "line": 34,
-                "start": 1225,
+                "start": 1203,
                 "symbol": "myCapturePreviewImage.height",
                 "file": "if_stmts.utl"
               }
@@ -1757,7 +1770,7 @@
               "attributes": {
                 "end": 1254,
                 "line": 34,
-                "start": 1249,
+                "start": 1236,
                 "symbol": "asset.hi_res.width",
                 "file": "if_stmts.utl"
               }
@@ -1766,7 +1779,7 @@
               "attributes": {
                 "end": 1274,
                 "line": 34,
-                "start": 1268,
+                "start": 1255,
                 "symbol": "asset.hi_res.height",
                 "file": "if_stmts.utl"
               }
@@ -1833,7 +1846,7 @@
               "attributes": {
                 "end": 1315,
                 "line": 34,
-                "start": 1310,
+                "start": 1288,
                 "symbol": "myCapturePreviewImage.width",
                 "file": "if_stmts.utl"
               }
@@ -1842,7 +1855,7 @@
               "attributes": {
                 "end": 1344,
                 "line": 34,
-                "start": 1338,
+                "start": 1316,
                 "symbol": "myCapturePreviewImage.height",
                 "file": "if_stmts.utl"
               }
@@ -1861,7 +1874,7 @@
               "attributes": {
                 "end": 1367,
                 "line": 34,
-                "start": 1362,
+                "start": 1349,
                 "symbol": "asset.hi_res.width",
                 "file": "if_stmts.utl"
               }
@@ -1870,7 +1883,7 @@
               "attributes": {
                 "end": 1387,
                 "line": 34,
-                "start": 1381,
+                "start": 1368,
                 "symbol": "asset.hi_res.height",
                 "file": "if_stmts.utl"
               }
@@ -2000,7 +2013,8 @@
           "end": 1469,
           "line": 38,
           "start": 1456,
-          "file": "if_stmts.utl"
+          "file": "if_stmts.utl",
+          "macro_expr": "this_is_legal"
         },
         "children": [{
           "name": "id",
@@ -2435,7 +2449,7 @@
             "attributes": {
               "end": 1745,
               "line": 52,
-              "start": 1739,
+              "start": 1721,
               "symbol": "nav_item.children.length",
               "file": "if_stmts.utl"
             }
