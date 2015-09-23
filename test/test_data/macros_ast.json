@@ -7,7 +7,7 @@
     "file": "macros.utl"
   },
   "children": [{
-    "name": "macro-defn",
+    "name": "macro_defn",
     "attributes": {
       "name": "fred",
       "end": 51,
@@ -16,7 +16,7 @@
       "file": "macros.utl"
     },
     "children": [{
-      "name": "macro-decl",
+      "name": "macro_decl",
       "attributes": {
         "name": "fred",
         "end": 13,
@@ -108,7 +108,7 @@
       }]
     }]
   }, {
-    "name": "macro-defn",
+    "name": "macro_defn",
     "attributes": {
       "name": "core_base_nav_class_name",
       "end": 310,
@@ -117,7 +117,7 @@
       "file": "macros.utl"
     },
     "children": [{
-      "name": "macro-decl",
+      "name": "macro_decl",
       "attributes": {
         "name": "core_base_nav_class_name",
         "end": 93,
@@ -565,7 +565,7 @@
       }]
     }]
   }, {
-    "name": "macro-defn",
+    "name": "macro_defn",
     "attributes": {
       "name": "empty_but_legal",
       "end": 392,
@@ -574,7 +574,7 @@
       "file": "macros.utl"
     },
     "children": [{
-      "name": "macro-decl",
+      "name": "macro_decl",
       "attributes": {
         "name": "empty_but_legal",
         "end": 387,
@@ -584,7 +584,7 @@
       }
     }]
   }, {
-    "name": "macro-defn",
+    "name": "macro_defn",
     "attributes": {
       "name": "fairly.useless",
       "end": 442,
@@ -593,7 +593,7 @@
       "file": "macros.utl"
     },
     "children": [{
-      "name": "macro-decl",
+      "name": "macro_decl",
       "attributes": {
         "name": "fairly.useless",
         "end": 415,
@@ -630,7 +630,7 @@
       }]
     }]
   }, {
-    "name": "macro-defn",
+    "name": "macro_defn",
     "attributes": {
       "name": "really.really.quite.useless",
       "end": 504,
@@ -639,7 +639,7 @@
       "file": "macros.utl"
     },
     "children": [{
-      "name": "macro-decl",
+      "name": "macro_decl",
       "attributes": {
         "name": "really.really.quite.useless",
         "end": 483,
@@ -695,7 +695,7 @@
       }]
     }]
   }, {
-    "name": "macro-defn",
+    "name": "macro_defn",
     "attributes": {
       "name": "multi_arguments",
       "end": 585,
@@ -704,7 +704,7 @@
       "file": "macros.utl"
     },
     "children": [{
-      "name": "macro-decl",
+      "name": "macro_decl",
       "attributes": {
         "name": "multi_arguments",
         "end": 557,
@@ -816,7 +816,7 @@
       }]
     }]
   }, {
-    "name": "macro-defn",
+    "name": "macro_defn",
     "attributes": {
       "name": "core_base_library_relatedAssets",
       "end": 993,
@@ -825,7 +825,7 @@
       "file": "macros.utl"
     },
     "children": [{
-      "name": "macro-decl",
+      "name": "macro_decl",
       "attributes": {
         "name": "core_base_library_relatedAssets",
         "end": 942,

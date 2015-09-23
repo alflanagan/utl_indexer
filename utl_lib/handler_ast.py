@@ -226,12 +226,12 @@ class UTLParseHandlerAST(UTLParseHandler):
         lex = parser.lexer
         # starting at the macro name, search backwards for the token "macro"
         macro_pos = lex.lexdata[:lex.lexmatch.start()].rfind('macro')
-        return ASTNode('macro-decl', self._context(parser, {'name': macro_name,
+        return ASTNode('macro_decl', self._context(parser, {'name': macro_name,
                                                             'macro_start': macro_pos}),
                        [param_list] if param_list else [])
 
     def macro_defn(self, parser, macro_decl, statement_list=None):
-        return ASTNode('macro-defn',
+        return ASTNode('macro_defn',
                        self._context(parser, {"start": macro_decl.attributes["macro_start"],
                                               "name": macro_decl.attributes["name"]}),
                        [macro_decl, statement_list] if statement_list else [macro_decl])
