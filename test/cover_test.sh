@@ -2,6 +2,12 @@
 # Execute tests for a module and generate a coverage report
 # Author: A. Lloyd Flanagan
 
+if [ -z ${PYTHONPATH} ]; then
+  export PYTHONPATH=${HOME}/Devel/utl_indexer:${HOME}/Devel/shared_libraries
+else
+  export PYTHONPATH=${PYTHONPATH}:${HOME}/Devel/utl_indexer:${HOME}/Devel/shared_libraries
+fi
+
 if [ $# -lt 1 ]; then
     echo "Usage: $(basename $0) module_name"
     echo "       Runs coverage with program test_{module_name}.py"
