@@ -1,21 +1,8 @@
+# see notes in file requirements.in
+pip-tools
 coverage
 ipython
 jedi
+pep8
 pylint
 Sphinx
-# pip-compile does not support packages with extras,
-# below are packages from ipython[notebook]
-ipykernel
-jsonschema
-jupyter-client
-jupyter-core
-mistune
-nbconvert
-nbformat
-nose
-notebook
-numpydoc
-ptyprocess
-pyzmq
-terminado
-tornado

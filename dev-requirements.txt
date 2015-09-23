@@ -7,42 +7,32 @@
 alabaster==0.7.6          # via sphinx
 astroid==1.3.8            # via pylint
 babel==2.0                # via sphinx
-coverage==3.7.1
+click==5.1                # via pip-tools
+coverage==4.0
 decorator==4.0.2          # via ipython, traitlets
 docutils==0.12            # via sphinx
-ipykernel==4.0.3
-ipython-genutils==0.1.0   # via nbformat, notebook, traitlets
+first==2.0.1              # via pip-tools
+ipython-genutils==0.1.0   # via traitlets
 ipython==4.0.0
 jedi==0.9.0
-jinja2==2.8               # via nbconvert, notebook, sphinx
-jsonschema==2.5.1
-jupyter-client==4.0.0
-jupyter-core==4.0.4
+jinja2==2.8               # via sphinx
 logilab-common==1.0.2     # via astroid, pylint
 markupsafe==0.23          # via jinja2
-mistune==0.7.1
-nbconvert==4.0.0
-nbformat==4.0.0
-nose==1.3.7
-notebook==4.0.4
-numpydoc==0.5
 path.py==8.1.1            # via pickleshare
+pep8==1.6.2
 pexpect==3.3              # via ipython
 pickleshare==0.5          # via ipython
-ptyprocess==0.5
-pygments==2.0.2           # via nbconvert, sphinx
+pip-tools==1.1.4
+pygments==2.0.2           # via sphinx
 pylint==1.4.4
-pytz==2015.4              # via babel
-pyzmq==14.7.0
+pytz==2015.6              # via babel
 simplegeneric==0.8.1      # via ipython
-six==1.9.0                # via astroid, logilab-common, pylint, sphinx
+six==1.9.0                # via astroid, logilab-common, pip-tools, pylint, sphinx
 snowballstemmer==1.2.0    # via sphinx
-sphinx-rtd-theme==0.1.8   # via sphinx
+sphinx-rtd-theme==0.1.9   # via sphinx
 sphinx==1.3.1
-terminado==0.5
-tornado==4.2.1
-traitlets==4.0.0          # via ipykernel, ipython, jupyter-client, jupyter-core, nbconvert, nbformat, notebook
+traitlets==4.0.0          # via ipython
 
 # The following packages are commented out because they are
 # considered to be unsafe in a requirements file:
-# setuptools==18.3.1        # via logilab-common
+# setuptools==18.3.2        # via logilab-common
