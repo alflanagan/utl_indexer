@@ -10,9 +10,10 @@
 """
 # pylint: disable=too-few-public-methods
 import json
+from collections import defaultdict
 
 import utl_parse_test
-from utl_lib.macro_xref import UTLMacro
+from utl_lib.macro_xref import UTLMacro, UTLMacroXref
 from utl_lib.ast_node import ASTNode
 
 
@@ -41,6 +42,31 @@ class UTLMacroTestCase(utl_parse_test.TestCaseUTL):
         self.assertEqual(item1.references, {})
         self.assertEqual(item1.start, 0)
         self.assertEqual(item1.text, macro_code)
+
+        macro_defn = {"name": "fred",
+                      "file": "barney.utl",
+                      "start": 7,
+                      "end": 53,
+                      "line": 1,
+                      "references": {
+                          "wilma.utl": [{
+                              "file": "wilma.utl",
+                              "line": 53,
+                              "call_text": "fred()",
+                              "macro": "fred"}]}}
+        item2 = UTLMacro(macro_defn, macro_code)
+        self.assertEqual(item2.end, 53)
+        self.assertEqual(item2.file, "barney.utl")
+        self.assertEqual(item2.line, 1)
+        self.assertEqual(item2.name, "fred")
+        self.assertDictEqual(item2.references,
+                             {"wilma.utl": [{
+                                 "file": "wilma.utl",
+                                 "line": 53,
+                                 "call_text": "fred()",
+                                 "macro": "fred"}]})
+        self.assertEqual(item2.start, 7)
+        self.assertEqual(item2.text, macro_code)
 
     def test_add_call(self):
         """Unit test for :py:meth:`utl_lib.macro_xref.UTLMacro.add_call`."""
@@ -86,6 +112,132 @@ class UTLMacroTestCase(utl_parse_test.TestCaseUTL):
                               "line": 1,
                               "text": "macro fred;\nend;"})
         self.assertEqual(item1, UTLMacro.from_json(item1.json()))
+
+    def test_equal(self):
+        """Test implementation of == for :py:class:`~utl_lib.macro_xrf.UTLMacro`."""
+        macro_code = "macro fred;\nend;"
+        defn_attributes = self.defn_attributes.copy()
+        defn_attributes["end"] = len(macro_code)
+        item1 = UTLMacro(ASTNode("macro_defn",
+                                 defn_attributes,
+                                 [ASTNode("macro_decl", self.decl_attributes, [])]),
+                         macro_code)
+        self.assertEqual(item1, item1)
+        item2 = UTLMacro.from_json(item1.json())
+        self.assertEqual(item1, item2)
+        self.assertNotEqual(item1, "fred")
+        for attr in dir(item2):
+            orig_value = getattr(item2, attr)
+            if not attr.startswith('_') and not callable(orig_value):
+                setattr(item2, attr, "wilma")
+                self.assertNotEqual(item1, item2)
+                setattr(item2, attr, orig_value)
+        # did we mess up item2 above?
+        self.assertEqual(item1, item2)
+        item1.add_call({"file": "barney.utl",
+                        "line": 7,
+                        "call_text": "fred()",
+                        "macro": "fred", })
+        self.assertNotEqual(item1, item2)
+        item2.add_call({"file": "barney.utl",
+                        "line": 7,
+                        "call_text": "fred()",
+                        "macro": "fred", })
+        self.assertEqual(item1, item2)
+        item2.references["barney.utl"][0]["line"] = 8
+        self.assertNotEqual(item1, item2)
+
+
+class UTLMacroXrefTestCase(utl_parse_test.TestCaseUTL):
+    """Unit tests for :py:class:`utl_lib.macro_xref.UTLMacroXref`."""
+    test_doc_1 = ASTNode(
+        'statement_list',
+        {'line': 6, 'end': 65, 'file': 'macros.utl', 'start': 63},
+        [ASTNode('macro_defn',
+                 {'line': 6, 'start': 3, 'file': 'macros.utl', 'end': 61, 'name': 'fred'},
+                 [ASTNode('macro_decl',
+                          {'line': 1, 'start': 3, 'file': 'macros.utl', 'end': 13, 'name': 'fred'},
+                          [ASTNode('statement_list',
+                                   {'line': 6, 'end': 61, 'file': 'macros.utl', 'start': 58},
+                                   [ASTNode('expr',
+                                            {'line': 2, 'end': 26, 'file': 'macros.utl', 'start': 25, 'operator': '='},
+                                            [ASTNode('id',
+                                                     {'symbol': 'a'},
+                                                     []),
+                                             ASTNode('expr',
+                                                     {'line': 2, 'end': 26, 'file': 'macros.utl', 'start': 25,
+                                                      'operator': '+'},
+                                                     [ASTNode('id',
+                                                              {'symbol': 'b'},
+                                                              []),
+                                                      ASTNode('literal',
+                                                              {'value': 3.0},
+                                                              [])])]),
+                                    ASTNode('echo',
+                                            {'line': 3, 'end': 34, 'file': 'macros.utl', 'start': 30},
+                                            []),
+                                    ASTNode('echo',
+                                            {'line': 4, 'end': 44, 'file': 'macros.utl', 'start': 43},
+                                            [ASTNode('id', {'symobl': 'a'}, [])]),
+                                    ASTNode('macro_call',
+                                            {'line': 5, 'macro_expr': 'wilma', 'file': 'macros.utl',
+                                             'end': 55, 'start': 48},
+                                            [ASTNode('id', {'symbol': 'wilma'}, []),
+                                             ASTNode('arg_list',
+                                                     {'line': 5, 'end': 55, 'file': 'macros.utl', 'start': 54},
+                                                     [ASTNode('arg',
+                                                              {'line': 5, 'end': 55, 'file': '', 'start': 54},
+                                                              [ASTNode('literal', {'value': 7}, [])])])])])])])])
+
+    doc_text_1 = """[% macro fred;
+  a = b + 3;
+  echo;
+  echo a;
+  wilma(7);
+end; %]"""
+
+    def test_create(self):
+        """Unit tests for :py:meth:`~utl_lib.macro_xref.UTLMacroXref`."""
+#        from utl_lib.utl_yacc import UTLParser
+#        from utl_lib.handler_ast import UTLParseHandlerAST
+#        p = UTLParser([UTLParseHandlerAST()])
+#        result = p.parse(self.doc_text_1)
+#        print('\n')
+#        print(result.format())
+#        print('\n')
+        item1 = UTLMacroXref(self.test_doc_1, self.doc_text_1)
+        self.assertIs(item1.topnodes[0], self.test_doc_1)
+        self.assertEqual(item1.texts["macros.utl"], self.doc_text_1)
+        self.assertEqual(item1.references,
+                         [{'call_text': 'wilma(7)', 'file': 'macros.utl',
+                           'line': 5, 'macro': 'wilma'}])
+        self.assertEqual(len(item1.macros), 1)
+        themacro = item1.macros[0]
+        isinstance(themacro, UTLMacro)
+        self.assertEqual(themacro.file, "macros.utl")
+        self.assertEqual(themacro.name, "fred")
+        self.assertEqual(themacro.end, len(self.doc_text_1) - 4)  # end excludes "; %]"
+        self.assertEqual(themacro.line, 1)
+        self.assertEqual(themacro.start, 3)
+        self.assertEqual(themacro.text, self.doc_text_1[3:-4])
+        self.assertEqual(themacro.references, defaultdict(list))
+
+    def test_json(self):
+        """unit tests for :py:meth:`~utl_lib.macro_xref.UTLMacroXref.json`."""
+        item1 = UTLMacroXref(self.test_doc_1, self.doc_text_1)
+        json_str = item1.json()
+        # order not gauranteed in JSON string, but key/value pairs are
+        self.assertIn('"end": 61', json_str)
+        self.assertIn('"start": 3', json_str)
+        # of course, embedded newlines are escaped for JSON string
+        self.assertIn('"text": "{}"'.format(self.doc_text_1[3:-4]).replace('\n', '\\n'),
+                      json_str)
+        self.assertIn('"references": {}', json_str)
+        self.assertIn('"file": "macros.utl"', json_str)
+        self.assertIn('"name": "fred"', json_str)
+        self.assertIn('"line": 1', json_str)
+        self.assertTrue(json_str.startswith('[{'))
+        self.assertTrue(json_str.endswith('}]'))
 
 
 if __name__ == '__main__':

@@ -44,7 +44,10 @@ class UTLMacro(object):
             self.end = macro_defn["end"]
             self.line = macro_defn["line"]
             self.text = code_text
-            self.references = macro_defn["references"]
+            self.references = defaultdict(list)
+            for fname in macro_defn["references"]:
+                for item in macro_defn["references"][fname]:
+                    self.add_call(item)
 
     def __eq__(self, other):
         """Define functional equality for :py:class:`~utl_lib.macro_xref.UTLMacro` instances."""
@@ -53,7 +56,8 @@ class UTLMacro(object):
         if not isinstance(other, self.__class__):
             return False  # can''t be equal to an object of different type, even child type
         if self.name != other.name or self.file != other.file or self.line != other.line or\
-           self.end != other.end or self.start != other.start or self.text != other.text:
+           self.end != other.end or self.start != other.start or self.text != other.text or\
+           self.references != other.references:
             return False
         return True
 
@@ -72,7 +76,7 @@ class UTLMacro(object):
         """Returns a :py:class:`str` containing a JSON structure representing this object."""
         return json.dumps({"name": self.name, "file": self.file, "start": self.start,
                            "end": self.end, "line": self.line, "text": self.text,
-                           "references": self.references,})
+                           "references": self.references, })
 
     @classmethod
     def from_json(cls, json_str):
@@ -83,6 +87,7 @@ class UTLMacro(object):
         """
         data = json.loads(json_str)
         return UTLMacro(data, data["text"])
+
 
 class UTLMacroXref(object):
     """A cross-reference of macro calls and macro definitions from UTL source.
@@ -113,7 +118,7 @@ class UTLMacroXref(object):
 
         """
         macros = []
-        if top_node.symbol == 'macro-defn':
+        if top_node.symbol == 'macro_defn':
             new_macro = UTLMacro(top_node, code_text)
             macros.append(new_macro)
         for kid in top_node.children:
@@ -131,7 +136,7 @@ class UTLMacroXref(object):
             new_ref = {"file": attrs["file"],
                        "line": attrs["line"],
                        "call_text": code_text[attrs["start"]: attrs["end"]+1],
-                       "macro": attrs["macro_expr"],}
+                       "macro": attrs["macro_expr"], }
             refs.append(new_ref)
         for kid in top_node.children:
             refs += UTLMacroXref._find_refs(kid, code_text)

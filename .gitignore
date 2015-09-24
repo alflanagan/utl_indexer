@@ -28,3 +28,5 @@ zend_language_parser.y
 *.bz2
 temp/
 .secret
+# local dev file
+generate_test_results.sh
