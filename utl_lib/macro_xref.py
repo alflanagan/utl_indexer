@@ -103,8 +103,9 @@ class UTLMacroXref(object):
         self.macros = self._find_macros(utldoc_node, program_text)
         self.references = self._find_refs(utldoc_node, program_text)
         for ref in self.references:
-            if ref["macro"] in self.macros:
-                self.macros[ref["macro"]].add_call(ref)
+            for macro in self.macros:
+                if ref["macro"] == macro.name:
+                    macro.add_call(ref)
 
     @staticmethod
     def _find_macros(top_node, code_text):
