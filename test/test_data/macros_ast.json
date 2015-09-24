@@ -12,7 +12,7 @@
       "name": "fred",
       "end": 51,
       "line": 5,
-      "start": 48,
+      "start": 3,
       "file": "macros.utl"
     },
     "children": [{
@@ -21,7 +21,7 @@
         "name": "fred",
         "end": 13,
         "line": 1,
-        "start": 9,
+        "start": 3,
         "file": "macros.utl"
       }
     }, {
@@ -113,7 +113,7 @@
       "name": "core_base_nav_class_name",
       "end": 310,
       "line": 10,
-      "start": 307,
+      "start": 54,
       "file": "macros.utl"
     },
     "children": [{
@@ -122,7 +122,7 @@
         "name": "core_base_nav_class_name",
         "end": 93,
         "line": 7,
-        "start": 85,
+        "start": 54,
         "file": "macros.utl"
       },
       "children": [{
@@ -248,8 +248,9 @@
                 "attributes": {
                   "end": 259,
                   "line": 9,
-                  "start": 257,
-                  "file": "macros.utl"
+                  "start": 190,
+                  "file": "macros.utl",
+                  "macro_expr": "regex"
                 },
                 "children": [{
                   "name": "id",
@@ -312,8 +313,9 @@
               "attributes": {
                 "end": 280,
                 "line": 9,
-                "start": 277,
-                "file": "macros.utl"
+                "start": 263,
+                "file": "macros.utl",
+                "macro_expr": "regex"
               },
               "children": [{
                 "name": "id",
@@ -376,8 +378,9 @@
             "attributes": {
               "end": 304,
               "line": 9,
-              "start": 301,
-              "file": "macros.utl"
+              "start": 284,
+              "file": "macros.utl",
+              "macro_expr": "regex"
             },
             "children": [{
               "name": "id",
@@ -443,8 +446,9 @@
     "attributes": {
       "end": 346,
       "line": 12,
-      "start": 341,
-      "file": "macros.utl"
+      "start": 313,
+      "file": "macros.utl",
+      "macro_expr": "really.really.quite.useless"
     },
     "children": [{
       "name": "id",
@@ -452,7 +456,7 @@
         "symbol": "really.really.quite.useless",
         "end": 340,
         "line": 12,
-        "start": 333,
+        "start": 313,
         "file": "macros.utl"
       }
     }, {
@@ -488,8 +492,9 @@
     "attributes": {
       "end": 362,
       "line": 13,
-      "start": 361,
-      "file": "macros.utl"
+      "start": 349,
+      "file": "macros.utl",
+      "macro_expr": "wilma"
     },
     "children": [{
       "name": "id",
@@ -570,7 +575,7 @@
       "name": "empty_but_legal",
       "end": 392,
       "line": 16,
-      "start": 389,
+      "start": 366,
       "file": "macros.utl"
     },
     "children": [{
@@ -579,7 +584,7 @@
         "name": "empty_but_legal",
         "end": 387,
         "line": 15,
-        "start": 372,
+        "start": 366,
         "file": "macros.utl"
       }
     }]
@@ -589,7 +594,7 @@
       "name": "fairly.useless",
       "end": 442,
       "line": 20,
-      "start": 439,
+      "start": 395,
       "file": "macros.utl"
     },
     "children": [{
@@ -598,7 +603,7 @@
         "name": "fairly.useless",
         "end": 415,
         "line": 18,
-        "start": 408,
+        "start": 395,
         "file": "macros.utl"
       }
     }, {
@@ -635,7 +640,7 @@
       "name": "really.really.quite.useless",
       "end": 504,
       "line": 24,
-      "start": 501,
+      "start": 445,
       "file": "macros.utl"
     },
     "children": [{
@@ -644,7 +649,7 @@
         "name": "really.really.quite.useless",
         "end": 483,
         "line": 22,
-        "start": 479,
+        "start": 445,
         "file": "macros.utl"
       },
       "children": [{
@@ -700,7 +705,7 @@
       "name": "multi_arguments",
       "end": 585,
       "line": 28,
-      "start": 582,
+      "start": 507,
       "file": "macros.utl"
     },
     "children": [{
@@ -709,7 +714,7 @@
         "name": "multi_arguments",
         "end": 557,
         "line": 26,
-        "start": 553,
+        "start": 507,
         "file": "macros.utl"
       },
       "children": [{
@@ -821,7 +826,7 @@
       "name": "core_base_library_relatedAssets",
       "end": 993,
       "line": 41,
-      "start": 990,
+      "start": 588,
       "file": "macros.utl"
     },
     "children": [{
@@ -830,7 +835,7 @@
         "name": "core_base_library_relatedAssets",
         "end": 942,
         "line": 37,
-        "start": 937,
+        "start": 588,
         "file": "macros.utl"
       },
       "children": [{
@@ -1124,7 +1129,7 @@
                 "symbol": "this.asset",
                 "end": 942,
                 "line": 37,
-                "start": 937,
+                "start": 932,
                 "file": "macros.utl"
               }
             },

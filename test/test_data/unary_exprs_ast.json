@@ -92,7 +92,7 @@
               "name": "id",
               "attributes": {
                 "symbol": "myCapturePreviewImage.width",
-                "start": 118,
+                "start": 96,
                 "line": 4,
                 "end": 123,
                 "file": "unary_exprs.utl"
@@ -101,7 +101,7 @@
               "name": "id",
               "attributes": {
                 "symbol": "myCapturePreviewImage.height",
-                "start": 146,
+                "start": 124,
                 "line": 4,
                 "end": 152,
                 "file": "unary_exprs.utl"
@@ -120,7 +120,7 @@
               "name": "id",
               "attributes": {
                 "symbol": "asset.hi_res.width",
-                "start": 170,
+                "start": 157,
                 "line": 4,
                 "end": 175,
                 "file": "unary_exprs.utl"
@@ -129,7 +129,7 @@
               "name": "id",
               "attributes": {
                 "symbol": "asset.hi_res.height",
-                "start": 189,
+                "start": 176,
                 "line": 4,
                 "end": 195,
                 "file": "unary_exprs.utl"
@@ -196,7 +196,7 @@
               "name": "id",
               "attributes": {
                 "symbol": "myCapturePreviewImage.width",
-                "start": 231,
+                "start": 209,
                 "line": 4,
                 "end": 236,
                 "file": "unary_exprs.utl"
@@ -205,7 +205,7 @@
               "name": "id",
               "attributes": {
                 "symbol": "myCapturePreviewImage.height",
-                "start": 259,
+                "start": 237,
                 "line": 4,
                 "end": 265,
                 "file": "unary_exprs.utl"
@@ -224,7 +224,7 @@
               "name": "id",
               "attributes": {
                 "symbol": "asset.hi_res.width",
-                "start": 283,
+                "start": 270,
                 "line": 4,
                 "end": 288,
                 "file": "unary_exprs.utl"
@@ -233,7 +233,7 @@
               "name": "id",
               "attributes": {
                 "symbol": "asset.hi_res.height",
-                "start": 302,
+                "start": 289,
                 "line": 4,
                 "end": 308,
                 "file": "unary_exprs.utl"
