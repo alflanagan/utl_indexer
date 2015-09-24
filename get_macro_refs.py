@@ -29,18 +29,21 @@ def do_parse(program_text, args):
     utldoc = myparser.parse(program_text, debug=args.debug, print_tokens=False,
                             filename=os.path.basename(args.utl_file.name))
     xref = UTLMacroXref(utldoc, program_text)
-    if xref.macros:
-        print("-- MACROS DEFINED --")
-        for macro in xref.macros:
-            # print('-' * 120)
-            print('    {}'.format(macro))
-    if xref.references:
-        print('-- MACRO REFS --')
-        lines_summary = defaultdict(list)
-        for ref in xref.references:
-            lines_summary[ref["macro"]].append(ref["line"])
-        for mname in lines_summary:
-            print('    {}: {}'.format(mname, lines_summary[mname]))
+    if args.json:
+        pass
+    else:
+        if xref.macros:
+            print("-- MACROS DEFINED --")
+            for macro in xref.macros:
+                # print('-' * 120)
+                print('    {}'.format(macro))
+        if xref.references:
+            print('-- MACRO REFS --')
+            lines_summary = defaultdict(list)
+            for ref in xref.references:
+                lines_summary[ref["macro"]].append(ref["line"])
+            for mname in lines_summary:
+                print('    {}: {}'.format(mname, lines_summary[mname]))
 
 
 def main(args):

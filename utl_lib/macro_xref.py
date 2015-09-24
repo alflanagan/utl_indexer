@@ -11,21 +11,51 @@
 
 """
 from collections import defaultdict
+import json
+
+from utl_lib.ast_node import ASTNode
 
 
 class UTLMacro(object):
-    """A record of a specific UTL macro, including its definition and/or calls."""
+    """A record of a specific UTL macro, including its definition and/or calls.
+
+    :param object macro_defn: An instance of ASTNode whose type is 'macro_defn', OR a dictionary
+    containing the fields [name, file, start, end, line, references].
+
+    :param str code_text: The source code text of the macro definition.
+
+    """
 
     def __init__(self, macro_defn, code_text):
-        self.name = macro_defn.attributes["name"]
-        self.file = macro_defn.attributes["file"]
-        # first child of macro_defn is the initial declaration
-        self.start = macro_defn.children[0].attributes["macro_start"]
-        self.end = macro_defn.attributes["end"]
-        self.line = macro_defn.children[0].attributes["line"]
-        self.text = code_text[self.start:self.end]
-        self.references = {}
-        "A dictionary keyed by source file, of dictionaries keyed by line number"
+        if isinstance(macro_defn, ASTNode):
+            self.name = macro_defn.attributes["name"]
+            self.file = macro_defn.attributes["file"]
+            # first child of macro_defn is the initial declaration
+            self.start = macro_defn.children[0].attributes["start"]
+            self.end = macro_defn.attributes["end"]
+            self.line = macro_defn.children[0].attributes["line"]
+            self.text = code_text[self.start:self.end]
+            self.references = defaultdict(list)
+            "A dictionary keyed by source file, of dictionaries keyed by line number"
+        else:
+            self.name = macro_defn["name"]
+            self.file = macro_defn["file"]
+            self.start = macro_defn["start"]
+            self.end = macro_defn["end"]
+            self.line = macro_defn["line"]
+            self.text = code_text
+            self.references = macro_defn["references"]
+
+    def __eq__(self, other):
+        """Define functional equality for :py:class:`~utl_lib.macro_xref.UTLMacro` instances."""
+        if self is other:
+            return True  # optimize a == a
+        if not isinstance(other, self.__class__):
+            return False  # can''t be equal to an object of different type, even child type
+        if self.name != other.name or self.file != other.file or self.line != other.line or\
+           self.end != other.end or self.start != other.start or self.text != other.text:
+            return False
+        return True
 
     def add_call(self, info):
         """Record a call to this macro.
@@ -33,13 +63,26 @@ class UTLMacro(object):
         :param dict info: Mapping from keys to some info about the call.
 
         """
-        if info["file"] not in self.references:
-            self.references[info["file"]] = defaultdict(list)
         self.references[info["file"]].append(info)
 
     def __str__(self):
         return "{}() ({}:{:,})".format(self.name, self.file, self.line)
 
+    def json(self):
+        """Returns a :py:class:`str` containing a JSON structure representing this object."""
+        return json.dumps({"name": self.name, "file": self.file, "start": self.start,
+                           "end": self.end, "line": self.line, "text": self.text,
+                           "references": self.references,})
+
+    @classmethod
+    def from_json(cls, json_str):
+        """Creates a returns a :py:class:`utl_lib.macro_xref.UTLMacro` instance from a JSON
+        string which could be the result of an earlier
+        :py:meth:`~utl_lib.macro_xref.UTLMacro.json` call.
+
+        """
+        data = json.loads(json_str)
+        return UTLMacro(data, data["text"])
 
 class UTLMacroXref(object):
     """A cross-reference of macro calls and macro definitions from UTL source.
@@ -60,6 +103,15 @@ class UTLMacroXref(object):
 
     @staticmethod
     def _find_macros(top_node, code_text):
+        """Search the AST tree rooted at `top_node` and return a collection of
+        :py:class:`~utl_lib.macro_xrf.utl_macro` instances, one for each macro-defn node in the
+        tree.
+
+        :param ASTNode top_node: The root of some AST tree representing parsed UTL code
+
+        :param str code_text: The actual text of the code parsed into `top_node`.
+
+        """
         macros = []
         if top_node.symbol == 'macro-defn':
             new_macro = UTLMacro(top_node, code_text)
@@ -74,13 +126,28 @@ class UTLMacroXref(object):
         refs = []
         if top_node.symbol == 'macro_call':
             attrs = top_node.attributes
-            assert isinstance(attrs["call_start"], int)
+            assert isinstance(attrs["start"], int)
             assert isinstance(attrs["end"], int)
             new_ref = {"file": attrs["file"],
                        "line": attrs["line"],
-                       "call_text": code_text[attrs["call_start"]: attrs["end"]+1],
+                       "call_text": code_text[attrs["start"]: attrs["end"]+1],
                        "macro": attrs["macro_expr"],}
             refs.append(new_ref)
         for kid in top_node.children:
             refs += UTLMacroXref._find_refs(kid, code_text)
         return refs
+
+    def json(self):
+        """Returns a :py:class:`str` containing the list of macros in a JSON format."""
+        json_str = '['
+        for macro in self.macros:
+            json_str += macro.json() + ',\n'
+        # remove final , becuase JSON is picky about that
+        if self.macros:
+            json_str = json_str[:-2]
+        json_str += ']'
+        return json_str
+
+    def refs_json(self):
+        """Returns a :py:class:`str` containing JSON of the list of macro references found."""
+        return json.dumps(self.references)
