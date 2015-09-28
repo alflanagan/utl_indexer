@@ -213,15 +213,15 @@ end; %]"""
         from utl_lib.utl_yacc import UTLParser
         from utl_lib.handler_ast import UTLParseHandlerAST
         p = UTLParser([UTLParseHandlerAST()])
-        result = p.parse(self.doc_text_1)
+        p.parse(self.doc_text_1)
         item1 = UTLMacroXref(self.test_doc_1, self.doc_text_1)
         self.assertIs(item1.topnodes[0], self.test_doc_1)
         self.assertEqual(item1.texts["macros.utl"], self.doc_text_1)
         self.assertEqual(item1.references,
                          [{'call_text': 'fred(7)', 'file': 'macros.utl',
-                           'line': 5, 'macro': 'fred'},
+                           'line': 5, 'macro': 'fred', 'start': 48},
                           {'call_text': 'wilma(8)', 'file': 'macros.utl',
-                           'line': 6, 'macro': 'wilma'}])
+                           'line': 6, 'macro': 'wilma', 'start': 59}])
         self.assertEqual(len(item1.macros), 1)
         themacro = item1.macros[0]
         isinstance(themacro, UTLMacro)
@@ -235,6 +235,7 @@ end; %]"""
         expected_refs['macros.utl'] = [{'call_text': 'fred(7)',
                                         'file': 'macros.utl',
                                         'line': 5,
+                                        'start': 48,
                                         'macro': 'fred'}]
         self.assertEqual(themacro.references, expected_refs)
 
