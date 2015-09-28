@@ -137,7 +137,8 @@ class UTLMacroXref(object):
             new_ref = {"file": attrs["file"],
                        "line": attrs["line"],
                        "call_text": code_text[attrs["start"]: attrs["end"]+1],
-                       "macro": attrs["macro_expr"], }
+                       "macro": attrs["macro_expr"],
+                       "start": attrs["start"]}
             refs.append(new_ref)
         for kid in top_node.children:
             refs += UTLMacroXref._find_refs(kid, code_text)
