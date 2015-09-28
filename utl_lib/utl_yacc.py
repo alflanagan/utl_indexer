@@ -35,17 +35,8 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         self.print_tokens = False  # may be set by parse()
         self.filename = ''  # may be set by parse()
         self.error_count = 0
+        self._handlers = []
         self.handlers = handlers
-        """List of UTLParseHandler objects. Only the first one to return something besides
-        :py:attr:`None` determines the return value from a production."""
-        # silently accept single handler, don't except non-handlers
-        if isinstance(self.handlers, UTLParseHandler):
-            self.handlers = [self.handlers]
-        else:
-            for handler in self.handlers:
-                if not isinstance(handler, UTLParseHandler):
-                    raise ValueError('Got invalid handler object "{}", must be UTLParseHandler'
-                                     ''.format(handler))
 
     # operator precedence based on PHP
     # https://secure.php.net/manual/en/language.operators.precedence.php
@@ -117,10 +108,65 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
 
     @property
     def symstack(self):
+        """The stack of grammar symbols."""
         # great, the property gets called when yacc.yacc() is called
         if hasattr(self, 'parser'):
             return self.parser.symstack
         return None
+
+    def restart(self, new_handlers=None):
+        """Return the parser to the state it had before any actual parsing was done. This should
+        be significantly faster than creating a new parser instance.
+
+        :param list new_handlers: a list of
+        :py:class:`~utl_lib.utl_parse_handler.UTLParseHandler` instances which will be used to
+        process productions in subsequent parses. A value of :py:attr:`None`, or no value at
+        all, will keep the previously set handler list. To set no handlers at all, pass an empty
+        list.
+
+        """
+        self.parser.restart()
+        self.lexer.input('')  # ensure lexer is in initial state
+        self.print_tokens = False  # may be set by parse()
+        self.filename = ''  # may be set by parse()
+        self.error_count = 0
+        self.handlers = new_handlers
+
+    @property
+    def handlers(self):
+        """List of :py:class:`~utl_lib.utl_parse_handler.UTLParseHandler` objects. They are
+        called in list order for each production reduced during the parse. The first handler to
+        return a value that is not :py:attr:`None` determines the value assigned to the
+        production.
+
+        :raises ValueError: if set to anything other than [], :py:attr:`None` (equiv. to []), or
+        an iterable whose members are all instances of
+        :py:class:`~utl_lib.utl_parse_handler.UTLParseHandler`.
+
+        """
+        # weirdly gets called before __init__
+        try:
+            return self._handlers
+        except AttributeError:
+            return None
+
+    @handlers.setter
+    def handlers(self, new_handlers):
+        # silently accept single handler, don't accept non-handlers
+        if new_handlers is None:
+            self._handlers = []
+        elif isinstance(new_handlers, UTLParseHandler):
+            self._handlers = [new_handlers]
+        else:
+            for handler in new_handlers:
+                if not isinstance(handler, UTLParseHandler):
+                    raise ValueError('Got invalid handler object "{}", must be UTLParseHandler'
+                                     ''.format(handler))
+                self._handlers.append(handler)
+
+    @handlers.deleter
+    def handlers(self):
+        del self._handlers
 
     # -------------------------------------------------------------------------------------------
     # top-level productions
