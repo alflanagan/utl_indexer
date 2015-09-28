@@ -16,7 +16,7 @@ from utl_lib.utl_lex import UTLLexer, UTLLexerError
 
 
 class LexerTestCase(unittest_plus.TestCasePlus):
-    """Unit tests for class :py:class:`~utl_lex.Lexer`."""
+    """Unit tests for class :py:class:`~utl_lex.UTLLexer`."""
 
     _MACRO_DEF = '''
     [%-
@@ -227,7 +227,7 @@ class LexerTestCase(unittest_plus.TestCasePlus):
                  ('EOF', '', 45), ]  # 158
 
     def test_create(self):
-        """Unit test for :py:meth:`utl_lex.Lexer`."""
+        """Unit test for :py:meth:`utl_lex.UTLLexer`."""
         lexer = UTLLexer()
         lexer.input(self._MACRO_DEF)
         self.assertEqual(lexer.lexdata, self._MACRO_DEF.replace('else if', 'elseif'))
@@ -245,7 +245,7 @@ class LexerTestCase(unittest_plus.TestCasePlus):
             tok = lexer.token()
 
     def test_skip(self):
-        '''Unit test for :py:meth:`utl_lex.Lexer.skip`.'''
+        '''Unit test for :py:meth:`utl_lex.UTLLexer.skip`.'''
         lexer = UTLLexer()
         lexer.input(self._MACRO_DEF)
 
@@ -263,7 +263,7 @@ class LexerTestCase(unittest_plus.TestCasePlus):
         self.assertEqual(repr(lexer.token()), "LexToken(ID,'load',4,33)")
 
     def test_lineno(self):
-        '''Unit test for :py:meth:`utl_lex.Lexer.lineno`.'''
+        '''Unit test for :py:meth:`utl_lex.UTLLexer.lineno`.'''
         lexer = UTLLexer()
         lexer.input(self._MACRO_DEF)
         self.assertEqual(lexer.lineno(), 1)
@@ -277,7 +277,7 @@ class LexerTestCase(unittest_plus.TestCasePlus):
         self.assertEqual(index, len(self._EXPECTED))  # make sure we didn't miss any
 
     def test_lexpos(self):
-        """Unit tests for :py:meth:`utl_lex.lexer.lexpos`."""
+        """Unit tests for :py:meth:`utl_lex.UTLLexer.lexpos`."""
 
         expected = [5, 8, 18, 22, 23, 32, 33, 37, 38, 59, 60, 61, 70, 74, 75, 84, 85, 89, 90,
                     106, 107, 108, 167, 208, 209, 210, 211, 290, 292, 294, 296, 298, 299, 326, 328,
@@ -303,7 +303,7 @@ class LexerTestCase(unittest_plus.TestCasePlus):
         self.assertEqual(index, len(expected))  # make sure we checked all positions
 
     def test_end_utl_error(self):
-        """Unit test for :py:meth:`utl_lex.lexer.token` when an extra END_UTL is encountered."""
+        """Unit test for :py:meth:`utl_lex.UTLLexer.token` when an extra END_UTL is encountered."""
         lexer = UTLLexer()
         lexer.input('%]')
         self.assertRaises(UTLLexerError, lexer.token)

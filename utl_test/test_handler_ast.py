@@ -10,7 +10,7 @@
 """
 import os
 
-import utl_parse_test
+from utl_test import utl_parse_test
 from utl_lib.handler_ast import UTLParseHandlerAST
 from utl_lib.utl_yacc import UTLParser
 from utl_lib.ast_node import ASTNode

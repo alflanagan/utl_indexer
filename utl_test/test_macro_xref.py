@@ -13,7 +13,7 @@ import json
 import re
 from collections import defaultdict
 
-import utl_parse_test
+from utl_test import utl_parse_test
 from utl_lib.macro_xref import UTLMacro, UTLMacroXref
 from utl_lib.ast_node import ASTNode
 

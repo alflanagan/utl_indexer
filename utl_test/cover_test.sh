@@ -33,7 +33,7 @@ if [ ! -r ${TEST_SUITE} ]; then
 fi
 
 if [ ${MODULE_NAME} = utl_parse_test ]; then # special case
-  coverage run --source=${MODULE_NAME} --branch ${TEST_SUITE}
+  coverage run --source=utl_test.${MODULE_NAME} --branch ${TEST_SUITE}
 else
   coverage run --source=${MODULE_DIR}.${MODULE_NAME} --branch ${TEST_SUITE}
 fi

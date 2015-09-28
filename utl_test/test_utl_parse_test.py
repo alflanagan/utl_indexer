@@ -11,7 +11,7 @@
 # pylint: disable=too-few-public-methods,invalid-name
 import json
 
-import utl_parse_test
+from utl_test import utl_parse_test
 from utl_lib.ast_node import ASTNode
 from utl_lib.handler_parse_tree import UTLParseHandlerParseTree
 

@@ -15,7 +15,7 @@ import re
 
 import ply
 
-import utl_parse_test
+from utl_test import utl_parse_test
 from utl_lib.utl_yacc import UTLParser
 from utl_lib.utl_lex import UTLLexer
 from utl_lib.utl_parse_handler import UTLParseHandler, UTLParseError
@@ -42,7 +42,6 @@ class UTLParserTestCase(utl_parse_test.TestCaseUTL):
 
     def test_create(self):
         """Unit tests for :py:meth:`~utl_lib.utl_yacc.UTLParser`."""
-        self.assertRaises(TypeError, UTLParser, debug=False)
         parser = UTLParser([], debug=False)
         self.assertIsInstance(parser.lexer, ply.lex.Lexer)
         self.assertSetEqual(set(parser.tokens), set(UTLLexer.tokens) - set(parser.filtered_tokens))
