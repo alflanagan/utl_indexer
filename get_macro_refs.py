@@ -30,7 +30,7 @@ def do_parse(program_text, args):
                             filename=os.path.basename(args.utl_file.name))
     xref = UTLMacroXref(utldoc, program_text)
     if args.json:
-        pass
+        print(xref.json())
     else:
         if xref.macros:
             print("-- MACROS DEFINED --")
