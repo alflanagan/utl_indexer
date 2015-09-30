@@ -212,6 +212,14 @@ class UTLParserTestCase(utl_parse_test.TestCaseUTL):
         self._check_multiple_handlers(parser, 'keywords')
         self._check_multiple_handlers(parser, 'macros')
 
+    def test_empty_file(self):
+        """Test :py:meth:`~utl_lib.utl_yacc.UTLParser` when the input file is zero-byte."""
+        handler = UTLParseHandlerParseTree()
+        parser = UTLParser([handler], debug=False)
+        utl_doc = parser.parse('', filename='empty.utl')
+        self.assertEqual(utl_doc.symbol, 'utldoc')
+        self.assertListEqual(utl_doc.children, [])
+
 
 if __name__ == '__main__':
     utl_parse_test.main()

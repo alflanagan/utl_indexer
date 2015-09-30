@@ -121,16 +121,20 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         :param list new_handlers: a list of
         :py:class:`~utl_lib.utl_parse_handler.UTLParseHandler` instances which will be used to
         process productions in subsequent parses. A value of :py:attr:`None`, or no value at
-        all, will keep the previously set handler list. To set no handlers at all, pass an empty
-        list.
+        all, will keep the previously set handler list. To clear the list of handlers, pass an
+        empty list.
 
         """
-        self.parser.restart()
-        self.lexer.input('')  # ensure lexer is in initial state
+        # parser stacks created on parse, if they don't exist nothing to restart
+        if hasattr(self.parser, "statestack"):
+            self.parser.restart()
+        self.utl_lexer =  UTLLexer()  # possible to reset?
+        self.lexer = self.utl_lexer.lexer
         self.print_tokens = False  # may be set by parse()
         self.filename = ''  # may be set by parse()
         self.error_count = 0
-        self.handlers = new_handlers
+        if new_handlers is not None:
+            self.handlers = new_handlers
 
     @property
     def handlers(self):

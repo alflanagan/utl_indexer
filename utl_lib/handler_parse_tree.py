@@ -25,7 +25,8 @@ class UTLParseHandlerParseTree(UTLParseHandler):
     # top-level productions
     # -------------------------------------------------------------------------------------------
     def utldoc(self, parser, statement_list):
-        return ASTNode('utldoc', {}, [statement_list])
+        # statement_list is None if document completely empty
+        return ASTNode('utldoc', {}, [statement_list] if statement_list is not None else [])
 
     def statement_list(self, parser, statement=None, statement_list=None):
         if statement_list is None:
