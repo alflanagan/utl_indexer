@@ -1,0 +1,2 @@
+[% a = b = 5;
+right_col = right_col_on = core_base_library_gridSet.right_col_on %]
