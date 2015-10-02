@@ -13,4 +13,4 @@ pyflakes==0.8.1           # via flake8
 
 # The following packages are commented out because they are
 # considered to be unsafe in a requirements file:
-# setuptools==18.3.1        # via importmagic
+# setuptools==18.3.2        # via importmagic
