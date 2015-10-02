@@ -28,6 +28,8 @@ def get_args():
                         help="Print out each production as it is encountered")
     parser.add_argument('--printonly', action='store_true',
                         help="Print each production as encountered, don't print parse result")
+    parser.add_argument('--verbose', action='store_true',
+                        help="Enable output about conflicts, and create parser.out file.")
     return parser.parse_args()
 
 
@@ -43,7 +45,7 @@ def do_parse(program_text, args):
     if args.print and not args.printonly:
         handlers.append(UTLPrintProductionsHandler())
 
-    myparser = UTLParser(handlers)
+    myparser = UTLParser(handlers, args.verbose)
     results = myparser.parse(program_text, debug=args.debug, print_tokens=args.show_lex,
                              filename=os.path.basename(args.utl_file.name))
     if results:
