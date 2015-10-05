@@ -79,7 +79,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         except IndexError:
             return None
 
-    def parse(self, input_text=None, debug=False, tracking=False, print_tokens=False,
+    def parse(self, input_text=None, debug=False, tracking=True, print_tokens=False,
               filename=''):
         """Parses the code in `input_text`, returns result.
 
@@ -162,6 +162,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         elif isinstance(new_handlers, UTLParseHandler):
             self._handlers = [new_handlers]
         else:
+            self._handlers = []
             for handler in new_handlers:
                 if not isinstance(handler, UTLParseHandler):
                     raise ValueError('Got invalid handler object "{}", must be UTLParseHandler'

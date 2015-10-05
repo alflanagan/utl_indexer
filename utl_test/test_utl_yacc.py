@@ -16,6 +16,7 @@ import re
 import ply
 
 from utl_test import utl_parse_test
+from testplus.mock_objects import MockStream
 from utl_lib.utl_yacc import UTLParser
 from utl_lib.utl_lex import UTLLexer
 from utl_lib.utl_parse_handler import UTLParseHandler, UTLParseError
@@ -61,12 +62,12 @@ class UTLParserTestCase(utl_parse_test.TestCaseUTL):
         """
         self.assertJSONFileMatches('basic_assign.utl', 'basic_assign.json')
 
-    def test_double_assigns(self):
-        """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with input of assignment
-        statements using the operator '=' more than once ([% a = b = c = 5; %]).
+    # def test_double_assigns(self):
+    #     """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with input of assignment
+    #     statements using the operator '=' more than once ([% a = b = c = 5; %]).
 
-        """
-        self.assertJSONFileMatches('double_assign.utl', 'double_assign.json')
+    #     """
+    #     self.assertJSONFileMatches('double_assign.utl', 'double_assign.json')
 
     def test_print_tokens(self):
         """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with
@@ -218,6 +219,10 @@ class UTLParserTestCase(utl_parse_test.TestCaseUTL):
         self._check_multiple_handlers(parser, 'includes')
         self._check_multiple_handlers(parser, 'keywords')
         self._check_multiple_handlers(parser, 'macros')
+        del parser.handlers
+        self.assertIsNone(parser.handlers)
+        parser.handlers = None
+        self.assertSequenceEqual(parser.handlers, [])
 
     def test_empty_file(self):
         """Test :py:meth:`~utl_lib.utl_yacc.UTLParser` when the input file is zero-byte."""
@@ -226,6 +231,32 @@ class UTLParserTestCase(utl_parse_test.TestCaseUTL):
         utl_doc = parser.parse('', filename='empty.utl')
         self.assertEqual(utl_doc.symbol, 'utldoc')
         self.assertListEqual(utl_doc.children, [])
+
+    def test_restart(self):
+        """Unit tests for :py:meth:`~utl_lib.utl_yacc.UTLParser.restart`."""
+        handler = UTLParseHandlerParseTree()
+        parser = UTLParser([handler], False)
+        testpart1 = "[% macro fred; echo 'hello'; bite it; echo 'goodbye'; end; %]"
+        with MockStream().capture_stderr() as fake_stderr:
+            fred = parser.parse(testpart1, filename='fred.utl')
+##        print(fred)
+        self.assertEqual(parser.filename, 'fred.utl')
+        self.assertEqual(parser.error_count, 2)
+        self.assertEqual(parser.lexer.lexpos, 63)
+        jane = parser.parse("[% macro jane; echo 'hi'; end; %]")
+        self.assertEqual(parser.filename, '')
+        self.assertEqual(parser.error_count, 2)
+        self.assertEqual(parser.lexer.lexpos, 35)
+        self.assertIs(parser.handlers[0], handler)
+        parser.restart([])
+        jane = parser.parse("[% macro jane; echo 'hi'; end; %]")
+        self.assertEqual(parser.error_count, 0)
+        self.assertSequenceEqual(parser.handlers, [])
+        parser = UTLParser([handler], False)
+        # verify restart on parser that's never run
+        parser.restart()
+        # and we don't replace handlers
+        self.assertIs(parser.handlers[0], handler)
 
 
 if __name__ == '__main__':
