@@ -30,3 +30,4 @@ temp/
 .secret
 # local dev file
 generate_test_results.sh
+external/
