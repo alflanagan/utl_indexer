@@ -28,13 +28,13 @@ class UTLMacro(object):
 
     def __init__(self, macro_defn, code_text):
         if isinstance(macro_defn, ASTNode):
-            self.name = macro_defn.attributes["name"]
             self.file = macro_defn.attributes["file"]
-            # first child of macro_defn is the initial declaration
-            self.start = macro_defn.children[0].attributes["start"]
+            # first child of macro_defn is the declaration
+            self.name = macro_defn.children[0].attributes["name"]
+            self.start = macro_defn.attributes["start"]
             self.end = macro_defn.attributes["end"]
-            self.line = macro_defn.children[0].attributes["line"]
-            self.text = code_text[self.start:self.end]
+            self.line = macro_defn.attributes["line"]
+            self.text = code_text
             self.references = defaultdict(list)
             "A dictionary keyed by source file, of dictionaries keyed by line number"
         else:
@@ -120,7 +120,8 @@ class UTLMacroXref(object):
         """
         macros = []
         if top_node.symbol == 'macro_defn':
-            new_macro = UTLMacro(top_node, code_text)
+            macro_text = code_text[top_node.attributes["start"]:top_node.attributes["end"]]
+            new_macro = UTLMacro(top_node, macro_text)
             macros.append(new_macro)
         for kid in top_node.children:
             macros += UTLMacroXref._find_macros(kid, code_text)

@@ -60,9 +60,17 @@ class UTLParseHandlerAST(UTLParseHandler):
     def statement_list(self, parser, statement=None, statement_list=None):
         assert statement is not None or statement_list is not None
         if statement_list is None:
-            return ASTNode('statement_list', self._context(parser), [statement])
+            attrs = {"start": statement.attributes["start"],
+                     "line": statement.attributes["line"],
+                     # lexpos includes the final end
+                     "end": parser.lexer.lexpos}
+            return ASTNode('statement_list', self._context(parser, attrs), [statement])
         assert statement_list.symbol == 'statement_list'
         if statement is not None:
+            statement_list.attributes["start"] = min(statement.attributes["start"],
+                                                     statement_list.attributes["start"])
+            statement_list.attributes["line"] = min(statement.attributes["line"],
+                                                    statement_list.attributes["line"])
             statement_list.add_first_child(statement)
         return statement_list
 
@@ -118,7 +126,7 @@ class UTLParseHandlerAST(UTLParseHandler):
         # end doesn't include "]" character, so add 1
         attrs = {"start": variable.attributes["start"],
                  "line": variable.attributes["line"],
-                 "end": index.attributes["end"] + 1,}
+                 "end": index.attributes["end"] + 1}
         return ASTNode('array_ref', self._context(parser, attrs), [variable, index])
 
     def as_clause(self, parser, var1, var2=None):
@@ -242,8 +250,10 @@ class UTLParseHandlerAST(UTLParseHandler):
     def macro_defn(self, parser, macro_decl, statement_list=None):
         return ASTNode('macro_defn',
                        # set start to the beginning of macro_decl, not statement_list
-                       self._context(parser, {"start": macro_decl.attributes["start"],
-                                              "name": macro_decl.attributes["name"]}),
+                       {"file": parser.filename,
+                        "line": macro_decl.attributes["line"],
+                        "start": macro_decl.attributes["start"],
+                        "end": statement_list.attributes["end"]},
                        [macro_decl, statement_list] if statement_list else [macro_decl])
 
     def param_decl(self, parser, param_id, default_value=None):
