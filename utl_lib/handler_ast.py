@@ -11,6 +11,7 @@
 from utl_lib.ast_node import ASTNode
 from utl_lib.utl_parse_handler import UTLParseHandler
 from utl_lib.utl_lex import UTLLexer
+from utl_lib.utl_yacc import FrozenDict
 # pylint: disable=too-many-public-methods,missing-docstring
 
 
@@ -33,44 +34,23 @@ class UTLParseHandlerAST(UTLParseHandler):
                 label,
                 expr.format().replace('\n', '\n*    ') if isinstance(expr, ASTNode) else expr))
 
-    def _context(self, parser, other_attrs=None):
-        """Returns a dictionary of info about the production context. Items in dictionary
-        `other_attrs` are added to, and may override, the returned context attributes.
-
-        """
-        # TODO: sometimes, parser.lexer.lineno is 1 greater than expected, but usually not.
-        # figure out why and fix.
-        lm = parser.lexer.lexmatch
-        attrs = {"file": parser.filename,
-                 # line number is 1-based
-                 "line": parser.lexer.lineno,
-                 "start": lm.start(),
-                 "end": lm.end(),
-                 }
-        if other_attrs:
-            attrs.update(other_attrs)
-        return attrs
-
     # -------------------------------------------------------------------------------------------
     # top-level productions
     # -------------------------------------------------------------------------------------------
     def utldoc(self, parser, statement_list):
+        # the statment_list already has all relevant info
         return statement_list
 
     def statement_list(self, parser, statement=None, statement_list=None):
         assert statement is not None or statement_list is not None
         if statement_list is None:
-            attrs = {"start": statement.attributes["start"],
-                     "line": statement.attributes["line"],
-                     # lexpos includes the final end
-                     "end": parser.lexer.lexpos}
-            return ASTNode('statement_list', self._context(parser, attrs), [statement])
+            return ASTNode('statement_list', parser.context, [statement])
         assert statement_list.symbol == 'statement_list'
         if statement is not None:
-            statement_list.attributes["start"] = min(statement.attributes["start"],
-                                                     statement_list.attributes["start"])
-            statement_list.attributes["line"] = min(statement.attributes["line"],
-                                                    statement_list.attributes["line"])
+            # statement_list.attributes["start"] = min(statement.attributes["start"],
+            #                                          statement_list.attributes["start"])
+            # statement_list.attributes["line"] = min(statement.attributes["line"],
+            #                                         statement_list.attributes["line"])
             statement_list.add_first_child(statement)
         return statement_list
 
@@ -78,9 +58,9 @@ class UTLParseHandlerAST(UTLParseHandler):
         assert statement is not None
         if isinstance(statement, str):
             if statement in UTLLexer.reserved:  # is a keyword - break, continue, exit, etc.
-                return ASTNode(statement, self._context(parser), [])
+                return ASTNode(statement, parser.context, [])
             else:
-                return ASTNode('document', self._context(parser, {'text': statement}), [])
+                return ASTNode('document', FrozenDict((parser.context).update(text=statement)), [])
         assert isinstance(statement, ASTNode)
         return statement
 
@@ -90,8 +70,8 @@ class UTLParseHandlerAST(UTLParseHandler):
     def abbrev_if_stmt(self, parser, expr, statement):
         assert expr is not None
         # make statement into statement_list to match regular if
-        statement_list = ASTNode('statement_list', {}, [statement])
-        return ASTNode('if', self._context(parser), [expr, statement_list])
+        statement_list = ASTNode('statement_list', parser.context, [statement])
+        return ASTNode('if', parser.context, [expr, statement_list])
 
     def arg(self, parser, expr, name=None):
         assert expr is not None
@@ -103,7 +83,7 @@ class UTLParseHandlerAST(UTLParseHandler):
     def arg_list(self, parser, arg, arg_list=None):
         assert arg is not None
         if arg_list is None:
-            return ASTNode('arg_list', self._context(parser), [arg])
+            return ASTNode('arg_list', parser.context, [arg])
         else:
             arg_list.add_first_child(arg)
             return arg_list
@@ -112,12 +92,12 @@ class UTLParseHandlerAST(UTLParseHandler):
         """Elements for a simple array (not key/value pairs)."""
         assert expr is not None
         if array_elems is None:
-            return ASTNode('array_elems', self._context(parser), [expr])
+            return ASTNode('array_elems', parser.context, [expr])
         array_elems.add_child(expr)
         return array_elems
 
     def array_literal(self, parser, elements=None):
-        return ASTNode('array_literal', self._context(parser), [elements] if elements else [])
+        return ASTNode('array_literal', parser.context, [elements] if elements else [])
 
     def array_ref(self, parser, variable, index):
         assert variable is not None
@@ -135,10 +115,10 @@ class UTLParseHandlerAST(UTLParseHandler):
         return (var1, var2, )
 
     def call_stmt(self, parser, macro_call):
-        return ASTNode('call', self._context(parser), [macro_call])
+        return ASTNode('call', parser.context, [macro_call])
 
     def default_assignment(self, parser, assignment):
-        return ASTNode('default', self._context(parser), [assignment])
+        return ASTNode('default', parser.context, [assignment])
 
     def dotted_id(self, parser, this_id, id_suffix=None):
         if id_suffix is not None:
@@ -148,10 +128,10 @@ class UTLParseHandlerAST(UTLParseHandler):
         return ASTNode('id', attrs, [])
 
     def echo_stmt(self, parser, expr):
-        return ASTNode('echo', self._context(parser), [expr] if expr is not None else [])
+        return ASTNode('echo', parser.context, [expr] if expr is not None else [])
 
     def else_stmt(self, parser, statement_list):
-        return ASTNode('else', self._context(parser),
+        return ASTNode('else', parser.context,
                        [statement_list] if statement_list is not None else [])
 
     def elseif_stmts(self, parser, elseif_stmt, elseif_stmts=None):
@@ -159,14 +139,14 @@ class UTLParseHandlerAST(UTLParseHandler):
         if elseif_stmts is not None:
             elseif_stmts.add_first_child(elseif_stmt)
         else:
-            elseif_stmts = ASTNode('elseif_stmts', self._context(parser), [elseif_stmt])
+            elseif_stmts = ASTNode('elseif_stmts', parser.context, [elseif_stmt])
         return elseif_stmts
 
     def elseif_stmt(self, parser, expr, statement_list=None):
         assert expr is not None
         if statement_list is None:
-            statement_list = ASTNode('statement_list', self._context(parser), [])
-        return ASTNode('elseif', self._context(parser), [expr, statement_list])
+            statement_list = ASTNode('statement_list', parser.context, [])
+        return ASTNode('elseif', parser.context, [expr, statement_list])
 
     def expr(self, parser, first, second=None, third=None):
         assert first is not None
@@ -225,7 +205,7 @@ class UTLParseHandlerAST(UTLParseHandler):
 
     def macro_call(self, parser, macro_expr, arg_list=None):
         if arg_list is None:
-            arg_list = ASTNode("arg_list", self._context(parser), [])
+            arg_list = ASTNode("arg_list", parser.context, [])
         code = parser.lexer.lexdata
         # parser lexer context may not include entire macro_expr, reset start
         start = macro_expr.attributes["start"]
@@ -268,7 +248,7 @@ class UTLParseHandlerAST(UTLParseHandler):
     def param_list(self, parser, param_decl, param_list=None):
         assert param_decl is not None
         if not param_list:  # first declaration processed
-            return ASTNode('param_list', self._context(parser), [param_decl])
+            return ASTNode('param_list', parser.context, [param_decl])
         else:
             param_list.add_first_child(param_decl)
             return param_list
@@ -280,9 +260,9 @@ class UTLParseHandlerAST(UTLParseHandler):
             return expr
 
     def return_stmt(self, parser, expr=None):
-        return ASTNode('return', self._context(parser), [expr] if expr else [])
+        return ASTNode('return', parser.context, [expr] if expr else [])
 
     def while_stmt(self, parser, expr, statement_list=None):
         if statement_list is None:
-            statement_list = ASTNode("statement_list", self._context(parser), [])
-        return ASTNode('while', self._context(parser), [expr, statement_list])
+            statement_list = ASTNode("statement_list", parser.context, [])
+        return ASTNode('while', parser.context, [expr, statement_list])
