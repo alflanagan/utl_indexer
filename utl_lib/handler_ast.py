@@ -9,9 +9,8 @@
 
 """
 from utl_lib.ast_node import ASTNode
-from utl_lib.utl_parse_handler import UTLParseHandler
+from utl_lib.utl_parse_handler import UTLParseHandler, FrozenDict
 from utl_lib.utl_lex import UTLLexer
-from utl_lib.utl_yacc import FrozenDict
 # pylint: disable=too-many-public-methods,missing-docstring
 
 
@@ -75,10 +74,10 @@ class UTLParseHandlerAST(UTLParseHandler):
 
     def arg(self, parser, expr, name=None):
         assert expr is not None
-        attrs = self._context(parser)
+        attrs = parser.context
         if name is not None:
             attrs['keyword'] = name
-        return ASTNode('arg', attrs, [expr])
+        return ASTNode('arg', FrozenDict(attrs), [expr])
 
     def arg_list(self, parser, arg, arg_list=None):
         assert arg is not None

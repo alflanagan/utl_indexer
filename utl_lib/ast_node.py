@@ -11,6 +11,7 @@ to implement parse tree as well, name is historical accident.
 
 
 """
+from utl_parse_handler import FrozenDict
 
 
 class ASTNodeError(Exception):

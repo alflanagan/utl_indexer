@@ -9,6 +9,51 @@
 
 """
 import sys
+import collections
+
+
+class FrozenDict(collections.Mapping):
+    """Immutable dictionary class by Raymond Hettinger himself.
+
+    This allows handlers to return context info in a form that has the goodness of immutability,
+    and is hashable.
+
+    """
+    # TODO: add an .update() method that returns a new FrozenDict
+    def __init__(self, somedict):
+        self._dict = dict(somedict)   # make a copy
+        self._hash = None
+
+    def __getitem__(self, key):
+        return self._dict[key]
+
+    def __len__(self):
+        return len(self._dict)
+
+    def __iter__(self):
+        return iter(self._dict)
+
+    def __hash__(self):
+        if self._hash is None:
+            self._hash = hash(frozenset(self._dict.items()))
+        return self._hash
+
+    def __eq__(self, other):
+        return self._dict == other._dict  # pylint: disable=W0212
+
+    def combine(self, *args, **keys):
+        """D.combine([E, ]**F) -> D'.  Create FrozenSet D' from D and dict/iterable E and F.
+
+    D' is initially a copy of D.
+    If E is present and has a .keys() method, then does:  for k in E: D'[k] = E[k]
+    If E is present and lacks a .keys() method, then does:  for k, v in E: D'[k] = v
+    In either case, this is followed by: for k in F:  D'[k] = F[k]
+
+    """
+        # yes, above is a direct steal from dict.update() docstring.
+        newdict = self._dict.copy()
+        newdict.update(*args, **keys)
+        return FrozenDict(newdict)
 
 
 # problem with throwing exception on errors is that it halts parsing process
