@@ -66,6 +66,12 @@ class FrozenDict(collections.Mapping):
             del newdict[arg]
         return FrozenDict(newdict)
 
+    def __str__(self):
+        return "frozen: {}".format(self._dict)
+
+    def __repr__(self):
+        return "FrozenDict({})".format(repr(self._dict))
+
 
 # problem with throwing exception on errors is that it halts parsing process
 # no good way to resume (?) So error handling is coupled to parser, not user
@@ -89,7 +95,11 @@ class UTLParseHandler(object):
     which can be passed on to subsequent higher-level methods (except for
     :py:meth:`~utl_lib.utl_parse_handler.utldoc` which is the top level).
 
-    Note that the parse object passed in will be dynamically updated between calls; methods
+    An overriden handler method must return an object with an attribute named `context` which
+    will be mapping with (at least) the contents of `parser.context`, to be used in higher-level
+    productions.
+
+    Note that the parser object passed in will be dynamically updated between calls; methods
     should not store it and expect to retrieve attributes later. Rather the attributes should be
     retrieved and stored during the method call.
 
@@ -338,6 +348,10 @@ class UTLParseHandler(object):
         macro (which is legal but useless).
 
         """
+        return None
+
+    def number_literal(self, parser, literal):
+        """A numeric literal."""
         return None
 
     def param_decl(self, parser, param_id, default_value=None):
