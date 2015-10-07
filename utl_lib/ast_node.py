@@ -219,6 +219,13 @@ class ASTNode(object):
         result += '}'
         return result
 
+    @property
+    def context(self):
+        """The context mapping required by :py:class:`~utl_lib.utl_yacc.UTLParser`."""
+        # attributes has more information than context, but since it does include context, we
+        # can just use it
+        return self.attributes
+
 # Local Variables:
 # python-indent-offset: 4
 # fill-column: 100
