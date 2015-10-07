@@ -20,7 +20,9 @@ class FrozenDict(collections.Mapping):
 
     """
     # TODO: add an .update() method that returns a new FrozenDict
-    def __init__(self, somedict):
+    def __init__(self, somedict=None):
+        if somedict is None:
+            somedict = {}
         self._dict = dict(somedict)   # make a copy
         self._hash = None
 
@@ -53,6 +55,15 @@ class FrozenDict(collections.Mapping):
         # yes, above is a direct steal from dict.update() docstring.
         newdict = self._dict.copy()
         newdict.update(*args, **keys)
+        return FrozenDict(newdict)
+
+    def delkey(self, *args):
+        """D.delkey(key [, ...]) -> D' which contains {key:D[key] for key in D if key not in args}
+
+        """
+        newdict = self._dict.copy()
+        for arg in args:
+            del newdict[arg]
         return FrozenDict(newdict)
 
 

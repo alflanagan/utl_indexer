@@ -11,7 +11,7 @@ to implement parse tree as well, name is historical accident.
 
 
 """
-from utl_parse_handler import FrozenDict
+from utl_lib.utl_parse_handler import FrozenDict
 
 
 class ASTNodeError(Exception):
@@ -42,10 +42,16 @@ class ASTNode(object):
                 self.add_child(child)
         self.parent = None  # set by parent in add_child
         self.symbol = symbol_name
-        self.attributes = {} if attrs is None else attrs
+        if attrs is None:
+            self.attributes = FrozenDict()
+        elif not isinstance(attrs, FrozenDict):
+            self.attributes = FrozenDict(attrs)
+        else:
+            self.attributes = attrs
 
     def __eq__(self, other):  # pylint: disable=R0911
         '''Deep equality test, useful for testing.'''
+        # note this is optimized for debugging, *not* performance
         if self is other:  # optimization
             return True
         if not isinstance(other, ASTNode):
@@ -90,7 +96,7 @@ class ASTNode(object):
         """Returns a new instance of :py:class:`utl_lib.ast_node.ASTNode` whose attributes have
         the same values as this.
         """
-        return ASTNode(self.symbol, self.attributes.copy(),
+        return ASTNode(self.symbol, self.attributes,
                        [kid.copy() for kid in self.children])
 
     def add_first_child(self, child):
