@@ -94,9 +94,9 @@ class LexerTestCase(unittest_plus.TestCasePlus):
                  ('SEMI', ';', 10),
                  ('ID', 'something', 12),
                  ('ASSIGN', '=', 12),
-                 ('NUMBER', 5.0, 12),
+                 ('NUMBER', '5', 12),
                  ('TIMES', '*', 12),  # 30
-                 ('NUMBER', 3.0, 12),
+                 ('NUMBER', '3', 12),
                  ('SEMI', ';', 12),
                  ('ID', 'subscriptionAssets', 13),
                  ('ASSIGN', '=', 13),
@@ -114,9 +114,9 @@ class LexerTestCase(unittest_plus.TestCasePlus):
                  ('ID', 'fred', 17),
                  ('ASSIGN', '=', 17),
                  ('LBRACKET', '[', 17),
-                 ('NUMBER', 1.0, 17),
-                 ('COMMA', ',', 17),
-                 ('NUMBER', 2.3, 17),
+                 ('NUMBER', '1', 17),
+                 ('COMMA', ',', 17),  # 50
+                 ('NUMBER', '2.3', 17),
                  ('COMMA', ',', 17),
                  ('STRING', 'hello', 17),
                  ('COMMA', ',', 17),
@@ -158,17 +158,17 @@ class LexerTestCase(unittest_plus.TestCasePlus):
                  ('SEMI', ';', 25),
                  ('ID', 'something', 26),
                  ('ASSIGNOP', '+=', 26),
-                 ('NUMBER', 5.0, 26),
+                 ('NUMBER', '5', 26),
                  ('TIMES', '*', 26),
-                 ('NUMBER', 7.0, 26),
+                 ('NUMBER', '7', 26),
                  ('DIV', '/', 26),
                  ('LPAREN', '(', 26),
-                 ('NUMBER', 8.0, 26),
+                 ('NUMBER', '8', 26),
                  ('PLUS', '+', 26),
-                 ('NUMBER', 2.0, 26),
+                 ('NUMBER', '2', 26),
                  ('RPAREN', ')', 26),
                  ('MINUS', '-', 26),
-                 ('NUMBER', 23.0, 26),  # 100
+                 ('NUMBER', '23', 26),  # 100
                  ('ID', 'subscriptionAssetsMobile', 28),
                  ('ASSIGN', '=', 28),
                  ('ID', 'core_base_library_getCustomProperty', 28),
@@ -210,9 +210,9 @@ class LexerTestCase(unittest_plus.TestCasePlus):
                  ('END', 'end', 40),
                  ('SEMI', ';', 40),
                  ('FOR', 'for', 41),
-                 ('NUMBER', 1.0, 41),
+                 ('NUMBER', '1', 41),
                  ('RANGE', '..', 41),
-                 ('NUMBER', 10.0, 41),
+                 ('NUMBER', '10', 41),
                  ('SEMI', ';', 41),
                  ('ECHO', 'echo', 42),
                  ('STRING', 'fred', 42),
@@ -314,7 +314,7 @@ class LexerTestCase(unittest_plus.TestCasePlus):
         lexer = UTLLexer()
         lexer.input(problem1)
         expected1 = [('START_UTL', '[%'), ('ID', 'sally'), ('DOT', '.'), ('ID', 'isfine'),
-                     ('ASSIGN', '='), ('NUMBER', 3.0), ('SEMI', ';'), ('END_UTL', '%]'),
+                     ('ASSIGN', '='), ('NUMBER', '3'), ('SEMI', ';'), ('END_UTL', '%]'),
                      ('EOF', '')]
         observed1 = []
         tok = lexer.token()

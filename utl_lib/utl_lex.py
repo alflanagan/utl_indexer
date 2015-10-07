@@ -250,7 +250,7 @@ class UTLLexer(object):
 
     def t_utl_NUMBER(self, t):
         r'\d+(\.\d+)?'
-        t.value = float(t.value)
+        # t.value = float(t.value)
         return t
 
     def t_utl_STRING(self, t):
