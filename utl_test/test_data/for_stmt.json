@@ -1,70 +1,178 @@
 {
   "name": "utldoc",
+  "attributes": {
+    "end": 362,
+    "start": 3,
+    "file": "for_stmt.utl",
+    "line": 1
+  },
   "children": [{
     "name": "statement_list",
+    "attributes": {
+      "end": 362,
+      "line": 1,
+      "start": 3,
+      "file": "for_stmt.utl"
+    },
     "children": [{
       "name": "statement",
+      "attributes": {
+        "end": 72,
+        "start": 3,
+        "file": "for_stmt.utl",
+        "line": 1
+      },
       "children": [{
         "name": "for_stmt",
-        "children": [{
-          "name": "expr",
-          "children": [{
-            "name": "id",
-            "attributes": {
-              "symbol": "array_data"
-            }
-          }]
-        }, {
-          "name": "as_clause",
-          "children": [{
-            "name": "id",
-            "attributes": {
-              "symbol": "item"
-            }
-          }]
-        }, {
-          "name": "statement_list",
-          "children": [{
-            "name": "statement",
-            "children": [{
-              "name": "document",
-              "attributes": {
-                "text": "\n      stuff happens\n      "
-              }
-            }]
-          }, {
-            "name": "statement",
-            "children": [{
-              "name": "continue"
-            }]
-          }]
-        }]
-      }]
-    }, {
-      "name": "statement",
-      "children": [{
-        "name": "for_stmt",
+        "attributes": {
+          "end": 72,
+          "start": 3,
+          "file": "for_stmt.utl",
+          "line": 1
+        },
         "children": [{
           "name": "expr",
           "attributes": {
-            "operator": ".."
+            "end": 17,
+            "start": 7,
+            "file": "for_stmt.utl",
+            "line": 1
+          },
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "end": 17,
+              "symbol": "array_data",
+              "start": 7,
+              "file": "for_stmt.utl",
+              "line": 1
+            }
+          }]
+        }, {
+          "name": "as_clause",
+          "attributes": {
+            "end": 25,
+            "start": 18,
+            "file": "for_stmt.utl",
+            "line": 1
+          },
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "end": 25,
+              "symbol": "item",
+              "start": 21,
+              "file": "for_stmt.utl",
+              "line": 1
+            }
+          }]
+        }, {
+          "name": "statement_list",
+          "attributes": {
+            "end": 66,
+            "line": 1,
+            "start": 28,
+            "file": "for_stmt.utl"
+          },
+          "children": [{
+            "name": "statement",
+            "attributes": {
+              "end": 55,
+              "start": 28,
+              "file": "for_stmt.utl",
+              "line": 1
+            },
+            "children": [{
+              "name": "document",
+              "attributes": {
+                "text": "\n      stuff happens\n      ",
+                "end": 55,
+                "start": 28,
+                "file": "for_stmt.utl",
+                "line": 1
+              }
+            }]
+          }, {
+            "name": "statement",
+            "attributes": {
+              "end": 66,
+              "start": 58,
+              "file": "for_stmt.utl",
+              "line": 3
+            },
+            "children": [{
+              "name": "continue",
+              "attributes": {
+                "end": 66,
+                "start": 58,
+                "file": "for_stmt.utl",
+                "line": 3
+              }
+            }]
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement",
+      "attributes": {
+        "end": 114,
+        "start": 74,
+        "file": "for_stmt.utl",
+        "line": 5
+      },
+      "children": [{
+        "name": "for_stmt",
+        "attributes": {
+          "end": 114,
+          "start": 74,
+          "file": "for_stmt.utl",
+          "line": 5
+        },
+        "children": [{
+          "name": "expr",
+          "attributes": {
+            "file": "for_stmt.utl",
+            "end": 83,
+            "start": 78,
+            "operator": "..",
+            "line": 5
           },
           "children": [{
             "name": "expr",
+            "attributes": {
+              "end": 79,
+              "start": 78,
+              "file": "for_stmt.utl",
+              "line": 5
+            },
             "children": [{
               "name": "literal",
               "attributes": {
+                "end": 79,
                 "value": 1.0,
-                "type": "number"
+                "start": 78,
+                "type": "number",
+                "line": 5,
+                "file": "for_stmt.utl"
               }
             }]
           }, {
             "name": "expr",
+            "attributes": {
+              "end": 83,
+              "start": 81,
+              "file": "for_stmt.utl",
+              "line": 5
+            },
             "children": [{
               "name": "literal",
               "attributes": {
+                "end": 83,
                 "value": 10.0,
-                "type": "number"
+                "start": 81,
+                "type": "number",
+                "line": 5,
+                "file": "for_stmt.utl"
               }
             }]
           }]
@@ -72,12 +180,28 @@
           "name": "as_clause"
         }, {
           "name": "statement_list",
+          "attributes": {
+            "end": 108,
+            "start": 86,
+            "file": "for_stmt.utl",
+            "line": 5
+          },
           "children": [{
             "name": "statement",
+            "attributes": {
+              "end": 108,
+              "start": 86,
+              "file": "for_stmt.utl",
+              "line": 5
+            },
             "children": [{
               "name": "document",
               "attributes": {
-                "text": "\n  more stuff happens\n"
+                "text": "\n  more stuff happens\n",
+                "end": 108,
+                "start": 86,
+                "file": "for_stmt.utl",
+                "line": 5
               }
             }]
           }]
@@ -85,32 +209,80 @@
       }]
     }, {
       "name": "statement",
+      "attributes": {
+        "end": 170,
+        "start": 116,
+        "file": "for_stmt.utl",
+        "line": 8
+      },
       "children": [{
         "name": "for_stmt",
+        "attributes": {
+          "end": 170,
+          "start": 116,
+          "file": "for_stmt.utl",
+          "line": 8
+        },
         "children": [{
           "name": "expr",
+          "attributes": {
+            "end": 134,
+            "start": 124,
+            "file": "for_stmt.utl",
+            "line": 8
+          },
           "children": [{
             "name": "id",
             "attributes": {
-              "symbol": "array_data"
+              "end": 134,
+              "symbol": "array_data",
+              "start": 124,
+              "file": "for_stmt.utl",
+              "line": 8
             }
           }]
         }, {
           "name": "as_clause",
+          "attributes": {
+            "end": 142,
+            "start": 135,
+            "file": "for_stmt.utl",
+            "line": 8
+          },
           "children": [{
             "name": "id",
             "attributes": {
-              "symbol": "item"
+              "end": 142,
+              "symbol": "item",
+              "start": 138,
+              "file": "for_stmt.utl",
+              "line": 8
             }
           }]
         }, {
           "name": "statement_list",
+          "attributes": {
+            "end": 164,
+            "start": 145,
+            "file": "for_stmt.utl",
+            "line": 8
+          },
           "children": [{
             "name": "statement",
+            "attributes": {
+              "end": 164,
+              "start": 145,
+              "file": "for_stmt.utl",
+              "line": 8
+            },
             "children": [{
               "name": "document",
               "attributes": {
-                "text": "\n  even more stuff\n"
+                "text": "\n  even more stuff\n",
+                "end": 164,
+                "start": 145,
+                "file": "for_stmt.utl",
+                "line": 8
               }
             }]
           }]
@@ -118,45 +290,115 @@
       }]
     }, {
       "name": "statement",
+      "attributes": {
+        "end": 239,
+        "start": 172,
+        "file": "for_stmt.utl",
+        "line": 11
+      },
       "children": [{
         "name": "for_stmt",
+        "attributes": {
+          "end": 239,
+          "start": 172,
+          "file": "for_stmt.utl",
+          "line": 11
+        },
         "children": [{
           "name": "expr",
+          "attributes": {
+            "end": 191,
+            "start": 181,
+            "file": "for_stmt.utl",
+            "line": 11
+          },
           "children": [{
             "name": "id",
             "attributes": {
-              "symbol": "array_data"
+              "end": 191,
+              "symbol": "array_data",
+              "start": 181,
+              "file": "for_stmt.utl",
+              "line": 11
             }
           }]
         }, {
           "name": "as_clause",
+          "attributes": {
+            "end": 199,
+            "start": 192,
+            "file": "for_stmt.utl",
+            "line": 11
+          },
           "children": [{
             "name": "id",
             "attributes": {
-              "symbol": "item"
+              "end": 199,
+              "symbol": "item",
+              "start": 195,
+              "file": "for_stmt.utl",
+              "line": 11
             }
           }]
         }, {
           "name": "statement_list",
+          "attributes": {
+            "end": 233,
+            "line": 11,
+            "start": 202,
+            "file": "for_stmt.utl"
+          },
           "children": [{
             "name": "statement",
+            "attributes": {
+              "end": 215,
+              "start": 202,
+              "file": "for_stmt.utl",
+              "line": 11
+            },
             "children": [{
               "name": "document",
               "attributes": {
-                "text": "\n  even more "
+                "text": "\n  even more ",
+                "end": 215,
+                "start": 202,
+                "file": "for_stmt.utl",
+                "line": 11
               }
             }]
           }, {
             "name": "statement",
+            "attributes": {
+              "end": 223,
+              "start": 218,
+              "file": "for_stmt.utl",
+              "line": 12
+            },
             "children": [{
-              "name": "break"
+              "name": "break",
+              "attributes": {
+                "end": 223,
+                "start": 218,
+                "file": "for_stmt.utl",
+                "line": 12
+              }
             }]
           }, {
             "name": "statement",
+            "attributes": {
+              "end": 233,
+              "start": 227,
+              "file": "for_stmt.utl",
+              "line": 12
+            },
             "children": [{
               "name": "document",
               "attributes": {
-                "text": "stuff\n"
+                "text": "stuff\n",
+                "end": 233,
+                "start": 227,
+                "file": "for_stmt.utl",
+                "line": 12
               }
             }]
           }]
@@ -164,26 +406,64 @@
       }]
     }, {
       "name": "statement",
+      "attributes": {
+        "end": 297,
+        "start": 241,
+        "file": "for_stmt.utl",
+        "line": 14
+      },
       "children": [{
         "name": "for_stmt",
+        "attributes": {
+          "end": 297,
+          "start": 241,
+          "file": "for_stmt.utl",
+          "line": 14
+        },
         "children": [{
           "name": "expr",
+          "attributes": {
+            "end": 260,
+            "start": 250,
+            "file": "for_stmt.utl",
+            "line": 14
+          },
           "children": [{
             "name": "id",
             "attributes": {
-              "symbol": "array_data"
+              "end": 260,
+              "symbol": "array_data",
+              "start": 250,
+              "file": "for_stmt.utl",
+              "line": 14
             }
           }]
         }, {
           "name": "as_clause"
         }, {
           "name": "statement_list",
+          "attributes": {
+            "end": 291,
+            "start": 263,
+            "file": "for_stmt.utl",
+            "line": 14
+          },
           "children": [{
             "name": "statement",
+            "attributes": {
+              "end": 291,
+              "start": 263,
+              "file": "for_stmt.utl",
+              "line": 14
+            },
             "children": [{
               "name": "document",
               "attributes": {
-                "text": "\n  do len(array_data) times\n"
+                "text": "\n  do len(array_data) times\n",
+                "end": 291,
+                "start": 263,
+                "file": "for_stmt.utl",
+                "line": 14
               }
             }]
           }]
@@ -191,65 +471,151 @@
       }]
     }, {
       "name": "statement",
+      "attributes": {
+        "end": 358,
+        "start": 300,
+        "file": "for_stmt.utl",
+        "line": 17
+      },
       "children": [{
         "name": "for_stmt",
+        "attributes": {
+          "end": 358,
+          "start": 300,
+          "file": "for_stmt.utl",
+          "line": 17
+        },
         "children": [{
           "name": "expr",
+          "attributes": {
+            "end": 314,
+            "start": 304,
+            "file": "for_stmt.utl",
+            "line": 17
+          },
           "children": [{
             "name": "id",
             "attributes": {
-              "symbol": "array_data"
+              "end": 314,
+              "symbol": "array_data",
+              "start": 304,
+              "file": "for_stmt.utl",
+              "line": 17
             }
           }]
         }, {
           "name": "as_clause",
+          "attributes": {
+            "end": 329,
+            "start": 315,
+            "file": "for_stmt.utl",
+            "line": 17
+          },
           "children": [{
             "name": "id",
             "attributes": {
-              "symbol": "alpha"
+              "end": 323,
+              "symbol": "alpha",
+              "start": 318,
+              "file": "for_stmt.utl",
+              "line": 17
             }
           }, {
             "name": "id",
             "attributes": {
-              "symbol": "beta"
+              "end": 329,
+              "symbol": "beta",
+              "start": 325,
+              "file": "for_stmt.utl",
+              "line": 17
             }
           }]
         }, {
           "name": "statement_list",
+          "attributes": {
+            "end": 352,
+            "start": 335,
+            "file": "for_stmt.utl",
+            "line": 18
+          },
           "children": [{
             "name": "statement",
+            "attributes": {
+              "end": 352,
+              "start": 335,
+              "file": "for_stmt.utl",
+              "line": 18
+            },
             "children": [{
               "name": "expr",
               "attributes": {
-                "operator": "+="
+                "file": "for_stmt.utl",
+                "end": 352,
+                "start": 335,
+                "operator": "+=",
+                "line": 18
               },
               "children": [{
                 "name": "expr",
+                "attributes": {
+                  "end": 336,
+                  "start": 335,
+                  "file": "for_stmt.utl",
+                  "line": 18
+                },
                 "children": [{
                   "name": "id",
                   "attributes": {
-                    "symbol": "c"
+                    "end": 336,
+                    "symbol": "c",
+                    "start": 335,
+                    "file": "for_stmt.utl",
+                    "line": 18
                   }
                 }]
               }, {
                 "name": "expr",
                 "attributes": {
-                  "operator": "*"
+                  "file": "for_stmt.utl",
+                  "end": 352,
+                  "start": 340,
+                  "operator": "*",
+                  "line": 18
                 },
                 "children": [{
                   "name": "expr",
+                  "attributes": {
+                    "end": 345,
+                    "start": 340,
+                    "file": "for_stmt.utl",
+                    "line": 18
+                  },
                   "children": [{
                     "name": "id",
                     "attributes": {
-                      "symbol": "alpha"
+                      "end": 345,
+                      "symbol": "alpha",
+                      "start": 340,
+                      "file": "for_stmt.utl",
+                      "line": 18
                     }
                   }]
                 }, {
                   "name": "expr",
+                  "attributes": {
+                    "end": 352,
+                    "start": 348,
+                    "file": "for_stmt.utl",
+                    "line": 18
+                  },
                   "children": [{
                     "name": "id",
                     "attributes": {
-                      "symbol": "beta"
+                      "end": 352,
+                      "symbol": "beta",
+                      "start": 348,
+                      "file": "for_stmt.utl",
+                      "line": 18
                     }
                   }]
                 }]

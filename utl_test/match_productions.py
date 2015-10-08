@@ -26,11 +26,11 @@ def print_name(node, _):
 
 def print_text(node, data):
     print(node["name"] + ":  ", end='')
-    attrs = node["attributes"]
+    attrs = node["attributes"] if "attributes" in node else {}
     if "start" in attrs and "end" in attrs:
         print(data['text'][attrs["start"]:attrs["end"]])
     else:
-        pritn("*** No position info ***")
+        print()
 
 def match_prods(utl_file, json_file):
     """Reads the JSON and UTL files, pulls parts of utl_file according to values in JSON file."""

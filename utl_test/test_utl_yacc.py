@@ -195,7 +195,7 @@ class UTLParserTestCase(utl_parse_test.TestCaseUTL):
 
         """
         with open(self.data_file(filepart + '.utl'), 'r') as utlin:
-            item1 = parser.parse(utlin.read())
+            item1 = parser.parse(utlin.read(), filename=filepart+'.utl')
         with open(self.data_file(filepart + '.json'), 'r') as jsonin:
             expected = json.load(jsonin)
         self.assertMatchesJSON(item1, expected)
@@ -213,11 +213,17 @@ class UTLParserTestCase(utl_parse_test.TestCaseUTL):
         parser = UTLParser([handler1, handler2], debug=False)
         # results of parse should depend ONLY on handler1
         self._check_multiple_handlers(parser, 'basic_assign')
+        parser.restart()
         self._check_multiple_handlers(parser, 'calls')
+        parser.restart()
         self._check_multiple_handlers(parser, 'for_stmt')
+        parser.restart()
         self._check_multiple_handlers(parser, 'if_stmts')
+        parser.restart()
         self._check_multiple_handlers(parser, 'includes')
+        parser.restart()
         self._check_multiple_handlers(parser, 'keywords')
+        parser.restart()
         self._check_multiple_handlers(parser, 'macros')
         del parser.handlers
         self.assertIsNone(parser.handlers)
@@ -230,7 +236,12 @@ class UTLParserTestCase(utl_parse_test.TestCaseUTL):
         parser = UTLParser([handler], debug=False)
         utl_doc = parser.parse('', filename='empty.utl')
         self.assertEqual(utl_doc.symbol, 'utldoc')
-        self.assertListEqual(utl_doc.children, [])
+        self.assertEqual(len(utl_doc.children), 1)
+        stmt_list = utl_doc.children[0]
+        self.assertEqual(stmt_list.symbol, 'statement_list')
+        self.assertListEqual(stmt_list.children, [])
+        self.assertDictEqual(dict(stmt_list.attributes),
+                             {'end': 1, 'file': 'empty.utl', 'start': 1, 'line': 1})
 
     def test_restart(self):
         """Unit tests for :py:meth:`~utl_lib.utl_yacc.UTLParser.restart`."""
