@@ -1,105 +1,105 @@
 {
   "name": "utldoc",
   "attributes": {
+    "line": 1,
     "file": "while.utl",
-    "end": 65,
     "start": 3,
-    "line": 1
+    "end": 65
   },
   "children": [{
     "name": "statement_list",
     "attributes": {
-      "file": "while.utl",
-      "end": 65,
       "line": 1,
-      "start": 3
+      "file": "while.utl",
+      "start": 3,
+      "end": 65
     },
     "children": [{
       "name": "statement",
       "attributes": {
+        "line": 1,
         "file": "while.utl",
-        "end": 43,
         "start": 3,
-        "line": 1
+        "end": 43
       },
       "children": [{
         "name": "while_stmt",
         "attributes": {
+          "line": 1,
           "file": "while.utl",
-          "end": 43,
           "start": 3,
-          "line": 1
+          "end": 43
         },
         "children": [{
           "name": "expr",
           "attributes": {
+            "line": 1,
             "file": "while.utl",
-            "end": 19,
             "operator": "==",
             "start": 9,
-            "line": 1
+            "end": 19
           },
           "children": [{
             "name": "expr",
             "attributes": {
+              "line": 1,
               "file": "while.utl",
-              "end": 12,
               "start": 9,
-              "line": 1
+              "end": 12
             },
             "children": [{
               "name": "id",
               "attributes": {
+                "line": 1,
                 "file": "while.utl",
-                "end": 12,
                 "symbol": "foo",
                 "start": 9,
-                "line": 1
+                "end": 12
               }
             }]
           }, {
             "name": "expr",
             "attributes": {
+              "line": 1,
               "file": "while.utl",
-              "end": 19,
               "start": 16,
-              "line": 1
+              "end": 19
             },
             "children": [{
               "name": "id",
               "attributes": {
+                "line": 1,
                 "file": "while.utl",
-                "end": 19,
                 "symbol": "bar",
                 "start": 16,
-                "line": 1
+                "end": 19
               }
             }]
           }]
         }, {
           "name": "statement_list",
           "attributes": {
+            "line": 1,
             "file": "while.utl",
-            "end": 37,
             "start": 22,
-            "line": 1
+            "end": 37
           },
           "children": [{
             "name": "statement",
             "attributes": {
+              "line": 1,
               "file": "while.utl",
-              "end": 37,
               "start": 22,
-              "line": 1
+              "end": 37
             },
             "children": [{
               "name": "document",
               "attributes": {
+                "line": 1,
                 "file": "while.utl",
-                "end": 37,
-                "text": "\nstuff happens\n",
                 "start": 22,
-                "line": 1
+                "text": "\nstuff happens\n",
+                "end": 37
               }
             }]
           }]
@@ -108,64 +108,58 @@
     }, {
       "name": "statement",
       "attributes": {
+        "line": 4,
         "file": "while.utl",
-        "end": 60,
         "start": 45,
-        "line": 4
+        "end": 60
       },
       "children": [{
         "name": "while_stmt",
         "attributes": {
+          "line": 4,
           "file": "while.utl",
-          "end": 60,
           "start": 45,
-          "line": 4
+          "end": 60
         },
         "children": [{
           "name": "expr",
           "attributes": {
+            "line": 4,
             "file": "while.utl",
-            "end": 55,
             "start": 51,
-            "line": 4
+            "end": 55
           },
           "children": [{
             "name": "literal",
             "attributes": {
               "end": 55,
-              "value": "true",
-              "start": 51,
+              "value": true,
               "file": "while.utl",
-              "line": 4,
-              "type": "string"
+              "start": 51,
+              "type": "boolean",
+              "line": 4
             }
           }]
         }, {
-          "name": "statement_list",
-          "attributes": {
-            "file": "while.utl",
-            "end": 55,
-            "start": 55,
-            "line": 4
-          }
+          "name": "statement_list"
         }]
       }]
     }, {
       "name": "statement",
       "attributes": {
+        "line": 5,
         "file": "while.utl",
-        "end": 64,
         "start": 63,
-        "line": 5
+        "end": 64
       },
       "children": [{
         "name": "document",
         "attributes": {
+          "line": 5,
           "file": "while.utl",
-          "end": 64,
-          "text": "\n",
           "start": 63,
-          "line": 5
+          "text": "\n",
+          "end": 64
         }
       }]
     }]

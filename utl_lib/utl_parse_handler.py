@@ -384,6 +384,10 @@ class UTLParseHandler(object):
         """A return statement. If `expr` is not :py:attr:`None`, it is the return value."""
         return None
 
+    def string_literal(self, parser, literal):
+        """A literal string, enclosed in quotation marks."""
+        return None
+
     def while_stmt(self, parser, expr, statement_list=None):
         """A while statement, where `expr` is the test and `statement_list` is the body."""
         return None

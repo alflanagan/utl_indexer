@@ -35,7 +35,9 @@ class UTLParseHandlerParseTree(UTLParseHandler):
                            [statement] if statement is not None else [])
         else:
             if statement is not None:
-                statement_list.attributes = parser.context
+                # yes, this seems weird. but UTLParser is updating context as it sees more
+                # statments
+                statement_list.attributes = FrozenDict(parser.context)
                 statement_list.add_first_child(statement)
             return statement_list
 
@@ -214,10 +216,8 @@ class UTLParseHandlerParseTree(UTLParseHandler):
                 attrs.update({'type': 'boolean', 'value': literal == 'true'})
             if literal == 'null':
                 attrs.update({'type': 'null', 'value': literal})
-            else:
-                attrs.update({'type': 'string', 'value': literal})
             return ASTNode('literal', attrs, [])
-        elif 'type' in literal.attributes and literal.attributes['type'] == 'number':
+        elif literal.attributes.get('type') in ('number', 'string'):
             return literal  # already has everything we need.
         else:
             attrs.update({'type': 'array', 'value': '[..]'})
@@ -236,7 +236,10 @@ class UTLParseHandlerParseTree(UTLParseHandler):
     def macro_defn(self, parser, macro_decl, statement_list=None):
         assert macro_decl
         if statement_list is None:
-            statement_list = ASTNode('statement_list', {}, [])
+            attrs = parser.context
+            # the end for statement_list is == end of macro_defn, but start is different
+            attrs["start"] = attrs["end"]
+            statement_list = ASTNode('statement_list', attrs, [])
         return ASTNode('macro_defn', parser.context, [macro_decl, statement_list])
 
     def number_literal(self, parser, literal):
@@ -267,6 +270,11 @@ class UTLParseHandlerParseTree(UTLParseHandler):
 
     def return_stmt(self, parser, expr=None):
         return ASTNode('return_stmt', parser.context, [expr] if expr else [])
+
+    def string_literal(self, parser, literal):
+        attrs = parser.context
+        attrs.update({'type': 'string', 'value': literal})
+        return ASTNode('literal', attrs, [])
 
     def while_stmt(self, parser, expr, statement_list=None):
         assert expr is not None

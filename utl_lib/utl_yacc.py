@@ -38,8 +38,18 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         self._handlers = []
         self.handlers = handlers
         self.start = 0  # character offset where the current production starts
-        self.end = 0   # character offset where the current production ends
+        self._end = 0   # character offset where the current production ends
         self.line = 0   # line number where the current production begins
+
+    @property
+    def end(self):
+        """The character offset in the source where the current production begins."""
+        # originally made property so I could put breakpoint when it's set ;-)
+        return getattr(self, '_end', None)
+
+    @end.setter
+    def end(self, new_end):  # pylint:disable=C0111
+        self._end = int(new_end)
 
     # operator precedence based on PHP
     # https://secure.php.net/manual/en/language.operators.precedence.php
@@ -190,7 +200,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         `context.keys()` -> `("end", "file", "line", "start")`
 
         """
-        if hasattr(self, 'end'):  # guard against ply.yacc weirdness
+        if hasattr(self, 'filename'):  # guard against ply.yacc weirdness
             return {"end": self.end, "file": self.filename, "start": self.start,
                     "line": self.line}
 
@@ -228,10 +238,12 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
             # if it's not an ASTNode, it must?? be a string or identifier
             self.end = self.start + len(second)
             # second will be '' at EOF, and self.start will be len(lexdata)
-            if second != '' and self.lexer.lexdata[self.start] in ('"', "'"):
-                self.end += 2  # include quotes
+            # can't tell a STRING literal from a DOCUMENT that begins with a quote
+            # so have to handle STRING as separate case
+            # if second != '' and self.lexer.lexdata[self.start] in ('"', "'"):
+            #     self.end += 2  # include quotes
         else:
-            self.end = p.lexpos(end_p) + len(second) if second is not None else 0
+            self.end = p.lexpos(end_p) + (len(second) if second is not None else 0)
 
     # -------------------------------------------------------------------------------------------
     # top-level productions
@@ -247,6 +259,8 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
     def p_statement_list(self, p):
         ''' statement_list : statement
                            | statement statement_list'''
+        if p[1] is None and self._(p, 2) is None:
+            return
         self.__set_ctxt(p, 1, 2)
         for handler in self.handlers:
             value = handler.statement_list(self, p[1], self._(p, 2))
@@ -497,7 +511,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                 p[0] = value
 
     def p_literal(self, p):
-        '''literal : STRING
+        '''literal : string_literal
                    | FALSE
                    | TRUE
                    | NULL
@@ -584,6 +598,18 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         self.__set_ctxt(p, 1, 2)
         for handler in self.handlers:
             value = handler.return_stmt(self, self._(p, 2))
+            if p[0] is None:
+                p[0] = value
+
+    def p_string_literal(self, p):
+        '''string_literal : STRING'''
+        # exists as separate case to handle quotes in setting context
+        self.__set_ctxt(p, 1)
+        self.end += 2  # account for quotes
+        assert self.lexer.lexdata[self.start] in ['"', "'"]
+        assert self.lexer.lexdata[self.end-1] in ['"', "'"]
+        for handler in self.handlers:
+            value = handler.string_literal(self, p[1])
             if p[0] is None:
                 p[0] = value
 
