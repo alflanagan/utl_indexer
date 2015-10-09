@@ -1,0 +1,14 @@
+START_UTL,'[%',1,0
+IF,'if',1,3
+TRUE,'true',1,6
+SEMI,';',1,10
+ELSEIF,'elseif',2,13
+FALSE,'false',2,21
+SEMI,';',2,26
+ELSEIF,'elseif',3,29
+ID,'a',4,40
+EQ,'==',4,42
+ID,'b',4,45
+SEMI,';',4,46
+END,'end',5,49
+EOF,'',6,54

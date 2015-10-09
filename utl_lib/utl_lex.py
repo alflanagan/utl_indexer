@@ -106,10 +106,31 @@ class UTLLexer(object):
         self.lexer = lex.lex(module=self, **kwargs)
         self.ateof = True
 
+    __elseif_regex = re.compile(r'else(\s+)if')
+
+    @classmethod
+    def normalize_else_if(cls, s):
+        """Replaces 'else' + whitespace + 'if' in `s` with 'elseif' + whitespace.
+
+        This allows us to treat 'elseif' as a keyword even though it can be spelled with extra
+        whitespace. An alternative would be to break 'elseif' out as 'else' and 'if' even
+        without the whitespace, but don't think I can map a single keyword to two tokens.
+
+        And if I don't treat it as a keyword, it gets messy distinguishing ELSE IF from ELSEIF.
+
+        """
+        # note for our tracking to work, we have to keep the same overall length
+        initial_length = len(s)
+        match = cls.__elseif_regex.search(s)
+        while match:
+            s = s.replace(match.group(0), 'elseif' + match.group(1))
+            match = cls.__elseif_regex.search(s)
+        assert len(s) == initial_length
+        return s
+
     def input(self, s):
         """Push new input `s` to the lexer."""
-        # UTL treats 'else if' exactly same as 'elseif'
-        s, _ = re.subn(r'else\s+if', 'elseif', s)
+        s = self.normalize_else_if(s)
         self.lexer.input(s)
         self.ateof = False
 
