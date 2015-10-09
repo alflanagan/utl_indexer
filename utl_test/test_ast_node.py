@@ -20,11 +20,21 @@ from utl_lib.utl_parse_handler import FrozenDict
 class ASTNodeTestCase(unittest_plus.TestCasePlus):
     """Unit tests for class :py:class:`~utl_lib.ast_node.ASTNode`."""
 
+    test_nodes = ASTNode('fred', {"wilma": "betty"}, [
+        ASTNode("barney", {"hobby": "rock-throwing"}, [
+            ASTNode("bam-bam", {"hobby": "plotting revenge"}, [])
+        ]),
+        ASTNode("wilma", {"hobby": "s&m"}, [
+            ASTNode("pebbles", {"hobby": "tormenting bam-bam"}, [])
+        ])
+    ])
+
     def test_create(self):
         """Unit test for :py:meth:`utl_lib.ast_node.ASTNode`."""
         item1 = ASTNode('symbol', {}, [])
         self.assertEqual(item1.symbol, 'symbol')
         self.assertDictEqual(dict(item1.attributes), {})
+        self.assertIsInstance(item1.attributes, FrozenDict)
         # since context is just a synonym for attributes in this impl.
         self.assertDictEqual(dict(item1.context), {})
         self.assertSequenceEqual(item1.children, [])
@@ -33,10 +43,17 @@ class ASTNodeTestCase(unittest_plus.TestCasePlus):
         self.assertEqual(item2.symbol, 'fred')
         self.assertDictEqual(dict(item2.attributes), {'a': 2, 'b': 'wilma'})
         self.assertDictEqual(dict(item2.context), {'a': 2, 'b': 'wilma'})
+        self.assertIsInstance(item2.attributes, FrozenDict)
         self.assertSequenceEqual(item2.children, [item1])
         self.assertIs(item2.children[0].parent, item2)
         item3 = ASTNode('barney', None, [item1, item2])
         self.assertSequenceEqual(item3.children, [item1, item2])
+        self.assertIsInstance(item3.attributes, FrozenDict)
+        self.assertDictEqual(dict(item3.attributes), {})
+        item3.attributes = {"fred": "barney", "wilma": "betty", "pebbles": "bam-bam"}
+        self.assertIsInstance(item3.attributes, FrozenDict)
+        self.assertDictEqual(dict(item3.attributes),
+                             {"fred": "barney", "wilma": "betty", "pebbles": "bam-bam"})
 
     def test_bad_create(self):
         """Unit tests for error handling in :py:meth:`utl_lib.ast_node.ASTNode`."""
@@ -106,6 +123,9 @@ class ASTNodeTestCase(unittest_plus.TestCasePlus):
                         [ASTNode('fred', {"barney": "friend"},
                                  [ASTNode("wilma", {}, [])])])
         self.assertEqual(item2, item3)
+        self.assertIsInstance(item3.attributes, FrozenDict)
+        # pylint: disable=E1101
+        # why does pylint insist on regarding attributes as a dict?
         item3.attributes = item3.attributes.combine({"john": "ringo"})
         self.assertNotEqual(item2, item3)
         item2.attributes = item2.attributes.combine({"john": "george"})
@@ -131,6 +151,7 @@ class ASTNodeTestCase(unittest_plus.TestCasePlus):
         self.assertEqual(str(item1), "first: ")
         item1 = ASTNode("first", {"second": "test"}, [])
         self.assertEqual(str(item1), "first:  {second: 'test'}")
+        # pylint: disable=E1101
         item1.attributes = item1.attributes.combine({"third": "Π"})  # Unicode, capital pi
         self.assertIn(str(item1), ["first:  {third: 'Π', second: 'test'}",
                                    "first:  {second: 'test', third: 'Π'}"])
@@ -176,6 +197,7 @@ class ASTNodeTestCase(unittest_plus.TestCasePlus):
         anode = ASTNode('top', {}, [])
         test_out = anode.json_format()
         self.assertEqual(test_out, '{"name": "top"}')
+        # pylint: disable=E1101
         anode.attributes = anode.attributes.combine({'first': 'last'})
         test_json = json.loads(anode.json_format())
         self.assertDictEqual(test_json, {"name": "top", "attributes": {"first": "last"}})
@@ -204,20 +226,26 @@ class ASTNodeTestCase(unittest_plus.TestCasePlus):
         anode.attributes = anode.attributes.combine({'int': 7})
         test_out = anode.json_format()
         self.assertIn(test_out,
-                      ('{"name": "top",\n"attributes": {"int": 7,\n"fred": "has \\"double\\" quotes"}}',
-                       '{"name": "top",\n"attributes": {"fred": "has \\"double\\" quotes",\n"int": 7}}'))
+                      ('{"name": "top",\n"attributes": {"int": 7,\n"fred": "has \\"double\\" '
+                       'quotes"}}',
+                       '{"name": "top",\n"attributes": {"fred": "has \\"double\\" quotes",\n'
+                       '"int": 7}}'))
         anode.attributes = anode.attributes.delkey('int')
         anode.attributes = anode.attributes.combine({'bool': True})
         test_out = anode.json_format()
         self.assertIn(test_out,
-                      ('{"name": "top",\n"attributes": {"bool": true,\n"fred": "has \\"double\\" quotes"}}',
-                       '{"name": "top",\n"attributes": {"fred": "has \\"double\\" quotes",\n"bool": true}}'))
+                      ('{"name": "top",\n"attributes": {"bool": true,\n"fred": "has \\"double\\"'
+                       ' quotes"}}',
+                       '{"name": "top",\n"attributes": {"fred": "has \\"double\\" quotes",\n"bool"'
+                       ': true}}'))
         anode.attributes = anode.attributes.delkey('bool')
         anode.attributes = anode.attributes.combine({'float': 23.0})
         test_out = anode.json_format()
         self.assertIn(test_out,
-                      ('{"name": "top",\n"attributes": {"float": 23.0,\n"fred": "has \\"double\\" quotes"}}',
-                       '{"name": "top",\n"attributes": {"fred": "has \\"double\\" quotes",\n"float": 23.0}}'))
+                      ('{"name": "top",\n"attributes": {"float": 23.0,\n"fred": "has \\"double\\"'
+                       ' quotes"}}',
+                       '{"name": "top",\n"attributes": {"fred": "has \\"double\\" quotes",\n'
+                       '"float": 23.0}}'))
         anode = ASTNode('top', {"fred": "has 'single' quotes"}, [])
         test_out = anode.json_format()
         self.assertEqual(test_out,
@@ -228,6 +256,23 @@ class ASTNodeTestCase(unittest_plus.TestCasePlus):
                          '"<div>some &quot; embedded HTML</div>"}}')
         document = ASTNode('document', {"text": 2}, [])
         self.assertEqual(document.json_format(), '{"name": "document",\n"attributes": {"text": 2}}')
+
+    def test_find_first(self):
+        """Tests for :py:meth:`~utl_lib.ast_node.ASTNode.find_first`."""
+        pebbles = self.test_nodes.find_first("pebbles")
+        self.assertEqual(pebbles, ASTNode("pebbles", {"hobby": "tormenting bam-bam"}, []))
+
+    def test_find_all(self):
+        """Tests for :py:meth:`~utl_lib.ast_node.ASTNode.find_first`."""
+        pebbles = self.test_nodes.find_all("pebbles")
+        self.assertSequenceEqual(pebbles, [ASTNode("pebbles", {"hobby": "tormenting bam-bam"}, [])])
+        barney = self.test_nodes.find_first("barney")
+        barney.add_child(ASTNode("pebbles", {"hobby": "sweet innocent child"}, []))
+        pebbles2 = self.test_nodes.find_all("pebbles")
+        self.assertSequenceEqual(pebbles2,
+                                 [ASTNode("pebbles", {"hobby": "sweet innocent child"}, []),
+                                  ASTNode("pebbles", {"hobby": "tormenting bam-bam"}, [])])
+        barney.children = [barney.children[0]]
 
 
 if __name__ == '__main__':
