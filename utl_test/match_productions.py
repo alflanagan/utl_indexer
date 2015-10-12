@@ -43,9 +43,9 @@ def match_prods(utl_file, json_file):
     if productions["name"] == "utldoc":
         productions = productions["children"][0]
     assert productions["name"] == "statement_list"
-    # don't want to print out whole statement_list, so cheat
-    productions["attributes"]["start"] = 0
-    productions["attributes"]["end"] = 0
+    # # don't want to print out whole statement_list, so cheat
+    # productions["attributes"]["start"] = 0
+    # productions["attributes"]["end"] = 0
 
     walk_dicts(productions, print_text, {"text": utl_text})
 
