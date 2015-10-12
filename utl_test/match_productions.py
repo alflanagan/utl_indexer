@@ -40,8 +40,8 @@ def match_prods(utl_file, json_file):
     with open(utl_file, 'r') as utlin:
         utl_text = utlin.read()
 
-    assert productions["name"] == "utldoc"
-    productions = productions["children"][0]
+    if productions["name"] == "utldoc":
+        productions = productions["children"][0]
     assert productions["name"] == "statement_list"
     # don't want to print out whole statement_list, so cheat
     productions["attributes"]["start"] = 0
