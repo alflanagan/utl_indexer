@@ -137,7 +137,7 @@ class UTLMacroXref(object):
             assert isinstance(attrs["end"], int)
             new_ref = {"file": attrs["file"],
                        "line": attrs["line"],
-                       "call_text": code_text[attrs["start"]: attrs["end"]+1],
+                       "call_text": code_text[attrs["start"]: attrs["end"]],
                        "macro": attrs["macro_expr"],
                        "start": attrs["start"]}
             refs.append(new_ref)

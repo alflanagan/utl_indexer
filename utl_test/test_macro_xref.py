@@ -55,10 +55,10 @@ end; %] """]
     def test_create(self):
         """Unit test for :py:meth:`utl_lib.macro_xref.UTLMacro`."""
         first_macro, second_macro = self.test_macro_text
-        defn_attrs = self.defn_attributes[0].copy()
+        defn_attrs = self.defn_attributes[0]
         item1 = UTLMacro(ASTNode("macro_defn",
                                  defn_attrs,
-                                 [ASTNode("macro_decl", self.decl_attributes[0].copy(), [])]),
+                                 [ASTNode("macro_decl", self.decl_attributes[0], [])]),
                          first_macro[defn_attrs["start"]:defn_attrs["end"]])
         self.assertEqual(item1.end, 26)
         self.assertEqual(item1.file, defn_attrs["file"])
@@ -95,11 +95,11 @@ end; %] """]
     def test_add_call(self):
         """Unit test for :py:meth:`utl_lib.macro_xref.UTLMacro.add_call`."""
         macro_code = "macro fred;\nend;"
-        defn_attrs = self.defn_attributes[0].copy()
+        defn_attrs = dict(self.defn_attributes[0])
         defn_attrs["end"] = len(macro_code)
         item1 = UTLMacro(ASTNode("macro_defn",
                                  defn_attrs,
-                                 [ASTNode("macro_decl", self.decl_attributes[0].copy(), [])]),
+                                 [ASTNode("macro_decl", self.decl_attributes[0], [])]),
                          macro_code)
         call_info1 = {"file": "big_file.utl", "line": 512, "call_text": "fred();", }
         item1.add_call(call_info1)
@@ -110,21 +110,21 @@ end; %] """]
     def test_str(self):
         """Unit test for str(:py:class:`~utl_lib.macro_xref.UTLMacro`)."""
         macro_code = "macro fred;\nend;"
-        defn_attributes = self.defn_attributes[0].copy()
+        defn_attributes = dict(self.defn_attributes[0])
         defn_attributes["end"] = len(macro_code)
         item1 = UTLMacro(ASTNode("macro_defn",
                                  defn_attributes,
-                                 [ASTNode("macro_decl", self.decl_attributes[0].copy(), [])]),
+                                 [ASTNode("macro_decl", self.decl_attributes[0], [])]),
                          macro_code)
         self.assertEqual(str(item1), 'fred() (fred.utl:1)')
 
     def test_json(self):
         """Unit test for :py:meth:`~utl_lib.macro_xref.UTLMacro.json`."""
         macro_code = "macro fred;\nend;"
-        defn_attrs = self.defn_attributes[0].copy()
+        defn_attrs = self.defn_attributes[0]
         item1 = UTLMacro(ASTNode("macro_defn",
                                  defn_attrs,
-                                 [ASTNode("macro_decl", self.decl_attributes[0].copy(), [])]),
+                                 [ASTNode("macro_decl", self.decl_attributes[0], [])]),
                          macro_code)
         self.assertDictEqual(json.loads(item1.json()),
                              {"file": "fred.utl",
@@ -139,10 +139,10 @@ end; %] """]
     def test_equal(self):
         """Test implementation of == for :py:class:`~utl_lib.macro_xrf.UTLMacro`."""
         macro_code = "macro fred;\nend;"
-        defn_attrs = self.defn_attributes[0].copy()
+        defn_attrs = self.defn_attributes[0]
         item1 = UTLMacro(ASTNode("macro_defn",
                                  defn_attrs,
-                                 [ASTNode("macro_decl", self.decl_attributes[0].copy(), [])]),
+                                 [ASTNode("macro_decl", self.decl_attributes[0], [])]),
                          macro_code)
         self.assertEqual(item1, item1)
         item2 = UTLMacro.from_json(item1.json())
@@ -174,81 +174,6 @@ end; %] """]
 class UTLMacroXrefTestCase(utl_parse_test.TestCaseUTL):
     """Unit tests for :py:class:`utl_lib.macro_xref.UTLMacroXref`."""
 
-    test_doc_1 = ASTNode(
-        'statement_list',
-        {'line': 1, 'end': 78, 'file': 'macros.utl', 'start': 3},
-        [ASTNode(
-            'macro_defn',
-            {'line': 1, 'start': 3, 'file': 'macros.utl', 'end': 72},
-            [ASTNode(
-                'macro_decl',
-                {'line': 1, 'start': 3, 'file': 'macros.utl', 'end': 13, 'name': 'fred'}, []),
-             ASTNode(
-                 'statement_list',
-                 {'line': 2, 'end': 72, 'file': 'macros.utl', 'start': 25},
-                 [ASTNode(
-                     'expr',
-                     {'line': 2, 'end': 26, 'file': 'macros.utl', 'start': 25, 'operator': '='},
-                     [ASTNode(
-                         'id',
-                         {'symbol': 'a', 'end': 18, 'file': 'macros.utl', 'line': 2, 'start': 17},
-                         []),
-                      ASTNode(
-                          'expr',
-                          {'line': 2, 'end': 26, 'file': 'macros.utl', 'start': 25,
-                           'operator': '+'},
-                          [ASTNode(
-                              'id',
-                              {'end': 22, 'file': 'macros.utl', 'line': 2, 'start': 21, 'symbol': 'b'},
-                              []),
-                           ASTNode(
-                               'literal',
-                               {'end': 26, 'file': 'macros.utl', 'line': 2, 'start': 25, 'value': 3.0},
-                               [])])]),
-                  ASTNode(
-                      'echo',
-                      {'line': 3, 'end': 34, 'file': 'macros.utl', 'start': 30},
-                      []),
-                  ASTNode(
-                      'echo',
-                      {'line': 4, 'end': 44, 'file': 'macros.utl', 'start': 43},
-                      [ASTNode('id', {'end': 44, 'file': 'macros.utl', 'line': 4, 'start': 43, 'symbol': 'a'}, [])]),
-                  ASTNode(
-                      'macro_call',
-                      {'line': 5, 'macro_expr': 'fred', 'file': 'macros.utl',
-                       'end': 54, 'start': 48},
-                      [ASTNode(
-                          'id', {'end': 52, 'file': 'macros.utl', 'line': 5, 'start': 48, 'symbol': 'fred'}, []),
-                       ASTNode(
-                           'arg_list',
-                           {'line': 5, 'end': 54, 'file': 'macros.utl', 'start': 53},
-                           [ASTNode(
-                               'arg',
-                               {'line': 5, 'end': 54, 'file': 'macros.utl', 'start': 53},
-                               [ASTNode(
-                                   'literal',
-                                   {'end': 54, 'file': 'macros.utl', 'line': 5, 'start': 53, 'value': 7},
-                                   [])])])]),
-                  ASTNode(
-                      'macro_call',
-                      {'end': 66, 'file': 'macros.utl', 'macro_expr': 'wilma',
-                       'line': 6, 'start': 59},
-                      [ASTNode(
-                          'id',
-                          {'end': 64, 'file': 'macros.utl', 'line': 6, 'start': 59, 'symbol': 'wilma'},
-                          []),
-                       ASTNode(
-                           'arg_list',
-                           {'start': 65, 'end': 66, 'line': 6, 'file': 'macros.utl'},
-                           [ASTNode(
-                               'arg',
-                               {'start': 65, 'end': 66, 'line': 6, 'file': 'macros.utl'},
-                               [ASTNode(
-                                   'literal',
-                                   {'end': 66, 'file': 'macros.utl', 'line': 6, 'start': 65, 'value': 8.0},
-                                   []
-                               )])])])])])])
-
     doc_text_1 = """[% macro fred;
   a = b + 3;
   echo;
@@ -257,13 +182,73 @@ class UTLMacroXrefTestCase(utl_parse_test.TestCaseUTL):
   wilma(8);
 end; %]"""
 
+    # pylint:disable=line-too-long
+    test_json_1 = {"name": "statement_list",
+                   "attributes": {"end": 74, "start": 3, "file": "macros.utl", "line": 1},
+                   "children": [
+                       {"name": "macro_defn",
+                        "attributes": {"end": 72, "start": 3, "file": "macros.utl", "line": 1},
+                        "children": [
+                            {"name": "macro_decl",
+                             "attributes": {"end": 13, "start": 3, "file": "macros.utl", "line": 1, "name": "fred"}},
+                            {"name": "statement_list",
+                             "attributes": {"end": 67, "start": 17, "file": "macros.utl", "line": 2},
+                             "children": [
+                                 {"name": "expr",
+                                  "attributes": {"end": 26, "start": 17, "file": "macros.utl", "operator": "=", "line": 2},
+                                  "children": [
+                                      {"name": "id",
+                                       "attributes": {"end": 18, "start": 17, "file": "macros.utl", "line": 2, "symbol": "a"}},
+                                      {"name": "expr",
+                                       "attributes": {"end": 26, "start": 21, "file": "macros.utl", "operator": "+", "line": 2},
+                                       "children": [
+                                           {"name": "id", "attributes": {"end": 22, "start": 21, "file": "macros.utl", "line": 2, "symbol": "b"}},
+                                           {"name": "literal",
+                                            "attributes": {"start": 25, "end": 26, "file": "macros.utl", "line": 2, "type": "number", "value": 3.0}}]}]},
+                                 {"name": "echo",
+                                  "attributes": {"end": 34, "start": 30, "file": "macros.utl", "line": 3}},
+                                 {"name": "echo",
+                                  "attributes": {"end": 44, "start": 38, "file": "macros.utl", "line": 4},
+                                  "children": [
+                                      {"name": "id",
+                                       "attributes": {"end": 44, "start": 43, "file": "macros.utl", "line": 4, "symbol": "a"}}]},
+                                 {"name": "macro_call",
+                                  "attributes": {"end": 55, "start": 48, "file": "macros.utl", "line": 5, "macro_expr": "fred"},
+                                  "children": [
+                                      {"name": "id",
+                                       "attributes": {"end": 52, "start": 48, "file": "macros.utl", "line": 5, "symbol": "fred"}},
+                                      {"name": "arg_list",
+                                       "attributes": {"end": 54, "start": 53, "file": "macros.utl", "line": 5},
+                                       "children": [
+                                           {"name": "arg",
+                                            "attributes": {"end": 54, "start": 53, "file": "macros.utl", "line": 5},
+                                            "children": [
+                                                {"name": "literal",
+                                                 "attributes": {"start": 53, "end": 54, "file": "macros.utl", "line": 5, "type": "number", "value": 7.0}}]}]}]},
+                                 {"name": "macro_call",
+                                  "attributes": {"end": 67, "start": 59, "file": "macros.utl", "line": 6, "macro_expr": "wilma"},
+                                  "children": [
+                                      {"name": "id",
+                                       "attributes": {"end": 64, "start": 59, "file": "macros.utl", "line": 6, "symbol": "wilma"}},
+                                      {"name": "arg_list",
+                                       "attributes": {"end": 66, "start": 65, "file": "macros.utl", "line": 6},
+                                       "children": [
+                                           {"name": "arg",
+                                            "attributes": {"end": 66, "start": 65, "file": "macros.utl", "line": 6},
+                                            "children": [
+                                                {"name": "literal",
+                                                 "attributes": {"start": 65, "end": 66, "file": "macros.utl", "line": 6, "type": "number", "value": 8.0}}]}]}]}]}]}]}
+
     def test_create(self):
         """Unit tests for :py:meth:`~utl_lib.macro_xref.UTLMacroXref`."""
         p = UTLParser([UTLParseHandlerAST()])
         parsed = p.parse(self.doc_text_1, filename='macros.utl')
-        self.assertEqual(parsed, self.test_doc_1)
-        item1 = UTLMacroXref(self.test_doc_1, self.doc_text_1)
-        self.assertIs(item1.topnodes[0], self.test_doc_1)
+        # with open('temp.json', 'w') as jsout:
+        #     jsout.write(parsed.json_format())
+        # self.assertEqual(parsed, self.test_doc_1)
+        self.assertMatchesJSON(parsed, self.test_json_1)
+        item1 = UTLMacroXref(parsed, self.doc_text_1)
+        self.assertIs(item1.topnodes[0], parsed)
         self.assertEqual(item1.texts["macros.utl"], self.doc_text_1)
         self.assertEqual(item1.references,
                          [{'call_text': 'fred(7)', 'file': 'macros.utl',
@@ -289,7 +274,9 @@ end; %]"""
 
     def test_json(self):
         """unit tests for :py:meth:`~utl_lib.macro_xref.UTLMacroXref.json`."""
-        item1 = UTLMacroXref(self.test_doc_1, self.doc_text_1)
+        p = UTLParser([UTLParseHandlerAST()])
+        parsed = p.parse(self.doc_text_1, filename='macros.utl')
+        item1 = UTLMacroXref(parsed, self.doc_text_1)
         json_str = item1.json()
         # order not gauranteed in JSON string, but key/value pairs are
         self.assertIn('"end": 72', json_str)
@@ -319,7 +306,9 @@ end; %]"""
 
     def test_refs_json(self):
         """unit tests for :py:meth:`~utl_lib.macro_xref.UTLMacroXref.refs_json`."""
-        item1 = UTLMacroXref(self.test_doc_1, self.doc_text_1)
+        p = UTLParser([UTLParseHandlerAST()])
+        parsed = p.parse(self.doc_text_1, filename='macros.utl')
+        item1 = UTLMacroXref(parsed, self.doc_text_1)
         json_str = item1.refs_json()
         self.assertIn('"line": 5', json_str)
         self.assertIn('"call_text": "fred(7)"', json_str)
