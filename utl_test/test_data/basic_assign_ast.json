@@ -2,7 +2,7 @@
   "name": "statement_list",
   "attributes": {
     "start": 5,
-    "end": 692,
+    "end": 707,
     "line": 2,
     "file": "basic_assign.utl"
   },
@@ -1583,12 +1583,41 @@
       }
     }]
   }, {
+    "name": "expr",
+    "attributes": {
+      "end": 702,
+      "file": "basic_assign.utl",
+      "line": 35,
+      "operator": "=",
+      "start": 691
+    },
+    "children": [{
+      "name": "id",
+      "attributes": {
+        "end": 695,
+        "file": "basic_assign.utl",
+        "start": 691,
+        "symbol": "fred",
+        "line": 35
+      }
+    }, {
+      "name": "literal",
+      "attributes": {
+        "end": 702,
+        "file": "basic_assign.utl",
+        "type": "null",
+        "line": 35,
+        "value": null,
+        "start": 698
+      }
+    }]
+  }, {
     "name": "document",
     "attributes": {
-      "start": 690,
+      "start": 705,
       "file": "basic_assign.utl",
-      "end": 691,
-      "line": 35,
+      "end": 706,
+      "line": 36,
       "text": "\n"
     }
   }]

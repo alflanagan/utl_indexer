@@ -1,80 +1,80 @@
 {
   "name": "statement_list",
   "attributes": {
-    "end": 999,
-    "line": 42,
-    "start": 997,
-    "file": "macros.utl"
+    "file": "macros.utl",
+    "end": 997,
+    "start": 3,
+    "line": 1
   },
   "children": [{
     "name": "macro_defn",
     "attributes": {
-      "name": "fred",
+      "file": "macros.utl",
       "end": 51,
-      "line": 5,
       "start": 3,
-      "file": "macros.utl"
+      "line": 1
     },
     "children": [{
       "name": "macro_decl",
       "attributes": {
+        "file": "macros.utl",
         "name": "fred",
         "end": 13,
-        "line": 1,
         "start": 3,
-        "file": "macros.utl"
+        "line": 1
       }
     }, {
       "name": "statement_list",
       "attributes": {
-        "end": 51,
-        "line": 5,
-        "start": 48,
-        "file": "macros.utl"
+        "file": "macros.utl",
+        "end": 44,
+        "start": 17,
+        "line": 2
       },
       "children": [{
         "name": "expr",
         "attributes": {
-          "operator": "=",
           "end": 26,
-          "line": 2,
-          "start": 25,
-          "file": "macros.utl"
+          "file": "macros.utl",
+          "start": 17,
+          "operator": "=",
+          "line": 2
         },
         "children": [{
           "name": "id",
           "attributes": {
             "symbol": "a",
+            "file": "macros.utl",
             "end": 18,
-            "line": 2,
             "start": 17,
-            "file": "macros.utl"
+            "line": 2
           }
         }, {
           "name": "expr",
           "attributes": {
-            "operator": "+",
             "end": 26,
-            "line": 2,
-            "start": 25,
-            "file": "macros.utl"
+            "file": "macros.utl",
+            "start": 21,
+            "operator": "+",
+            "line": 2
           },
           "children": [{
             "name": "id",
             "attributes": {
               "symbol": "b",
+              "file": "macros.utl",
               "end": 22,
-              "line": 2,
               "start": 21,
-              "file": "macros.utl"
+              "line": 2
             }
           }, {
             "name": "literal",
             "attributes": {
-              "end": 26,
+              "type": "number",
               "value": 3.0,
-              "line": 2,
+              "end": 26,
               "start": 25,
+              "line": 2,
               "file": "macros.utl"
             }
           }]
@@ -82,27 +82,27 @@
       }, {
         "name": "echo",
         "attributes": {
+          "file": "macros.utl",
           "end": 34,
-          "line": 3,
           "start": 30,
-          "file": "macros.utl"
+          "line": 3
         }
       }, {
         "name": "echo",
         "attributes": {
+          "file": "macros.utl",
           "end": 44,
-          "line": 4,
-          "start": 43,
-          "file": "macros.utl"
+          "start": 38,
+          "line": 4
         },
         "children": [{
           "name": "id",
           "attributes": {
             "symbol": "a",
+            "file": "macros.utl",
             "end": 44,
-            "line": 4,
             "start": 43,
-            "file": "macros.utl"
+            "line": 4
           }
         }]
       }]
@@ -110,198 +110,200 @@
   }, {
     "name": "macro_defn",
     "attributes": {
-      "name": "core_base_nav_class_name",
+      "file": "macros.utl",
       "end": 310,
-      "line": 10,
       "start": 54,
-      "file": "macros.utl"
+      "line": 7
     },
     "children": [{
       "name": "macro_decl",
       "attributes": {
+        "file": "macros.utl",
         "name": "core_base_nav_class_name",
-        "end": 93,
-        "line": 7,
+        "end": 94,
         "start": 54,
-        "file": "macros.utl"
+        "line": 7
       },
       "children": [{
         "name": "param_list",
         "attributes": {
+          "file": "macros.utl",
           "end": 93,
-          "line": 7,
           "start": 85,
-          "file": "macros.utl"
+          "line": 7
         },
         "children": [{
           "name": "param_decl",
           "attributes": {
+            "file": "macros.utl",
             "name": "nav_text",
             "end": 93,
-            "line": 7,
             "start": 85,
-            "file": "macros.utl"
+            "line": 7
           }
         }]
       }]
     }, {
       "name": "statement_list",
       "attributes": {
-        "end": 310,
-        "line": 10,
-        "start": 307,
-        "file": "macros.utl"
+        "file": "macros.utl",
+        "end": 305,
+        "start": 100,
+        "line": 8
       },
       "children": [{
         "name": "expr",
         "attributes": {
-          "operator": "=",
           "end": 154,
-          "line": 8,
-          "start": 117,
-          "file": "macros.utl"
+          "file": "macros.utl",
+          "start": 100,
+          "operator": "=",
+          "line": 8
         },
         "children": [{
           "name": "id",
           "attributes": {
             "symbol": "dquote_escaped",
+            "file": "macros.utl",
             "end": 114,
-            "line": 8,
             "start": 100,
-            "file": "macros.utl"
+            "line": 8
           }
         }, {
           "name": "literal",
           "attributes": {
-            "end": 154,
+            "type": "string",
             "value": "there's an \\\"embedded\\\" dquote here",
-            "line": 8,
+            "end": 154,
             "start": 117,
+            "line": 8,
             "file": "macros.utl"
           }
         }]
       }, {
         "name": "return",
         "attributes": {
-          "end": 304,
-          "line": 9,
-          "start": 301,
-          "file": "macros.utl"
+          "file": "macros.utl",
+          "end": 305,
+          "start": 160,
+          "line": 9
         },
         "children": [{
           "name": "expr",
           "attributes": {
+            "end": 305,
+            "file": "macros.utl",
+            "start": 167,
             "operator": "|",
-            "end": 304,
-            "line": 9,
-            "start": 301,
-            "file": "macros.utl"
+            "line": 9
           },
           "children": [{
             "name": "expr",
             "attributes": {
+              "end": 281,
+              "file": "macros.utl",
+              "start": 167,
               "operator": "|",
-              "end": 280,
-              "line": 9,
-              "start": 277,
-              "file": "macros.utl"
+              "line": 9
             },
             "children": [{
               "name": "expr",
               "attributes": {
+                "end": 260,
+                "file": "macros.utl",
+                "start": 167,
                 "operator": "|",
-                "end": 259,
-                "line": 9,
-                "start": 257,
-                "file": "macros.utl"
+                "line": 9
               },
               "children": [{
                 "name": "expr",
                 "attributes": {
-                  "operator": "|",
                   "end": 187,
-                  "line": 9,
-                  "start": 178,
-                  "file": "macros.utl"
+                  "file": "macros.utl",
+                  "start": 167,
+                  "operator": "|",
+                  "line": 9
                 },
                 "children": [{
                   "name": "id",
                   "attributes": {
                     "symbol": "nav_text",
+                    "file": "macros.utl",
                     "end": 175,
-                    "line": 9,
                     "start": 167,
-                    "file": "macros.utl"
+                    "line": 9
                   }
                 }, {
                   "name": "id",
                   "attributes": {
                     "symbol": "lowercase",
+                    "file": "macros.utl",
                     "end": 187,
-                    "line": 9,
                     "start": 178,
-                    "file": "macros.utl"
+                    "line": 9
                   }
                 }]
               }, {
                 "name": "macro_call",
                 "attributes": {
-                  "end": 259,
-                  "line": 9,
-                  "start": 190,
                   "file": "macros.utl",
-                  "macro_expr": "regex"
+                  "macro_expr": "regex",
+                  "end": 260,
+                  "start": 190,
+                  "line": 9
                 },
                 "children": [{
                   "name": "id",
                   "attributes": {
                     "symbol": "regex",
+                    "file": "macros.utl",
                     "end": 195,
-                    "line": 9,
                     "start": 190,
-                    "file": "macros.utl"
+                    "line": 9
                   }
                 }, {
                   "name": "arg_list",
                   "attributes": {
+                    "file": "macros.utl",
                     "end": 259,
-                    "line": 9,
-                    "start": 257,
-                    "file": "macros.utl"
+                    "start": 196,
+                    "line": 9
                   },
                   "children": [{
                     "name": "arg",
                     "attributes": {
+                      "file": "macros.utl",
                       "end": 256,
-                      "line": 9,
                       "start": 196,
-                      "file": "macros.utl"
+                      "line": 9
                     },
                     "children": [{
                       "name": "literal",
                       "attributes": {
-                        "end": 256,
+                        "type": "string",
                         "value": "/[\\&\\(\\)\\[\\]\\{\\}\\!\\@\\#\\$\\%\\^\\*\\+\\=\\,\\.\\/\\<\\>\\?\\;\\:\\'\\~\\`]/",
-                        "line": 9,
+                        "end": 256,
                         "start": 196,
+                        "line": 9,
                         "file": "macros.utl"
                       }
                     }]
                   }, {
                     "name": "arg",
                     "attributes": {
+                      "file": "macros.utl",
                       "end": 259,
-                      "line": 9,
                       "start": 257,
-                      "file": "macros.utl"
+                      "line": 9
                     },
                     "children": [{
                       "name": "literal",
                       "attributes": {
-                        "end": 259,
+                        "type": "string",
                         "value": "",
-                        "line": 9,
+                        "end": 259,
                         "start": 257,
+                        "line": 9,
                         "file": "macros.utl"
                       }
                     }]
@@ -311,62 +313,64 @@
             }, {
               "name": "macro_call",
               "attributes": {
-                "end": 280,
-                "line": 9,
-                "start": 263,
                 "file": "macros.utl",
-                "macro_expr": "regex"
+                "macro_expr": "regex",
+                "end": 281,
+                "start": 263,
+                "line": 9
               },
               "children": [{
                 "name": "id",
                 "attributes": {
                   "symbol": "regex",
+                  "file": "macros.utl",
                   "end": 268,
-                  "line": 9,
                   "start": 263,
-                  "file": "macros.utl"
+                  "line": 9
                 }
               }, {
                 "name": "arg_list",
                 "attributes": {
+                  "file": "macros.utl",
                   "end": 280,
-                  "line": 9,
-                  "start": 277,
-                  "file": "macros.utl"
+                  "start": 269,
+                  "line": 9
                 },
                 "children": [{
                   "name": "arg",
                   "attributes": {
+                    "file": "macros.utl",
                     "end": 276,
-                    "line": 9,
                     "start": 269,
-                    "file": "macros.utl"
+                    "line": 9
                   },
                   "children": [{
                     "name": "literal",
                     "attributes": {
-                      "end": 276,
+                      "type": "string",
                       "value": "/\\_+/",
-                      "line": 9,
+                      "end": 276,
                       "start": 269,
+                      "line": 9,
                       "file": "macros.utl"
                     }
                   }]
                 }, {
                   "name": "arg",
                   "attributes": {
+                    "file": "macros.utl",
                     "end": 280,
-                    "line": 9,
                     "start": 277,
-                    "file": "macros.utl"
+                    "line": 9
                   },
                   "children": [{
                     "name": "literal",
                     "attributes": {
-                      "end": 280,
+                      "type": "string",
                       "value": "_",
-                      "line": 9,
+                      "end": 280,
                       "start": 277,
+                      "line": 9,
                       "file": "macros.utl"
                     }
                   }]
@@ -376,62 +380,64 @@
           }, {
             "name": "macro_call",
             "attributes": {
-              "end": 304,
-              "line": 9,
-              "start": 284,
               "file": "macros.utl",
-              "macro_expr": "regex"
+              "macro_expr": "regex",
+              "end": 305,
+              "start": 284,
+              "line": 9
             },
             "children": [{
               "name": "id",
               "attributes": {
                 "symbol": "regex",
+                "file": "macros.utl",
                 "end": 289,
-                "line": 9,
                 "start": 284,
-                "file": "macros.utl"
+                "line": 9
               }
             }, {
               "name": "arg_list",
               "attributes": {
+                "file": "macros.utl",
                 "end": 304,
-                "line": 9,
-                "start": 301,
-                "file": "macros.utl"
+                "start": 290,
+                "line": 9
               },
               "children": [{
                 "name": "arg",
                 "attributes": {
+                  "file": "macros.utl",
                   "end": 300,
-                  "line": 9,
                   "start": 290,
-                  "file": "macros.utl"
+                  "line": 9
                 },
                 "children": [{
                   "name": "literal",
                   "attributes": {
-                    "end": 300,
+                    "type": "string",
                     "value": "/[\\s-]+/",
-                    "line": 9,
+                    "end": 300,
                     "start": 290,
+                    "line": 9,
                     "file": "macros.utl"
                   }
                 }]
               }, {
                 "name": "arg",
                 "attributes": {
+                  "file": "macros.utl",
                   "end": 304,
-                  "line": 9,
                   "start": 301,
-                  "file": "macros.utl"
+                  "line": 9
                 },
                 "children": [{
                   "name": "literal",
                   "attributes": {
-                    "end": 304,
+                    "type": "string",
                     "value": "-",
-                    "line": 9,
+                    "end": 304,
                     "start": 301,
+                    "line": 9,
                     "file": "macros.utl"
                   }
                 }]
@@ -444,44 +450,102 @@
   }, {
     "name": "macro_call",
     "attributes": {
-      "end": 346,
-      "line": 12,
-      "start": 313,
       "file": "macros.utl",
-      "macro_expr": "really.really.quite.useless"
+      "macro_expr": "really.really.quite.useless",
+      "end": 347,
+      "start": 313,
+      "line": 12
     },
     "children": [{
-      "name": "id",
+      "name": "expr",
       "attributes": {
-        "symbol": "really.really.quite.useless",
         "end": 340,
-        "line": 12,
+        "file": "macros.utl",
         "start": 313,
-        "file": "macros.utl"
-      }
+        "operator": ".",
+        "line": 12
+      },
+      "children": [{
+        "name": "id",
+        "attributes": {
+          "symbol": "really",
+          "file": "macros.utl",
+          "end": 319,
+          "start": 313,
+          "line": 12
+        }
+      }, {
+        "name": "expr",
+        "attributes": {
+          "end": 340,
+          "file": "macros.utl",
+          "start": 320,
+          "operator": ".",
+          "line": 12
+        },
+        "children": [{
+          "name": "id",
+          "attributes": {
+            "symbol": "really",
+            "file": "macros.utl",
+            "end": 326,
+            "start": 320,
+            "line": 12
+          }
+        }, {
+          "name": "expr",
+          "attributes": {
+            "end": 340,
+            "file": "macros.utl",
+            "start": 327,
+            "operator": ".",
+            "line": 12
+          },
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "symbol": "quite",
+              "file": "macros.utl",
+              "end": 332,
+              "start": 327,
+              "line": 12
+            }
+          }, {
+            "name": "id",
+            "attributes": {
+              "symbol": "useless",
+              "file": "macros.utl",
+              "end": 340,
+              "start": 333,
+              "line": 12
+            }
+          }]
+        }]
+      }]
     }, {
       "name": "arg_list",
       "attributes": {
+        "file": "macros.utl",
         "end": 346,
-        "line": 12,
         "start": 341,
-        "file": "macros.utl"
+        "line": 12
       },
       "children": [{
         "name": "arg",
         "attributes": {
+          "file": "macros.utl",
           "end": 346,
-          "line": 12,
           "start": 341,
-          "file": "macros.utl"
+          "line": 12
         },
         "children": [{
           "name": "literal",
           "attributes": {
-            "end": 346,
+            "type": "string",
             "value": "php",
-            "line": 12,
+            "end": 346,
             "start": 341,
+            "line": 12,
             "file": "macros.utl"
           }
         }]
@@ -490,80 +554,83 @@
   }, {
     "name": "macro_call",
     "attributes": {
-      "end": 362,
-      "line": 13,
-      "start": 349,
       "file": "macros.utl",
-      "macro_expr": "wilma"
+      "macro_expr": "wilma",
+      "end": 363,
+      "start": 349,
+      "line": 13
     },
     "children": [{
       "name": "id",
       "attributes": {
         "symbol": "wilma",
+        "file": "macros.utl",
         "end": 354,
-        "line": 13,
         "start": 349,
-        "file": "macros.utl"
+        "line": 13
       }
     }, {
       "name": "arg_list",
       "attributes": {
+        "file": "macros.utl",
         "end": 362,
-        "line": 13,
-        "start": 361,
-        "file": "macros.utl"
+        "start": 355,
+        "line": 13
       },
       "children": [{
         "name": "arg",
         "attributes": {
+          "file": "macros.utl",
           "end": 356,
-          "line": 13,
           "start": 355,
-          "file": "macros.utl"
+          "line": 13
         },
         "children": [{
           "name": "literal",
           "attributes": {
-            "end": 356,
+            "type": "number",
             "value": 1.0,
-            "line": 13,
+            "end": 356,
             "start": 355,
+            "line": 13,
             "file": "macros.utl"
           }
         }]
       }, {
         "name": "arg",
         "attributes": {
+          "file": "macros.utl",
           "end": 359,
-          "line": 13,
           "start": 358,
-          "file": "macros.utl"
+          "line": 13
         },
         "children": [{
           "name": "literal",
           "attributes": {
-            "end": 359,
+            "type": "number",
             "value": 2.0,
-            "line": 13,
+            "end": 359,
             "start": 358,
+            "line": 13,
             "file": "macros.utl"
           }
         }]
       }, {
         "name": "arg",
         "attributes": {
+          "file": "macros.utl",
           "end": 362,
-          "line": 13,
           "start": 361,
-          "file": "macros.utl"
+          "line": 13
         },
         "children": [{
           "name": "literal",
           "attributes": {
-            "end": 362,
+            "type": "number",
             "value": 3.0,
-            "line": 13,
+            "end": 362,
             "start": 361,
+            "line": 13,
             "file": "macros.utl"
           }
         }]
@@ -572,63 +639,62 @@
   }, {
     "name": "macro_defn",
     "attributes": {
-      "name": "empty_but_legal",
+      "file": "macros.utl",
       "end": 392,
-      "line": 16,
       "start": 366,
-      "file": "macros.utl"
+      "line": 15
     },
     "children": [{
       "name": "macro_decl",
       "attributes": {
+        "file": "macros.utl",
         "name": "empty_but_legal",
         "end": 387,
-        "line": 15,
         "start": 366,
-        "file": "macros.utl"
+        "line": 15
       }
     }]
   }, {
     "name": "macro_defn",
     "attributes": {
-      "name": "fairly.useless",
+      "file": "macros.utl",
       "end": 442,
-      "line": 20,
       "start": 395,
-      "file": "macros.utl"
+      "line": 18
     },
     "children": [{
       "name": "macro_decl",
       "attributes": {
+        "file": "macros.utl",
         "name": "fairly.useless",
-        "end": 415,
-        "line": 18,
+        "end": 417,
         "start": 395,
-        "file": "macros.utl"
+        "line": 18
       }
     }, {
       "name": "statement_list",
       "attributes": {
-        "end": 442,
-        "line": 20,
-        "start": 439,
-        "file": "macros.utl"
+        "file": "macros.utl",
+        "end": 435,
+        "start": 421,
+        "line": 19
       },
       "children": [{
         "name": "echo",
         "attributes": {
+          "file": "macros.utl",
           "end": 435,
-          "line": 19,
-          "start": 426,
-          "file": "macros.utl"
+          "start": 421,
+          "line": 19
         },
         "children": [{
           "name": "literal",
           "attributes": {
-            "end": 435,
+            "type": "string",
             "value": "useless",
-            "line": 19,
+            "end": 435,
             "start": 426,
+            "line": 19,
             "file": "macros.utl"
           }
         }]
@@ -637,64 +703,63 @@
   }, {
     "name": "macro_defn",
     "attributes": {
-      "name": "really.really.quite.useless",
+      "file": "macros.utl",
       "end": 504,
-      "line": 24,
       "start": 445,
-      "file": "macros.utl"
+      "line": 22
     },
     "children": [{
       "name": "macro_decl",
       "attributes": {
+        "file": "macros.utl",
         "name": "really.really.quite.useless",
-        "end": 483,
-        "line": 22,
+        "end": 484,
         "start": 445,
-        "file": "macros.utl"
+        "line": 22
       },
       "children": [{
         "name": "param_list",
         "attributes": {
+          "file": "macros.utl",
           "end": 483,
-          "line": 22,
           "start": 479,
-          "file": "macros.utl"
+          "line": 22
         },
         "children": [{
           "name": "param_decl",
           "attributes": {
+            "file": "macros.utl",
             "name": "arg1",
             "end": 483,
-            "line": 22,
             "start": 479,
-            "file": "macros.utl"
+            "line": 22
           }
         }]
       }]
     }, {
       "name": "statement_list",
       "attributes": {
-        "end": 504,
-        "line": 24,
-        "start": 501,
-        "file": "macros.utl"
+        "file": "macros.utl",
+        "end": 497,
+        "start": 488,
+        "line": 23
       },
       "children": [{
         "name": "echo",
         "attributes": {
+          "file": "macros.utl",
           "end": 497,
-          "line": 23,
-          "start": 493,
-          "file": "macros.utl"
+          "start": 488,
+          "line": 23
         },
         "children": [{
           "name": "id",
           "attributes": {
             "symbol": "arg1",
+            "file": "macros.utl",
             "end": 497,
-            "line": 23,
             "start": 493,
-            "file": "macros.utl"
+            "line": 23
           }
         }]
       }]
@@ -702,119 +767,119 @@
   }, {
     "name": "macro_defn",
     "attributes": {
-      "name": "multi_arguments",
+      "file": "macros.utl",
       "end": 585,
-      "line": 28,
       "start": 507,
-      "file": "macros.utl"
+      "line": 26
     },
     "children": [{
       "name": "macro_decl",
       "attributes": {
+        "file": "macros.utl",
         "name": "multi_arguments",
-        "end": 557,
-        "line": 26,
+        "end": 558,
         "start": 507,
-        "file": "macros.utl"
+        "line": 26
       },
       "children": [{
         "name": "param_list",
         "attributes": {
+          "file": "macros.utl",
           "end": 557,
-          "line": 26,
-          "start": 553,
-          "file": "macros.utl"
+          "start": 529,
+          "line": 26
         },
         "children": [{
           "name": "param_decl",
           "attributes": {
+            "file": "macros.utl",
             "name": "arg1",
             "end": 533,
-            "line": 26,
             "start": 529,
-            "file": "macros.utl"
+            "line": 26
           }
         }, {
           "name": "param_decl",
           "attributes": {
+            "file": "macros.utl",
             "name": "arg2",
             "end": 539,
-            "line": 26,
             "start": 535,
-            "file": "macros.utl"
+            "line": 26
           }
         }, {
           "name": "param_decl",
           "attributes": {
+            "file": "macros.utl",
             "name": "arg3",
             "end": 551,
-            "file": "macros.utl",
-            "default": {
-              "name": "literal",
-              "attributes": {
-                "end": 551,
-                "value": "false",
-                "line": 26,
-                "start": 546,
-                "file": "macros.utl"
-              }
-            },
-            "line": 26,
-            "start": 546
-          }
+            "start": 541,
+            "line": 26
+          },
+          "children": [{
+            "name": "literal",
+            "attributes": {
+              "type": "boolean",
+              "value": false,
+              "end": 551,
+              "start": 546,
+              "line": 26,
+              "file": "macros.utl"
+            }
+          }]
         }, {
           "name": "param_decl",
           "attributes": {
+            "file": "macros.utl",
             "name": "arg4",
             "end": 557,
-            "line": 26,
             "start": 553,
-            "file": "macros.utl"
+            "line": 26
           }
         }]
       }]
     }, {
       "name": "statement_list",
       "attributes": {
-        "end": 585,
-        "line": 28,
-        "start": 582,
-        "file": "macros.utl"
+        "file": "macros.utl",
+        "end": 578,
+        "start": 562,
+        "line": 27
       },
       "children": [{
         "name": "echo",
         "attributes": {
+          "file": "macros.utl",
           "end": 578,
-          "line": 27,
-          "start": 574,
-          "file": "macros.utl"
+          "start": 562,
+          "line": 27
         },
         "children": [{
           "name": "expr",
           "attributes": {
-            "operator": "+",
             "end": 578,
-            "line": 27,
-            "start": 574,
-            "file": "macros.utl"
+            "file": "macros.utl",
+            "start": 567,
+            "operator": "+",
+            "line": 27
           },
           "children": [{
             "name": "id",
             "attributes": {
               "symbol": "arg1",
+              "file": "macros.utl",
               "end": 571,
-              "line": 27,
               "start": 567,
-              "file": "macros.utl"
+              "line": 27
             }
           }, {
             "name": "id",
             "attributes": {
               "symbol": "arg2",
+              "file": "macros.utl",
               "end": 578,
-              "line": 27,
               "start": 574,
-              "file": "macros.utl"
+              "line": 27
             }
           }]
         }]
@@ -823,369 +888,407 @@
   }, {
     "name": "macro_defn",
     "attributes": {
-      "name": "core_base_library_relatedAssets",
+      "file": "macros.utl",
       "end": 993,
-      "line": 41,
       "start": 588,
-      "file": "macros.utl"
+      "line": 30
     },
     "children": [{
       "name": "macro_decl",
       "attributes": {
+        "file": "macros.utl",
         "name": "core_base_library_relatedAssets",
-        "end": 942,
-        "line": 37,
+        "end": 943,
         "start": 588,
-        "file": "macros.utl"
+        "line": 30
       },
       "children": [{
         "name": "param_list",
         "attributes": {
+          "file": "macros.utl",
           "end": 942,
-          "line": 37,
-          "start": 937,
-          "file": "macros.utl"
+          "start": 631,
+          "line": 31
         },
         "children": [{
           "name": "param_decl",
           "attributes": {
-            "name": "types",
-            "end": 919,
             "file": "macros.utl",
-            "default": {
-              "name": "literal",
-              "attributes": {
-                "end": 919,
-                "value": {
-                  "name": "array_literal",
-                  "attributes": {
-                    "end": 919,
-                    "line": 37,
-                    "start": 918,
-                    "file": "macros.utl"
-                  },
-                  "children": [{
-                    "name": "array_elems",
-                    "attributes": {
-                      "end": 656,
-                      "line": 32,
-                      "start": 647,
-                      "file": "macros.utl"
-                    },
-                    "children": [{
-                      "name": "literal",
-                      "attributes": {
-                        "end": 656,
-                        "value": "article",
-                        "line": 32,
-                        "start": 647,
-                        "file": "macros.utl"
-                      }
-                    }, {
-                      "name": "literal",
-                      "attributes": {
-                        "end": 664,
-                        "value": "image",
-                        "line": 32,
-                        "start": 657,
-                        "file": "macros.utl"
-                      }
-                    }, {
-                      "name": "literal",
-                      "attributes": {
-                        "end": 670,
-                        "value": "pdf",
-                        "line": 32,
-                        "start": 665,
-                        "file": "macros.utl"
-                      }
-                    }, {
-                      "name": "literal",
-                      "attributes": {
-                        "end": 676,
-                        "value": "zip",
-                        "line": 32,
-                        "start": 671,
-                        "file": "macros.utl"
-                      }
-                    }, {
-                      "name": "literal",
-                      "attributes": {
-                        "end": 684,
-                        "value": "audio",
-                        "line": 32,
-                        "start": 677,
-                        "file": "macros.utl"
-                      }
-                    }, {
-                      "name": "literal",
-                      "attributes": {
-                        "end": 691,
-                        "value": "link",
-                        "line": 32,
-                        "start": 685,
-                        "file": "macros.utl"
-                      }
-                    }, {
-                      "name": "literal",
-                      "attributes": {
-                        "end": 699,
-                        "value": "flash",
-                        "line": 32,
-                        "start": 692,
-                        "file": "macros.utl"
-                      }
-                    }, {
-                      "name": "literal",
-                      "attributes": {
-                        "end": 706,
-                        "value": "html",
-                        "line": 32,
-                        "start": 700,
-                        "file": "macros.utl"
-                      }
-                    }, {
-                      "name": "literal",
-                      "attributes": {
-                        "end": 713,
-                        "value": "poll",
-                        "line": 32,
-                        "start": 707,
-                        "file": "macros.utl"
-                      }
-                    }, {
-                      "name": "literal",
-                      "attributes": {
-                        "end": 726,
-                        "value": "collection",
-                        "line": 32,
-                        "start": 714,
-                        "file": "macros.utl"
-                      }
-                    }, {
-                      "name": "literal",
-                      "attributes": {
-                        "end": 734,
-                        "value": "table",
-                        "line": 32,
-                        "start": 727,
-                        "file": "macros.utl"
-                      }
-                    }, {
-                      "name": "literal",
-                      "attributes": {
-                        "end": 742,
-                        "value": "video",
-                        "line": 32,
-                        "start": 735,
-                        "file": "macros.utl"
-                      }
-                    }, {
-                      "name": "literal",
-                      "attributes": {
-                        "end": 752,
-                        "value": "youtube",
-                        "line": 32,
-                        "start": 743,
-                        "file": "macros.utl"
-                      }
-                    }, {
-                      "name": "literal",
-                      "attributes": {
-                        "end": 759,
-                        "value": "vmix",
-                        "line": 32,
-                        "start": 753,
-                        "file": "macros.utl"
-                      }
-                    }, {
-                      "name": "literal",
-                      "attributes": {
-                        "end": 781,
-                        "value": "highlights",
-                        "line": 33,
-                        "start": 769,
-                        "file": "macros.utl"
-                      }
-                    }, {
-                      "name": "literal",
-                      "attributes": {
-                        "end": 789,
-                        "value": "quote",
-                        "line": 33,
-                        "start": 782,
-                        "file": "macros.utl"
-                      }
-                    }, {
-                      "name": "literal",
-                      "attributes": {
-                        "end": 797,
-                        "value": "refer",
-                        "line": 33,
-                        "start": 790,
-                        "file": "macros.utl"
-                      }
-                    }, {
-                      "name": "literal",
-                      "attributes": {
-                        "end": 806,
-                        "value": "update",
-                        "line": 33,
-                        "start": 798,
-                        "file": "macros.utl"
-                      }
-                    }, {
-                      "name": "literal",
-                      "attributes": {
-                        "end": 819,
-                        "value": "correction",
-                        "line": 33,
-                        "start": 807,
-                        "file": "macros.utl"
-                      }
-                    }, {
-                      "name": "literal",
-                      "attributes": {
-                        "end": 833,
-                        "value": "ad",
-                        "line": 34,
-                        "start": 829,
-                        "file": "macros.utl"
-                      }
-                    }, {
-                      "name": "literal",
-                      "attributes": {
-                        "end": 842,
-                        "value": "coupon",
-                        "line": 34,
-                        "start": 834,
-                        "file": "macros.utl"
-                      }
-                    }, {
-                      "name": "literal",
-                      "attributes": {
-                        "end": 857,
-                        "value": "pdfdisplayad",
-                        "line": 34,
-                        "start": 843,
-                        "file": "macros.utl"
-                      }
-                    }, {
-                      "name": "literal",
-                      "attributes": {
-                        "end": 870,
-                        "value": "realestate",
-                        "line": 34,
-                        "start": 858,
-                        "file": "macros.utl"
-                      }
-                    }, {
-                      "name": "literal",
-                      "attributes": {
-                        "end": 880,
-                        "value": "vehicle",
-                        "line": 34,
-                        "start": 871,
-                        "file": "macros.utl"
-                      }
-                    }, {
-                      "name": "literal",
-                      "attributes": {
-                        "end": 900,
-                        "value": "business",
-                        "line": 35,
-                        "start": 890,
-                        "file": "macros.utl"
-                      }
-                    }, {
-                      "name": "literal",
-                      "attributes": {
-                        "end": 917,
-                        "value": "event",
-                        "line": 36,
-                        "start": 910,
-                        "file": "macros.utl"
-                      }
-                    }]
-                  }]
-                },
-                "line": 37,
-                "start": 918,
-                "file": "macros.utl"
-              }
+            "name": "types",
+            "end": 924,
+            "start": 631,
+            "line": 31
+          },
+          "children": [{
+            "name": "array_literal",
+            "attributes": {
+              "type": "array",
+              "value": "[...]",
+              "end": 924,
+              "start": 637,
+              "line": 31,
+              "file": "macros.utl"
             },
-            "line": 37,
-            "start": 918
-          }
+            "children": [{
+              "name": "array_elems",
+              "attributes": {
+                "file": "macros.utl",
+                "end": 917,
+                "start": 647,
+                "line": 32
+              },
+              "children": [{
+                "name": "literal",
+                "attributes": {
+                  "type": "string",
+                  "value": "article",
+                  "end": 656,
+                  "start": 647,
+                  "line": 32,
+                  "file": "macros.utl"
+                }
+              }, {
+                "name": "literal",
+                "attributes": {
+                  "type": "string",
+                  "value": "image",
+                  "end": 664,
+                  "start": 657,
+                  "line": 32,
+                  "file": "macros.utl"
+                }
+              }, {
+                "name": "literal",
+                "attributes": {
+                  "type": "string",
+                  "value": "pdf",
+                  "end": 670,
+                  "start": 665,
+                  "line": 32,
+                  "file": "macros.utl"
+                }
+              }, {
+                "name": "literal",
+                "attributes": {
+                  "type": "string",
+                  "value": "zip",
+                  "end": 676,
+                  "start": 671,
+                  "line": 32,
+                  "file": "macros.utl"
+                }
+              }, {
+                "name": "literal",
+                "attributes": {
+                  "type": "string",
+                  "value": "audio",
+                  "end": 684,
+                  "start": 677,
+                  "line": 32,
+                  "file": "macros.utl"
+                }
+              }, {
+                "name": "literal",
+                "attributes": {
+                  "type": "string",
+                  "value": "link",
+                  "end": 691,
+                  "start": 685,
+                  "line": 32,
+                  "file": "macros.utl"
+                }
+              }, {
+                "name": "literal",
+                "attributes": {
+                  "type": "string",
+                  "value": "flash",
+                  "end": 699,
+                  "start": 692,
+                  "line": 32,
+                  "file": "macros.utl"
+                }
+              }, {
+                "name": "literal",
+                "attributes": {
+                  "type": "string",
+                  "value": "html",
+                  "end": 706,
+                  "start": 700,
+                  "line": 32,
+                  "file": "macros.utl"
+                }
+              }, {
+                "name": "literal",
+                "attributes": {
+                  "type": "string",
+                  "value": "poll",
+                  "end": 713,
+                  "start": 707,
+                  "line": 32,
+                  "file": "macros.utl"
+                }
+              }, {
+                "name": "literal",
+                "attributes": {
+                  "type": "string",
+                  "value": "collection",
+                  "end": 726,
+                  "start": 714,
+                  "line": 32,
+                  "file": "macros.utl"
+                }
+              }, {
+                "name": "literal",
+                "attributes": {
+                  "type": "string",
+                  "value": "table",
+                  "end": 734,
+                  "start": 727,
+                  "line": 32,
+                  "file": "macros.utl"
+                }
+              }, {
+                "name": "literal",
+                "attributes": {
+                  "type": "string",
+                  "value": "video",
+                  "end": 742,
+                  "start": 735,
+                  "line": 32,
+                  "file": "macros.utl"
+                }
+              }, {
+                "name": "literal",
+                "attributes": {
+                  "type": "string",
+                  "value": "youtube",
+                  "end": 752,
+                  "start": 743,
+                  "line": 32,
+                  "file": "macros.utl"
+                }
+              }, {
+                "name": "literal",
+                "attributes": {
+                  "type": "string",
+                  "value": "vmix",
+                  "end": 759,
+                  "start": 753,
+                  "line": 32,
+                  "file": "macros.utl"
+                }
+              }, {
+                "name": "literal",
+                "attributes": {
+                  "type": "string",
+                  "value": "highlights",
+                  "end": 781,
+                  "start": 769,
+                  "line": 33,
+                  "file": "macros.utl"
+                }
+              }, {
+                "name": "literal",
+                "attributes": {
+                  "type": "string",
+                  "value": "quote",
+                  "end": 789,
+                  "start": 782,
+                  "line": 33,
+                  "file": "macros.utl"
+                }
+              }, {
+                "name": "literal",
+                "attributes": {
+                  "type": "string",
+                  "value": "refer",
+                  "end": 797,
+                  "start": 790,
+                  "line": 33,
+                  "file": "macros.utl"
+                }
+              }, {
+                "name": "literal",
+                "attributes": {
+                  "type": "string",
+                  "value": "update",
+                  "end": 806,
+                  "start": 798,
+                  "line": 33,
+                  "file": "macros.utl"
+                }
+              }, {
+                "name": "literal",
+                "attributes": {
+                  "type": "string",
+                  "value": "correction",
+                  "end": 819,
+                  "start": 807,
+                  "line": 33,
+                  "file": "macros.utl"
+                }
+              }, {
+                "name": "literal",
+                "attributes": {
+                  "type": "string",
+                  "value": "ad",
+                  "end": 833,
+                  "start": 829,
+                  "line": 34,
+                  "file": "macros.utl"
+                }
+              }, {
+                "name": "literal",
+                "attributes": {
+                  "type": "string",
+                  "value": "coupon",
+                  "end": 842,
+                  "start": 834,
+                  "line": 34,
+                  "file": "macros.utl"
+                }
+              }, {
+                "name": "literal",
+                "attributes": {
+                  "type": "string",
+                  "value": "pdfdisplayad",
+                  "end": 857,
+                  "start": 843,
+                  "line": 34,
+                  "file": "macros.utl"
+                }
+              }, {
+                "name": "literal",
+                "attributes": {
+                  "type": "string",
+                  "value": "realestate",
+                  "end": 870,
+                  "start": 858,
+                  "line": 34,
+                  "file": "macros.utl"
+                }
+              }, {
+                "name": "literal",
+                "attributes": {
+                  "type": "string",
+                  "value": "vehicle",
+                  "end": 880,
+                  "start": 871,
+                  "line": 34,
+                  "file": "macros.utl"
+                }
+              }, {
+                "name": "literal",
+                "attributes": {
+                  "type": "string",
+                  "value": "business",
+                  "end": 900,
+                  "start": 890,
+                  "line": 35,
+                  "file": "macros.utl"
+                }
+              }, {
+                "name": "literal",
+                "attributes": {
+                  "type": "string",
+                  "value": "event",
+                  "end": 917,
+                  "start": 910,
+                  "line": 36,
+                  "file": "macros.utl"
+                }
+              }]
+            }]
+          }]
         }, {
           "name": "param_decl",
           "attributes": {
+            "file": "macros.utl",
             "name": "asset",
             "end": 942,
-            "file": "macros.utl",
-            "default": {
+            "start": 926,
+            "line": 37
+          },
+          "children": [{
+            "name": "expr",
+            "attributes": {
+              "end": 942,
+              "file": "macros.utl",
+              "start": 932,
+              "operator": ".",
+              "line": 37
+            },
+            "children": [{
               "name": "id",
               "attributes": {
-                "symbol": "this.asset",
-                "end": 942,
-                "line": 37,
+                "symbol": "this",
+                "file": "macros.utl",
+                "end": 936,
                 "start": 932,
-                "file": "macros.utl"
+                "line": 37
               }
-            },
-            "line": 37,
-            "start": 937
-          }
+            }, {
+              "name": "id",
+              "attributes": {
+                "symbol": "asset",
+                "file": "macros.utl",
+                "end": 942,
+                "start": 937,
+                "line": 37
+              }
+            }]
+          }]
         }]
       }]
     }, {
       "name": "statement_list",
       "attributes": {
-        "end": 993,
-        "line": 41,
-        "start": 990,
-        "file": "macros.utl"
+        "file": "macros.utl",
+        "end": 988,
+        "start": 949,
+        "line": 38
       },
       "children": [{
         "name": "if",
         "attributes": {
+          "file": "macros.utl",
           "end": 988,
-          "line": 40,
-          "start": 985,
-          "file": "macros.utl"
+          "start": 949,
+          "line": 38
         },
         "children": [{
           "name": "id",
           "attributes": {
             "symbol": "asset",
+            "file": "macros.utl",
             "end": 957,
-            "line": 38,
             "start": 952,
-            "file": "macros.utl"
+            "line": 38
           }
         }, {
           "name": "statement_list",
           "attributes": {
-            "end": 988,
-            "line": 40,
-            "start": 985,
-            "file": "macros.utl"
+            "file": "macros.utl",
+            "end": 979,
+            "start": 965,
+            "line": 39
           },
           "children": [{
             "name": "echo",
             "attributes": {
+              "file": "macros.utl",
               "end": 979,
-              "line": 39,
-              "start": 970,
-              "file": "macros.utl"
+              "start": 965,
+              "line": 39
             },
             "children": [{
               "name": "literal",
               "attributes": {
-                "end": 979,
+                "type": "string",
                 "value": "related",
-                "line": 39,
+                "end": 979,
                 "start": 970,
+                "line": 39,
                 "file": "macros.utl"
               }
             }]
@@ -1193,18 +1296,18 @@
         }, {
           "name": "elseif_stmts",
           "attributes": {
-            "end": 988,
-            "line": 40,
-            "start": 985,
-            "file": "macros.utl"
+            "file": "macros.utl",
+            "end": 0,
+            "start": 0,
+            "line": 38
           }
         }, {
           "name": "else",
           "attributes": {
-            "end": 988,
-            "line": 40,
-            "start": 985,
-            "file": "macros.utl"
+            "file": "macros.utl",
+            "end": 0,
+            "start": 0,
+            "line": 38
           }
         }]
       }]

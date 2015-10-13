@@ -3,7 +3,7 @@
   "attributes": {
     "line": 2,
     "start": 5,
-    "end": 692,
+    "end": 707,
     "file": "basic_assign.utl"
   },
   "children": [{
@@ -11,7 +11,7 @@
     "attributes": {
       "line": 2,
       "start": 5,
-      "end": 692,
+      "end": 707,
       "file": "basic_assign.utl"
     },
     "children": [{
@@ -2798,17 +2798,73 @@
     }, {
       "name": "statement",
       "attributes": {
-        "line": 35,
-        "start": 690,
-        "end": 691,
+        "end": 702,
+        "file": "basic_assign.utl",
+        "start": 691,
+        "line": 35
+      },
+      "children": [{
+        "name": "expr",
+        "attributes": {
+          "end": 702,
+          "file": "basic_assign.utl",
+          "operator": "=",
+          "start": 691,
+          "line": 35
+        },
+        "children": [{
+          "name": "expr",
+          "attributes": {
+            "end": 695,
+            "file": "basic_assign.utl",
+            "start": 691,
+            "line": 35
+          },
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "end": 695,
+              "file": "basic_assign.utl",
+              "start": 691,
+              "line": 35,
+              "symbol": "fred"
+            }
+          }]
+        }, {
+          "name": "expr",
+          "attributes": {
+            "end": 702,
+            "file": "basic_assign.utl",
+            "start": 698,
+            "line": 35
+          },
+          "children": [{
+            "name": "literal",
+            "attributes": {
+              "end": 702,
+              "type": "null",
+              "start": 698,
+              "line": 35,
+              "file": "basic_assign.utl",
+              "value": "null"
+            }
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement",
+      "attributes": {
+        "line": 36,
+        "start": 705,
+        "end": 706,
         "file": "basic_assign.utl"
       },
       "children": [{
         "name": "document",
         "attributes": {
-          "line": 35,
-          "start": 690,
-          "end": 691,
+          "line": 36,
+          "start": 705,
+          "end": 706,
           "text": "\n",
           "file": "basic_assign.utl"
         }

@@ -216,8 +216,14 @@ class UTLParseHandlerAST(UTLParseHandler):
 
     def include_stmt(self, parser, filename):
         attrs = parser.context
-        attrs["file"] = filename
-        return ASTNode('include', attrs, [])
+        if filename.symbol == 'literal':
+            attrs["file"] = filename.attributes["value"]
+            return ASTNode('include', attrs, [])
+        elif filename.symbol in ('expr', 'id', ):
+            attrs["file"] = "<expr>"
+            return ASTNode('include', attrs, [filename])
+        else:
+            raise UTLParseError("include statement argument not recognized: '{}'".format(filename))
 
     def literal(self, parser, literal):
         if isinstance(literal, ASTNode):
@@ -269,17 +275,16 @@ class UTLParseHandlerAST(UTLParseHandler):
     def param_decl(self, parser, param_id, default_value=None):
         attrs = parser.context
         attrs['name'] = param_id
-        if default_value is not None:
-            attrs['default'] = default_value
-        return ASTNode('param_decl', attrs, [])
+        return ASTNode('param_decl', attrs, [default_value] if default_value is not None else [])
 
     def param_list(self, parser, param_decl, param_list=None):
         assert param_decl is not None
-        if not param_list:  # first declaration processed
-            return ASTNode('param_list', parser.context, [param_decl])
-        else:
+        if param_list is not None:
+            param_list.attributes = parser.context
             param_list.add_first_child(param_decl)
             return param_list
+        else:
+            return ASTNode('param_list', parser.context, [param_decl])
 
     def paren_expr(self, parser, expr):
         # parentheses have already determined the parse tree structure

@@ -155,12 +155,8 @@ class ASTNode(object):
         elif self.symbol == 'document':
             result += repr(self._attributes['text'])
         elif self._attributes:
-            attrs = ''
-            for key in self._attributes:
-                if attrs:
-                    attrs += ', {}: {}'.format(key, repr(self._attributes[key]))
-                else:
-                    attrs = '{}: {}'.format(key, repr(self._attributes[key]))
+            attrs = ', '.join(["{}: {}".format(key, repr(value))
+                               for key, value in self._attributes.items()])
             result += " {%s}" % attrs
         return result
 

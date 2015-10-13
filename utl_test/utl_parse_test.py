@@ -70,8 +70,8 @@ class TestCaseUTL(unittest_plus.TestCasePlus):
         expected_kids = []
         if "children" in expected:
             expected_kids = [kid['name'] for kid in expected["children"]]
-        self.assertListEqual([kid.symbol for kid in node.children],
-                             expected_kids)
+        actual_kids =  [kid.symbol for kid in node.children]
+        self.assertListEqual(actual_kids, expected_kids)
         for index, child in enumerate(node.children):
             # try:
             self.assertMatchesJSON(child, expected['children'][index])
