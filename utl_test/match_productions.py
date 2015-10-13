@@ -25,8 +25,11 @@ def print_name(node, _):
     print(node["name"])
 
 def print_text(node, data):
-    print(node["name"] + ":  ", end='')
+    print(node["name"], end='')
     attrs = node["attributes"] if "attributes" in node else {}
+    if node["name"] == 'expr' and "operator" in node["attributes"]:
+        print('[{}] '.format(node["attributes"]["operator"]), end='')
+    print(":  ", end='')
     if "start" in attrs and "end" in attrs:
         print(data['text'][attrs["start"]:attrs["end"]])
     else:
