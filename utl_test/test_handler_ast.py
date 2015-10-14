@@ -11,7 +11,7 @@
 import os
 
 from utl_test import utl_parse_test
-from utl_lib.handler_ast import UTLParseHandlerAST
+from utl_lib.handler_ast import UTLParseHandlerAST, UTLParseError
 from utl_lib.utl_yacc import UTLParser
 from utl_lib.ast_node import ASTNode
 
@@ -104,6 +104,7 @@ class UTLParseHandlerASTTestCase(utl_parse_test.TestCaseUTL):
         parser.parse("[% a = b + c %]")
         handler.macro_decl(parser, "forbin")
         handler.paren_expr(parser, None)
+        self.assertRaises(UTLParseError, handler.literal, parser, 'fred')
 
 
 if __name__ == '__main__':

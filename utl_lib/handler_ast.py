@@ -145,9 +145,7 @@ class UTLParseHandlerAST(UTLParseHandler):
         return elseif_stmts
 
     def elseif_stmt(self, parser, expr, statement_list=None):
-        assert expr is not None
-        if statement_list is None:
-            statement_list = ASTNode('statement_list', parser.context, [])
+        assert expr is not None and statement_list is not None
         return ASTNode('elseif', parser.context, [expr, statement_list])
 
     def expr(self, parser, first, second=None, third=None):
@@ -191,13 +189,9 @@ class UTLParseHandlerAST(UTLParseHandler):
                        [expr, statement_list] if statement_list else [expr])
 
     def if_stmt(self, parser, expr, statement_list=None, elseif_stmts=None, else_stmt=None):
-        assert expr is not None
+        assert expr is not None and statement_list is not None
         # so 'if' node always looks same, create empty nodes for missing ones
         attrs = parser.context
-        if statement_list is None:
-            attrs["start"] = attrs["end"] = 0
-            statement_list = ASTNode("statement_list", attrs, [])
-            attrs = parser.context
         if elseif_stmts is None:
             attrs["start"] = attrs["end"] = 0
             elseif_stmts = ASTNode("elseif_stmts", attrs, [])
@@ -213,11 +207,8 @@ class UTLParseHandlerAST(UTLParseHandler):
         if filename.symbol == 'literal':
             attrs["file"] = filename.attributes["value"]
             return ASTNode('include', attrs, [])
-        elif filename.symbol in ('expr', 'id', ):
-            attrs["file"] = "<expr>"
-            return ASTNode('include', attrs, [filename])
-        else:
-            raise UTLParseError("include statement argument not recognized: '{}'".format(filename))
+        attrs["file"] = "<expr>"
+        return ASTNode('include', attrs, [filename])
 
     def literal(self, parser, literal):
         if isinstance(literal, ASTNode):
@@ -296,8 +287,5 @@ class UTLParseHandlerAST(UTLParseHandler):
         return ASTNode('literal', attrs, [])
 
     def while_stmt(self, parser, expr, statement_list=None):
-        if statement_list is None:
-            attrs = parser.context
-            attrs["start"] = attrs["end"] = 0
-            statement_list = ASTNode("statement_list", attrs, [])
+        assert statement_list is not None
         return ASTNode('while', parser.context, [expr, statement_list])
