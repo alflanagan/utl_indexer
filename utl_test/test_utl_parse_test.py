@@ -23,7 +23,6 @@ class TestCaseUTLTestCase(utl_parse_test.TestCaseUTL):
         """Unit test for :py:meth:`utl_indexer.test.utl_parse_test.TestCaseUTL.assertMatchesJSON`.
 
         """
-        self.assertEqual(5, 5)
         expected1 = {"name": "id", "attributes": {"symbol": "fred"}}
         node1 = ASTNode("id", {"symbol": "fred"}, [])
         self.assertMatchesJSON(node1, expected1)
@@ -34,6 +33,9 @@ class TestCaseUTLTestCase(utl_parse_test.TestCaseUTL):
                      "attributes": {"value": {"name": "literal",
                                               "attributes": {"value": 5}},},}
         self.assertMatchesJSON(node2, expected2)
+        expected3 = {"name": "fred"}
+        node3 = ASTNode('fred', {}, [])
+        self.assertMatchesJSON(node3, expected3)
 
     def test_assertJSONFileMatches(self):
         """Unit tests for
