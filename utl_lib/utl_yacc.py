@@ -216,6 +216,13 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         if end_p is None or end_p > len(p) - 1:
             end_p = start_p
 
+        if start_p > len(p) - 1:
+            # oops, null production
+            # self.end is already end of last production
+            # and our length is 0, so...
+            self.start = self.end
+            return
+
         first = p[start_p]
         second = p[end_p]
 
@@ -257,13 +264,12 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                 p[0] = value
 
     def p_statement_list(self, p):
-        ''' statement_list : statement
+        ''' statement_list :
+                           | statement
                            | statement statement_list'''
-        if p[1] is None and self._(p, 2) is None:
-            return
         self.__set_ctxt(p, 1, 2)
         for handler in self.handlers:
-            value = handler.statement_list(self, p[1], self._(p, 2))
+            value = handler.statement_list(self, self._(p, 1), self._(p, 2))
             if p[0] is None:
                 p[0] = value
 
@@ -491,14 +497,10 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                 p[0] = value
 
     def p_if_stmt(self, p):
-        '''if_stmt : IF expr eostmt statement_list elseif_stmts else_stmt END
-                   | IF expr eostmt elseif_stmts else_stmt END'''
-        self.__set_ctxt(p, 1, len(p) - 1)
+        '''if_stmt : IF expr eostmt statement_list elseif_stmts else_stmt END'''
+        self.__set_ctxt(p, 1, 7)
         for handler in self.handlers:
-            if len(p) == 8:
-                value = handler.if_stmt(self, p[2], p[4], p[5], p[6])
-            else:
-                value = handler.if_stmt(self, p[2], None, p[4], p[5])
+            value = handler.if_stmt(self, p[2], p[4], p[5], p[6])
             if p[0] is None:
                 p[0] = value
 
@@ -546,11 +548,10 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                 p[0] = value
 
     def p_macro_defn(self, p):
-        '''macro_defn : macro_decl eostmt statement_list END
-                      | macro_decl eostmt END'''
-        self.__set_ctxt(p, 1, len(p) - 1)
+        '''macro_defn : macro_decl eostmt statement_list END'''
+        self.__set_ctxt(p, 1, 4)
         for handler in self.handlers:
-            value = handler.macro_defn(self, p[1], p[3] if p[3] != 'end' else None)
+            value = handler.macro_defn(self, p[1], p[3])
             if p[0] is None:
                 p[0] = value
 

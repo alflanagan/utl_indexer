@@ -239,8 +239,12 @@ class UTLParserTestCase(utl_parse_test.TestCaseUTL):
         parser = UTLParser([handler], debug=False)
         utl_doc = parser.parse('', filename='empty.utl')
         self.assertEqual(utl_doc.symbol, 'utldoc')
-        self.assertSequenceEqual(utl_doc.children, [])
+        self.assertEqual(len(utl_doc.children), 1)
+        self.assertEqual(utl_doc.children[0].symbol, 'statement_list')
+        self.assertEqual(len(utl_doc.children[0].children), 0)
         self.assertDictEqual(dict(utl_doc.attributes),
+                             {'end': 1, 'file': 'empty.utl', 'start': 1, 'line': 1})
+        self.assertDictEqual(dict(utl_doc.children[0].attributes),
                              {'end': 1, 'file': 'empty.utl', 'start': 1, 'line': 1})
 
     def test_restart(self):
