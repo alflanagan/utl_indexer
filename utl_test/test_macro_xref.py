@@ -184,7 +184,7 @@ end; %]"""
 
     # pylint:disable=line-too-long
     test_json_1 = {"name": "statement_list",
-                   "attributes": {"end": 74, "start": 3, "file": "macros.utl", "line": 1},
+                   "attributes": {"end": 77, "start": 3, "file": "macros.utl", "line": 1},
                    "children": [
                        {"name": "macro_defn",
                         "attributes": {"end": 72, "start": 3, "file": "macros.utl", "line": 1},

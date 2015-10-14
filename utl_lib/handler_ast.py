@@ -9,7 +9,7 @@
 
 """
 from utl_lib.ast_node import ASTNode
-from utl_lib.utl_parse_handler import UTLParseHandler, FrozenDict, UTLParseError
+from utl_lib.utl_parse_handler import UTLParseHandler, UTLParseError
 from utl_lib.utl_lex import UTLLexer
 # pylint: disable=too-many-public-methods,missing-docstring
 
@@ -41,19 +41,12 @@ class UTLParseHandlerAST(UTLParseHandler):
         return statement_list
 
     def statement_list(self, parser, statement=None, statement_list=None):
-        assert statement is not None or statement_list is not None
         if statement_list is None:
-            return ASTNode('statement_list', parser.context, [statement])
+            return ASTNode('statement_list', parser.context,
+                           [statement] if statement is not None else [])
         assert statement_list.symbol == 'statement_list'
-        attrs = dict(statement_list.attributes)
-        attrs['start'] = min(statement_list.attributes['start'],
-                             parser.context['start'])
-        attrs['line'] = min(statement_list.attributes['line'],
-                            parser.context['line'])
-        attrs['end'] = max(statement_list.attributes['end'],
-                           parser.context['end'])
-        statement_list.attributes = FrozenDict(attrs)
         if statement is not None:
+            statement_list.attributes = parser.context
             statement_list.add_first_child(statement)
         return statement_list
 
@@ -129,7 +122,7 @@ class UTLParseHandlerAST(UTLParseHandler):
             isinstance(id_suffix, ASTNode)
             attrs = dict(id_suffix.attributes)
             attrs['symbol'] = this_id + '.' + attrs['symbol']
-            id_suffix.attributes = FrozenDict(attrs)
+            id_suffix.attributes = attrs
             return id_suffix
         attrs = parser.context
         attrs['symbol'] = this_id
@@ -145,9 +138,10 @@ class UTLParseHandlerAST(UTLParseHandler):
     def elseif_stmts(self, parser, elseif_stmt, elseif_stmts=None):
         assert elseif_stmt is not None
         if elseif_stmts is not None:
+            elseif_stmts.attributes = parser.context
             elseif_stmts.add_first_child(elseif_stmt)
         else:
-            elseif_stmts = ASTNode('elseif_stmts', parser.context, [elseif_stmt])
+            elseif_stmts = ASTNode('elseif_stmts', elseif_stmt.attributes, [elseif_stmt])
         return elseif_stmts
 
     def elseif_stmt(self, parser, expr, statement_list=None):

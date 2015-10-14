@@ -171,6 +171,14 @@ class UTLParserTestCase(utl_parse_test.TestCaseUTL):
         """
         self.assertJSONFileMatches('unary_exprs.utl', 'unary_exprs.json')
 
+
+    def test_empty_stmts(self):
+        """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with control structures
+        with empty statement lists.
+
+        """
+        self.assertJSONFileMatches('empty_stmts.utl', 'empty_stmts.json')
+
     def test_syntax_error(self):
         """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with invalid syntax."""
         handler = UTLParseHandlerParseTree(exception_on_error=True)

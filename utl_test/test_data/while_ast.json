@@ -48,7 +48,7 @@
         "file": "while.utl",
         "end": 37,
         "line": 1,
-        "start": 20
+        "start": 22
       },
       "children": [{
         "name": "document",
@@ -83,9 +83,9 @@
       "name": "statement_list",
       "attributes": {
         "file": "while.utl",
-        "end": 0,
+        "end": 56,
         "line": 4,
-        "start": 0
+        "start": 56
       }
     }]
   }, {

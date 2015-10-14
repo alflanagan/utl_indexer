@@ -89,6 +89,13 @@ class UTLParseHandlerASTTestCase(utl_parse_test.TestCaseUTL):
         """
         self.assertJSONFileMatches('precedence.utl', 'precedence_ast.json')
 
+    def test_empty_stmts(self):
+        """Unit test :py:meth:`utl_lib.handler_ast.UTLParseHandlerAST` with control structures
+        with empty statement lists.
+
+        """
+        self.assertJSONFileMatches('empty_stmts.utl', 'empty_stmts_ast.json')
+
     def test_special(self):
         """A couple of method calls to exercise specific cases."""
         # call to macro_decl() with string for macro name

@@ -1,0 +1,10 @@
+[% if a == b;
+elseif d == c;
+else;
+end;
+for each kids as kid;
+end;
+while e == f;
+end;
+macro g;
+end %]

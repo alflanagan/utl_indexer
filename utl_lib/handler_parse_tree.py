@@ -2,7 +2,7 @@
 """A parse handler to construct a parse tree from a UTL document."""
 
 from utl_lib.ast_node import ASTNode
-from utl_lib.utl_parse_handler import UTLParseHandler, FrozenDict
+from utl_lib.utl_parse_handler import UTLParseHandler
 from utl_lib.utl_lex import UTLLexer
 # pylint: disable=too-many-public-methods,missing-docstring
 
@@ -37,7 +37,7 @@ class UTLParseHandlerParseTree(UTLParseHandler):
             if statement is not None:
                 # yes, this seems weird. but UTLParser is updating context as it sees more
                 # statments
-                statement_list.attributes = FrozenDict(parser.context)
+                statement_list.attributes = parser.context
                 statement_list.add_first_child(statement)
             return statement_list
 
@@ -130,7 +130,7 @@ class UTLParseHandlerParseTree(UTLParseHandler):
         attrs = parser.context
         if id_suffix:
             attrs["symbol"] = this_id + '.' + id_suffix.attributes['symbol']
-            id_suffix.attributes = FrozenDict(attrs)
+            id_suffix.attributes = attrs
             return id_suffix
         attrs["symbol"] = this_id
         return ASTNode('id', attrs, [])
@@ -148,7 +148,7 @@ class UTLParseHandlerParseTree(UTLParseHandler):
             elseif_stmts.attributes = parser.context
             elseif_stmts.add_first_child(elseif_stmt)
         else:
-            elseif_stmts = ASTNode('elseif_stmts', parser.context, [elseif_stmt])
+            elseif_stmts = ASTNode('elseif_stmts', elseif_stmt.attributes, [elseif_stmt])
         return elseif_stmts
 
     def elseif_stmt(self, parser, expr, statement_list=None):
