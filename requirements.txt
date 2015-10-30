@@ -4,5 +4,5 @@
 #
 #    pip-compile requirements.in
 #
-ply==3.6
-requests==2.7.0
+ply==3.8
+requests==2.8.1
