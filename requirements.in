@@ -2,11 +2,11 @@
 #     pip install -r requirements.txt
 #
 # For development:
-# To updated versions of third-party packages to latest:
+# To update versions of third-party packages to latest:
 #     pip-compile
 #     pip-compile dev-requirements.in
 #     pip-compile emacs-requirements.in  # <- optional
-# To install third-party packages for development (and optionally emacas)
+# To install third-party packages for development (and optionally emacs)
 #     pip-sync requirements.txt dev-requirements.txt # emacs-requirements.txt
 #
 # see https://github.com/nvie/pip-tools
