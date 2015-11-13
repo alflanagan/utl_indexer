@@ -158,6 +158,17 @@ class UTLParseHandlerParseTree(UTLParseHandler):
             statement_list = ASTNode('statement_list', {}, [])
         return ASTNode('elseif_stmt', parser.context, [expr, statement_list])
 
+    def error(self, parser, p):
+        if len(parser.symstack) >= 4:
+            symtypes = [sym.type for sym in parser.symstack[-3:]]
+            if symtypes == ["expr", "ASSIGN", "expr"]:
+                # effectively 3 pops() and a push('expr')
+                parser.symstack.pop()
+                parser.symstack.pop()
+                parser.symstack.append(p)
+                return
+        super().error(parser, p)
+
     def expr(self, parser, first, second=None, third=None):
         """An expression production
 

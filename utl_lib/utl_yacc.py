@@ -102,6 +102,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         return self.parser.parse(input=input_text, lexer=self.utl_lexer, debug=debug,
                                  tokenfunc=self._filtered_token, tracking=tracking)
 
+    # TODO: Catch assignment-as-expression here, convert to expression
     # Error rule for syntax errors
     def p_error(self, p):  # pylint: disable=missing-docstring
         # IF top_symbol IS 'expr'
