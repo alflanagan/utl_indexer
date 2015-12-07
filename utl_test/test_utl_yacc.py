@@ -85,13 +85,15 @@ class UTLParserTestCase(utl_parse_test.TestCaseUTL):
                     ('ID', 'breakthis'), ('ASSIGN', '='), ('NUMBER', 0.0), ('SEMI', ';'),
                     ('ID', 'fred'), ('DOT', '.'), ('ID', 'thisbreak'), ('ASSIGN', '='),
                     ('NUMBER', 2.0), ('SEMI', ';'), ('ID', 'empty'), ('ASSIGN', '='),
-                    ('STRING', ''), ('SEMI', ';'), ('ID', 'barney'), ('ASSIGN', '='), ('ID', 'fred'),
+                    ('STRING', ''), ('SEMI', ';'), ('ID', 'barney'), ('ASSIGN', '='),
+                    ('ID', 'fred'),
                     ('TIMES', '*'), ('NUMBER', 3.0), ('SEMI', ';'), ('END_UTL', '%]'),
                     ('DOCUMENT', "\\n here's some text\\n "), ('ID', 'abool'), ('ASSIGN', '='),
                     ('NUMBER', 3.0), ('OP', '=='), ('NUMBER', 4.0), ('SEMI', ';'), ('ID', 'a'),
                     ('ASSIGN', '='), ('NUMBER', 3.0), ('SEMI', ';'), ('ID', 'b'), ('ASSIGN', '='),
                     ('ID', 'fred'), ('SEMI', ';'), ('ID', 'wilma'), ('ASSIGN', '='), ('ID', 'e'),
-                    ('LBRACKET', '['), ('NUMBER', 12.0), ('RBRACKET', ']'), ('SEMI', ';'), ('ID', 'c'),
+                    ('LBRACKET', '['), ('NUMBER', 12.0), ('RBRACKET', ']'), ('SEMI', ';'),
+                    ('ID', 'c'),
                     ('ASSIGN', '='), ('ID', 'a'), ('TIMES', '*'), ('LPAREN', '('), ('ID', 'a'),
                     ('PLUS', '+'), ('ID', 'b'), ('RPAREN', ')'), ('TIMES', '*'), ('ID', 'b'),
                     ('SEMI', ';'), ('ID', 'd'), ('ASSIGN', '='), ('ID', 'a'), ('TIMES', '*'),
@@ -107,7 +109,8 @@ class UTLParserTestCase(utl_parse_test.TestCaseUTL):
                     ('COMMA', ','), ('NUMBER', 2.0), ('COMMA', ','), ('STRING', 'fred'),
                     ('COMMA', ','), ('NUMBER', 3.0), ('COMMA', ','), ('ID', 'wilma'),
                     ('LPAREN', '('), ('NUMBER', 7.0), ('RPAREN', ')'), ('FILTER', '|'),
-                    ('ID', 'fred'), ('RBRACKET', ']'), ('SEMI', ';'), ('ID', 'obj'), ('ASSIGN', '='),
+                    ('ID', 'fred'), ('RBRACKET', ']'), ('SEMI', ';'), ('ID', 'obj'),
+                    ('ASSIGN', '='),
                     ('LBRACKET', '['), ('STRING', 'one'), ('COLON', ':'), ('NUMBER', 2.0),
                     ('COMMA', ','), ('STRING', 'two'), ('COLON', ':'), ('NUMBER', 3.0),
                     ('RBRACKET', ']'), ('SEMI', ';'), ('ID', 'obj'), ('DOT', '.'), ('ID', 'one'),
@@ -168,6 +171,14 @@ class UTLParserTestCase(utl_parse_test.TestCaseUTL):
         """
         self.assertJSONFileMatches('unary_exprs.utl', 'unary_exprs.json')
 
+
+    def test_empty_stmts(self):
+        """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with control structures
+        with empty statement lists.
+
+        """
+        self.assertJSONFileMatches('empty_stmts.utl', 'empty_stmts.json')
+
     def test_syntax_error(self):
         """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with invalid syntax."""
         handler = UTLParseHandlerParseTree(exception_on_error=True)
@@ -195,7 +206,7 @@ class UTLParserTestCase(utl_parse_test.TestCaseUTL):
 
         """
         with open(self.data_file(filepart + '.utl'), 'r') as utlin:
-            item1 = parser.parse(utlin.read())
+            item1 = parser.parse(utlin.read(), filename=filepart+'.utl')
         with open(self.data_file(filepart + '.json'), 'r') as jsonin:
             expected = json.load(jsonin)
         self.assertMatchesJSON(item1, expected)
@@ -213,11 +224,17 @@ class UTLParserTestCase(utl_parse_test.TestCaseUTL):
         parser = UTLParser([handler1, handler2], debug=False)
         # results of parse should depend ONLY on handler1
         self._check_multiple_handlers(parser, 'basic_assign')
+        parser.restart()
         self._check_multiple_handlers(parser, 'calls')
+        parser.restart()
         self._check_multiple_handlers(parser, 'for_stmt')
+        parser.restart()
         self._check_multiple_handlers(parser, 'if_stmts')
+        parser.restart()
         self._check_multiple_handlers(parser, 'includes')
+        parser.restart()
         self._check_multiple_handlers(parser, 'keywords')
+        parser.restart()
         self._check_multiple_handlers(parser, 'macros')
         del parser.handlers
         self.assertIsNone(parser.handlers)
@@ -230,26 +247,32 @@ class UTLParserTestCase(utl_parse_test.TestCaseUTL):
         parser = UTLParser([handler], debug=False)
         utl_doc = parser.parse('', filename='empty.utl')
         self.assertEqual(utl_doc.symbol, 'utldoc')
-        self.assertListEqual(utl_doc.children, [])
+        self.assertEqual(len(utl_doc.children), 1)
+        self.assertEqual(utl_doc.children[0].symbol, 'statement_list')
+        self.assertEqual(len(utl_doc.children[0].children), 0)
+        self.assertDictEqual(dict(utl_doc.attributes),
+                             {'end': 1, 'file': 'empty.utl', 'start': 1, 'line': 1})
+        self.assertDictEqual(dict(utl_doc.children[0].attributes),
+                             {'end': 1, 'file': 'empty.utl', 'start': 1, 'line': 1})
 
     def test_restart(self):
         """Unit tests for :py:meth:`~utl_lib.utl_yacc.UTLParser.restart`."""
         handler = UTLParseHandlerParseTree()
         parser = UTLParser([handler], False)
         testpart1 = "[% macro fred; echo 'hello'; bite it; echo 'goodbye'; end; %]"
-        with MockStream().capture_stderr() as fake_stderr:
-            fred = parser.parse(testpart1, filename='fred.utl')
-##        print(fred)
+        with MockStream().capture_stderr() as _:
+            parser.parse(testpart1, filename='fred.utl')
+        # print(fred)
         self.assertEqual(parser.filename, 'fred.utl')
         self.assertEqual(parser.error_count, 2)
         self.assertEqual(parser.lexer.lexpos, 63)
-        jane = parser.parse("[% macro jane; echo 'hi'; end; %]")
+        parser.parse("[% macro jane; echo 'hi'; end; %]")
         self.assertEqual(parser.filename, '')
         self.assertEqual(parser.error_count, 2)
         self.assertEqual(parser.lexer.lexpos, 35)
         self.assertIs(parser.handlers[0], handler)
         parser.restart([])
-        jane = parser.parse("[% macro jane; echo 'hi'; end; %]")
+        parser.parse("[% macro jane; echo 'hi'; end; %]")
         self.assertEqual(parser.error_count, 0)
         self.assertSequenceEqual(parser.handlers, [])
         parser = UTLParser([handler], False)

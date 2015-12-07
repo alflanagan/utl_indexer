@@ -37,6 +37,19 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         self.error_count = 0
         self._handlers = []
         self.handlers = handlers
+        self.start = 0  # character offset where the current production starts
+        self._end = 0   # character offset where the current production ends
+        self.line = 0   # line number where the current production begins
+
+    @property
+    def end(self):
+        """The character offset in the source where the current production begins."""
+        # originally made property so I could put breakpoint when it's set ;-)
+        return getattr(self, '_end', None)
+
+    @end.setter
+    def end(self, new_end):  # pylint:disable=C0111
+        self._end = int(new_end)
 
     # operator precedence based on PHP
     # https://secure.php.net/manual/en/language.operators.precedence.php
@@ -89,6 +102,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         return self.parser.parse(input=input_text, lexer=self.utl_lexer, debug=debug,
                                  tokenfunc=self._filtered_token, tracking=tracking)
 
+    # TODO: Catch assignment-as-expression here, convert to expression
     # Error rule for syntax errors
     def p_error(self, p):  # pylint: disable=missing-docstring
         # IF top_symbol IS 'expr'
@@ -128,7 +142,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         # parser stacks created on parse, if they don't exist nothing to restart
         if hasattr(self.parser, "statestack"):
             self.parser.restart()
-        self.utl_lexer =  UTLLexer()  # possible to reset?
+        self.utl_lexer = UTLLexer()  # possible to reset?
         self.lexer = self.utl_lexer.lexer
         self.print_tokens = False  # may be set by parse()
         self.filename = ''  # may be set by parse()
@@ -156,6 +170,11 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
 
     @handlers.setter
     def handlers(self, new_handlers):
+        """A list of :py:class:`~utl_lib.utl_parse_handler.UTLParseHandler` instances.
+
+        The matching method of each handler is called whenever a production is reduced.
+
+        """
         # silently accept single handler, don't accept non-handlers
         if new_handlers is None:
             self._handlers = []
@@ -170,27 +189,90 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                 self._handlers.append(handler)
 
     @handlers.deleter
-    def handlers(self):
+    def handlers(self):  # pylint:disable=C0111
         del self._handlers
+
+    @property
+    def context(self):
+        """Constructs and returns a dictionary describing the current context.
+
+        Convenience method for packaging up context information needed by the parser.
+
+        `context.keys()` -> `("end", "file", "line", "start")`
+
+        """
+        if hasattr(self, 'filename'):  # guard against ply.yacc weirdness
+            return {"end": self.end, "file": self.filename, "start": self.start,
+                    "line": self.line}
+
+    def __set_ctxt(self, p, start_p, end_p=None):
+        """Shorthand for setting current context from context of a start production
+        `p[p_start]` and an end production `p[p_end]`.
+
+        if `end_p` is omitted, or if it is `> len(p)-1`, it is assumed to equal `start_p`
+
+        """
+        # turns out a lot of productions have a case where end_p == start_p, and that case
+        # is shorter than all the other potential values of end_p
+        if end_p is None or end_p > len(p) - 1:
+            end_p = start_p
+
+        if start_p > len(p) - 1:
+            # oops, null production
+            # self.end is already end of last production
+            # and our length is 0, so...
+            self.start = self.end
+            return
+
+        first = p[start_p]
+        second = p[end_p]
+
+        if first is None:
+            # either an empty statement, or we screwed up
+            self.start = self.end = p.lexpos(start_p)
+            self.line = p.lineno(start_p)
+            return
+
+        if hasattr(first, "context"):
+            self.start = first.context["start"]
+            self.line = first.context["line"]
+        else:
+            self.start = p.lexpos(start_p)
+            self.line = p.lineno(start_p)
+
+        if hasattr(second, "context"):
+            self.end = second.context["end"]
+        elif start_p == end_p:
+            # if it's not an ASTNode, it must?? be a string or identifier
+            self.end = self.start + len(second)
+            # second will be '' at EOF, and self.start will be len(lexdata)
+            # can't tell a STRING literal from a DOCUMENT that begins with a quote
+            # so have to handle STRING as separate case
+            # if second != '' and self.lexer.lexdata[self.start] in ('"', "'"):
+            #     self.end += 2  # include quotes
+        else:
+            self.end = p.lexpos(end_p) + (len(second) if second is not None else 0)
 
     # -------------------------------------------------------------------------------------------
     # top-level productions
     # -------------------------------------------------------------------------------------------
     def p_utldoc(self, p):
         '''utldoc : statement_list'''
+        self.__set_ctxt(p, 1)
         for handler in self.handlers:
             value = handler.utldoc(self, p[1])
             if p[0] is None:
                 p[0] = value
 
     def p_statement_list(self, p):
-        ''' statement_list : statement
+        ''' statement_list :
+                           | statement
                            | statement statement_list'''
-        if p[1] is not None or self._(p, 2) is not None:
-            for handler in self.handlers:
-                value = handler.statement_list(self, p[1], self._(p, 2))
-                if p[0] is None:
-                    p[0] = value
+        self.__set_ctxt(p, 1, 2)
+        for handler in self.handlers:
+            value = handler.statement_list(self, self._(p, 1), self._(p, 2))
+            if p[0] is None:
+                p[0] = value
 
     def p_statement(self, p):
         '''statement : eostmt
@@ -209,7 +291,8 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                      | BREAK eostmt
                      | CONTINUE eostmt
                      | EXIT eostmt'''
-        if p[1] is not None:  # skip empty statements
+        if p[1]:  # skip empty statements
+            self.__set_ctxt(p, 1)
             for handler in self.handlers:
                 value = handler.statement(self, p[1])
                 if p[0] is None:
@@ -220,6 +303,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
     # -------------------------------------------------------------------------------------------
     def p_abbrev_if_stmt(self, p):
         '''abbrev_if_stmt : IF expr THEN statement'''
+        self.__set_ctxt(p, 1, 4)
         for handler in self.handlers:
             value = handler.abbrev_if_stmt(self, p[2], p[4])
             if p[0] is None:
@@ -230,7 +314,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                | STRING COLON expr %prec RBRACKET
                | ID COLON expr %prec RBRACKET'''
         # shift/reduce between expr->STRING, expr->ID, and STRING COLON, ID COLON
-        # is there a better way to handle shift/reduce than explicitly settting precedence?
+        self.__set_ctxt(p, 1, 3)
         for handler in self.handlers:
             if len(p) == 4:
                 value = handler.arg(self, p[3], p[1])
@@ -242,6 +326,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
     def p_arg_list(self, p):
         '''arg_list : arg
                     | arg COMMA arg_list'''
+        self.__set_ctxt(p, 1, 3)
         for handler in self.handlers:
             value = handler.arg_list(self, p[1], self._(p, 3))
             if p[0] is None:
@@ -250,6 +335,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
     def p_array_elems(self, p):
         '''array_elems : expr
                        | array_elems COMMA expr'''
+        self.__set_ctxt(p, 1, 3)
         for handler in self.handlers:
             if len(p) == 2:
                 value = handler.array_elems(self, p[1], None)
@@ -262,6 +348,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         '''array_literal : LBRACKET RBRACKET
                          | LBRACKET array_elems RBRACKET
                          | LBRACKET array_elems COMMA RBRACKET'''
+        self.__set_ctxt(p, 1, len(p) - 1)
         for handler in self.handlers:
             value = handler.array_literal(self, p[2] if len(p) >= 4 else None)
             if p[0] is None:
@@ -270,6 +357,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
     def p_array_ref(self, p):
         '''array_ref : expr LBRACKET expr RBRACKET'''
         # of course, not all array literal expressions are valid for array reference
+        self.__set_ctxt(p, 1, 4)
         for handler in self.handlers:
             value = handler.array_ref(self, p[1], p[3])
             if p[0] is None:
@@ -280,6 +368,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                      | AS ID
                      | AS ID COMMA ID'''
         if len(p) > 1:
+            self.__set_ctxt(p, 1, len(p) - 1)
             for handler in self.handlers:
                 value = handler.as_clause(self, p[2], self._(p, 4))
                 if p[0] is None:
@@ -287,6 +376,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
 
     def p_call_stmt(self, p):
         '''call_stmt : CALL macro_call'''
+        self.__set_ctxt(p, 1, 2)
         for handler in self.handlers:
             value = handler.call_stmt(self, p[2])
             if p[0] is None:
@@ -294,6 +384,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
 
     def p_default_assignment(self, p):
         '''default_assignment : DEFAULT expr'''
+        self.__set_ctxt(p, 1, 2)
         for handler in self.handlers:
             value = handler.default_assignment(self, p[2])
             if p[0] is None:
@@ -302,6 +393,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
     def p_dotted_id(self, p):
         '''dotted_id : ID
                      | ID DOT dotted_id'''
+        self.__set_ctxt(p, 1, 3)
         for handler in self.handlers:
             value = handler.dotted_id(self, p[1], self._(p, 3))
             if p[0] is None:
@@ -310,6 +402,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
     def p_echo_stmt(self, p):
         '''echo_stmt : ECHO
                      | ECHO expr'''
+        self.__set_ctxt(p, 1, 2)
         for handler in self.handlers:
             value = handler.echo_stmt(self, self._(p, 2))
             if p[0] is None:
@@ -319,6 +412,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         '''else_stmt :
                      | ELSE statement_list'''
         if len(p) > 1:
+            self.__set_ctxt(p, 1, 2)
             for handler in self.handlers:
                 value = handler.else_stmt(self, p[2])
                 if p[0] is None:
@@ -328,6 +422,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         '''elseif_stmts :
                         | elseif_stmt elseif_stmts'''
         if len(p) > 1:
+            self.__set_ctxt(p, 1, 2)
             for handler in self.handlers:
                 value = handler.elseif_stmts(self, p[1], p[2])
                 if p[0] is None:
@@ -335,6 +430,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
 
     def p_elseif_stmt(self, p):
         '''elseif_stmt : ELSEIF expr statement_list'''
+        self.__set_ctxt(p, 1, 3)
         for handler in self.handlers:
             value = handler.elseif_stmt(self, p[2], p[3])
             if p[0] is None:
@@ -344,6 +440,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         '''eostmt : SEMI
                   | EOF
                   | END_UTL'''
+        self.__set_ctxt(p, 1)
         for handler in self.handlers:
             value = handler.eostmt(self, p[1])
             if p[0] is None:  # pragma: no cover
@@ -381,6 +478,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                 | expr ASSIGN expr
                 | expr ASSIGNOP expr
                 | expr COLON expr'''
+        self.__set_ctxt(p, 1, len(p) - 1)
         for handler in self.handlers:
             value = handler.expr(self, p[1], self._(p, 2), self._(p, 3))
             if p[0] is None:
@@ -389,6 +487,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
     def p_for_stmt(self, p):
         '''for_stmt : FOR expr as_clause eostmt statement_list END
                     | FOR EACH expr as_clause eostmt statement_list END'''
+        self.__set_ctxt(p, 1, len(p) - 1)
         for handler in self.handlers:
             if len(p) == 8:
                 # account for EACH
@@ -399,30 +498,29 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                 p[0] = value
 
     def p_if_stmt(self, p):
-        '''if_stmt : IF expr eostmt statement_list elseif_stmts else_stmt END
-                   | IF expr eostmt elseif_stmts else_stmt END'''
+        '''if_stmt : IF expr eostmt statement_list elseif_stmts else_stmt END'''
+        self.__set_ctxt(p, 1, 7)
         for handler in self.handlers:
-            if len(p) == 8:
-                value = handler.if_stmt(self, p[2], p[4], p[5], p[6])
-            else:
-                value = handler.if_stmt(self, p[2], None, p[4], p[5])
+            value = handler.if_stmt(self, p[2], p[4], p[5], p[6])
             if p[0] is None:
                 p[0] = value
 
     def p_include_stmt(self, p):
         '''include_stmt : INCLUDE expr'''
+        self.__set_ctxt(p, 1, 2)
         for handler in self.handlers:
             value = handler.include_stmt(self, p[2])
             if p[0] is None:
                 p[0] = value
 
     def p_literal(self, p):
-        '''literal : NUMBER
-                   | STRING
+        '''literal : string_literal
                    | FALSE
                    | TRUE
                    | NULL
+                   | number_literal
                    | array_literal'''
+        self.__set_ctxt(p, 1)  # STRING, array_literal
         for handler in self.handlers:
             value = handler.literal(self, p[1])
             if p[0] is None:
@@ -431,6 +529,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
     def p_macro_call(self, p):
         '''macro_call : expr LPAREN RPAREN
                       | expr LPAREN arg_list RPAREN'''
+        self.__set_ctxt(p, 1, len(p) - 1)
         for handler in self.handlers:
             if len(p) == 4:
                 value = handler.macro_call(self, p[1], None)
@@ -443,22 +542,33 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         '''macro_decl : MACRO dotted_id
                       | MACRO dotted_id LPAREN param_list RPAREN
         '''
+        self.__set_ctxt(p, 1, len(p) - 1)
         for handler in self.handlers:
             value = handler.macro_decl(self, p[2], self._(p, 4))
             if p[0] is None:
                 p[0] = value
 
     def p_macro_defn(self, p):
-        '''macro_defn : macro_decl eostmt statement_list END
-                      | macro_decl eostmt END'''
+        '''macro_defn : macro_decl eostmt statement_list END'''
+        self.__set_ctxt(p, 1, 4)
         for handler in self.handlers:
-            value = handler.macro_defn(self, p[1], p[3] if p[3] != 'end' else None)
+            value = handler.macro_defn(self, p[1], p[3])
+            if p[0] is None:
+                p[0] = value
+
+    def p_number_literal(self, p):
+        '''number_literal : NUMBER'''
+        # this rule allows us to treat the number 123.4 and the string "123.4" differently
+        self.__set_ctxt(p, 1)
+        for handler in self.handlers:
+            value = handler.number_literal(self, p[1])
             if p[0] is None:
                 p[0] = value
 
     def p_param_decl(self, p):
         '''param_decl : ID
                       | ID ASSIGN expr'''
+        self.__set_ctxt(p, 1, 3)
         for handler in self.handlers:
             value = handler.param_decl(self, p[1], self._(p, 3))
             if p[0] is None:
@@ -469,6 +579,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                       | param_decl COMMA param_list
                       | param_decl '''
         if len(p) > 1:
+            self.__set_ctxt(p, 1, 3)
             for handler in self.handlers:
                 value = handler.param_list(self, p[1], self._(p, 3))
                 if p[0] is None:
@@ -477,6 +588,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
     def p_paren_expr(self, p):
         '''paren_expr : LPAREN expr RPAREN'''
         if p[2] is not None:
+            self.__set_ctxt(p, 1, 3)
             for handler in self.handlers:
                 value = handler.paren_expr(self, p[2])
                 if p[0] is None:
@@ -485,13 +597,27 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
     def p_return_stmt(self, p):
         '''return_stmt : RETURN expr
                        | RETURN'''
+        self.__set_ctxt(p, 1, 2)
         for handler in self.handlers:
             value = handler.return_stmt(self, self._(p, 2))
             if p[0] is None:
                 p[0] = value
 
+    def p_string_literal(self, p):
+        '''string_literal : STRING'''
+        # exists as separate case to handle quotes in setting context
+        self.__set_ctxt(p, 1)
+        self.end += 2  # account for quotes
+        assert self.lexer.lexdata[self.start] in ['"', "'"]
+        assert self.lexer.lexdata[self.end-1] in ['"', "'"]
+        for handler in self.handlers:
+            value = handler.string_literal(self, p[1])
+            if p[0] is None:
+                p[0] = value
+
     def p_while_stmt(self, p):
         '''while_stmt : WHILE expr statement_list END'''
+        self.__set_ctxt(p, 1, 4)
         for handler in self.handlers:
             value = handler.while_stmt(self, p[2], p[3])
             if p[0] is None:

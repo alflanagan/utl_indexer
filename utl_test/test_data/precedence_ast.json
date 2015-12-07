@@ -1,73 +1,77 @@
 {
   "name": "statement_list",
   "attributes": {
-    "line": 8,
     "file": "precedence.utl",
-    "start": 57,
-    "end": 58
+    "start": 3,
+    "end": 59,
+    "line": 2
   },
   "children": [{
     "name": "expr",
     "attributes": {
-      "operator": "-",
-      "line": 2,
       "file": "precedence.utl",
-      "start": 15,
-      "end": 16
+      "start": 3,
+      "end": 16,
+      "operator": "-",
+      "line": 2
     },
     "children": [{
       "name": "expr",
       "attributes": {
-        "operator": "*",
-        "line": 2,
         "file": "precedence.utl",
-        "start": 7,
-        "end": 8
+        "start": 3,
+        "end": 8,
+        "operator": "*",
+        "line": 2
       },
       "children": [{
         "name": "literal",
         "attributes": {
-          "line": 2,
           "value": 5.0,
-          "file": "precedence.utl",
+          "type": "number",
           "start": 3,
+          "file": "precedence.utl",
+          "line": 2,
           "end": 4
         }
       }, {
         "name": "literal",
         "attributes": {
-          "line": 2,
           "value": 7.0,
-          "file": "precedence.utl",
+          "type": "number",
           "start": 7,
+          "file": "precedence.utl",
+          "line": 2,
           "end": 8
         }
       }]
     }, {
       "name": "expr",
       "attributes": {
-        "operator": "*",
-        "line": 2,
         "file": "precedence.utl",
-        "start": 15,
-        "end": 16
+        "start": 11,
+        "end": 16,
+        "operator": "*",
+        "line": 2
       },
       "children": [{
         "name": "literal",
         "attributes": {
-          "line": 2,
           "value": 3.0,
-          "file": "precedence.utl",
+          "type": "number",
           "start": 11,
+          "file": "precedence.utl",
+          "line": 2,
           "end": 12
         }
       }, {
         "name": "literal",
         "attributes": {
-          "line": 2,
           "value": 4.0,
-          "file": "precedence.utl",
+          "type": "number",
           "start": 15,
+          "file": "precedence.utl",
+          "line": 2,
           "end": 16
         }
       }]
@@ -75,80 +79,82 @@
   }, {
     "name": "expr",
     "attributes": {
-      "operator": "..",
-      "line": 3,
       "file": "precedence.utl",
-      "start": 29,
-      "end": 30
+      "start": 18,
+      "end": 31,
+      "operator": "..",
+      "line": 3
     },
     "children": [{
       "name": "array_ref",
       "attributes": {
-        "line": 3,
         "file": "precedence.utl",
         "start": 18,
-        "end": 22
+        "end": 22,
+        "line": 3
       },
       "children": [{
         "name": "id",
         "attributes": {
-          "symbol": "m",
-          "line": 3,
           "file": "precedence.utl",
+          "symbol": "m",
           "start": 18,
-          "end": 19
+          "end": 19,
+          "line": 3
         }
       }, {
         "name": "literal",
         "attributes": {
-          "line": 3,
           "value": 5.0,
-          "file": "precedence.utl",
+          "type": "number",
           "start": 20,
+          "file": "precedence.utl",
+          "line": 3,
           "end": 21
         }
       }]
     }, {
       "name": "macro_call",
       "attributes": {
-        "line": 3,
         "file": "precedence.utl",
+        "line": 3,
         "start": 24,
-        "end": 30,
+        "end": 31,
         "macro_expr": "fred"
       },
       "children": [{
         "name": "id",
         "attributes": {
-          "symbol": "fred",
-          "line": 3,
           "file": "precedence.utl",
+          "symbol": "fred",
           "start": 24,
-          "end": 28
+          "end": 28,
+          "line": 3
         }
       }, {
         "name": "arg_list",
         "attributes": {
-          "line": 3,
           "file": "precedence.utl",
           "start": 29,
-          "end": 30
+          "end": 30,
+          "line": 3
         },
         "children": [{
           "name": "arg",
           "attributes": {
-            "line": 3,
             "file": "precedence.utl",
             "start": 29,
-            "end": 30
+            "end": 30,
+            "line": 3
           },
           "children": [{
             "name": "literal",
             "attributes": {
-              "line": 3,
               "value": 3.0,
-              "file": "precedence.utl",
+              "type": "number",
               "start": 29,
+              "file": "precedence.utl",
+              "line": 3,
               "end": 30
             }
           }]
@@ -158,37 +164,39 @@
   }, {
     "name": "expr",
     "attributes": {
-      "operator": "-",
-      "line": 4,
       "file": "precedence.utl",
-      "start": 38,
-      "end": 39
+      "start": 33,
+      "end": 39,
+      "operator": "-",
+      "line": 4
     },
     "children": [{
       "name": "literal",
       "attributes": {
-        "line": 4,
         "value": 5.0,
-        "file": "precedence.utl",
+        "type": "number",
         "start": 33,
+        "file": "precedence.utl",
+        "line": 4,
         "end": 34
       }
     }, {
       "name": "expr",
       "attributes": {
-        "operator": "-",
-        "line": 4,
         "file": "precedence.utl",
-        "start": 38,
-        "end": 39
+        "start": 37,
+        "end": 39,
+        "operator": "-",
+        "line": 4
       },
       "children": [{
         "name": "literal",
         "attributes": {
-          "line": 4,
           "value": 7.0,
-          "file": "precedence.utl",
+          "type": "number",
           "start": 38,
+          "file": "precedence.utl",
+          "line": 4,
           "end": 39
         }
       }]
@@ -196,37 +204,39 @@
   }, {
     "name": "expr",
     "attributes": {
-      "operator": "-",
-      "line": 5,
       "file": "precedence.utl",
-      "start": 44,
-      "end": 45
+      "start": 41,
+      "end": 45,
+      "operator": "-",
+      "line": 5
     },
     "children": [{
       "name": "literal",
       "attributes": {
-        "line": 5,
         "value": 5.0,
-        "file": "precedence.utl",
+        "type": "number",
         "start": 41,
+        "file": "precedence.utl",
+        "line": 5,
         "end": 42
       }
     }, {
       "name": "expr",
       "attributes": {
-        "operator": "+",
-        "line": 5,
         "file": "precedence.utl",
-        "start": 44,
-        "end": 45
+        "start": 43,
+        "end": 45,
+        "operator": "+",
+        "line": 5
       },
       "children": [{
         "name": "literal",
         "attributes": {
-          "line": 5,
           "value": 7.0,
-          "file": "precedence.utl",
+          "type": "number",
           "start": 44,
+          "file": "precedence.utl",
+          "line": 5,
           "end": 45
         }
       }]
@@ -234,65 +244,67 @@
   }, {
     "name": "expr",
     "attributes": {
-      "operator": "+",
-      "line": 7,
       "file": "precedence.utl",
-      "start": 55,
-      "end": 57
+      "start": 47,
+      "end": 54,
+      "operator": "+",
+      "line": 6
     },
     "children": [{
       "name": "literal",
       "attributes": {
-        "line": 6,
         "value": 5.0,
-        "file": "precedence.utl",
+        "type": "number",
         "start": 47,
+        "file": "precedence.utl",
+        "line": 6,
         "end": 48
       }
     }, {
       "name": "expr",
       "attributes": {
-        "operator": "-",
-        "line": 7,
         "file": "precedence.utl",
-        "start": 55,
-        "end": 57
+        "start": 49,
+        "end": 54,
+        "operator": "-",
+        "line": 6
       },
       "children": [{
         "name": "expr",
         "attributes": {
-          "operator": "-",
-          "line": 7,
           "file": "precedence.utl",
-          "start": 55,
-          "end": 57
+          "start": 50,
+          "end": 54,
+          "operator": "-",
+          "line": 6
         },
         "children": [{
           "name": "expr",
           "attributes": {
-            "operator": "-",
-            "line": 7,
             "file": "precedence.utl",
-            "start": 55,
-            "end": 57
+            "start": 51,
+            "end": 54,
+            "operator": "-",
+            "line": 6
           },
           "children": [{
             "name": "expr",
             "attributes": {
-              "operator": "-",
-              "line": 7,
               "file": "precedence.utl",
-              "start": 55,
-              "end": 57
+              "start": 52,
+              "end": 54,
+              "operator": "-",
+              "line": 6
             },
             "children": [{
               "name": "literal",
               "attributes": {
-                "line": 7,
                 "value": 7.0,
+                "type": "number",
+                "start": 53,
                 "file": "precedence.utl",
-                "start": 55,
-                "end": 57
+                "line": 6,
+                "end": 54
               }
             }]
           }]
@@ -302,11 +314,11 @@
   }, {
     "name": "document",
     "attributes": {
-      "text": "\n",
-      "line": 8,
       "file": "precedence.utl",
+      "line": 7,
       "start": 57,
-      "end": 58
+      "end": 58,
+      "text": "\n"
     }
   }]
 }

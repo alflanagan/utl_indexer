@@ -2,26 +2,26 @@
   "name": "statement_list",
   "attributes": {
     "file": "calls.utl",
-    "line": 16,
-    "start": 328,
-    "end": 329
+    "line": 1,
+    "end": 330,
+    "start": 3
   },
   "children": [{
     "name": "macro_call",
     "attributes": {
       "macro_expr": "fred",
-      "end": 7,
-      "line": 1,
       "file": "calls.utl",
-      "start": 3
+      "line": 1,
+      "start": 3,
+      "end": 9
     },
     "children": [{
       "name": "id",
       "attributes": {
-        "symbol": "fred",
-        "line": 1,
         "file": "calls.utl",
+        "line": 1,
         "start": 3,
+        "symbol": "fred",
         "end": 7
       }
     }, {
@@ -29,8 +29,8 @@
       "attributes": {
         "file": "calls.utl",
         "line": 1,
-        "start": 3,
-        "end": 7
+        "start": 0,
+        "end": 0
       }
     }]
   }, {
@@ -38,27 +38,65 @@
     "attributes": {
       "file": "calls.utl",
       "line": 2,
-      "start": 35,
-      "end": 56
+      "start": 11,
+      "end": 57
     },
     "children": [{
       "name": "macro_call",
       "attributes": {
         "macro_expr": "cms.component.load",
-        "end": 56,
-        "line": 2,
         "file": "calls.utl",
-        "start": 16
+        "line": 2,
+        "start": 16,
+        "end": 57
       },
       "children": [{
-        "name": "id",
+        "name": "expr",
         "attributes": {
-          "symbol": "cms.component.load",
-          "line": 2,
           "file": "calls.utl",
+          "line": 2,
           "start": 16,
+          "operator": ".",
           "end": 34
-        }
+        },
+        "children": [{
+          "name": "id",
+          "attributes": {
+            "file": "calls.utl",
+            "line": 2,
+            "start": 16,
+            "symbol": "cms",
+            "end": 19
+          }
+        }, {
+          "name": "expr",
+          "attributes": {
+            "file": "calls.utl",
+            "line": 2,
+            "start": 20,
+            "operator": ".",
+            "end": 34
+          },
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "file": "calls.utl",
+              "line": 2,
+              "start": 20,
+              "symbol": "component",
+              "end": 29
+            }
+          }, {
+            "name": "id",
+            "attributes": {
+              "file": "calls.utl",
+              "line": 2,
+              "start": 30,
+              "symbol": "load",
+              "end": 34
+            }
+          }]
+        }]
       }, {
         "name": "arg_list",
         "attributes": {
@@ -78,11 +116,12 @@
           "children": [{
             "name": "literal",
             "attributes": {
-              "value": "core_base_editorial",
-              "file": "calls.utl",
               "line": 2,
+              "end": 56,
+              "type": "string",
+              "value": "core_base_editorial",
               "start": 35,
-              "end": 56
+              "file": "calls.utl"
             }
           }]
         }]
@@ -92,18 +131,18 @@
     "name": "macro_call",
     "attributes": {
       "macro_expr": "barney",
-      "end": 67,
-      "line": 3,
       "file": "calls.utl",
-      "start": 59
+      "line": 3,
+      "start": 59,
+      "end": 68
     },
     "children": [{
       "name": "id",
       "attributes": {
-        "symbol": "barney",
-        "line": 3,
         "file": "calls.utl",
+        "line": 3,
         "start": 59,
+        "symbol": "barney",
         "end": 65
       }
     }, {
@@ -125,11 +164,12 @@
         "children": [{
           "name": "literal",
           "attributes": {
-            "value": 3.0,
-            "file": "calls.utl",
             "line": 3,
+            "end": 67,
+            "type": "number",
+            "value": 3.0,
             "start": 66,
-            "end": 67
+            "file": "calls.utl"
           }
         }]
       }]
@@ -138,18 +178,18 @@
     "name": "macro_call",
     "attributes": {
       "macro_expr": "barney",
-      "end": 93,
-      "line": 4,
       "file": "calls.utl",
-      "start": 70
+      "line": 4,
+      "start": 70,
+      "end": 94
     },
     "children": [{
       "name": "id",
       "attributes": {
-        "symbol": "barney",
-        "line": 4,
         "file": "calls.utl",
+        "line": 4,
         "start": 70,
+        "symbol": "barney",
         "end": 76
       }
     }, {
@@ -157,7 +197,7 @@
       "attributes": {
         "file": "calls.utl",
         "line": 4,
-        "start": 92,
+        "start": 77,
         "end": 93
       },
       "children": [{
@@ -171,11 +211,12 @@
         "children": [{
           "name": "literal",
           "attributes": {
-            "value": 1.0,
-            "file": "calls.utl",
             "line": 4,
+            "end": 78,
+            "type": "number",
+            "value": 1.0,
             "start": 77,
-            "end": 78
+            "file": "calls.utl"
           }
         }]
       }, {
@@ -189,11 +230,12 @@
         "children": [{
           "name": "literal",
           "attributes": {
-            "value": 2.0,
-            "file": "calls.utl",
             "line": 4,
+            "end": 81,
+            "type": "number",
+            "value": 2.0,
             "start": 80,
-            "end": 81
+            "file": "calls.utl"
           }
         }]
       }, {
@@ -207,11 +249,12 @@
         "children": [{
           "name": "literal",
           "attributes": {
-            "value": 3.0,
-            "file": "calls.utl",
             "line": 4,
+            "end": 84,
+            "type": "number",
+            "value": 3.0,
             "start": 83,
-            "end": 84
+            "file": "calls.utl"
           }
         }]
       }, {
@@ -225,11 +268,12 @@
         "children": [{
           "name": "literal",
           "attributes": {
-            "value": 4.0,
-            "file": "calls.utl",
             "line": 4,
+            "end": 87,
+            "type": "number",
+            "value": 4.0,
             "start": 86,
-            "end": 87
+            "file": "calls.utl"
           }
         }]
       }, {
@@ -243,11 +287,12 @@
         "children": [{
           "name": "literal",
           "attributes": {
-            "value": 5.0,
-            "file": "calls.utl",
             "line": 4,
+            "end": 90,
+            "type": "number",
+            "value": 5.0,
             "start": 89,
-            "end": 90
+            "file": "calls.utl"
           }
         }]
       }, {
@@ -261,11 +306,12 @@
         "children": [{
           "name": "literal",
           "attributes": {
-            "value": 6.0,
-            "file": "calls.utl",
             "line": 4,
+            "end": 93,
+            "type": "number",
+            "value": 6.0,
             "start": 92,
-            "end": 93
+            "file": "calls.utl"
           }
         }]
       }]
@@ -274,18 +320,18 @@
     "name": "macro_call",
     "attributes": {
       "macro_expr": "wilma",
-      "end": 109,
-      "line": 5,
       "file": "calls.utl",
-      "start": 96
+      "line": 5,
+      "start": 96,
+      "end": 110
     },
     "children": [{
       "name": "id",
       "attributes": {
-        "symbol": "wilma",
-        "line": 5,
         "file": "calls.utl",
+        "line": 5,
         "start": 96,
+        "symbol": "wilma",
         "end": 101
       }
     }, {
@@ -307,11 +353,12 @@
         "children": [{
           "name": "literal",
           "attributes": {
-            "value": "betty",
-            "file": "calls.utl",
             "line": 5,
+            "end": 109,
+            "type": "string",
+            "value": "betty",
             "start": 102,
-            "end": 109
+            "file": "calls.utl"
           }
         }]
       }]
@@ -320,18 +367,18 @@
     "name": "macro_call",
     "attributes": {
       "macro_expr": "pebbles",
-      "end": 137,
-      "line": 6,
       "file": "calls.utl",
-      "start": 112
+      "line": 6,
+      "start": 112,
+      "end": 138
     },
     "children": [{
       "name": "id",
       "attributes": {
-        "symbol": "pebbles",
-        "line": 6,
         "file": "calls.utl",
+        "line": 6,
         "start": 112,
+        "symbol": "pebbles",
         "end": 119
       }
     }, {
@@ -339,7 +386,7 @@
       "attributes": {
         "file": "calls.utl",
         "line": 6,
-        "start": 136,
+        "start": 120,
         "end": 137
       },
       "children": [{
@@ -348,17 +395,18 @@
           "keyword": "mom",
           "file": "calls.utl",
           "line": 6,
-          "start": 127,
+          "start": 120,
           "end": 134
         },
         "children": [{
           "name": "literal",
           "attributes": {
-            "value": "betty",
-            "file": "calls.utl",
             "line": 6,
+            "end": 134,
+            "type": "string",
+            "value": "betty",
             "start": 127,
-            "end": 134
+            "file": "calls.utl"
           }
         }]
       }, {
@@ -372,11 +420,12 @@
         "children": [{
           "name": "literal",
           "attributes": {
-            "value": 5.0,
-            "file": "calls.utl",
             "line": 6,
+            "end": 137,
+            "type": "number",
+            "value": 5.0,
             "start": 136,
-            "end": 137
+            "file": "calls.utl"
           }
         }]
       }]
@@ -386,25 +435,25 @@
     "attributes": {
       "file": "calls.utl",
       "line": 7,
-      "start": 152,
-      "end": 153
+      "start": 140,
+      "end": 154
     },
     "children": [{
       "name": "macro_call",
       "attributes": {
         "macro_expr": "barney",
-        "end": 153,
-        "line": 7,
         "file": "calls.utl",
-        "start": 145
+        "line": 7,
+        "start": 145,
+        "end": 154
       },
       "children": [{
         "name": "id",
         "attributes": {
-          "symbol": "barney",
-          "line": 7,
           "file": "calls.utl",
+          "line": 7,
           "start": 145,
+          "symbol": "barney",
           "end": 151
         }
       }, {
@@ -426,11 +475,12 @@
           "children": [{
             "name": "literal",
             "attributes": {
-              "value": 3.0,
-              "file": "calls.utl",
               "line": 7,
+              "end": 153,
+              "type": "number",
+              "value": 3.0,
               "start": 152,
-              "end": 153
+              "file": "calls.utl"
             }
           }]
         }]
@@ -441,25 +491,25 @@
     "attributes": {
       "file": "calls.utl",
       "line": 8,
-      "start": 183,
-      "end": 184
+      "start": 156,
+      "end": 185
     },
     "children": [{
       "name": "macro_call",
       "attributes": {
         "macro_expr": "pebbles",
-        "end": 184,
-        "line": 8,
         "file": "calls.utl",
-        "start": 161
+        "line": 8,
+        "start": 161,
+        "end": 185
       },
       "children": [{
         "name": "id",
         "attributes": {
-          "symbol": "pebbles",
-          "line": 8,
           "file": "calls.utl",
+          "line": 8,
           "start": 161,
+          "symbol": "pebbles",
           "end": 168
         }
       }, {
@@ -467,7 +517,7 @@
         "attributes": {
           "file": "calls.utl",
           "line": 8,
-          "start": 183,
+          "start": 169,
           "end": 184
         },
         "children": [{
@@ -476,17 +526,18 @@
             "keyword": "mom",
             "file": "calls.utl",
             "line": 8,
-            "start": 174,
+            "start": 169,
             "end": 181
           },
           "children": [{
             "name": "literal",
             "attributes": {
-              "value": "betty",
-              "file": "calls.utl",
               "line": 8,
+              "end": 181,
+              "type": "string",
+              "value": "betty",
               "start": 174,
-              "end": 181
+              "file": "calls.utl"
             }
           }]
         }, {
@@ -500,11 +551,12 @@
           "children": [{
             "name": "literal",
             "attributes": {
-              "value": 5.0,
-              "file": "calls.utl",
               "line": 8,
+              "end": 184,
+              "type": "number",
+              "value": 5.0,
               "start": 183,
-              "end": 184
+              "file": "calls.utl"
             }
           }]
         }]
@@ -514,43 +566,62 @@
     "name": "if",
     "attributes": {
       "file": "calls.utl",
-      "line": 12,
-      "start": 274,
+      "line": 10,
+      "start": 213,
       "end": 277
     },
     "children": [{
       "name": "expr",
       "attributes": {
         "file": "calls.utl",
-        "operator": ".",
         "line": 10,
-        "start": 238,
+        "start": 216,
+        "operator": ".",
         "end": 242
       },
       "children": [{
         "name": "macro_call",
         "attributes": {
           "macro_expr": "cms.url",
-          "end": 236,
-          "line": 10,
           "file": "calls.utl",
-          "start": 216
+          "line": 10,
+          "start": 216,
+          "end": 237
         },
         "children": [{
-          "name": "id",
+          "name": "expr",
           "attributes": {
-            "symbol": "cms.url",
-            "line": 10,
             "file": "calls.utl",
+            "line": 10,
             "start": 216,
+            "operator": ".",
             "end": 223
-          }
+          },
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "file": "calls.utl",
+              "line": 10,
+              "start": 216,
+              "symbol": "cms",
+              "end": 219
+            }
+          }, {
+            "name": "id",
+            "attributes": {
+              "file": "calls.utl",
+              "line": 10,
+              "start": 220,
+              "symbol": "url",
+              "end": 223
+            }
+          }]
         }, {
           "name": "arg_list",
           "attributes": {
             "file": "calls.utl",
             "line": 10,
-            "start": 230,
+            "start": 224,
             "end": 236
           },
           "children": [{
@@ -559,17 +630,18 @@
               "keyword": "app",
               "file": "calls.utl",
               "line": 10,
-              "start": 230,
+              "start": 224,
               "end": 236
             },
             "children": [{
               "name": "literal",
               "attributes": {
-                "value": "user",
-                "file": "calls.utl",
                 "line": 10,
+                "end": 236,
+                "type": "string",
+                "value": "user",
                 "start": 230,
-                "end": 236
+                "file": "calls.utl"
               }
             }]
           }]
@@ -577,10 +649,10 @@
       }, {
         "name": "id",
         "attributes": {
-          "symbol": "path",
-          "line": 10,
           "file": "calls.utl",
+          "line": 10,
           "start": 238,
+          "symbol": "path",
           "end": 242
         }
       }]
@@ -588,42 +660,61 @@
       "name": "statement_list",
       "attributes": {
         "file": "calls.utl",
-        "line": 12,
-        "start": 274,
-        "end": 277
+        "line": 11,
+        "start": 246,
+        "end": 272
       },
       "children": [{
         "name": "echo",
         "attributes": {
           "file": "calls.utl",
           "line": 11,
-          "start": 265,
-          "end": 271
+          "start": 246,
+          "end": 272
         },
         "children": [{
           "name": "macro_call",
           "attributes": {
             "macro_expr": "cms.url",
-            "end": 271,
-            "line": 11,
             "file": "calls.utl",
-            "start": 251
+            "line": 11,
+            "start": 251,
+            "end": 272
           },
           "children": [{
-            "name": "id",
+            "name": "expr",
             "attributes": {
-              "symbol": "cms.url",
-              "line": 11,
               "file": "calls.utl",
+              "line": 11,
               "start": 251,
+              "operator": ".",
               "end": 258
-            }
+            },
+            "children": [{
+              "name": "id",
+              "attributes": {
+                "file": "calls.utl",
+                "line": 11,
+                "start": 251,
+                "symbol": "cms",
+                "end": 254
+              }
+            }, {
+              "name": "id",
+              "attributes": {
+                "file": "calls.utl",
+                "line": 11,
+                "start": 255,
+                "symbol": "url",
+                "end": 258
+              }
+            }]
           }, {
             "name": "arg_list",
             "attributes": {
               "file": "calls.utl",
               "line": 11,
-              "start": 265,
+              "start": 259,
               "end": 271
             },
             "children": [{
@@ -632,17 +723,18 @@
                 "keyword": "app",
                 "file": "calls.utl",
                 "line": 11,
-                "start": 265,
+                "start": 259,
                 "end": 271
               },
               "children": [{
                 "name": "literal",
                 "attributes": {
-                  "value": "user",
-                  "file": "calls.utl",
                   "line": 11,
+                  "end": 271,
+                  "type": "string",
+                  "value": "user",
                   "start": 265,
-                  "end": 271
+                  "file": "calls.utl"
                 }
               }]
             }]
@@ -653,35 +745,35 @@
       "name": "elseif_stmts",
       "attributes": {
         "file": "calls.utl",
-        "line": 12,
-        "start": 274,
-        "end": 277
+        "line": 10,
+        "start": 0,
+        "end": 0
       }
     }, {
       "name": "else",
       "attributes": {
         "file": "calls.utl",
-        "line": 12,
-        "start": 274,
-        "end": 277
+        "line": 10,
+        "start": 0,
+        "end": 0
       }
     }]
   }, {
     "name": "expr",
     "attributes": {
       "file": "calls.utl",
-      "operator": "=",
       "line": 13,
-      "start": 321,
-      "end": 322
+      "start": 279,
+      "operator": "=",
+      "end": 323
     },
     "children": [{
       "name": "id",
       "attributes": {
-        "symbol": "child_image",
-        "line": 13,
         "file": "calls.utl",
+        "line": 13,
         "start": 279,
+        "symbol": "child_image",
         "end": 290
       }
     }, {
@@ -696,26 +788,45 @@
         "name": "macro_call",
         "attributes": {
           "macro_expr": "asset.items",
-          "end": 319,
-          "line": 13,
           "file": "calls.utl",
-          "start": 293
+          "line": 13,
+          "start": 293,
+          "end": 320
         },
         "children": [{
-          "name": "id",
+          "name": "expr",
           "attributes": {
-            "symbol": "asset.items",
-            "line": 13,
             "file": "calls.utl",
+            "line": 13,
             "start": 293,
+            "operator": ".",
             "end": 304
-          }
+          },
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "file": "calls.utl",
+              "line": 13,
+              "start": 293,
+              "symbol": "asset",
+              "end": 298
+            }
+          }, {
+            "name": "id",
+            "attributes": {
+              "file": "calls.utl",
+              "line": 13,
+              "start": 299,
+              "symbol": "items",
+              "end": 304
+            }
+          }]
         }, {
           "name": "arg_list",
           "attributes": {
             "file": "calls.utl",
             "line": 13,
-            "start": 312,
+            "start": 305,
             "end": 319
           },
           "children": [{
@@ -724,17 +835,18 @@
               "keyword": "type",
               "file": "calls.utl",
               "line": 13,
-              "start": 312,
+              "start": 305,
               "end": 319
             },
             "children": [{
               "name": "literal",
               "attributes": {
-                "value": "image",
-                "file": "calls.utl",
                 "line": 13,
+                "end": 319,
+                "type": "string",
+                "value": "image",
                 "start": 312,
-                "end": 319
+                "file": "calls.utl"
               }
             }]
           }]
@@ -742,22 +854,23 @@
       }, {
         "name": "literal",
         "attributes": {
-          "value": 0.0,
-          "file": "calls.utl",
           "line": 13,
+          "end": 322,
+          "type": "number",
+          "value": 0.0,
           "start": 321,
-          "end": 322
+          "file": "calls.utl"
         }
       }]
     }]
   }, {
     "name": "document",
     "attributes": {
-      "text": "\n",
+      "end": 329,
       "file": "calls.utl",
-      "line": 16,
+      "line": 15,
       "start": 328,
-      "end": 329
+      "text": "\n"
     }
   }]
 }

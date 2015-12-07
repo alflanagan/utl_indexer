@@ -94,9 +94,9 @@ class LexerTestCase(unittest_plus.TestCasePlus):
                  ('SEMI', ';', 10),
                  ('ID', 'something', 12),
                  ('ASSIGN', '=', 12),
-                 ('NUMBER', 5.0, 12),
+                 ('NUMBER', '5', 12),
                  ('TIMES', '*', 12),  # 30
-                 ('NUMBER', 3.0, 12),
+                 ('NUMBER', '3', 12),
                  ('SEMI', ';', 12),
                  ('ID', 'subscriptionAssets', 13),
                  ('ASSIGN', '=', 13),
@@ -114,9 +114,9 @@ class LexerTestCase(unittest_plus.TestCasePlus):
                  ('ID', 'fred', 17),
                  ('ASSIGN', '=', 17),
                  ('LBRACKET', '[', 17),
-                 ('NUMBER', 1.0, 17),
-                 ('COMMA', ',', 17),
-                 ('NUMBER', 2.3, 17),
+                 ('NUMBER', '1', 17),
+                 ('COMMA', ',', 17),  # 50
+                 ('NUMBER', '2.3', 17),
                  ('COMMA', ',', 17),
                  ('STRING', 'hello', 17),
                  ('COMMA', ',', 17),
@@ -158,17 +158,17 @@ class LexerTestCase(unittest_plus.TestCasePlus):
                  ('SEMI', ';', 25),
                  ('ID', 'something', 26),
                  ('ASSIGNOP', '+=', 26),
-                 ('NUMBER', 5.0, 26),
+                 ('NUMBER', '5', 26),
                  ('TIMES', '*', 26),
-                 ('NUMBER', 7.0, 26),
+                 ('NUMBER', '7', 26),
                  ('DIV', '/', 26),
                  ('LPAREN', '(', 26),
-                 ('NUMBER', 8.0, 26),
+                 ('NUMBER', '8', 26),
                  ('PLUS', '+', 26),
-                 ('NUMBER', 2.0, 26),
+                 ('NUMBER', '2', 26),
                  ('RPAREN', ')', 26),
                  ('MINUS', '-', 26),
-                 ('NUMBER', 23.0, 26),  # 100
+                 ('NUMBER', '23', 26),  # 100
                  ('ID', 'subscriptionAssetsMobile', 28),
                  ('ASSIGN', '=', 28),
                  ('ID', 'core_base_library_getCustomProperty', 28),
@@ -210,9 +210,9 @@ class LexerTestCase(unittest_plus.TestCasePlus):
                  ('END', 'end', 40),
                  ('SEMI', ';', 40),
                  ('FOR', 'for', 41),
-                 ('NUMBER', 1.0, 41),
+                 ('NUMBER', '1', 41),
                  ('RANGE', '..', 41),
-                 ('NUMBER', 10.0, 41),
+                 ('NUMBER', '10', 41),
                  ('SEMI', ';', 41),
                  ('ECHO', 'echo', 42),
                  ('STRING', 'fred', 42),
@@ -226,11 +226,24 @@ class LexerTestCase(unittest_plus.TestCasePlus):
                  ('END_UTL', '%]', 45),
                  ('EOF', '', 45), ]  # 158
 
+    @classmethod
+    def tokens_from_file(cls, filename):
+        lexer = UTLLexer()
+        with open(filename, 'r') as utlin:
+            lexer.input(utlin.read())
+        # gee, token() should be a generator
+        toks = []
+        tok = lexer.token()
+        while tok:
+            toks.append(tok)
+            tok = lexer.token()
+        return toks
+
     def test_create(self):
         """Unit test for :py:meth:`utl_lex.UTLLexer`."""
         lexer = UTLLexer()
         lexer.input(self._MACRO_DEF)
-        self.assertEqual(lexer.lexdata, self._MACRO_DEF.replace('else if', 'elseif'))
+        self.assertEqual(lexer.lexdata, self._MACRO_DEF.replace('else if', 'elseif '))
         index = 0
         tok = lexer.token()
         while tok:
@@ -287,9 +300,9 @@ class LexerTestCase(unittest_plus.TestCasePlus):
                     932, 938, 939, 942, 948, 949, 972, 975, 977, 979, 981, 982, 983, 984, 985, 986,
                     987, 988, 990, 1072, 1074, 1110, 1111, 1138, 1139, 1167, 1168, 1169, 1239,
                     1264, 1267, 1272, 1275, 1300, 1303, 1311, 1312, 1389, 1391, 1416, 1417, 1436,
-                    1438, 1441, 1443, 1447, 1449, 1450, 1484, 1485, 1501, 1502, 1514, 1515, 1530,
-                    1549, 1550, 1558, 1559, 1567, 1569, 1571, 1573, 1574, 1587, 1594, 1595, 1603,
-                    1604, 1614, 1616, 1619, 1620, 1627, 1628]
+                    1439, 1442, 1444, 1448, 1450, 1451, 1485, 1486, 1502, 1503, 1515, 1516, 1531,
+                    1550, 1551, 1559, 1560, 1568, 1570, 1572, 1574, 1575, 1588, 1595, 1596, 1604,
+                    1605, 1615, 1617, 1620, 1621, 1628, 1629]
 
         lexer = UTLLexer()
         lexer.input(self._MACRO_DEF)
@@ -314,7 +327,7 @@ class LexerTestCase(unittest_plus.TestCasePlus):
         lexer = UTLLexer()
         lexer.input(problem1)
         expected1 = [('START_UTL', '[%'), ('ID', 'sally'), ('DOT', '.'), ('ID', 'isfine'),
-                     ('ASSIGN', '='), ('NUMBER', 3.0), ('SEMI', ';'), ('END_UTL', '%]'),
+                     ('ASSIGN', '='), ('NUMBER', '3'), ('SEMI', ';'), ('END_UTL', '%]'),
                      ('EOF', '')]
         observed1 = []
         tok = lexer.token()
@@ -325,14 +338,7 @@ class LexerTestCase(unittest_plus.TestCasePlus):
 
     def test_operators(self):
         """Unit test of ability to lex operators."""
-        lexer = UTLLexer()
-        with open(os.path.join('test_data', 'operators.utl'), 'r') as operin:
-            lexer.input(operin.read())
-        toks = []
-        tok = lexer.token()
-        while tok:
-            toks.append(tok)
-            tok = lexer.token()
+        toks = self.tokens_from_file(os.path.join('test_data', 'operators.utl'))
         index = 0
         with open(os.path.join('test_data', 'operators.lex'), 'r') as lexin:
             for line in lexin:
@@ -349,6 +355,24 @@ class LexerTestCase(unittest_plus.TestCasePlus):
                 index += 1
         self.assertEqual(len(toks), index)
 
+    def test_elseif(self):
+        """Unit test of handling varying amount of whitespace in else-if constructs."""
+        toks = self.tokens_from_file(os.path.join('test_data', 'lex_elseif_test.utl'))
+        index = 0
+        with open(os.path.join('test_data', 'lex_elseif_test.lex'), 'r') as lexin:
+            for line in lexin:
+                parts = line[:-1].split(',')
+                # above fails in one case (of course):
+                if len(parts) == 5:
+                    self.assertEqual(parts[0], 'COMMA')
+                    parts = [parts[0], "','", parts[3], parts[4]]
+                self.assertSequenceEqual(parts,
+                                         [str(x) for x in [toks[index].type,
+                                                           repr(toks[index].value),
+                                                           toks[index].lineno,
+                                                           toks[index].lexpos]])
+                index += 1
+        self.assertEqual(len(toks), index)
 
 if __name__ == '__main__':
     unittest_plus.main()

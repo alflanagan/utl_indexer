@@ -2,7 +2,7 @@
 """A parse handler to construct a parse tree from a UTL document."""
 
 from utl_lib.ast_node import ASTNode
-from utl_lib.utl_parse_handler import UTLParseHandler
+from utl_lib.utl_parse_handler import UTLParseHandler, FrozenDict
 from utl_lib.utl_lex import UTLLexer
 # pylint: disable=too-many-public-methods,missing-docstring
 
@@ -35,8 +35,6 @@ class UTLParseHandlerParseTree(UTLParseHandler):
                            [statement] if statement is not None else [])
         else:
             if statement is not None:
-                # yes, this seems weird. but UTLParser is updating context as it sees more
-                # statments
                 statement_list.attributes = parser.context
                 statement_list.add_first_child(statement)
             return statement_list
@@ -44,8 +42,7 @@ class UTLParseHandlerParseTree(UTLParseHandler):
     def statement(self, parser, statement):
         if isinstance(statement, str):
             if statement in UTLLexer.reserved:  # is a keyword (break, return, continue)
-                return ASTNode('statement', parser.context,
-                               [ASTNode(statement, parser.context, [])])
+                return ASTNode('statement', parser.context, [ASTNode(statement, {}, [])])
             else:
                 doc_attrs = parser.context
                 doc_attrs.update({'text': statement})
@@ -98,21 +95,12 @@ class UTLParseHandlerParseTree(UTLParseHandler):
         return ASTNode('array_ref', parser.context, [variable, index])
 
     def as_clause(self, parser, var1, var2=None):
-        # TODO: Modify parser so ID has its own production, and context, so
-        # we don't have to do this arithmetic here
+        # TODO: context for var1, var2 not right -- Fix! (How?)
         assert var1 is not None
         attrs = parser.context
         attrs["symbol"] = var1
-        attrs["start"] = attrs["start"] + 3  # 'as '
-        while parser.lexer.lexdata[attrs["start"]] in [' ', '\t', '\n']:
-            attrs["start"] += 1
-        attrs["end"] = attrs["start"] + len(var1)
         kids = [ASTNode('id', attrs, [])]
         if var2 is not None:
-            attrs["start"] = attrs["end"] + 1
-            while parser.lexer.lexdata[attrs["start"]] in [' ', '\t', '\n']:
-                attrs["start"] += 1
-            attrs["end"] = attrs["start"] + len(var2)
             attrs["symbol"] = var2
             kids += [ASTNode('id', attrs, [])]
         return ASTNode('as_clause', parser.context, kids)
@@ -130,7 +118,7 @@ class UTLParseHandlerParseTree(UTLParseHandler):
         attrs = parser.context
         if id_suffix:
             attrs["symbol"] = this_id + '.' + id_suffix.attributes['symbol']
-            id_suffix.attributes = attrs
+            id_suffix.attributes = FrozenDict(attrs)
             return id_suffix
         attrs["symbol"] = this_id
         return ASTNode('id', attrs, [])
@@ -148,7 +136,7 @@ class UTLParseHandlerParseTree(UTLParseHandler):
             elseif_stmts.attributes = parser.context
             elseif_stmts.add_first_child(elseif_stmt)
         else:
-            elseif_stmts = ASTNode('elseif_stmts', elseif_stmt.attributes, [elseif_stmt])
+            elseif_stmts = ASTNode('elseif_stmts', parser.context, [elseif_stmt])
         return elseif_stmts
 
     def elseif_stmt(self, parser, expr, statement_list=None):
@@ -157,17 +145,6 @@ class UTLParseHandlerParseTree(UTLParseHandler):
             # child is dummy entry, don't give context info
             statement_list = ASTNode('statement_list', {}, [])
         return ASTNode('elseif_stmt', parser.context, [expr, statement_list])
-
-    def error(self, parser, p):
-        if len(parser.symstack) >= 4:
-            symtypes = [sym.type for sym in parser.symstack[-3:]]
-            if symtypes == ["expr", "ASSIGN", "expr"]:
-                # effectively 3 pops() and a push('expr')
-                parser.symstack.pop()
-                parser.symstack.pop()
-                parser.symstack.append(p)
-                return
-        super().error(parser, p)
 
     def expr(self, parser, first, second=None, third=None):
         """An expression production
@@ -227,8 +204,10 @@ class UTLParseHandlerParseTree(UTLParseHandler):
                 attrs.update({'type': 'boolean', 'value': literal == 'true'})
             if literal == 'null':
                 attrs.update({'type': 'null', 'value': literal})
+            else:
+                attrs.update({'type': 'string', 'value': literal})
             return ASTNode('literal', attrs, [])
-        elif literal.attributes.get('type') in ('number', 'string'):
+        elif 'type' in literal.attributes and literal.attributes['type'] == 'number':
             return literal  # already has everything we need.
         else:
             attrs.update({'type': 'array', 'value': '[..]'})
@@ -247,10 +226,7 @@ class UTLParseHandlerParseTree(UTLParseHandler):
     def macro_defn(self, parser, macro_decl, statement_list=None):
         assert macro_decl
         if statement_list is None:
-            attrs = parser.context
-            # the end for statement_list is == end of macro_defn, but start is different
-            attrs["start"] = attrs["end"]
-            statement_list = ASTNode('statement_list', attrs, [])
+            statement_list = ASTNode('statement_list', {}, [])
         return ASTNode('macro_defn', parser.context, [macro_decl, statement_list])
 
     def number_literal(self, parser, literal):
@@ -281,11 +257,6 @@ class UTLParseHandlerParseTree(UTLParseHandler):
 
     def return_stmt(self, parser, expr=None):
         return ASTNode('return_stmt', parser.context, [expr] if expr else [])
-
-    def string_literal(self, parser, literal):
-        attrs = parser.context
-        attrs.update({'type': 'string', 'value': literal})
-        return ASTNode('literal', attrs, [])
 
     def while_stmt(self, parser, expr, statement_list=None):
         assert expr is not None

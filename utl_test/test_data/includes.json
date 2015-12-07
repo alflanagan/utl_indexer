@@ -1,82 +1,198 @@
 {
   "name": "utldoc",
+  "attributes": {
+    "end": 91,
+    "start": 3,
+    "line": 2,
+    "file": "includes.utl"
+  },
   "children": [{
     "name": "statement_list",
+    "attributes": {
+      "end": 91,
+      "start": 3,
+      "line": 2,
+      "file": "includes.utl"
+    },
     "children": [{
       "name": "statement",
+      "attributes": {
+        "end": 21,
+        "start": 3,
+        "line": 2,
+        "file": "includes.utl"
+      },
       "children": [{
         "name": "include_stmt",
-        "children": [{
-          "name": "expr",
-          "children": [{
-            "name": "literal",
-            "attributes": {
-              "value": "fred.utl",
-              "type": "string"
-            }
-          }]
-        }]
-      }]
-    }, {
-      "name": "statement",
-      "children": [{
-        "name": "include_stmt",
-        "children": [{
-          "name": "expr",
-          "children": [{
-            "name": "id",
-            "attributes": {
-              "symbol": "appMacros"
-            }
-          }]
-        }]
-      }]
-    }, {
-      "name": "statement",
-      "children": [{
-        "name": "include_stmt",
+        "attributes": {
+          "end": 21,
+          "start": 3,
+          "line": 2,
+          "file": "includes.utl"
+        },
         "children": [{
           "name": "expr",
           "attributes": {
-            "operator": "+"
+            "end": 21,
+            "start": 11,
+            "line": 2,
+            "file": "includes.utl"
+          },
+          "children": [{
+            "name": "literal",
+            "attributes": {
+              "file": "includes.utl",
+              "end": 21,
+              "value": "fred.utl",
+              "type": "string",
+              "start": 11,
+              "line": 2
+            }
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement",
+      "attributes": {
+        "end": 40,
+        "start": 23,
+        "line": 3,
+        "file": "includes.utl"
+      },
+      "children": [{
+        "name": "include_stmt",
+        "attributes": {
+          "end": 40,
+          "start": 23,
+          "line": 3,
+          "file": "includes.utl"
+        },
+        "children": [{
+          "name": "expr",
+          "attributes": {
+            "end": 40,
+            "start": 31,
+            "line": 3,
+            "file": "includes.utl"
+          },
+          "children": [{
+            "name": "id",
+            "attributes": {
+              "file": "includes.utl",
+              "symbol": "appMacros",
+              "start": 31,
+              "line": 3,
+              "end": 40
+            }
+          }]
+        }]
+      }]
+    }, {
+      "name": "statement",
+      "attributes": {
+        "end": 87,
+        "start": 42,
+        "line": 4,
+        "file": "includes.utl"
+      },
+      "children": [{
+        "name": "include_stmt",
+        "attributes": {
+          "end": 87,
+          "start": 42,
+          "line": 4,
+          "file": "includes.utl"
+        },
+        "children": [{
+          "name": "expr",
+          "attributes": {
+            "end": 87,
+            "start": 50,
+            "line": 4,
+            "operator": "+",
+            "file": "includes.utl"
           },
           "children": [{
             "name": "expr",
             "attributes": {
-              "operator": "+"
+              "end": 67,
+              "start": 50,
+              "line": 4,
+              "operator": "+",
+              "file": "includes.utl"
             },
             "children": [{
               "name": "expr",
+              "attributes": {
+                "end": 56,
+                "start": 50,
+                "line": 4,
+                "file": "includes.utl"
+              },
               "children": [{
                 "name": "literal",
                 "attributes": {
+                  "file": "includes.utl",
+                  "end": 56,
                   "value": "fred",
-                  "type": "string"
+                  "type": "string",
+                  "start": 50,
+                  "line": 4
                 }
               }]
             }, {
               "name": "expr",
+              "attributes": {
+                "end": 67,
+                "start": 59,
+                "line": 4,
+                "file": "includes.utl"
+              },
               "children": [{
                 "name": "expr",
                 "attributes": {
-                  "operator": "*"
+                  "file": "includes.utl",
+                  "start": 59,
+                  "operator": "*",
+                  "line": 4,
+                  "end": 67
                 },
                 "children": [{
                   "name": "expr",
+                  "attributes": {
+                    "end": 61,
+                    "start": 60,
+                    "line": 4,
+                    "file": "includes.utl"
+                  },
                   "children": [{
                     "name": "literal",
                     "attributes": {
+                      "file": "includes.utl",
+                      "end": 61,
                       "value": 5.0,
-                      "type": "number"
+                      "type": "number",
+                      "start": 60,
+                      "line": 4
                     }
                   }]
                 }, {
                   "name": "expr",
+                  "attributes": {
+                    "end": 66,
+                    "start": 64,
+                    "line": 4,
+                    "file": "includes.utl"
+                  },
                   "children": [{
                     "name": "literal",
                     "attributes": {
+                      "file": "includes.utl",
+                      "end": 66,
                       "value": 12.0,
-                      "type": "number"
+                      "type": "number",
+                      "start": 64,
+                      "line": 4
                     }
                   }]
                 }]
@@ -84,11 +200,21 @@
             }]
           }, {
             "name": "expr",
+            "attributes": {
+              "end": 87,
+              "start": 70,
+              "line": 4,
+              "file": "includes.utl"
+            },
             "children": [{
               "name": "literal",
               "attributes": {
+                "file": "includes.utl",
+                "end": 87,
                 "value": "section.inc.utl",
-                "type": "string"
+                "type": "string",
+                "start": 70,
+                "line": 4
               }
             }]
           }]

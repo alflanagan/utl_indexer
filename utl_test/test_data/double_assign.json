@@ -1,106 +1,90 @@
 {
   "name": "utldoc",
+  "attributes": {
+    "line": 2,
+    "file": "double_assign.utl",
+    "end": 84,
+    "start": 41
+  },
   "children": [{
     "name": "statement_list",
+    "attributes": {
+      "line": 2,
+      "start": 41,
+      "end": 84,
+      "file": "double_assign.utl"
+    },
     "children": [{
       "name": "statement",
+      "attributes": {
+        "line": 2,
+        "file": "double_assign.utl",
+        "end": 79,
+        "start": 41
+      },
       "children": [{
         "name": "expr",
         "attributes": {
-          "operator": "="
+          "operator": ".",
+          "line": 2,
+          "file": "double_assign.utl",
+          "end": 79,
+          "start": 41
         },
         "children": [{
           "name": "expr",
+          "attributes": {
+            "line": 2,
+            "file": "double_assign.utl",
+            "end": 66,
+            "start": 41
+          },
           "children": [{
             "name": "id",
             "attributes": {
-              "symbol": "a"
-            }
-          }, {
-            "name": "expr",
-            "attributes": {
-              "operator": "="
-            },
-            "children": [{
-              "name": "expr",
-              "children": [{
-                "name": "id",
-                "attributes": {
-                  "symbol": "b"
-                }
-              }]
-            }, {
-              "name": "expr",
-              "children": [{
-                "name": "literal",
-                "attributes": {
-                  "value": 5.0,
-                  "type": "number"
-                }
-              }]
-            }]
-          }]
-        }]
-      }]
-    }, {
-      "name": "statement",
-      "children": [{
-        "name": "expr",
-        "attributes": {
-          "operator": "="
-        },
-        "children": [{
-          "name": "expr",
-          "children": [{
-            "name": "id",
-            "attributes": {
-              "symbol": "right_col"
+              "line": 2,
+              "symbol": "core_base_library_gridSet",
+              "end": 66,
+              "file": "double_assign.utl",
+              "start": 41
             }
           }]
         }, {
           "name": "expr",
           "attributes": {
-            "operator": "="
+            "line": 2,
+            "file": "double_assign.utl",
+            "end": 79,
+            "start": 67
           },
           "children": [{
-            "name": "expr",
-            "children": [{
-              "name": "id",
-              "attributes": {
-                "symbol": "right_col_on"
-              }
-            }]
-          }, {
-            "name": "expr",
+            "name": "id",
             "attributes": {
-              "operator": "."
-            },
-            "children": [{
-              "name": "expr",
-              "children": [{
-                "name": "id",
-                "attributes": {
-                  "symbol": "core_base_library_gridSet"
-                }
-              }]
-            }, {
-              "name": "expr",
-              "children": [{
-                "name": "id",
-                "attributes": {
-                  "symbol": "right_col_on"
-                }
-              }]
-            }]
+              "line": 2,
+              "symbol": "right_col_on",
+              "end": 79,
+              "file": "double_assign.utl",
+              "start": 67
+            }
           }]
         }]
       }]
     }, {
       "name": "statement",
+      "attributes": {
+        "line": 2,
+        "file": "double_assign.utl",
+        "end": 83,
+        "start": 82
+      },
       "children": [{
         "name": "document",
         "attributes": {
-          "text": "\n"
+          "line": 2,
+          "file": "double_assign.utl",
+          "end": 83,
+          "text": "\n",
+          "start": 82
         }
       }]
     }]

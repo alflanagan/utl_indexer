@@ -1,100 +1,101 @@
 {
   "name": "statement_list",
   "attributes": {
-    "start": 63,
-    "line": 6,
     "file": "while.utl",
-    "end": 64
+    "end": 65,
+    "line": 1,
+    "start": 3
   },
   "children": [{
     "name": "while",
     "attributes": {
-      "start": 40,
-      "line": 3,
       "file": "while.utl",
-      "end": 43
+      "end": 43,
+      "line": 1,
+      "start": 3
     },
     "children": [{
       "name": "expr",
       "attributes": {
-        "start": 20,
-        "line": 1,
         "file": "while.utl",
-        "operator": "==",
-        "end": 22
+        "start": 9,
+        "end": 19,
+        "line": 1,
+        "operator": "=="
       },
       "children": [{
         "name": "id",
         "attributes": {
           "symbol": "foo",
-          "start": 9,
-          "line": 1,
           "file": "while.utl",
-          "end": 12
+          "end": 12,
+          "line": 1,
+          "start": 9
         }
       }, {
         "name": "id",
         "attributes": {
           "symbol": "bar",
-          "start": 20,
-          "line": 1,
           "file": "while.utl",
-          "end": 22
+          "end": 19,
+          "line": 1,
+          "start": 16
         }
       }]
     }, {
       "name": "statement_list",
       "attributes": {
-        "start": 40,
-        "line": 3,
         "file": "while.utl",
-        "end": 43
+        "end": 37,
+        "line": 1,
+        "start": 22
       },
       "children": [{
         "name": "document",
         "attributes": {
-          "start": 40,
-          "line": 3,
           "file": "while.utl",
-          "end": 43,
-          "text": "\nstuff happens\n"
+          "end": 37,
+          "text": "\nstuff happens\n",
+          "line": 1,
+          "start": 22
         }
       }]
     }]
   }, {
     "name": "while",
     "attributes": {
-      "start": 61,
-      "line": 5,
       "file": "while.utl",
-      "end": 63
+      "end": 60,
+      "line": 4,
+      "start": 45
     },
     "children": [{
       "name": "literal",
       "attributes": {
-        "start": 51,
         "line": 4,
+        "type": "boolean",
         "file": "while.utl",
-        "value": "true",
+        "value": true,
+        "start": 51,
         "end": 55
       }
     }, {
       "name": "statement_list",
       "attributes": {
-        "start": 61,
-        "line": 5,
         "file": "while.utl",
-        "end": 63
+        "end": 56,
+        "line": 4,
+        "start": 56
       }
     }]
   }, {
     "name": "document",
     "attributes": {
-      "start": 63,
-      "line": 6,
       "file": "while.utl",
       "end": 64,
-      "text": "\n"
+      "text": "\n",
+      "line": 5,
+      "start": 63
     }
   }]
 }

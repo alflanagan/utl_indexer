@@ -11,6 +11,7 @@ to implement parse tree as well, name is historical accident.
 
 
 """
+from utl_lib.utl_parse_handler import FrozenDict
 
 
 class ASTNodeError(Exception):
@@ -41,19 +42,39 @@ class ASTNode(object):
                 self.add_child(child)
         self.parent = None  # set by parent in add_child
         self.symbol = symbol_name
-        self.attributes = {} if attrs is None else attrs
+        self._attributes = None
+        self.attributes = attrs
 
-    def __eq__(self, other):  # pylint: disable=R0911
+    @property
+    def attributes(self):
+        """A :py:class:`~utl_lib.utl_parse_handler.FrozenDict` containing arbitrary key-value
+        pairs from the node's creator.
+
+        """
+        return self._attributes
+
+    @attributes.setter
+    def attributes(self, new_attrs):  # pylint: disable=C0111
+        if new_attrs is None:
+            self._attributes = FrozenDict()
+        elif not isinstance(new_attrs, FrozenDict):
+            self._attributes = FrozenDict(new_attrs)
+        else:
+            self._attributes = new_attrs
+
+    def __eq__(self, other):
         '''Deep equality test, useful for testing.'''
+        # note this is optimized for debugging, *not* performance
+        # pylint: disable=W0212,R0911
         if self is other:  # optimization
             return True
         if not isinstance(other, ASTNode):
             return False
         if (self.symbol != other.symbol or
-                set(self.attributes.keys()) != set(other.attributes.keys())):
+                set(self._attributes.keys()) != set(other._attributes.keys())):
             return False
-        for key in self.attributes:
-            if self.attributes[key] != other.attributes[key]:
+        for key in self._attributes:
+            if self._attributes[key] != other._attributes[key]:
                 return False
         if len(self.children) != len(other.children):
             return False
@@ -89,7 +110,7 @@ class ASTNode(object):
         """Returns a new instance of :py:class:`utl_lib.ast_node.ASTNode` whose attributes have
         the same values as this.
         """
-        return ASTNode(self.symbol, self.attributes.copy(),
+        return ASTNode(self.symbol, self._attributes,
                        [kid.copy() for kid in self.children])
 
     def add_first_child(self, child):
@@ -120,26 +141,22 @@ class ASTNode(object):
     def __str__(self):
         result = '{}: '.format(self.symbol)
         if self.symbol == 'literal':
-            value = self.attributes['value']
+            value = self._attributes['value']
             if isinstance(value, ASTNode) and value.symbol == "array_literal":
                 result = "literal (array):"
                 for child in value.children:
                     result += " {}".format(child.symbol)
             else:
-                result += repr(self.attributes['value'])
+                result += repr(self._attributes['value'])
         elif self.symbol in ('operator', 'id'):
-            result += self.attributes['symbol']
+            result += self._attributes['symbol']
         elif self.symbol == 'unary-op':
-            result += self.attributes['operator']
+            result += self._attributes['operator']
         elif self.symbol == 'document':
-            result += repr(self.attributes['text'])
-        elif self.attributes:
-            attrs = ''
-            for key in self.attributes:
-                if attrs:
-                    attrs += ', {}: {}'.format(key, repr(self.attributes[key]))
-                else:
-                    attrs = '{}: {}'.format(key, repr(self.attributes[key]))
+            result += repr(self._attributes['text'])
+        elif self._attributes:
+            attrs = ', '.join(["{}: {}".format(key, repr(value))
+                               for key, value in self._attributes.items()])
             result += " {%s}" % attrs
         return result
 
@@ -190,10 +207,10 @@ class ASTNode(object):
 
         """
         result = '{"name": "' + str(self.symbol) + '"'
-        if self.attributes:
+        if self._attributes:
             result += ',\n"attributes": {'
-            for key in self.attributes:
-                value = self.attributes[key]
+            for key in self._attributes:
+                value = self._attributes[key]
                 if self.symbol == 'document':
                     # special handling of HTML content
                     if hasattr(value, 'replace'):  # don't try replace() on ints, etc
@@ -211,6 +228,40 @@ class ASTNode(object):
             result = result[:-2] + ']'
         result += '}'
         return result
+
+    @property
+    def context(self):
+        """The context mapping required by :py:class:`~utl_lib.utl_yacc.UTLParser`."""
+        # attributes has more information than context, but since it does include context, we
+        # can just use it
+        return self.attributes
+
+    def find_first(self, symbol):
+        """Conducts a depth-first search through the tree for a node with symbol `symbol`.
+
+        This is useful if you don't care which match you get, or you know there's only one.
+
+        Returns none if no matching node was found.
+        """
+        if self.symbol == symbol:
+            return self
+        for kid in self.children:
+            value = kid.find_first(symbol)
+            if value is not None:
+                return value
+
+    def find_all(self, symbol):
+        """Conducts a depth-first search through the tree for nodes with symbol `symbol`.
+
+        Returns a (possibly empty) list of all nodes found.
+
+        """
+        matches = []
+        if self.symbol == symbol:
+            matches.append(self)
+        for kid in self.children:
+            matches += kid.find_all(symbol)
+        return matches
 
 # Local Variables:
 # python-indent-offset: 4

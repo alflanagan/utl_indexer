@@ -9,6 +9,68 @@
 
 """
 import sys
+import collections
+
+
+class FrozenDict(collections.Mapping):
+    """Immutable dictionary class by Raymond Hettinger himself.
+
+    This allows handlers to return context info in a form that has the goodness of immutability,
+    and is hashable.
+
+    """
+    # TODO: add an .update() method that returns a new FrozenDict
+    def __init__(self, somedict=None):
+        if somedict is None:
+            somedict = {}
+        self._dict = dict(somedict)   # make a copy
+        self._hash = None
+
+    def __getitem__(self, key):
+        return self._dict[key]
+
+    def __len__(self):
+        return len(self._dict)
+
+    def __iter__(self):
+        return iter(self._dict)
+
+    def __hash__(self):
+        if self._hash is None:
+            self._hash = hash(frozenset(self._dict.items()))
+        return self._hash
+
+    def __eq__(self, other):
+        return self._dict == other._dict  # pylint: disable=W0212
+
+    def combine(self, *args, **keys):
+        """D.combine([E, ]**F) -> D'.  Create FrozenSet D' from D and dict/iterable E and F.
+
+    D' is initially a copy of D.
+    If E is present and has a .keys() method, then does:  for k in E: D'[k] = E[k]
+    If E is present and lacks a .keys() method, then does:  for k, v in E: D'[k] = v
+    In either case, this is followed by: for k in F:  D'[k] = F[k]
+
+    """
+        # yes, above is a direct steal from dict.update() docstring.
+        newdict = self._dict.copy()
+        newdict.update(*args, **keys)
+        return FrozenDict(newdict)
+
+    def delkey(self, *args):
+        """D.delkey(key [, ...]) -> D' which contains {key:D[key] for key in D if key not in args}
+
+        """
+        newdict = self._dict.copy()
+        for arg in args:
+            del newdict[arg]
+        return FrozenDict(newdict)
+
+    def __str__(self):
+        return "frozen: {}".format(self._dict)
+
+    def __repr__(self):
+        return "FrozenDict({})".format(repr(self._dict))
 
 
 # problem with throwing exception on errors is that it halts parsing process
@@ -33,7 +95,11 @@ class UTLParseHandler(object):
     which can be passed on to subsequent higher-level methods (except for
     :py:meth:`~utl_lib.utl_parse_handler.utldoc` which is the top level).
 
-    Note that the parse object passed in will be dynamically updated between calls; methods
+    An overriden handler method must return an object with an attribute named `context` which
+    will be mapping with (at least) the contents of `parser.context`, to be used in higher-level
+    productions.
+
+    Note that the parser object passed in will be dynamically updated between calls; methods
     should not store it and expect to retrieve attributes later. Rather the attributes should be
     retrieved and stored during the method call.
 
@@ -284,6 +350,10 @@ class UTLParseHandler(object):
         """
         return None
 
+    def number_literal(self, parser, literal):
+        """A numeric literal."""
+        return None
+
     def param_decl(self, parser, param_id, default_value=None):
         """A parameter declaration.
 
@@ -312,6 +382,10 @@ class UTLParseHandler(object):
 
     def return_stmt(self, parser, expr=None):
         """A return statement. If `expr` is not :py:attr:`None`, it is the return value."""
+        return None
+
+    def string_literal(self, parser, literal):
+        """A literal string, enclosed in quotation marks."""
         return None
 
     def while_stmt(self, parser, expr, statement_list=None):

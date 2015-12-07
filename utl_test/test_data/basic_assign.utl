@@ -13,7 +13,7 @@
   barney = fred * 3; %]
  here's some text
  [%
-  abool = 3 == 4;
+  abool = 3 == "4";
   a = 3;
   b = fred;
   wilma = e[12];
@@ -27,9 +27,10 @@
   d /= 3;
   default e = a % b - b % c;
   array = [1, 2, 'fred', 3.0, wilma(7)|fred];
-  obj = ['one':2, 'two':3];
+  obj = ['one':2, 'two':'3'];
   obj.one = 3;
   obj['two'] = 7;
   n = [];
-  (a * a) + (b * b) = c
+  (a * a) + (b * b) = c;
+  fred = null
 %]
