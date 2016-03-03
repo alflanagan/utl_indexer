@@ -54,7 +54,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'UTL Parser Library'
-copyright = '2015, A. Lloyd Flanagan'
+copyright = '2015-2016, BH Media Group'
 author = 'A. Lloyd Flanagan'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -81,7 +81,7 @@ language = None
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
-exclude_patterns = ['_build', 'parsetab.py']
+exclude_patterns = ['_build', 'parsetab.py', 'data']
 
 # The reST default role (used for this markup: `text`) to use for all
 # documents.
@@ -292,4 +292,4 @@ texinfo_documents = [
 
 
 # Example configuration for intersphinx: refer to the Python standard library.
-intersphinx_mapping = {'https://docs.python.org/': None}
+intersphinx_mapping = {'python': ('https://docs.python.org/3.5', None), }

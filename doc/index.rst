@@ -13,6 +13,7 @@ Contents:
 
    parse_file
    lex_file
+   unpack_zip_files
    api/utl_lib
    api/utl_test
 

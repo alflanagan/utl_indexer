@@ -1,16 +1,76 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
-"""Script to take a set of Townnews export .zip files and create a useful directory heirarchy."""
+"""Script to take a set of Townnews export .zip files and create a useful directory heirarchy.
 
-# zip files are prefixed by the main section in the Design/Templates editor:
-#  global_, skin_, component_, block_
-# global_(skin_name).zip
-# skin_(application)_(library_name).zip
-# component_(library_name).zip
-# block_(block_name).zip
-# version info, etc. is in within the .zip
-# so will need to unzip to a temporary location, then set up parent directory(ies), then move
+##############
+ZIP File Names
+##############
 
+ZIP files are automatically named by the Townnews editor on export. They are prefixed by the main
+section from the Design/Templates editor: global\_, skin\_, component\_, block\_
+
+* global_(skin_name).zip
+* skin_(application)_(library_name).zip
+* component_(library_name).zip
+* block_(block_name).zip
+
+The version info, etc. is in within the .zip file so we unzip to a temporary location, then set
+up the destination directory, then unzip to there
+
+#######################
+Destination Directories
+#######################
+
+A Townnews-certified package with a certain name and version should be identical from site to
+site. So, we store certified packages under a common "certified" directory, and custom packages
+under the site name.
+
+Under "certified" and the site directories we split up packages by type: "global_skins", "skins",
+"blocks", and "components". "certified" never has "global_skins", while site directories may not
+have any packages for any given type *except* "global_skins".
+
+The "skins" directories in turn have subdirectories for each application: "adowl", "business",
+"editorial", etc.
+
+At the bottom level, the directory for a specific global skin package is just the skin name
+(they're not versioned). The directories for skins, block and component packages are in the format
+*name_version*.
+
+Example Directory Tree
+======================
+
+.. code-block:: none
+
+    exports/
+        certified/
+            skins/
+                adowl/
+                    adowl-core-base_1.53.0.0/
+                business/
+                ...
+            blocks/
+                core-asset-audio-playlist_1.10/
+                core-asset-index-bulletins_1.21.1/
+            components/
+                core_base_business_1.51.0.1/
+                core_base_eedition_1.46.0.0/
+        dothaneagle/
+            global_skins/
+                dothaneagle-redesign/
+            skins/
+            blocks/
+            components/
+        richmond/
+            global_skins/
+            skins/
+            blocks/
+            components/
+
+###################
+Types And Functions
+###################
+
+"""
 import sys
 import re
 import warnings
@@ -41,7 +101,7 @@ from pathlib import Path
 import argparse
 
 
-def get_args():
+def get_args() -> argparse.Namespace:
     """Parse command-line arguments, return namespace with values.
 
     Validate that first two arguments are existing directories; if not, write error message and
@@ -75,10 +135,10 @@ class BadPackageError(Exception):
     pass
 
 
-def mktmpdir():
+def mktmpdir() -> Path:
     """Create an empty temporary directory.
 
-    :returns Path: Name of the created directory.
+    :returns: Name of the created directory.
 
     """
     args = ['mktemp', '-d', 'utl_indexer_XXXXXX', '-t']
@@ -86,12 +146,12 @@ def mktmpdir():
     return Path(subprocess.check_output(args).decode()[:-1])
 
 
-def unzip_file(filename, parent_dir):
+def unzip_file(filename: Path, parent_dir: Path):
     """Unzip file to a temporary directory.
 
-    :param Path filename: The name of the ZIP file.
+    :param pathlib.Path filename: The name of the ZIP file.
 
-    :param Path parent_dir: The directory to receive the contents of `filename`.
+    :param pathlib.Path parent_dir: The directory to receive the contents of `filename`.
 
     """
     # Usage: unzip [-Z] [-opts[modifiers]] file[.zip] [list] [-x xlist] [-d exdir]
@@ -102,13 +162,16 @@ def unzip_file(filename, parent_dir):
     subprocess.check_call(args)
 
 
-def determine_dest_dir(zip_file, reference_dir, destination):
+def determine_dest_dir(zip_file: Path, reference_dir: Path, destination: Path) -> Path:
     """From ZIP file name and contents, determine name of destination directory where files
     should be placed.
 
-    :param Path zip_file: The ZIP file being unzipped.
-    :param Path reference_dir: The directory with the contents of `zip_file` unzipped.
-    :param object args: The namespace containing command-line arguments.
+    :param pathlib.Path zip_file: The ZIP file being unzipped.
+
+    :param pathlib.Path reference_dir: The directory with the contents of `zip_file` unzipped.
+
+    :param pathlib.Path destination: The directory which is the parent of the directory structure
+        (i.e. contains certified/ and site directories)
 
     """
     block_re = re.compile(r'block_(.+)\.zip')
@@ -154,7 +217,7 @@ def determine_dest_dir(zip_file, reference_dir, destination):
 
 # pylint: disable=W0613, R0913
 def showwarning(message, category, filename, lineno, file=None, line=None):
-    """Hook to write a warning to a file; override of warnings.showwarning"""
+    """Hook to write a warning to a file; override of :py:func:`warnings.showwarning`"""
     if file is None:
         file = sys.stderr
         if file is None:
@@ -168,10 +231,12 @@ def showwarning(message, category, filename, lineno, file=None, line=None):
 warnings.showwarning = showwarning
 
 
-def main(args):
-    """Unzip each file, placing contents in desired directory structure."""
-    # MAYBE: remove repetitive source line output from warning messages by overriding
-    #  warnings.showwarning(message, category, filename, lineno, file=None, line=None)
+def main(args: argparse.Namespace):
+    """Unzip each file, placing contents in desired directory structure.
+
+    :param argparse.Namespace args: The parsed command-line arguments.
+
+    """
     for zip_file in Path(args.source_dir).glob('*.zip'):
         tmp_dir = mktmpdir()
         try:
