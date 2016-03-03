@@ -3,26 +3,10 @@
 
 import argparse
 from pathlib import Path
+from collections import OrderedDict
 
 from utl_lib.utl_yacc import UTLParser
 from utl_lib.handler_ast import UTLParseHandlerAST, UTLParseError
-
-
-class OrderedSet(object):  # pylint:disable=R0903
-    """A collection with set-like behavior, except it preserves the order in which the first
-    occurence of each item was seen.
-
-    """
-    def __init__(self, iterator):
-        self.iterator = iterator
-
-    def __iter__(self):
-        """Iterator that returns the items from the source iterator, omitting all duplicates."""
-        already_seen = set()
-        for item in self.iterator:
-            if item not in already_seen:
-                yield item
-                already_seen.add(item)
 
 
 class FileWithIncludes(object):
@@ -49,9 +33,9 @@ class FileWithIncludes(object):
 
     @property
     def included(self):
-        """Returns an iterator over the files included in this file.
+        """Returns a list of the files included in this file.
 
-        :raises FileNotFoundError: if the file does not exist relative to any of
+        :raises FileNotFoundError: if this file does not exist relative to any of
             `args.utl_path`, the global skin, or the application skin.
 
         """
@@ -126,8 +110,10 @@ class FileWithIncludes(object):
             self.is_parsed = True
             included = self.get_includes(results)
             if args.norepeat:
-                # pylint: disable=R0204
-                included = OrderedSet(included)
+                new_included = OrderedDict()
+                for fname in included:
+                    new_included[fname] = None
+                included = [key for key in new_included]
             for include in included:
                 self.add(include)
         else:
