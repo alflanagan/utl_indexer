@@ -4,6 +4,7 @@
 
 from pathlib import Path
 import json
+from warnings import warn
 
 
 class PackageError(Exception):
@@ -34,7 +35,8 @@ class TNPackage(object):
         self.properties = props
         self.is_certified = is_certified
         self.name = props["name"]
-        self.version = props["version"]
+        # global skins don't have version or app values
+        self.version = props.get("version", "0")
         self.app = props.get("app", "global")
         self.deps = dependencies
 
@@ -42,56 +44,76 @@ class TNPackage(object):
         return "{}/{}/{}".format(self.app, self.name, self.version)
 
     @classmethod
-    def _get_props(cls, directory):
-        """Helper method; load package properties from `directory`, return as :py:class:`dict`."""
-        # TODO: fix to use files info.json and .metadata/.meta.json, config.ini not always present
-        if not hasattr(directory, 'name'):
-            directory = Path(directory)
-        props = {}
-        # known config properties are:
-        # apparently required: block_types capabilities name title type version
-        # optional: app
-        config_file = directory / 'package/config.ini'
-        if not config_file.exists():
-            raise PackageError("Package configuration file not found.")
-        with config_file.open('r') as propin:
-            for line in propin:
-                key, value = line[:-1].split('=')
-                props[key] = value[1:-1]
-        return props
-
-    @classmethod
     def load_from(cls, directory):
         """Loads a Townnews package from a directory (and subdirectories)."""
-        props = cls._get_props(directory)
+        props = cls._read_properties(directory)
 
         certified = Path(directory, '.certification').exists()
 
         deps = {}
         dep_file = directory / 'package/dependencies.ini'
-        if dep_file.exists:
+        # declaring dependencies is optional, not unusual for file to be missing
+        if dep_file.exists():
             with dep_file.open('r') as depin:
                 for line in depin:
                     key, value = line[:-1].split('=')
                     deps[key] = value.replace('"', '')
-        # dependencies aren't critical information, don't raise error if file missing
         return cls(props, certified, deps)
 
     @classmethod
-    def _get_props2(cls, directory):
+    def _read_properties(cls, directory):
         """Helper method; load package properties from `directory`, return as :py:class:`dict`."""
+        CAPABILITIES = 'capabilities'  # protect against misspelling frequently used string :)
         if not hasattr(directory, 'name'):
             directory = Path(directory)
-        props = {}
-        info_file = Path(directory) / Path("info.json")
-        meta_file = Path(directory) / Path(".metadata/.meta.json")
+        info = {}
+        meta = {}
+        config = {}
+        info_file = directory / "info.json"
+        meta_file = directory / ".metadata/.meta.json"
+        config_file = directory / 'package/config.ini'
+
+        # ------ Read the 3 possible config files ----------------
         with info_file.open('r') as infoin:
             info = json.load(infoin)
-        with meta_file.open('r') as metain:
-            meta = json.load(metain)
-        print("from info.json:")
-        for key in info:
-            print("    {}: {}".format(key, info[key]))
-        print("\nfrom .metadata/.meta.json:")
+
+        if meta_file.exists():
+            with meta_file.open('r') as metain:
+                meta = json.load(metain)
+            if CAPABILITIES in meta and meta[CAPABILITIES] == [""]:
+                meta[CAPABILITIES] = []
+        else:
+            warn("Package has no .meta.json file")
+
+        if config_file.exists():
+            with config_file.open('r') as propin:
+                for line in propin:
+                    key, value = line[:-1].split('=')
+                    config[key] = value[1:-1]
+            if CAPABILITIES in config:
+                # change to list to match JSON files
+                if config[CAPABILITIES]:
+                    config[CAPABILITIES] = config[CAPABILITIES].split(',')
+                else:
+                    config[CAPABILITIES] = []
+
+        # ------ Consolidate values ----------------------
+
         for key in meta:
-            print("    {}: {}".format(key, meta[key]))
+            # print("    {}: {}".format(key, meta[key]))
+            if key not in info:
+                info[key] = meta[key]
+            elif info[key] != meta[key] and info[key] is not None and meta[key] is not None:
+                # one case where different values is apparently normal
+                if not (key == 'type' and info[key] == 'skin' and meta[key] == 'app'):
+                    warn("info.json has {}: {} but .metadata.json has {}: {}"
+                         "".format(key, info[key], key, meta[key]))
+
+        for key in config:
+            # .meta.json and config.ini both have version, but config.ini is only correct one
+            if key not in info or key == 'version':
+                info[key] = config[key]
+            elif info[key] != config[key] and info[key] is not None and config[key] is not None:
+                warn("JSON file has {}: {}, but config.ini has {}: {}"
+                     "".format(key, info[key], key, config[key]))
+        return info
