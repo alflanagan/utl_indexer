@@ -13,7 +13,9 @@
 
 import sys
 import re
+import warnings
 from shutil import rmtree
+
 from utl_lib.tn_package import TNPackage, PackageError
 
 
@@ -33,7 +35,7 @@ def validate_python_version():
 validate_python_version()
 
 # delay import of recently added libraries, to use version error message instead of "not found"
-# pylint: disable=wrong-import-position
+# pylint: disable=wrong-import-position,wrong-import-order
 import subprocess
 from pathlib import Path
 import argparse
@@ -54,7 +56,8 @@ def get_args():
     parser.add_argument('dest_dir', type=str,
                         help="The directory under which the new directories will be created.")
     parser.add_argument('--overwrite', action='store_true',
-                        help="Replace contents if destination directory exists (default: exit w/error)")
+                        help="Replace contents if destination directory exists "
+                        "(default: exit w/error)")
     parsed = parser.parse_args()
     parsed.source_dir = Path(parsed.source_dir)
     parsed.dest_dir = Path(parsed.dest_dir)
@@ -100,7 +103,8 @@ def unzip_file(filename, parent_dir):
 
 
 def determine_dest_dir(zip_file, reference_dir, destination):
-    """From ZIP file name and contents, determine name of destination directory where files should be placed.
+    """From ZIP file name and contents, determine name of destination directory where files
+    should be placed.
 
     :param Path zip_file: The ZIP file being unzipped.
     :param Path reference_dir: The directory with the contents of `zip_file` unzipped.
@@ -121,56 +125,71 @@ def determine_dest_dir(zip_file, reference_dir, destination):
     match = block_re.match(zip_file.name)
     if match:
         if pkg.name != match.group(1):
-            sys.stderr.write("Warning: package in {} has inconsistent name: {}\n"
-                             "".format(zip_file, pkg.name))
+            warnings.warn("Package in {} has inconsistent name: {}".format(zip_file, pkg.name))
         return destination / Path('blocks') / subdir
 
     match = component_re.match(zip_file.name)
     if match:
         if pkg.name != match.group(1):
-            sys.stderr.write("Warning: package in {} has inconsistent name: {}\n"
-                             "".format(zip_file, pkg.name))
-        return Path('components') / subdir
+            warnings.warn("Package in {} has inconsistent name: {}".format(zip_file, pkg.name))
+        return destination / Path('components') / subdir
 
     match = skin_re.match(zip_file.name)
     if match:
         if pkg.name != match.group(2):
-            sys.stderr.write("Warning: package in {} has inconsistent name: {}\n"
-                             "".format(zip_file, pkg.name))
+            warnings.warn("Package in {} has inconsistent name: {}".format(zip_file, pkg.name))
         return destination / Path('skins') / Path(match.group(1)) / subdir
 
     match = global_re.match(zip_file.name)
     if match:
         if pkg.name != match.group(1):
-            sys.stderr.write("Warning: package in {} has inconsistent name: {}\n"
-                             "".format(zip_file, pkg.name))
-        return destination / Path('global_skins') / subdir
+            warnings.warn("Warning: package in {} has inconsistent name: {}"
+                          "".format(zip_file, pkg.name))
+        # note: globals don't have version
+        return destination / Path('global_skins') / pkg.name
     # oops
     raise ValueError("I don't know how to unzip file {}: unrecognized prefix."
                      "".format(zip_file))
 
 
+# pylint: disable=W0613, R0913
+def showwarning(message, category, filename, lineno, file=None, line=None):
+    """Hook to write a warning to a file; override of warnings.showwarning"""
+    if file is None:
+        file = sys.stderr
+        if file is None:
+            # sys.stderr is None when run with pythonw.exe - warnings get lost
+            return
+    try:
+        # our only difference from warnings.showwarning: pass '' as line
+        file.write(warnings.formatwarning(message, category, filename, lineno, ''))
+    except OSError:
+        pass  # the file (probably stderr) is invalid - this warning gets lost.
+warnings.showwarning = showwarning
+
+
 def main(args):
     """Unzip each file, placing contents in desired directory structure."""
+    # MAYBE: remove repetitive source line output from warning messages by overriding
+    #  warnings.showwarning(message, category, filename, lineno, file=None, line=None)
     for zip_file in Path(args.source_dir).glob('*.zip'):
         tmp_dir = mktmpdir()
-        unzip_file(zip_file, tmp_dir)
         try:
+            unzip_file(zip_file, tmp_dir)
             new_parent = determine_dest_dir(zip_file, tmp_dir, args.dest_dir)
-            print("Would unzip {} to {}.".format(zip_file, new_parent))
-            # if new_parent.exists():
-                # if args.overwrite:
-                    # rmtree(str(new_parent))
-                # else:
-                    # sys.stderr.write("Won't overwrite existing directory '{}'.\n".format(new_parent))
-                    # continue
-            # new_parent.mkdir(parents=True)
-            # unzip_file(zip_file, new_parent)
+            if new_parent.exists():
+                if args.overwrite:
+                    rmtree(str(new_parent))
+                else:
+                    sys.stderr.write("Won't overwrite existing directory '{}'.\n"
+                                     "".format(new_parent))
+                    continue
+            print("Creating {}".format(new_parent))
+            new_parent.mkdir(parents=True)
+            unzip_file(zip_file, new_parent)
         finally:
             rmtree(str(tmp_dir))
 
 
 if __name__ == '__main__':
     main(get_args())
-
-
