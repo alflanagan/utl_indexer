@@ -31,7 +31,7 @@ class TNPackage(object):
 
     """
 
-    def __init__(self, props, is_certified, dependencies):
+    def __init__(self, props: dict, is_certified: bool, dependencies: dict):
         self.properties = props
         self.is_certified = is_certified
         self.name = props["name"]
@@ -44,9 +44,17 @@ class TNPackage(object):
         return "{}/{}/{}".format(self.app, self.name, self.version)
 
     @classmethod
-    def load_from(cls, directory):
-        """Loads a Townnews package from a directory (and subdirectories)."""
-        props = cls._read_properties(directory)
+    def load_from(cls, directory: Path, zip_name: str) -> "TNPackage":
+        """Reads a Townnews package from a directory (and subdirectories).
+
+        :param pathlib.Path directory: The directory containing the unzipped export file.
+
+        :param str zip_name: The name of the export file (for error messages).
+
+        :return: A new TNPackage instance.
+
+        """
+        props = cls._read_properties(directory, zip_name)
 
         certified = Path(directory, '.certification').exists()
 
@@ -61,7 +69,7 @@ class TNPackage(object):
         return cls(props, certified, deps)
 
     @classmethod
-    def _read_properties(cls, directory):
+    def _read_properties(cls, directory, zip_name):
         """Helper method; load package properties from `directory`, return as :py:class:`dict`."""
         CAPABILITIES = 'capabilities'  # protect against misspelling frequently used string :)
         if not hasattr(directory, 'name'):
@@ -83,7 +91,7 @@ class TNPackage(object):
             if CAPABILITIES in meta and meta[CAPABILITIES] == [""]:
                 meta[CAPABILITIES] = []
         else:
-            warn("Package has no .meta.json file")
+            warn("Package {} has no .meta.json file".format(zip_name))
 
         if config_file.exists():
             with config_file.open('r') as propin:
@@ -106,14 +114,14 @@ class TNPackage(object):
             elif info[key] != meta[key] and info[key] is not None and meta[key] is not None:
                 # one case where different values is apparently normal
                 if not (key == 'type' and info[key] == 'skin' and meta[key] == 'app'):
-                    warn("info.json has {}: {} but .metadata.json has {}: {}"
-                         "".format(key, info[key], key, meta[key]))
+                    warn("{}: info.json has {}: {} but .metadata.json has {}: {}"
+                         "".format(zip_name, key, info[key], key, meta[key]))
 
         for key in config:
             # .meta.json and config.ini both have version, but config.ini is only correct one
             if key not in info or key == 'version':
                 info[key] = config[key]
             elif info[key] != config[key] and info[key] is not None and config[key] is not None:
-                warn("JSON file has {}: {}, but config.ini has {}: {}"
-                     "".format(key, info[key], key, config[key]))
+                warn("{}: JSON file has {}: {}, but config.ini has {}: {}"
+                     "".format(zip_name, key, info[key], key, config[key]))
         return info
