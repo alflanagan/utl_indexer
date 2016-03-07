@@ -72,12 +72,13 @@ Types And Functions
 
 """
 import sys
-import re
 import warnings
 from shutil import rmtree
 
-from utl_lib.tn_package import TNPackage, PackageError
+from utl_lib.tn_package import TNPackage
 
+# TODO: For certified packages, create/maintain a database in the site directory that specifies
+# that the site uses certified package X, version Y
 
 def validate_python_version():
     """Check current python version: must be 3.5 or greater, for :py:mod:`pathlib` and
@@ -111,6 +112,8 @@ def get_args() -> argparse.Namespace:
     mydesc = ("Writes the contents of a group of ZIP files to a standard directory structure "
               "for Townnews template exports.")
     parser = argparse.ArgumentParser(description=mydesc)
+    parser.add_argument('site', type=str,
+                        help="The site name (or name of directory for custom packages)")
     parser.add_argument('source_dir', type=str,
                         help="The directory containing source ZIP files.")
     parser.add_argument('dest_dir', type=str,
@@ -162,62 +165,24 @@ def unzip_file(filename: Path, parent_dir: Path):
     subprocess.check_call(args)
 
 
-def determine_dest_dir(zip_file: Path, reference_dir: Path, destination: Path) -> Path:
-    """From ZIP file name and contents, determine name of destination directory where files
-    should be placed.
-
-    :param pathlib.Path zip_file: The ZIP file being unzipped.
-
-    :param pathlib.Path reference_dir: The directory with the contents of `zip_file` unzipped.
-
-    :param pathlib.Path destination: The directory which is the parent of the directory structure
-        (i.e. contains certified/ and site directories)
-
-    """
-    block_re = re.compile(r'block_(.+)\.zip')
-    global_re = re.compile(r'global_(.+)\.zip')
-    component_re = re.compile(r'component_(.+)\.zip')
-    skin_re = re.compile(r'skin_([^_]+)_(.+)\.zip')
-
-    try:
-        pkg = TNPackage.load_from(reference_dir)
-    except PackageError as perr:
-        raise BadPackageError(str(zip_file)) from perr
-
-    subdir = Path("{}_{}".format(pkg.name, pkg.version))
-    match = block_re.match(zip_file.name)
-    if match:
-        if pkg.name != match.group(1):
-            warnings.warn("Package in {} has inconsistent name: {}".format(zip_file, pkg.name))
-        return destination / Path('blocks') / subdir
-
-    match = component_re.match(zip_file.name)
-    if match:
-        if pkg.name != match.group(1):
-            warnings.warn("Package in {} has inconsistent name: {}".format(zip_file, pkg.name))
-        return destination / Path('components') / subdir
-
-    match = skin_re.match(zip_file.name)
-    if match:
-        if pkg.name != match.group(2):
-            warnings.warn("Package in {} has inconsistent name: {}".format(zip_file, pkg.name))
-        return destination / Path('skins') / Path(match.group(1)) / subdir
-
-    match = global_re.match(zip_file.name)
-    if match:
-        if pkg.name != match.group(1):
-            warnings.warn("Warning: package in {} has inconsistent name: {}"
-                          "".format(zip_file, pkg.name))
-        # note: globals don't have version
-        return destination / Path('global_skins') / pkg.name
-    # oops
-    raise ValueError("I don't know how to unzip file {}: unrecognized prefix."
-                     "".format(zip_file))
-
-
 # pylint: disable=W0613, R0913
 def showwarning(message, category, filename, lineno, file=None, line=None):
-    """Hook to write a warning to a file; override of :py:func:`warnings.showwarning`"""
+    """Hook to write a warning to a file; override of :py:func:`warnings.showwarning`
+
+    :param str message: The warning message.
+
+    :param str category: The warning category.
+
+    :param str filename: The filename of the file where the warning was generated.
+
+    :param int lineno: The line of file `filename` where the warning occurred.
+
+    :param file: Output file (defaults to :py:attr:`sys.stderr`).
+
+    :param line: The text of the line where the error was generated (defaults to line number
+        `lineno` in internal line cache.)
+
+    """
     if file is None:
         file = sys.stderr
         if file is None:
@@ -241,7 +206,8 @@ def main(args: argparse.Namespace):
         tmp_dir = mktmpdir()
         try:
             unzip_file(zip_file, tmp_dir)
-            new_parent = determine_dest_dir(zip_file, tmp_dir, args.dest_dir)
+            tmp_pkg = TNPackage.load_from(tmp_dir, zip_file, args.site)
+            new_parent = args.dest_dir / tmp_pkg.install_dir
             if new_parent.exists():
                 if args.overwrite:
                     rmtree(str(new_parent))
