@@ -1,8 +1,9 @@
 # see notes in file requirements.in
-pip-tools
 coverage
 ipython
 jedi
 pep8
+pip-tools
+pydocstyle
 pylint
 Sphinx
