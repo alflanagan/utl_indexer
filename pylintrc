@@ -17,3 +17,12 @@ max-line-length=120
 # Good variable names which should always be accepted, separated by a comma
 good-names=i,j,k,ex,Run,_,p
 
+[MASTER]
+load-plugins=pylint.extensions.check_docs
+# allow extra processes to speed up pylint -- we now have 2 processors!
+# but may not work with load-plugins
+jobs=0
+
+# Whether to accept totally missing parameter documentation in a docstring of a
+# function that has parameters
+accept-no-param-doc=no
