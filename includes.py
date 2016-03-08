@@ -1,23 +1,28 @@
 #!/usr/bin/env python3
 """Script to use UTL parser to print out include file trees for a given source file."""
 
-import argparse
 from pathlib import Path
 from collections import OrderedDict
+import argparse
+# for docs only
+from argparse import Namespace  # pylint: disable=W0611
 
 from utl_lib.utl_yacc import UTLParser
 from utl_lib.handler_ast import UTLParseHandlerAST, UTLParseError
+# for docs only
+from utl_lib.ast_node import ASTNode  # pylint: disable=W0611
 
 
 class FileWithIncludes(object):
     """A .utl file, which may include other UTL files.
 
-    :param (str or Path) filename: The file, relative to the top-level directory
+    :param str filename: The file, relative to the top-level directory
         (`args.utl_path`), or the global or application skin directories. Note that the file
         doesn't have to actually exist as long as no operation that requires a parse is
         performed.
 
-    :param args: The command-line arguments collected by the :py:mod:`argparse` parser.
+    :param Namespace args: The command-line arguments collected by the
+        :py:mod:`argparse` parser.
 
     """
     def __init__(self, filename, args):
@@ -54,10 +59,10 @@ class FileWithIncludes(object):
         _ = self.disk_path  # make sure we've looked for file
         return self._source
 
-    def add(self, new_include):
+    def add(self, new_include):  # pylint: disable=W9003,W9004
         """Adds `new_include` to our list of included files.
 
-        :param (str or FileWithIncludes) new_included: the include file to add.
+        :param (str or FileWithIncludes) new_include: the include file to add.
 
         """
         if not hasattr(new_include, 'included'):
@@ -68,7 +73,7 @@ class FileWithIncludes(object):
     def get_includes(cls, ast_node):
         """Walks the tree rooted at `ast_node` looking for ``include`` statements.
 
-        :param utl_lib.ast_node.AstNode ast_node: The root of an AST.
+        :param AstNode ast_node: The root of an AST.
 
         :returns iterator: The included filenames found (as :py:class:`str`), in the order
             found. Files included more than once will occur in the sequence more than once.
@@ -88,7 +93,7 @@ class FileWithIncludes(object):
     def do_parse(self, args, program_text=''):
         """Parse the file and get list of included files.
 
-        :param args: The arguments returned by the :py:mod:`argparse` parser.
+        :param Namespace args: The arguments returned by the :py:mod:`argparse` parser.
 
         :param str program_text: The text of the file to be parsed.
 
@@ -136,19 +141,28 @@ class FileWithIncludes(object):
                 return self._disk_path
             # check for override in global skin
             if self.args.global_skin:
-                the_file = (Path(self.args.utl_path) / Path("global_skins") /
-                            Path(self.args.global_skin) / Path("includes") / Path(self.fname))
+                the_file = (Path(self.args.utl_path) / Path(self.args.site_name) /
+                            Path("global_skins") / Path(self.args.global_skin) / Path("includes") /
+                            Path(self.fname))
                 if the_file.exists():
                     self._disk_path = the_file
                     self._source = "global"
                     return self._disk_path
             # now try the application skin
+
             if self.args.skin:
-                the_file = (Path(self.args.utl_path) / Path("skins") / Path(self.args.skin) /
-                            Path('includes') / Path(self.fname))
+                the_file = (Path(self.args.utl_path) / Path(self.args.site_name) / Path("skins") /
+                            Path(self.args.skin) / Path('includes') / Path(self.fname))
                 if the_file.exists():
-                    self._source = "application"
+                    self._source = "application (custom)"
                     self._disk_path = the_file
+                    return self._disk_path
+                the_file = (Path(self.args.utl_path) / Path("certified/skins") /
+                            Path(self.args.skin) / Path('includes') / Path(self.fname))
+                if the_file.exists():
+                    self._source = "application (certified)"
+                    self._disk_path = the_file
+                    return self._disk_path
         return self._disk_path
 
     @property
@@ -185,8 +199,14 @@ class FileWithIncludes(object):
 
 def get_args():
     """Parses command-line arguments, returns namespace with values."""
+    # data/exported data/exported/certified/skins/editorial/editorial-core-base_1.54.0.0/\
+    # templates/index.html.utl \
+    # --site richmond.com --global_skin global-richmond --skin editorial-core-base_1.54.0.0
+
     parser = argparse.ArgumentParser(
         description="Searches UTL files and reports include dependencies.")
+    parser.add_argument('site_name', type=str,
+                        help="The site name under which to store customized packages.")
     parser.add_argument('utl_path', type=str,
                         help="The top-level directory of the collection of UTL files to be parsed.")
     parser.add_argument('utl_file', type=argparse.FileType('r'),
@@ -203,7 +223,8 @@ def get_args():
     parser.add_argument('--global_skin', type=str,
                         help="Name of the global skin (to check for site override)")
     parser.add_argument('--skin', type=str,
-                        help="The name of the skin to apply (ex. 'editorial/core/base-1.53.0.1')")
+                        help="The name of the skin to apply (ex. 'editorial/editorial-"
+                        "core-base-1.53.0.1')")
     # TODO: Fix --skin so it takes the skin name displayed in TN URL map
     parser.add_argument('--debug', action='store_true',
                         help="Print grungy parsing details.")
@@ -211,7 +232,11 @@ def get_args():
 
 
 def main(args):
-    """Main function. Creates an instance of :py:class:`FileWithIncludes`, displays it."""
+    """Main function. Creates an instance of :py:class:`FileWithIncludes`, displays it.
+
+    :param Namespace args: parsed command-line arguments.
+
+    """
     utl = FileWithIncludes(args.utl_file.name, args)
 
     utl.display()
