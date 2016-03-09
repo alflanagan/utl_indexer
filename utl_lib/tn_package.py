@@ -60,7 +60,13 @@ class TNPackage(object):
 
     def __str__(self):
         """String representation of package, like 'app/package/version'."""
-        return "{}/{}/{}".format(self.app, self.name, self.version)
+        site_part = app_part = name_part = ''
+        if self.site:
+            site_part = "{}: ".format(self.site)
+        if self.app:
+            app_part = "{}/".format(self.app)
+        name_part = "{}/{}".format(self.name, self.version)
+        return site_part + app_part + name_part
 
     @classmethod
     def load_from(cls, directory: Path, zip_name: str, site_name=None) -> "TNPackage":
@@ -90,18 +96,18 @@ class TNPackage(object):
         return cls(props, certified, deps, Path(zip_name), site_name)
 
     @classmethod
-    def _read_meta_config(cls, directory, zip_name):
+    def _read_meta_config(cls, directory: Path, zip_name: str) -> dict:
         """Read the .meta.json file in `directory`/.metadata/ (if present).
 
         :param str directory: Directory into which Townnews export ZIP was unzipped.
 
         :param str zip_name: The name of the Townnews export ZIP file.
 
-        :returns dict: the key-value pairs from the config file.
+        :returns: the key-value pairs from the config file.
 
         """
         cap_const = 'capabilities'
-        meta_file = directory / ".metadata/.meta.json"
+        meta_file = Path(directory) / ".metadata/.meta.json"
 
         if meta_file.exists():
             with meta_file.open('r') as metain:
