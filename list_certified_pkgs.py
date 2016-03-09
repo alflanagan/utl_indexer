@@ -51,16 +51,6 @@ def get_args():
     return parser.parse_args()
 
 
-def pkg_format(pkg_name):
-    """Formats package name from download to '<package-name> (<version>)'."""
-    # TODO: Get block title from .metadata
-    match = PACKAGE_PARTS.match(pkg_name)
-    if not match:
-        return pkg_name
-    else:
-        return "{} ({})".format(match.group(1), match.group(2))
-
-
 def main(args):
     """Print lists as filtered by command-line arguments"""
     filterwarnings("ignore", category=Warning)
