@@ -76,6 +76,7 @@ import warnings
 from shutil import rmtree
 
 from utl_lib.tn_package import TNPackage
+from utl_lib.tn_site import TNSiteMeta
 
 # TODO: For certified packages, create/maintain a database in the site directory that specifies
 # that the site uses certified package X, version Y
@@ -202,24 +203,31 @@ def main(args: argparse.Namespace):
     :param argparse.Namespace args: The parsed command-line arguments.
 
     """
-    for zip_file in Path(args.source_dir).glob('*.zip'):
-        tmp_dir = mktmpdir()
-        try:
-            unzip_file(zip_file, tmp_dir)
-            tmp_pkg = TNPackage.load_from(tmp_dir, zip_file, args.site)
-            new_parent = args.dest_dir / tmp_pkg.install_dir
-            if new_parent.exists():
-                if args.overwrite:
-                    rmtree(str(new_parent))
-                else:
-                    sys.stderr.write("Won't overwrite existing directory '{}'.\n"
-                                     "".format(new_parent))
-                    continue
-            print("Creating {}".format(new_parent))
-            new_parent.mkdir(parents=True)
-            unzip_file(zip_file, new_parent)
-        finally:
-            rmtree(str(tmp_dir))
+    site_meta = TNSiteMeta(args.site, args.dest_dir / args.site)
+    try:
+        for zip_file in Path(args.source_dir).glob('*.zip'):
+            tmp_dir = mktmpdir()
+            try:
+                unzip_file(zip_file, tmp_dir)
+                tmp_pkg = TNPackage.load_from(tmp_dir, zip_file, args.site)
+                new_parent = args.dest_dir / tmp_pkg.install_dir
+                if new_parent.exists():
+                    if args.overwrite:
+                        rmtree(str(new_parent))
+                    else:
+                        sys.stderr.write("Won't overwrite existing directory '{}'.\n"
+                                         "".format(new_parent))
+                        continue
+                print("Creating {}".format(new_parent))
+                new_parent.mkdir(parents=True)
+                unzip_file(zip_file, new_parent)
+                site_meta.add(tmp_pkg.name, (tmp_pkg.version,
+                                             "Y" if tmp_pkg.is_certified else "N"))
+            finally:
+                rmtree(str(tmp_dir))
+    finally:
+        # we want to record versions for those ZIPs successfully unpacked, even if one failed
+        site_meta.save()
 
 
 if __name__ == '__main__':

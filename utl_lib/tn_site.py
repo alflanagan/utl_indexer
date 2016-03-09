@@ -38,7 +38,7 @@ class TNSiteMeta(object):
     """
     # "meta" was chosen as base of names, instead of e.g. "config", to match Townnews usage in
     # packages
-    STANDARD_META_FILENAME = Path('.tn_site_meta.json')
+    STANDARD_META_FILENAME = Path('site_meta.json')
     STANDARD_META_DIR = Path('.')  # this is relative to the site directory
 
     def __init__(self, site_name: str, parent_dir: Path, meta_file_path: Path=None):
@@ -57,11 +57,22 @@ class TNSiteMeta(object):
     def save(self):
         """Saves current state in the designated file. If file exists, it will be overwritten."""
         # TODO: save a backup copy
-        if self.modified:
+        if self.modified or not self.file.exists():
             with self.file.open('w') as metaout:
                 json.dump(self.data, metaout)
+            print("Wrote meta file {}.".format(self.file))
             self.modified = False
 
+    def add(self, key: str, value: object):
+        """Adds a key: value pair to the site config.
+
+        :param str key: A lookup key.
+
+        :param object value: A value of any JSON-serializable type.
+
+        """
+        # convert key to string just to be sure
+        self.data[str(key)] = value
 
 # Local Variables:
 # python-indent-offset: 4
