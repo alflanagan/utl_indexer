@@ -36,6 +36,8 @@ class TNSiteMeta(object):
         `parent_dir / TNSiteMeta.STANDARD_META_DIR / TNSiteMeta.STANDARD_META_FILENAME`.
 
     """
+    # TODO: Record date/time a package was exported from a site
+
     # "meta" was chosen as base of names, instead of e.g. "config", to match Townnews usage in
     # packages
     STANDARD_META_FILENAME = Path('site_meta.json')
