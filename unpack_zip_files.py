@@ -78,8 +78,8 @@ from shutil import rmtree
 from utl_lib.tn_package import TNPackage
 from utl_lib.tn_site import TNSiteMeta
 
-# TODO: For certified packages, create/maintain a database in the site directory that specifies
-# that the site uses certified package X, version Y
+# TODO: how do we add certified package to site metadata without having to
+#       do an export when we already have that package in data directories?
 
 def validate_python_version():
     """Check current python version: must be 3.5 or greater, for :py:mod:`pathlib` and
