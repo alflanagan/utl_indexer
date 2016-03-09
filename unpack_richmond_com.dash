@@ -6,7 +6,7 @@
 UTL_IND_DIR=/home/aflanagan/Devel/utl_indexer
 DEST_DIR=data/exported
 SITE_DIR=data/exported/richmond.com
-EXPORT_DIR=data/richmond.com_export
+EXPORT_DIR=data/export_zips/richmond.com
 
 rm -r ${SITE_DIR}
 
@@ -17,7 +17,6 @@ if [ $(pwd) != ${UTL_IND_DIR} ]; then
     exit 1
 fi
 
-echo ./unpack_zip_files.py ${EXPORT_DIR} ${DEST_DIR}
 ./unpack_zip_files.py richmond.com ${EXPORT_DIR} ${DEST_DIR}
 ERR=$?
 if [ ${ERR} -ne 0 ]; then
@@ -30,7 +29,7 @@ fi
 # because we can't export global-richmond-portal (too large), we
 # duplicated it, deleted images, and downloaded that
 
-echo ./includes.py richmond.com ${DEST_DIR} \
+./includes.py richmond.com ${DEST_DIR} \
   ${DEST_DIR}/certified/skins/editorial/editorial-core-base_1.54.0.0/templates/index.html.utl \
   --global_skin global-richmond-portal_temp --skin editorial/editorial-core-base_1.54.0.0
 
