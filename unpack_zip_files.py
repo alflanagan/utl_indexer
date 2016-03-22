@@ -221,8 +221,12 @@ def main(args: argparse.Namespace):
                 print("Creating {}".format(new_parent))
                 new_parent.mkdir(parents=True)
                 unzip_file(zip_file, new_parent)
-                site_meta.add(tmp_pkg.name, (tmp_pkg.version,
-                                             "Y" if tmp_pkg.is_certified else "N"))
+                zip_file_time =  zip_file.stat().st_ctime
+                site_meta.add(tmp_pkg.name, {"version": tmp_pkg.version,
+                                             "certified": "Y" if tmp_pkg.is_certified else "N",
+                                             "last_download": zip_file_time,
+                                             "zip_name": zip_file.name,
+                                             })
             finally:
                 rmtree(str(tmp_dir))
     finally:
