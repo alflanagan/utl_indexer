@@ -26,6 +26,8 @@ class TNPackage(object):
     information from a directory. You can specify the exact values to :py:meth:`Package` for
     debugging, etc.
 
+    :see utl_lib.TNPackageZIP: for how an exported ZIP file is written to the directory.
+
     :param dict props: name-value pairs of package properties
 
     :param bool is_certified: True if TownNews certification file is found.
@@ -43,6 +45,21 @@ class TNPackage(object):
     global_re = re.compile(r'global_(.+)\.zip')
     component_re = re.compile(r'component_(.+)\.zip')
     skin_re = re.compile(r'skin_([^_]+)_(.+)\.zip')
+
+    GLOBAL_SKIN = "g"
+    SKIN = "s"
+    BLOCK = "b"
+    COMPONENT = "c"
+    PACKAGE_TYPES = (
+        (GLOBAL_SKIN, "global skin"),
+        (SKIN, "application skin"),
+        (BLOCK, "block"),
+        (COMPONENT, "component"),
+    )
+
+    PKG_DIRS = {BLOCK: 'blocks', SKIN: 'skins',
+                GLOBAL_SKIN: "global_skins", COMPONENT: 'components', }
+    "Name of package parent directory for block package types"
 
     def __init__(self, props: dict, is_certified: bool, dependencies: dict, zip_file: Path,
                  site_name=None):
@@ -214,24 +231,24 @@ class TNPackage(object):
         match = self.block_re.match(self.zipfile.name)
         if match:
             warn_inconsistent(match.group(1))
-            middle_dir = Path('blocks')
+            middle_dir = Path(self.PKG_DIRS[self.BLOCK])
         else:
             match = self.component_re.match(self.zipfile.name)
             if match:
                 warn_inconsistent(match.group(1))
-                middle_dir = Path('components')
+                middle_dir = Path(self.PKG_DIRS[self.COMPONENT])
             else:
                 match = self.skin_re.match(self.zipfile.name)
                 if match:
                     warn_inconsistent(match.group(2))
-                    middle_dir = Path('skins') / Path(match.group(1))
+                    middle_dir = Path(self.PKG_DIRS[self.SKIN]) / Path(match.group(1))
                 else:
                     match = self.global_re.match(self.zipfile.name)
                     if match:
                         warn_inconsistent(match.group(1))
                         # note: globals don't have version
                         bottom_dir = Path(self.name)
-                        middle_dir = Path('global_skins')
+                        middle_dir = Path(self.PKG_DIRS[self.GLOBAL_SKIN])
                     else:
                         # oops
                         raise ValueError("I don't know how to unzip file {}: unrecognized prefix."
