@@ -72,8 +72,12 @@ class TNPackage(object):
 
         self.name = props["name"]
         # global skins don't have version or app values
-        self.version = props.get("version", "0")
-        self.app = props.get("app", "global")
+        self.version = props.get("version")
+        if not self.version:
+            self.version = "0"
+        self.app = props.get("app")
+        if not self.app:
+            self.app = "global"
 
     def __str__(self):
         """String representation of package, like 'app/package/version'."""
