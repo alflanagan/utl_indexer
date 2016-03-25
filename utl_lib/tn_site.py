@@ -28,8 +28,8 @@ class TNSiteMeta(object):
     :param str site_name: A name identifying the site, also the name of the top directory for
         site's customized packages.
 
-    :param Path parent_dir: The directory where all the packages are stored; `site_name`/ and
-        'certified/' should both be child directories of this one.
+    :param Path parent_dir: The directory where all the packages are stored; usually this is
+        the site directory which is a sibling of "certified"
 
     :param Path meta_file_path: The data file for the site's meta-information. Usually this is
         ommitted, in which case the file defaults to
@@ -51,9 +51,12 @@ class TNSiteMeta(object):
         else:
             self.file = meta_file_path
         self.data = {}
+        self.loaded = False
+        "True if this TNSiteMeta data was loaded from disk."
         if self.file.exists():
             with self.file.open('r') as metain:
                 self.data = json.load(metain)
+            self.loaded = True
         self.modified = False  # 'dirty' flag
 
     def save(self):
