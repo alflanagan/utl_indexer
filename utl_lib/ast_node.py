@@ -11,7 +11,7 @@ to implement parse tree as well, name is historical accident.
 
 
 """
-from typing import Mapping, Any, Iterable, MutableMapping
+from typing import Mapping, Any, Iterable, MutableMapping, Sequence
 from utl_lib.utl_parse_handler import FrozenDict
 
 
@@ -35,7 +35,7 @@ class ASTNode(object):
     """
 
     def __init__(self, symbol_name: str, attrs: Mapping[str, Any],
-                 children: Iterable[ASTNode]) -> None:
+                 children: Iterable["ASTNode"]) -> None:
         if not symbol_name:
             raise ASTNodeError('ASTNode must have a valid name')
         if attrs is not None:
@@ -87,7 +87,7 @@ class ASTNode(object):
                 return False
         return True
 
-    def add_child(self, child: ASTNode) -> None:
+    def add_child(self, child: "ASTNode") -> None:
         '''Add child to the list of children of this node. `child` will become the last child,
         making this appropriate for right-expanding rules like: a : a b
 
@@ -111,14 +111,14 @@ class ASTNode(object):
         child.parent = self
         self.children.append(child)
 
-    def copy(self) -> ASTNode:
+    def copy(self) -> "ASTNode":
         """Returns a new instance of :py:class:`utl_lib.ast_node.ASTNode` whose attributes have
         the same values as this.
         """
         return ASTNode(self.symbol, self._attributes,
                        [kid.copy() for kid in self.children])
 
-    def add_first_child(self, child: ASTNode) -> None:
+    def add_first_child(self, child: "ASTNode") -> None:
         '''Add child to the list of children of this node. `child` will become the first child,
         making this appropriate for left-expanding rules like: a : b a
 
@@ -129,7 +129,7 @@ class ASTNode(object):
         child.parent = self
         self.children.insert(0, child)
 
-    def add_children(self, iterator: Iterable[ASTNode]) -> None:
+    def add_children(self, iterator: Iterable["ASTNode"]) -> None:
         """Add each item in iterator to the list of children. Items should be nodes. Note that
         the nodes will be inserted into the beginning of the list, and end up in reverse order
         of the iterator.
@@ -241,7 +241,7 @@ class ASTNode(object):
         # can just use it
         return self.attributes
 
-    def find_first(self, symbol: str) -> ASTNode:
+    def find_first(self, symbol: str) -> "ASTNode":
         """Conducts a depth-first search through the tree for a node with symbol `symbol`.
 
         This is useful if you don't care which match you get, or you know there's only one.
@@ -255,7 +255,7 @@ class ASTNode(object):
             if value is not None:
                 return value
 
-    def find_all(self, symbol: str) -> ASTNode:
+    def find_all(self, symbol: str) -> "ASTNode":
         """Conducts a depth-first search through the tree for nodes with symbol `symbol`.
 
         Returns a (possibly empty) list of all nodes found.
