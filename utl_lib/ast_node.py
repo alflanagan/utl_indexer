@@ -11,7 +11,7 @@ to implement parse tree as well, name is historical accident.
 
 
 """
-from typing import Mapping, Any, Iterable, MutableMapping, Sequence
+from typing import Mapping, Any, Iterable, MutableMapping, Sequence, Optional
 from utl_lib.utl_parse_handler import FrozenDict
 
 
@@ -23,10 +23,11 @@ class ASTNodeError(Exception):
 class ASTNode(object):
     """A node in the AST.
 
-    :param symbol_name: A name for the node, usually related to the rule that produced it.
+    :param str symbol_name: A name for the node, usually related to the rule
+        that produced it.
 
-    :param attrs: key-value pairs attaching arbitrary attributes to this node. For attributes
-        that are not common to all nodes.
+    :param dict attrs: key-value pairs attaching arbitrary attributes to this
+        node. For attributes that are not common to all nodes.
 
     :param list children: Nodes to be attached as children of this node.
 
@@ -62,14 +63,26 @@ class ASTNode(object):
         if new_attrs is None:
             self._attributes = FrozenDict()
         elif not isinstance(new_attrs, FrozenDict):
-            self._attributes = FrozenDict(new_attrs)
+            # self._attributes = FrozenDict(new_attrs)
+            attr_copy = {}
+            for key in new_attrs:
+                if isinstance(new_attrs[key], ASTNode):
+                    attr_copy[key] = FrozenASTNode(new_attrs[key])
+                else:
+                    attr_copy[key] = new_attrs[key]
+            self._attributes = FrozenDict(attr_copy)
         else:
             self._attributes = new_attrs
 
+    # pylint: disable=R0911
     def __eq__(self, other: Any) -> bool:
-        '''Deep equality test, useful for testing.'''
+        '''Deep equality test, useful for testing.
+
+        :param Any other: The object compared.
+
+        '''
         # note this is optimized for debugging, *not* performance
-        # pylint: disable=W0212,R0911
+        # pylint: disable=W0212
         if self is other:  # optimization
             return True
         if not isinstance(other, ASTNode):
@@ -147,7 +160,7 @@ class ASTNode(object):
         result = '{}: '.format(self.symbol)
         if self.symbol == 'literal':
             value = self._attributes['value']
-            if isinstance(value, ASTNode) and value.symbol == "array_literal":
+            if isinstance(value, (ASTNode, FrozenASTNode, )) and value.symbol == "array_literal":
                 result = "literal (array):"
                 for child in value.children:
                     result += " {}".format(child.symbol)
@@ -188,16 +201,25 @@ class ASTNode(object):
                 result += '\n    ' + line
         return result
 
+    # pylint: disable=W9003,W9004
+    # appears to be no way to make pylint accept docstring
     @staticmethod
-    def _json_safe(text: str) -> str:
-        """Safely convert a python string to a format suitable for JSON"""
-        if isinstance(text, int) or isinstance(text, float):
-            if isinstance(text, bool):
+    def _json_safe(value: Any) -> Any:
+        """Safely convert a python value to a type suitable for JSON.
+
+        :parm Any value: A python value of some sort.
+
+        """
+        if isinstance(value, int) or isinstance(value, float):
+            if isinstance(value, bool):
                 # yes, bool is a subclass of int. Sigh
-                return "true" if text else "false"
+                return "true" if value else "false"
             # these types are fine as is
-            return text
-        my_repr = repr(text)  # it's quoted
+            return value
+        my_repr = repr(value)  # it's quoted
+        # repr() returns value in "" usually
+        # but uses '' if there are embedded '"'
+        # but single quotes are invalid in JSON
         if my_repr.startswith("'"):
             # escape double quotes
             my_repr = my_repr.replace('"', '\\"')
@@ -205,6 +227,8 @@ class ASTNode(object):
             my_repr = '"' + my_repr[1:-1] + '"'
         return my_repr
 
+    # TODO: Fix cases where we have to check for FrozenASTNode. I don't think
+    # ASTNode should have to care that FrozenASTNode exists.
     def json_format(self) -> str:
         """Walks the tree whose root is this node and returns a JSON representation of the tree.
 
@@ -220,7 +244,7 @@ class ASTNode(object):
                     # special handling of HTML content
                     if hasattr(value, 'replace'):  # don't try replace() on ints, etc
                         value = value.replace('"', '&quot;')
-                if isinstance(value, ASTNode):
+                if isinstance(value, (ASTNode, FrozenASTNode, )):
                     result += '"{}": {},\n'.format(key, value.json_format())
                 else:
                     result += '"{}": {},\n'.format(key, self._json_safe(value))
@@ -241,12 +265,15 @@ class ASTNode(object):
         # can just use it
         return self.attributes
 
-    def find_first(self, symbol: str) -> "ASTNode":
-        """Conducts a depth-first search through the tree for a node with symbol `symbol`.
+    def find_first(self, symbol: str) -> Optional["ASTNode"]:
+        """Conducts a depth-first search through the tree for a node.
 
         This is useful if you don't care which match you get, or you know there's only one.
 
-        Returns none if no matching node was found.
+        :param str symbol: The symbol of the node to be found.
+
+        :returns ASTNode, None: The found node, or ``None``.
+
         """
         if self.symbol == symbol:
             return self
@@ -255,10 +282,12 @@ class ASTNode(object):
             if value is not None:
                 return value
 
-    def find_all(self, symbol: str) -> "ASTNode":
+    def find_all(self, symbol: str) -> Sequence["ASTNode"]:
         """Conducts a depth-first search through the tree for nodes with symbol `symbol`.
 
-        Returns a (possibly empty) list of all nodes found.
+        :param str symbol: the node symbol to be matched.
+
+        :returns list: The found nodes
 
         """
         matches = []
@@ -272,7 +301,11 @@ class ASTNode(object):
 class FrozenASTNode(object):
     """An immutable version of ASTNode, for use with dictionaries, sets, etc.
 
-    Note equality is defined by children, attributes, and symbol -- but does not check parent.
+    Note equality is defined by children, attributes, and symbol -- but does
+    not check parent.
+
+    :param ASTNode ast_node: A node whose data will be
+        copied to this.
 
     """
 
@@ -287,6 +320,19 @@ class FrozenASTNode(object):
         self._symbol = ast_node.symbol
         # pylint: disable=protected-access
         self._attributes = ast_node._attributes   # a FrozenDict
+
+    def unfreeze(self) -> ASTNode:
+        """Creates an :py:class:`utl_lib.ast_node.ASTNode` instance from the
+        frozen node.
+
+        NOTE: attributes whose values are data structures may not get a copy
+        of the value, thus modifying the returned node risks altering this
+        node. Be careful.
+
+        """
+        return ASTNode(self._symbol, self._attributes,
+                       [child.unfreeze() if isinstance(child, FrozenASTNode) else child
+                        for child in self.children])
 
     @property
     def attributes(self) -> Mapping[str, Any]:
@@ -311,25 +357,17 @@ class FrozenASTNode(object):
         return value
 
     def __eq__(self, other: Any) -> bool:
-        if isinstance(other, (ASTNode, FrozenASTNode, )):
+        if isinstance(other, FrozenASTNode):
             return hash(self) == hash(other)
         return False
-
 
     def __str__(self):
         result = '{}: '.format(self.symbol)
         if self.symbol == 'literal':
             value = self._attributes['value']
-            if isinstance(value, ASTNode) and value.symbol == "array_literal":
-                result = "literal (array):"
-                for child in value.children:
-                    result += " {}".format(child.symbol)
-            else:
-                result += repr(self._attributes['value'])
+            result += repr(self._attributes['value'])
         elif self.symbol in ('operator', 'id'):
             result += self._attributes['symbol']
-        elif self.symbol == 'unary-op':
-            result += self._attributes['operator']
         elif self.symbol == 'document':
             result += repr(self._attributes['text'])
         elif self._attributes:
@@ -337,6 +375,23 @@ class FrozenASTNode(object):
                                for key, value in self._attributes.items()])
             result += " {%s}" % attrs
         return result
+
+    def __repr__(self) -> str:
+        child_list = ""
+        for child in self.children:
+            if child_list:
+                child_list += ", {}".format(child.symbol)
+            else:
+                child_list = child.symbol
+        return 'FrozenASTNode("{}", ..., [{}])'.format(self.symbol, child_list)
+
+    def json_format(self) -> str:
+        """Walks the tree whose root is this node and returns a JSON representation of the tree.
+
+        :returns: str
+
+        """
+        return self.unfreeze().json_format()
 
 # Local Variables:
 # python-indent-offset: 4

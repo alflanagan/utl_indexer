@@ -13,7 +13,7 @@
 import json
 from testplus import unittest_plus
 
-from utl_lib.ast_node import ASTNode, ASTNodeError
+from utl_lib.ast_node import ASTNode, FrozenASTNode, ASTNodeError
 from utl_lib.utl_parse_handler import FrozenDict
 
 
@@ -187,7 +187,7 @@ class ASTNodeTestCase(unittest_plus.TestCasePlus):
         """Unit tests for :py:meth:`~utl_lib.ast_node.ASTNode.format`."""
         anode = ASTNode('top', {}, [])
         test_out = anode.format()
-        self.assertRegex(test_out, 'top:\s*')
+        self.assertRegex(test_out, r'top:\s*')
         anode.add_child(ASTNode('first_kid', {}, []))
         test_out = anode.format()
         self.assertRegex(test_out, r'top:\s+first_kid')
@@ -273,6 +273,115 @@ class ASTNodeTestCase(unittest_plus.TestCasePlus):
                                  [ASTNode("pebbles", {"hobby": "sweet innocent child"}, []),
                                   ASTNode("pebbles", {"hobby": "tormenting bam-bam"}, [])])
         barney.children = [barney.children[0]]
+
+
+class FrozenASTNodeTestCase(unittest_plus.TestCasePlus):
+    """Unit tests for :py:class:`utl_lib.ast_node.FrozenASTNode`, an
+    immutable, hashable copy of an :py:class:`utl_lib.ast_node.ASTNode`.
+
+    """
+
+    def test_create(self):
+        """Test :py:method:`~utl_lib.ast_node.FrozenASTNode`."""
+        source_node = ASTNode("fred", {"pebbles": "wilma", "bam-bam": "betty"},
+                              [ASTNode("barney", {"friend": True}, [])])
+        frozen_node = FrozenASTNode(source_node)
+        self.assertEqual(frozen_node.symbol, source_node.symbol)
+        self.assertEqual(frozen_node.attributes, source_node.attributes)
+
+    def test_bad_create(self):
+        """Test attempt to create a
+        :py:class:`~utl_lib.ast_node.FrozenASTNode` with a source which is
+        not an :py:class:`~utl_lib.ast_node.ASTNode`.
+
+        """
+        source_bad = {"fred": "barney"}
+        self.assertRaises(ValueError, FrozenASTNode, source_bad)
+
+    def test_equality(self):
+        """Test that :py:class:`~utl_lib.ast_node.FrozenASTNode` behaves
+        correctly with the `==` operator.
+
+        """
+        source_node = ASTNode("fred", {"pebbles": "wilma", "bam-bam": "betty"},
+                              [ASTNode("barney", {"friend": True}, [])])
+        frozen1 = FrozenASTNode(source_node)
+        # and of course
+        self.assertNotEqual(frozen1, source_node)
+        frozen2 = FrozenASTNode(source_node)
+        # although it actually wouldn't hurt if `frozen1 is frozen2 == True`,
+        # since they're immutable
+        self.assertIsNot(frozen1, frozen2)
+        self.assertEqual(frozen1, frozen2)
+        source_node.attributes = {"pebbles": "Marilyn Monroe",
+                                  "bam-bam": "Lyanna Stark"}
+        frozen3 = FrozenASTNode(source_node)
+        self.assertEqual(frozen1, frozen2)
+        self.assertNotEqual(frozen1, frozen3)
+
+    def test_str(self):
+        """Test :py:class:`~utl_lib.ast_node.FrozenASTNode` conversion to
+        :py:class:`str`.
+
+        """
+        source_node = ASTNode("fred", {"pebbles": "wilma", "bam-bam": "betty"},
+                              [ASTNode("barney", {"friend": True}, [])])
+        frozen1 = FrozenASTNode(source_node)
+        self.assertIn(str(frozen1), ["fred:  {bam-bam: 'betty', pebbles: 'wilma'}",
+                                     "fred:  {pebbles: 'wilma', bam-bam: 'betty'}"])
+        source_node = ASTNode("wilma", {}, [])
+        frozen2 = FrozenASTNode(source_node)
+        self.assertEqual(str(frozen2), "wilma: ")
+        source_node = ASTNode("barney", {},
+                              [ASTNode("bam-bam", {"sex": "male"},
+                                       [ASTNode("John Snow", {}, []), ])])
+        frozen3 = FrozenASTNode(source_node)
+        self.assertEqual(str(frozen3), "barney: ")
+        source_node = ASTNode("literal", {"value": "fred"}, [])
+        frozen4 = FrozenASTNode(source_node)
+        self.assertEqual(str(frozen4), "literal: 'fred'")
+        source_node = ASTNode("id", {"symbol": "abcd", }, [])
+        frozen5 = FrozenASTNode(source_node)
+        self.assertEqual(str(frozen5), "id: abcd")
+        source_node = ASTNode("document", {"text": "fred",}, [])
+        frozen6 = FrozenASTNode(source_node)
+        self.assertEqual(str(frozen6), "document: 'fred'")
+
+    def test_repr(self):
+        """"""
+        source_node = ASTNode("fred", {"pebbles": "wilma", "bam-bam": "betty"},
+                              [ASTNode("barney", {"friend": True}, [])])
+        frozen1 = FrozenASTNode(source_node)
+        self.assertEqual(repr(frozen1), 'FrozenASTNode("fred", ..., [barney])')
+
+        source_node = ASTNode("wilma", {}, [])
+        frozen2 = FrozenASTNode(source_node)
+        self.assertEqual(repr(frozen2), 'FrozenASTNode("wilma", ..., [])')
+
+        source_node = ASTNode("barney", {},
+                              [ASTNode("bam-bam", {"sex": "male"},
+                                       [ASTNode("John Snow", {}, []), ])])
+        frozen3 = FrozenASTNode(source_node)
+        self.assertEqual(repr(frozen3), 'FrozenASTNode("barney", ..., [bam-bam])')
+
+        source_node = ASTNode("literal", {"value": "fred"}, [])
+        frozen4 = FrozenASTNode(source_node)
+        self.assertEqual(repr(frozen4), 'FrozenASTNode("literal", ..., [])')
+
+        source_node = ASTNode("id", {"symbol": "abcd", }, [])
+        frozen5 = FrozenASTNode(source_node)
+        self.assertEqual(repr(frozen5), 'FrozenASTNode("id", ..., [])')
+
+        source_node = ASTNode("document", {"text": "fred",}, [])
+        frozen6 = FrozenASTNode(source_node)
+        self.assertEqual(repr(frozen6), 'FrozenASTNode("document", ..., [])')
+
+        source_node = ASTNode("barney", {},
+                              [ASTNode("bam-bam", {"sex": "male"},
+                                       [ASTNode("John Snow", {}, []), ]),
+                               ASTNode("id", {"value": "JFK",}, [])])
+        frozen3 = FrozenASTNode(source_node)
+        self.assertEqual(repr(frozen3), 'FrozenASTNode("barney", ..., [bam-bam, id])')
 
 
 if __name__ == '__main__':

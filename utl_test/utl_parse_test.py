@@ -15,7 +15,7 @@ from html import unescape  # since we escape entities in DOCUMENT text
 
 from testplus import unittest_plus, mock_objects  # pylint: disable=W0611
 
-from utl_lib.ast_node import ASTNode
+from utl_lib.ast_node import ASTNode, FrozenASTNode
 from utl_lib.utl_yacc import UTLParser
 
 
@@ -40,7 +40,7 @@ class TestCaseUTL(unittest_plus.TestCasePlus):
         The purpose of this assert is to allow us to express expected results in a simple,
         readable format.
         """
-        self.assertIsInstance(node, ASTNode)
+        self.assertIsInstance(node, (ASTNode, FrozenASTNode, ))
         self.assertIsInstance(expected, dict)
         # node is symbol + attributes + children
         # symbol
@@ -56,6 +56,8 @@ class TestCaseUTL(unittest_plus.TestCasePlus):
             attr = node.attributes[key]
             if isinstance(attr, ASTNode):  # special case
                 self.assertMatchesJSON(attr, expected_attrs[key])
+            elif isinstance(attr, FrozenASTNode):  # also special case
+                self.assertMatchesJSON(attr.unfreeze(), expected_attrs[key])
             else:
                 # if values are text, either one could be escape()d
                 node_value = node.attributes[key]  # escaped depending on source document
