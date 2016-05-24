@@ -62,12 +62,12 @@ class UTLParserTestCase(utl_parse_test.TestCaseUTL):
         """
         self.assertJSONFileMatches('basic_assign.utl', 'basic_assign.json')
 
-    # def test_double_assigns(self):
-    #     """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with input of assignment
-    #     statements using the operator '=' more than once ([% a = b = c = 5; %]).
+    def test_double_assigns(self):
+        """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with input of assignment
+        statements using the operator '=' more than once ([% a = b = c = 5; %]).
 
-    #     """
-    #     self.assertJSONFileMatches('double_assign.utl', 'double_assign.json')
+        """
+        self.assertJSONFileMatches('double_assign.utl', 'double_assign.json')
 
     def test_print_tokens(self):
         """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with
