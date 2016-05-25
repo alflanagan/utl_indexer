@@ -202,7 +202,7 @@ class UTLParseHandlerAST(UTLParseHandler):
                 elseif_stmts: ASTNode=None, else_stmt: ASTNode=None) -> ASTNode:
         assert expr is not None
         # so 'if' node always looks same, create empty nodes for missing ones
-        if statement_list is None:
+        if statement_list is None:  # pragma: no cover
             attrs = parser.context.copy()
             attrs["start"] = attrs["end"] = 0
             statement_list = ASTNode('statement_list', attrs, [])
