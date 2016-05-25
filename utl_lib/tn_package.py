@@ -63,14 +63,22 @@ class TNPackage(object):
 
     def __init__(self, props: dict, is_certified: bool, dependencies: dict, zip_file: Path,
                  site_name=None):
-        """Build package from parts. Usually call :py:meth:TNPackage.load_from instead."""
+        """Build package from parts. Usually call
+        :py:meth:`~utl_lib.TNPackage.load_from` instead.
+
+        """
         self.properties = props
         self.is_certified = is_certified
         self.deps = dependencies
         self.zipfile = zip_file
         self.site = site_name
 
-        self.name = props["name"]
+        try:
+            self.name = props["name"]
+        except KeyError as kerr:
+            raise PackageError("Can't get name of package in '{}'. Are you sure it's a package file?"
+                               "".format(zip_file)) from kerr
+
         # global skins don't have version or app values
         self.version = props.get("version")
         if not self.version:
@@ -182,8 +190,11 @@ class TNPackage(object):
             directory = Path(directory)
 
         # ------ Read the 3 possible config files ----------------
-        with (directory / "info.json").open('r') as infoin:
-            info = json.load(infoin)
+        try:
+            with (directory / "info.json").open('r') as infoin:
+                info = json.load(infoin)
+        except FileNotFoundError:
+            info = {}
 
         meta = cls._read_meta_config(directory, zip_name)
         config = cls._read_config_ini(directory)

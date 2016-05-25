@@ -73,34 +73,23 @@ Types And Functions
 """
 import sys
 import warnings
+import argparse
+import subprocess
 from shutil import rmtree
+import warnings
 
-from utl_lib.tn_package import TNPackage
+from utl_lib.tn_package import TNPackage, PackageError
 from utl_lib.tn_site import TNSiteMeta
 
-# TODO: how do we add certified package to site metadata without having to
-#       do an export when we already have that package in data directories?
-
-def validate_python_version():
-    """Check current python version: must be 3.5 or greater, for :py:mod:`pathlib` and
-    :py:mod:`subprocess` features added in that release.
-
-    """
+try:
+    from pathlib import Path
+except:
     this_version = sys.version_info
-    if this_version.major < 3 or (this_version.major == 3 and this_version.minor < 5):
-        sys.stderr.write("Sorry, this program requires standard features from python version 3.5"
+    if this_version.major < 3 or (this_version.major == 3 and this_version.minor < 4):
+        sys.stderr.write("Sorry, this program requires standard features from python version 3.4"
                          " or higher.\n")
-        sys.exit(255)
-
-
-# die without trying to run rest of file
-validate_python_version()
-
-# delay import of recently added libraries, to use version error message instead of "not found"
-# pylint: disable=wrong-import-position,wrong-import-order
-import subprocess
-from pathlib import Path
-import argparse
+    else:
+        raise
 
 
 def get_args() -> argparse.Namespace:
@@ -134,7 +123,7 @@ def get_args() -> argparse.Namespace:
     return parsed
 
 
-class BadPackageError(Exception):
+class BadPackageError(PackageError):
     """Raised when important package information is invalid or missing."""
     pass
 
@@ -209,24 +198,28 @@ def main(args: argparse.Namespace):
             tmp_dir = mktmpdir()
             try:
                 unzip_file(zip_file, tmp_dir)
-                tmp_pkg = TNPackage.load_from(tmp_dir, zip_file, args.site)
-                new_parent = args.dest_dir / tmp_pkg.install_dir
-                if new_parent.exists():
-                    if args.overwrite:
-                        rmtree(str(new_parent))
-                    else:
-                        sys.stderr.write("Won't overwrite existing directory '{}'.\n"
-                                         "".format(new_parent))
-                        continue
-                print("Creating {}".format(new_parent))
-                new_parent.mkdir(parents=True)
-                unzip_file(zip_file, new_parent)
-                zip_file_time =  zip_file.stat().st_ctime
-                site_meta.add(tmp_pkg.name, {"version": tmp_pkg.version,
-                                             "certified": "Y" if tmp_pkg.is_certified else "N",
-                                             "last_download": zip_file_time,
-                                             "zip_name": zip_file.name,
-                                             })
+                try:
+                    tmp_pkg = TNPackage.load_from(tmp_dir, zip_file, args.site)
+                except PackageError as perr:
+                    warnings.warn("Unable to load '{}'.".format(zip_file))
+                else:
+                    new_parent = args.dest_dir / tmp_pkg.install_dir
+                    if new_parent.exists():
+                        if args.overwrite:
+                            rmtree(str(new_parent))
+                        else:
+                            sys.stderr.write("Won't overwrite existing directory '{}'.\n"
+                                             "".format(new_parent))
+                            continue
+                    print("Creating {}".format(new_parent))
+                    new_parent.mkdir(parents=True)
+                    unzip_file(zip_file, new_parent)
+                    zip_file_time = zip_file.stat().st_ctime
+                    site_meta.add(tmp_pkg.name, {"version": tmp_pkg.version,
+                                                 "certified": "Y" if tmp_pkg.is_certified else "N",
+                                                 "last_download": zip_file_time,
+                                                 "zip_name": zip_file.name,
+                                                 })
             finally:
                 rmtree(str(tmp_dir))
     finally:
