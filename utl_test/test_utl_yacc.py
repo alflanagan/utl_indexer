@@ -290,6 +290,8 @@ class UTLParserTestCase(utl_parse_test.TestCaseUTL):
             with open(self.data_file("extra_comma_arg.utl"), "r") as sourcein:
                 parser.parse(sourcein.read(), filename="test_data/extra_comma_arg.utl")
         self.assertEqual(fake_stderr.logged, "")
+        self.assertJSONFileMatches("extra_comma_arg.utl",
+                                   "extra_comma_arg.json")
 
 
 if __name__ == '__main__':
