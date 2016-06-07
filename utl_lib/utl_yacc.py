@@ -114,7 +114,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         # END
         self.error_count += 1
         if not self.handlers:
-            sys.stderr.write("Error in statement, line {}! {}\n".format(p.lexer.lineno(), p))
+            sys.stderr.write("{}: Error in statement, line {}! {}\n".format(self.filename, p.lexer.lineno(), p))
         # is there an expr on the stack?
         # if so, remove it, push "ECHO", push expr.
         for handler in self.handlers:
@@ -325,6 +325,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
 
     def p_arg_list(self, p):
         '''arg_list : arg
+                    | arg COMMA
                     | arg COMMA arg_list'''
         self.__set_ctxt(p, 1, 3)
         for handler in self.handlers:
