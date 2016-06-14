@@ -165,7 +165,7 @@ class TNPackage(object):
             with config_file.open('r') as propin:
                 for line in propin:
                     key, value = line[:-1].split('=')
-                    config[key] = value[1:-1]
+                    config[key] = value[1:-1]  # drop outer quotes
             if cap_const in config:
                 # change to list to match JSON files
                 if config[cap_const]:
@@ -205,7 +205,11 @@ class TNPackage(object):
             # print("    {}: {}".format(key, meta[key]))
             if key not in info:
                 info[key] = meta[key]
-            elif info[key] != meta[key] and info[key] is not None and meta[key] is not None:
+            # don't report as error cases where key given value in one file, but empty
+            # in the other.
+            # BUG: currently won't report error if files have different values that
+            # are both falsey, e.g info -> key=0 and meta -> key=[]
+            elif info[key] and meta[key] and info[key] != meta[key]:
                 # one case where different values is apparently normal
                 if not (key == 'type' and info[key] == 'skin' and meta[key] == 'app'):
                     warn("{}: info.json has {}: {} but .metadata.json has {}: {}"
@@ -215,9 +219,10 @@ class TNPackage(object):
             # .meta.json and config.ini both have version, but config.ini is only correct one
             if key not in info or key == 'version':
                 info[key] = config[key]
-            elif info[key] != config[key] and info[key] is not None and config[key] is not None:
-                warn("{}: JSON file has {}: {}, but config.ini has {}: {}"
-                     "".format(zip_name, key, info[key], key, config[key]))
+            # duplicate warning
+            # elif info[key] != config[key] and info[key] is not None and config[key] is not None:
+                # warn("{}: JSON file has {}: {}, but config.ini has {}: {}"
+                     # "".format(zip_name, key, info[key], key, config[key]))
         return info
 
     @property
