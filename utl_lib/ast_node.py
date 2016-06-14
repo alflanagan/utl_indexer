@@ -11,7 +11,7 @@ to implement parse tree as well, name is historical accident.
 
 
 """
-from typing import Mapping, Any, Iterable, MutableMapping, Sequence, Optional
+from typing import Mapping, Any, Iterable, MutableMapping, Sequence, Optional, Iterator
 from utl_lib.utl_parse_handler import FrozenDict
 
 
@@ -200,6 +200,25 @@ class ASTNode(object):
             for line in lines:
                 result += '\n    ' + line
         return result
+
+    def walk(self) -> Iterator["ASTNode"]:
+        """Walk the tree rooted at this node, yielding each node in turn.
+
+        Order is parent-first, depth-first.
+
+            node1
+             |
+            child1      child2   child3
+             |           |
+            grandchild1 grandchild2
+
+            node1.walk() ==> (node1, child1, grandchild1, child2, grandchild2, child3)
+
+        """
+        yield self
+        for child in self.children:
+            yield from child.walk()
+
 
     # pylint: disable=W9003,W9004
     # appears to be no way to make pylint accept docstring

@@ -274,6 +274,21 @@ class ASTNodeTestCase(unittest_plus.TestCasePlus):
                                   ASTNode("pebbles", {"hobby": "tormenting bam-bam"}, [])])
         barney.children = [barney.children[0]]
 
+    def test_walk(self):
+        item1 = ASTNode('fred', {}, [])
+        self.assertListEqual(list(item1.walk()), [item1])
+        item2 = ASTNode('wilma', {}, [])
+        item1.add_child(item2)
+        self.assertListEqual(list(item1.walk()), [item1, item2])
+        item3 = ASTNode('barney', {}, [])
+        item1.add_child(item3)
+        self.assertListEqual(list(item1.walk()), [item1, item2, item3])
+        item4 = ASTNode('pebbles', {}, [])
+        item5 = ASTNode('bam-bam', {}, [])
+        item2.add_child(item4)
+        item3.add_child(item5)
+        self.assertListEqual(list(item1.walk()), [item1, item2, item4, item3, item5])
+
 
 class FrozenASTNodeTestCase(unittest_plus.TestCasePlus):
     """Unit tests for :py:class:`utl_lib.ast_node.FrozenASTNode`, an
