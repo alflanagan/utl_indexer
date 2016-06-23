@@ -23,19 +23,25 @@ def get_args():
 def main(args):
     """Main function. Opens file, parses it."""
     myparser = UTLParser([UTLParseHandler(args.stop_on_error)])
-    if args.stop_on_error:
-        try:
-            myparser.parse(args.utl_file.read(), debug=args.debug)
-        except UTLParseError as upe:
-            sys.stderr.write("{} syntax error: {}\n".format(args.utl_file.name, upe))
-            sys.exit(1)
-    else:
-        myparser.parse(args.utl_file.read(), debug=args.debug)
-        if myparser.error_count > 0:
-            print("{} contained {} syntax errors!".format(args.utl_file.name, myparser.error_count))
-            sys.exit(1)
+    try:
+        if args.stop_on_error:
+            try:
+                myparser.parse(args.utl_file.read(), debug=args.debug)
+            except UTLParseError as upe:
+                sys.stderr.write("{} syntax error: {}\n".format(args.utl_file.name, upe))
+                sys.exit(1)
         else:
-            print("{} appears valid.".format(args.utl_file.name))
+            myparser.parse(args.utl_file.read(), debug=args.debug)
+            if myparser.error_count > 0:
+                print("{} contained {} syntax errors!".format(args.utl_file.name, myparser.error_count))
+                sys.exit(1)
+            else:
+                print("{} appears valid.".format(args.utl_file.name))
+    except UnicodeDecodeError as ude:
+        sys.stderr.write("Unicode error in '{}': {}\n"
+                         "".format(args.utl_file.name, ude))
+        sys.exit(2)
+
 
 if __name__ == '__main__':
     main(get_args())
