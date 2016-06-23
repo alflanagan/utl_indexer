@@ -398,6 +398,25 @@ class FrozenASTNodeTestCase(unittest_plus.TestCasePlus):
         frozen3 = FrozenASTNode(source_node)
         self.assertEqual(repr(frozen3), 'FrozenASTNode("barney", ..., [bam-bam, id])')
 
+    def test_walk(self):
+        item1 = ASTNode('fred', {}, [])
+        item2 = ASTNode('wilma', {}, [])
+        item1.add_child(item2)
+        self.assertListEqual(list(FrozenASTNode(item1).walk()),
+                             [FrozenASTNode(item1), FrozenASTNode(item2)])
+        item3 = ASTNode('barney', {}, [])
+        item1.add_child(item3)
+        self.assertListEqual(list(FrozenASTNode(item1).walk()),
+                             [FrozenASTNode(item1), FrozenASTNode(item2),
+                              FrozenASTNode(item3)])
+        item4 = ASTNode('pebbles', {}, [])
+        item5 = ASTNode('bam-bam', {}, [])
+        item2.add_child(item4)
+        item3.add_child(item5)
+        self.assertListEqual(list(FrozenASTNode(item1).walk()),
+                             [FrozenASTNode(item1), FrozenASTNode(item2), FrozenASTNode(item4),
+                              FrozenASTNode(item3), FrozenASTNode(item5)])
+
 
 if __name__ == '__main__':
     unittest_plus.main()

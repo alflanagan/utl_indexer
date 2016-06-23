@@ -412,6 +412,24 @@ class FrozenASTNode(object):
         """
         return self.unfreeze().json_format()
 
+    def walk(self) -> Iterator["FrozenASTNode"]:
+        """Walk the tree rooted at this node, yielding each node in turn.
+
+        Order is parent-first, depth-first.
+
+            node1
+             |
+            child1      child2   child3
+             |           |
+            grandchild1 grandchild2
+
+            node1.walk() ==> (node1, child1, grandchild1, child2, grandchild2, child3)
+
+        """
+        yield self
+        for child in self.children:
+            yield from child.walk()
+
 # Local Variables:
 # python-indent-offset: 4
 # fill-column: 100
