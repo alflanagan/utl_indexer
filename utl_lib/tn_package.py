@@ -110,6 +110,8 @@ class TNPackage(object):
         :return: A new TNPackage instance.
 
         """
+        if not isinstance(directory, Path):
+            directory = Path(str(directory))
         props = cls._read_properties(directory, zip_name)
 
         certified = Path(directory, '.certification').exists()
@@ -186,8 +188,6 @@ class TNPackage(object):
         :returns dict: A ditionary of property: value pairs.
 
         """
-        if not hasattr(directory, 'name'):
-            directory = Path(directory)
 
         # ------ Read the 3 possible config files ----------------
         try:

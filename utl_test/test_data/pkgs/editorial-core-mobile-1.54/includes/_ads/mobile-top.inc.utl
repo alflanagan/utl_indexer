@@ -1,0 +1,7 @@
+<div id="mobile-top-ad">
+    [% if (cms.site.custom.ad_previews == 'true' && cms.system.venue != 'admin') || (cms.site.custom.ad_previews != 'true' && cms.site.custom.ad_previews != 'demo') %]
+	[% cms.region('mode': 'ads', 'name': 'mobile-top') %]
+    [% else %]
+        <img src="[% cms.page.app %]/[% cms.page.skin%]/resources/images/_ads/320_50.gif" alt="320_50" />
+    [% end %]
+</div>

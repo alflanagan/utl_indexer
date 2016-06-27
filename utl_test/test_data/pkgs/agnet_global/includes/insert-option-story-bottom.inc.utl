@@ -1,0 +1,6 @@
+[%
+
+/* Per BMT-3367 (and BMT-3358 before that) */
+fb_article_widget("AgNetNebraska","AgNet.net"); 
+
+%]

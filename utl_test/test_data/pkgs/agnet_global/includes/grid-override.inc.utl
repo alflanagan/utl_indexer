@@ -1,0 +1,6 @@
+[%-
+	/* if cms.url.path | contains('announcements'); blox_grid = '300_4-4-4'; end;
+
+	if cms.url.path == '/marketplace'; blox_grid = '160_8-5-3'; end;*/
+
+-%]

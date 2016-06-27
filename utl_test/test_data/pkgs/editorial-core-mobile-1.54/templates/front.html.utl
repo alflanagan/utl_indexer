@@ -1,0 +1,10 @@
+[%-
+include '_mobile/mobile.header.inc.utl';
+include '_ads/mobile-top.inc.utl';
+
+cms.region('name':'region-1');
+cms.region('name':'region-2');
+cms.region('name':'region-3');
+
+include '_ads/mobile-bottom.inc.utl';
+include '_mobile/mobile.footer.inc.utl' %]

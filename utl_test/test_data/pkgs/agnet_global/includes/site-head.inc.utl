@@ -1,0 +1,25 @@
+<!--Use for site customizations that need to be inserted into the site's header.-->
+[% if (cms.site.custom.ndn_id && !this.asset); %]
+<script type="text/javascript" src="http://launch.newsinc.com/js/embed.js" id="_nw2e-js"></script>
+[%- end; -%]
+
+[%
+/* Include OAS macro */
+include ('_ads/oas_head.inc.utl');
+oas_header("agnet.net", "Top,Top1,Middle,TopRight,Right,Right1,Right2,Right3,BottomLeft,Bottom,x01,x02,x03,x04");
+%]
+
+[% /*
+#tntracking
+Customized by : jkleman
+Date : 1_6_15
+CRM : 569875
+Description : Change header on marketplace widget block
+*/ %]
+
+[% /* Fix Facebook Comments width - 579663 - dotto */ %]
+<script type="text/javascript">
+$(document).ready(function() {
+  $(".fb-comments").attr("data-width","100%")
+});
+</script>

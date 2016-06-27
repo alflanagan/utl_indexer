@@ -1,0 +1,133 @@
+[%- /* Default settings */
+	w2_site = 'www2.townnews365.com';
+	copyright = '&copy; Copyright ' +  cms.system.time('Y') + ', <a href="/">' +  cms.site.title  + '</a>, ' +  cms.site.city  + ', ' +  cms.site.state;
+	this_url = this.url;
+
+/* Is this site an umbrella? */
+umbrella = 'false'; /* default setting */
+if cms.site.custom.umbrella; 
+	umbrella = cms.site.custom.umbrella; 
+end;
+
+/* Assign cms.site variables */
+	site_brand_url = cms.site.brand_url;
+	site_business_name = cms.site.business_name;
+	site_email = cms.site.email;
+	site_motto = cms.site.motto;
+	site_title = cms.site.title;
+ 	site_address = cms.site.address;
+	site_city = cms.site.city;
+	site_country = cms.site.country;
+	site_custom_name = cms.site.custom.name;
+	site_icon_url = cms.site.icon_url;
+	site_phone = cms.site.phone;
+	site_postal_code = cms.site.postal_code;
+	site_state = cms.site.state;
+	
+/* 	--------------------------------------------------------
+	Standard Site Form Emails (for umbrella setup see below)
+	-------------------------------------------------------- */
+	if (umbrella != 'true');
+		advertising_email = 'testing@townnews.com';
+		announcement_email = 'testing@townnews.com';	
+		calendar_email = 'testing@townnews.com';
+		letters_email = 'testing@townnews.com';
+		marketplace_email = 'news@agnet.net';
+		news_email = 'testing@townnews.com';
+		photo_email = 'testing@townnews.com';
+		subscribe_email = 'testing@townnews.com';
+		video_email = 'testing@townnews.com';
+	end;
+
+/* 	-------------------------------
+	UMBRELLA SITE Variable Handling 
+	------------------------------- */
+
+/* set paper to be used in link url */
+ paper = cms.system.request('paper');
+
+	/* email set #1 */
+	if (paper == 'site1' && umbrella == 'true');
+		advertising_email = 'testing@townnews.com';
+		announcement_email = 'testing@townnews.com';	
+		calendar_email = 'testing@townnews.com';
+		letters_email = 'testing@townnews.com';
+		news_email = 'testing@townnews.com';
+		photo_email = 'testing@townnews.com';
+		site_email = 'testing@townnews.com';
+		subscribe_email = 'testing@townnews.com';
+		video_email = 'testing@townnews.com';
+
+
+	/* email set #2 */
+	else if (paper == 'site2' && umbrella == 'true');
+		advertising_email = 'testing@townnews.com';
+		announcement_email = 'testing@townnews.com';	
+		calendar_email = 'testing@townnews.com';
+		letters_email = 'testing@townnews.com';
+		news_email = 'testing@townnews.com';
+		photo_email = 'testing@townnews.com';
+		site_email = 'testing@townnews.com';
+		subscribe_email = 'testing@townnews.com';
+		video_email = 'testing@townnews.com';
+
+	/* email set #3 */
+	else if (paper == 'site3' && umbrella == 'true');
+		advertising_email = 'testing@townnews.com';
+		announcement_email = 'testing@townnews.com';	
+		calendar_email = 'testing@townnews.com';
+		letters_email = 'testing@townnews.com';
+		news_email = 'testing@townnews.com';
+		photo_email = 'testing@townnews.com';
+		site_email = 'testing@townnews.com';
+		subscribe_email = 'testing@townnews.com';
+		video_email = 'testing@townnews.com';
+	end;
+
+	/* assign cms.site variables */
+
+	if (section == 'site1' && umbrella == 'true');
+		site_brand_url = '';
+		site_business_name = '';
+		site_email = '';
+		site_motto = '';
+		site_title = '';
+		site_address = '';
+		site_city = '';
+		site_country = '';
+		site_custom_name = '';
+		site_icon_url = '';
+		site_phone = '';
+		site_postal_code = '';
+		site_state = '';
+
+	else if (section == 'site2' && umbrella == 'true');
+		site_brand_url = '';
+		site_business_name = '';
+		site_email = '';
+		site_motto = '';
+		site_title = '';
+		site_address = '';
+		site_city = '';
+		site_country = '';
+		site_custom_name = '';
+		site_icon_url = '';
+		site_phone = '';
+		site_postal_code = '';
+		site_state = '';
+
+	else if (section == 'site3' && umbrella == 'true');
+		site_brand_url = '';
+		site_business_name = '';
+		site_email = '';
+		site_motto = '';
+		site_title = '';
+		site_address = '';
+		site_city = '';
+		site_country = '';
+		site_custom_name = '';
+		site_icon_url = '';
+		site_phone = '';
+		site_postal_code = '';
+		site_state = '';
+	end; -%]

@@ -1,0 +1,82 @@
+[%-    
+include '_mobile/mobile.header.inc.utl';
+include '_ads/mobile-top.inc.utl';
+secure_url = cms.url('app': 'user', 'secure': true);
+asset = this.asset;
+url_services = core_base_library_subscriptionServices;
+use_tracker = false;
+    /* activate restriction variable if page passes tests */
+    serviceRestricted = core_base_library_isAssetRestricted('assetServices':url_services, 'useTracker':use_tracker);
+    if serviceRestricted;
+        serviceRestrictedMessage = "Services Are Restricted.";
+    end;  
+    /* [END] services initialization ### */ %]
+    <div id="body">
+    <h1>[% asset.title %]</h1>
+    [% if asset.subheadline %]<p class="sub-headline">[% asset.subheadline | tidy %]</p>[% end %]                
+    <p class="byline">
+        [% if asset.byline; asset.byline +' | '; end; %] Posted: [% asset.starttime('l, F j, Y g:i a') %]
+    </p>
+    [%	if serviceRestricted; %]
+        <div class="service-members">
+    [%	end;
+            photo = asset.items('type':'image')[0].preview([300]);
+            if(photo) -%]
+                <div class="photo">
+                    <img alt="[% photo.caption | html %]" src="[% photo.url %]" />
+                </div>
+    [%         end;
+            audio = asset.items('type':'audio');
+            if audio;
+                foreach audio as iAudio; %]
+                <p>Press play below to listen to this audio file:</p><br />
+                <audio preload="none" src="[% iAudio.resource_url %]" controls="controls">
+                Sorry, your browser doesn't support HTML5 audio.
+                </audio>
+    [%-     end;
+            end;
+            include '_ads/mobile-story.inc.utl';
+        if serviceRestricted %]
+        </div>    
+    [%	end;
+        include 'mobile-site-option-three.inc.utl' %]                
+    <div id="blox-story-text" class="mobile-story-text">
+[% 
+/* paragraphs before encryption */
+if cms.asset.custom.subscription_paragraphs_viewable;	 
+	subscription_paragraphs_viewable = cms.asset.custom.subscription_paragraphs_viewable|replace('none',-1);
+else if cms.url.custom.paragraphs_per_page; 
+	paragraphs_per_page = cms.url.custom.paragraphs_per_page; 	
+else;
+	subscription_paragraphs_viewable = (cms.url('path':'/').custom.subscription_paragraphs_viewable|defaultval(2))|replace('none',-1);
+end;
+  
+ if  subscription_paragraphs_viewable != '-1';     
+        foreach asset.content(0,subscription_paragraphs_viewable) as p;
+            echo p | autolink;
+        end; 
+ end;        
+    /* ::::::::::::::::::::::::::::::::::::::::: service content */
+    if serviceRestricted; 
+        include '_mobile/mobile.service-notice.inc.utl';
+        if asset.content | length > subscription_paragraphs_viewable;
+            foreach asset.content(subscription_paragraphs_viewable+1) as p %]
+            <div class="encrypted-content" style="display: none">
+                [% p | scramble | html | autolink %]
+            </div>
+    [%        end;
+        end;            
+            cms.service.decrypt('encrypted-content');
+    else; 
+        if asset.content | length > subscription_paragraphs_viewable;
+            foreach asset.content(subscription_paragraphs_viewable+1) as p;
+                echo p | autolink;
+            end;
+        end;
+    end;
+    /* [END] service content :::::::::::::::::::::::::::::::::::::: */ %]
+    </div>
+    </div>
+[%    
+include '_ads/mobile-bottom.inc.utl';
+include '_mobile/mobile.footer.inc.utl' %]

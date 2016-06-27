@@ -1,0 +1,69 @@
+[%-    
+include '_mobile/mobile.header.inc.utl';
+include '_ads/mobile-top.inc.utl';
+secure_url = cms.url('app': 'user', 'secure': true);
+asset = this.asset;
+
+url_services = core_base_library_subscriptionServices;
+
+    /* activate rescrition variable if page passes tests */
+    if (url_services | length > 0);
+        serviceRestricted = true;
+        serviceRestrictedMessage = "Services Are Restricted.";
+    end; 
+    /* [END] services initialization ### */ %]
+    <div id="body">
+    <h1>[% asset.title %]</h1>
+    [% if asset.subheadline %]<p class="sub-headline">[% asset.subheadline | tidy %]</p>[% end %]                
+    <p class="byline">
+        [% if asset.byline; asset.byline +' | '; end; %] Posted: [% asset.starttime('l, F j, Y g:i a') %]
+    </p>
+    [%    if serviceRestricted; %]
+        <div class="service-members">
+    [%     end;
+            photo = asset.items('type':'image')[0].preview([300]);
+            if(photo) -%]
+                <div class="photo">
+                    <img alt="[% photo.caption | html %]" src="[% photo.url %]" />
+                </div>
+    [%         end;
+            include '_ads/mobile-story.inc.utl';
+        if serviceRestricted %]
+        </div>    
+    [%    end;
+        include 'mobile-site-option-three.inc.utl' %]                
+    <div id="blox-story-text" class="mobile-story-text">
+    [%    foreach asset.description(0,2) as p;
+            echo p | autolink;
+        end %]
+[%    /* ::::::::::::::::::::::::::::::::::::::::: service content */
+    if serviceRestricted; 
+        include '_mobile/mobile.service-notice.inc.utl';
+        if asset.description | length > 2;
+            foreach asset.description(3) as p %]
+            <div class="encrypted-content" style="display: none">
+                [% p | scramble | html | autolink %]
+            </div>
+    [%        end;
+        end;            
+            cms.service.decrypt('encrypted-content');
+    else; 
+        if asset.description | length > 2;
+            foreach asset.description(3) as p;
+                echo p | autolink;
+            end;
+        end %]
+        
+        <p>Press play below to listen to this audio file:</p><br />
+        <audio preload="none" src="[% this.asset.resource_url %]" controls="controls>
+            Sorry, your browser doesn't support HTML5 audio.
+        </audio>
+
+    [% end; %]
+    
+    /* [END] service content :::::::::::::::::::::::::::::::::::::: */ %]
+    </div>
+    </div>
+[%    
+include '_ads/mobile-bottom.inc.utl';
+include '_mobile/mobile.footer.inc.utl' %]

@@ -1,0 +1,9 @@
+//<script type="text/javascript">
+	$(function (){
+		$("#yp-enhanced-listings-module .featuredBusinesses a").click(function(){  
+			$("#yp-enhanced-listings-module div#pgmenu").slideToggle('slow');
+			$("#yp-enhanced-listings-module .featuredBusinesses a").toggleClass("active");
+			return false;
+		});
+	});
+//</script>

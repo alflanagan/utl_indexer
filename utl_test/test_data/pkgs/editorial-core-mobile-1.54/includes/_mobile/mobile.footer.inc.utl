@@ -1,0 +1,38 @@
+</div>
+[%-	include '_mobile/_site/mobile.footer_insert_op1.inc.utl';
+    include 'mobile-site-option-four.inc.utl' %]
+<div class="menu not-iphone">
+[%- include '_mobile/_site/mobile.sections.inc.utl' %]
+</div>
+[%- include '_mobile/_site/mobile.footer_insert_op2.inc.utl';
+url_services = core_base_library_subscriptionServices %]
+
+<div id="footer" class="not-iphone [% if url_services | length > 0 %] has-services[% end %]">&copy; [% cms.system.time('Y') %] [% cms.site.title %]</div>
+</div>[%- /* [END] mobile-content */ %]
+</div>[%- /* [END] scroller */ %]
+</div>[%- /* [END] mobile-wrapper */ %]
+<span class="fixed-content option3 not-iphone[% if url_services | length > 0 %] has-services[% end %]">
+[%- include '_mobile/_site/mobile.footer_insert_op3.inc.utl' %]
+</span>
+<form style="display:none;" id="tncms-logout-form-mobile" method="post" action="[%- cms.url('app': 'user', 'secure': true) | html -%]logout/" >
+	[%-	sUrl = cms.url; 
+		if (sUrl | contains('/users/' + dashboard + '/')) != 'true'; %]
+		<fieldset style="display: none">
+			<input type="hidden" name="referer_url" value="[%- cms.url | html -%]" />
+		</fieldset>
+	[%-	end %]
+</form>	
+<script type="text/javascript">
+	// jQueryUI buttons
+	$("input:submit, button.authorized-user, button.unauthorized-user,.jquery-ui-button").button();
+	// logout script
+	function tncms_logout_mobile() {
+		oForm = document.getElementById('tncms-logout-form-mobile');
+		oForm.submit();
+	return false;}
+</script>
+[%-	core_base_library_verifyUserCookie([
+    	'tncms-services': ['.service-members':'show'],
+        'tncms-authtoken': ['.authorized-user':'show','.unauthorized-user':'hide']]); %]
+</body>
+</html>
