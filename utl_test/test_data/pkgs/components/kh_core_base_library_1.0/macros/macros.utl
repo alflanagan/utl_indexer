@@ -1,0 +1,297 @@
+[% /* ############################################################################## FORMATTED BYLINE */ %]
+
+[% macro remove_empty_tags(string);
+    if string != null && string.regex("/<p[^>]*>(\s|&nbsp;?)*<\/p>|<div[^>]*>(\s|&nbsp|<br \/>;?)*<\/div>|/");
+        return string.regex("/<p[^>]*>(\s|&nbsp;?)*<\/p>|<div[^>]*>(\s|&nbsp|<br \/>;?)*<\/div>|/", "");
+    else;
+        return string;
+    end;
+end; %]
+
+[% macro clean_byline(string);
+    return string.trim.regex('/^by\s/i','');
+end; %]
+
+
+[% macro get_template_url(path) %]
+    http://kearneyhub.com/content/tncms/live/[% path.regex('/^\//', '') %]
+[% end %]
+
+[% /* ############################################################################## BETA URL HELPER */ %]
+
+[% macro beta_url(rel_url) %]
+    [% if !rel_url.contains('http') %]
+        /[% rel_url.regex('/^\//','') %]
+    [% else %]
+        [% rel_url %]
+    [% end %]
+[% end %]
+
+
+[% /* ############################################################################## URL HELPER */ %]
+
+[% macro get_url(path, preview=false);
+    if !path.contains('http') && !path.regex('/^\//'); path = "/" + path; end;
+    
+    if !path.regex('/^http/');
+        if preview;
+            echo 'https://admin-chicago2.bloxcms.com/kearneyhub.com/tncms/admin/action/main/preview/site' + path + "?tncms_urlmap_name=khub_beta";
+        else;
+           echo path;
+        end;
+    else;
+        echo path;
+    end;
+end; %]
+
+[% /* ############################################################################## FORMATTED SECTION TAG */ %]
+
+[% macro pretty_tag(tag);
+    if tag.contains('news/local'); display = "News";
+    else if tag.contains('news/regional_news'); display = "Regional News";
+    else if tag.contains('sports/local'); display = "Sports";
+    else if tag.contains('entertainment/local'); display = "Entertainment";
+    else if tag.contains('news/opinion'); display = "Opinion";
+    else if tag.contains('livewell_kearney'); display = "LiveWellKearney";
+    else; display = tag.replace('_',' ').titlecase;
+    end;
+    
+    return display;
+end; %]
+
+[% /* ############################################################################## FORMATTED SECTION TAGS */ %]
+
+[% macro formatted_tags(asset, type) %]
+    [% for asset.tags(type) as tag, display %]
+        [% 
+            if tag.contains('news/local'); root = "news"; 
+            else if tag.contains('news/regional_news'); root = "regional_news"; 
+            else if tag.contains('sports/local'); root = "sports";
+            else if tag.contains('entertainment/local') || tag.contains('entertainment/events'); root = "entertainment";
+            else if tag.contains('news/opinion') || tag.contains('opinion'); root = "opinion";
+            else if tag.contains('livewell_kearney'); root = "livewellkearney"; tag = 'livewellkearney';
+            else; root = display;
+            end; 
+        %]
+        [% if root != "" %]
+            #<a href="/[% tag %]/"><strong>[% root %]</strong></a>&nbsp;[% break %]
+        [% end %]
+    [% end %]
+[% end %]
+[% /* ############################################################################## ACTIVE TAB */ %]
+
+[% macro active_tab(path, tab); 
+    if tab == "news" && path.regex('/^news\/local|news&/'); echo "active";
+    else if tab == "sports" && path.regex('/^sports\/local|sports&/'); echo "active";
+    else if tab == "opinion" && path.regex('/^news\/opinion|opinion&/'); echo "active";
+    end;
+end; %]
+[% /* ############################################################################## ASSET THUMBNAILS */ %]
+
+[% macro asset_thumbnail(asset) %]
+    
+    [% if asset.type.regex('/article/');
+        thumb_url = asset.items('type':'image')[0].resource_url;
+    else if asset.type.regex('/youtube/');
+        thumb_url = "http://img.youtube.com/vi/" + asset.video_id + "/default.jpg";
+    else if asset.type.regex('/link/');
+        thumb_url = asset.preview([100]).url;
+    else if asset.type.regex('/image/');
+        thumb_url = asset.preview([300]).url;
+    else;
+        thumb_url = "";
+    end; %]
+    
+    [% if thumb_url != "" %]
+        [% if asset.type.regex('/article|image|link/') %]
+            <span class="clip"><img src="[% thumb_url %]" title="[% asset.title %]" /></span>
+        [% else if asset.type.regex('/youtube/') %]
+            <span class="clip"><img src="[% thumb_url %]" title="[% asset.title %]" /><img src="http://beta.kearneyhub.com/images/playbutton.png" class="play" /></span>
+        [% end %]
+    [% else; return false; end; %]
+[% end %]
+
+[% /* ############################################################################## INDEX ASSET */ %]
+
+[% macro index_asset(asset) %]
+    [% thumbnail = asset_thumbnail('asset':asset); %]
+    
+    <div id="index-[% asset.type %]-[% asset.uuid %]" class="[% asset.type %] asset kh-asset [% if !thumbnail.contains('false') %]thumbnail[% end %]">
+        [% if pub_date %]
+            <div class="date grid_1 omega">
+                <div class="month">[% asset.starttime('M') %]</div>
+                <div class="day">[% asset.starttime('j') %]</div>
+                <div class="year">[% asset.starttime('Y') %]</div>
+            </div>
+        [% end %]
+        
+        [% if asset.type != html %]
+            <!-- THUMBNAILS -->
+            [% if !thumbnail.contains('false') %]
+                <div class="media kh-media grid_1 alpha">
+                    <a href="[% get_url(asset.url) %]">[% thumbnail %]</a>
+                </div>
+            [% end %]
+            
+            <!-- CONTENT -->
+            <div class="wrap">
+            
+                <div class="title kh-title">
+                    <a href="[% get_url(asset.url) %]" >[% asset.title %]</a>
+                </div>
+                
+                <div class="body">
+                    [% if lead_paragraph %]
+                        [% if asset.type == 'image' %]
+                            [% remove_empty_tags(asset.description.truncate(300, ' ... <a href="'+asset.url+'"><strong>Read more</strong></a>')) %]
+                        [% else %]
+                            [% for asset.content(0,1) as p %]
+                                [% excerpt = p %]
+                                
+                                [% if p.length < 45; 
+                                    echo ""; 
+                                else if this.block.custom.columns == 4; 
+                                    remove_empty_tags(p.autolink.truncate(180, ' ... <a href="'+asset.url+'"><strong>Read more</strong></a>'));
+                                else;
+                                    p.autolink;
+                                end; %]
+                                
+                            [% end %]
+                        [% end %]
+                        
+                         
+                        [% if asset.type.regex('/youtube/'); "<p>" + asset.description + "</p>"; end; %]
+                    [% end %]
+                    
+                    <ul class="meta kh-meta">
+                        <li class="num_comments"><a href="[% asset.url %]#disqus_thread" data-disqus-identifier="[% asset.uuid %]"></a></li>
+                        <li class="tags">[% formatted_tags(asset, 'section') %]</li>
+                        [% if layout && layout == 'list' %]
+                            <li class="pub_date">Posted [% asset.starttime('M d, Y') %]</li>
+                        [% end %]
+                    </ul> 
+                </div>
+            </div>
+        [% else %]
+            <div class="kh-html">
+                [% asset.html %]
+            </div>
+        [% end %]
+    </div>
+[% end %]
+
+
+[% /* ############################################################################## SHOWCASE ASSET */ %]
+
+[% macro showcase_asset(asset) %]
+    [% if asset.items('type':'image')[0].presentation != 'mugshot' && asset.items('type':'image')[0] != null; no_image = false; else; no_image = true; end;  %]
+    <div class="asset [% asset.type %]"><div style="margin: 0; padding: 0; float: left;">
+    
+        [% if asset.type.regex('/image/') %]
+        
+        
+            <div class="media kh-media">
+                <span class="clip"><img src="[% if asset.preview([420]); asset.preview([420]).url; else; asset.resource_url; end; %]" /></span>
+            </div>
+            <div class="wrap">
+                <h2 class="title kh-title">
+                    <a href="[% asset.url %]">[% asset.title %]</a>
+                </h2>
+                <div class="body kh-body">
+                    [% asset.description.truncate(375, ' ... <a href="'+asset.url+'"><strong>Read more</strong></a>') %]
+                </div>
+                <ul class="meta kh-meta">
+                    <!--<li class="byline kh-byline">[% formatted_byline('byline':asset.byline, 'ap_content':asset.description, 'asset':asset) %]</li>-->
+                    <li class="tags">[% formatted_tags(asset, 'section') %]</li>
+                    <li class="num_comments"><a href="[% asset.url %]#disqus_thread" data-disqus-identifier="[% asset.uuid %]"></a></li>
+                </ul>
+            </div>
+            
+            
+            
+        [% else if asset.type.regex('/youtube/') %]
+        
+        
+            <div class="media kh-media">
+                [% youtube_embed(asset.video_id, '404', '226') %]
+            </div>
+            <div class="wrap">
+                <h2 class="title kh-title">
+                    <a href="[% asset.url %]">[% asset.title %]</a>
+                </h2>
+                <div class="body kh-body">
+                    <p>[% asset.description.truncate(375, ' ... <a href="'+asset.url+'"><strong>Read more</strong></a>') %]</p>
+                </div>
+                <ul class="meta kh-meta">
+                    <!--<li class="byline kh-byline">[% formatted_byline('byline':asset.byline, 'ap_content':excerpt, 'asset':asset) %]</li>-->
+                    <li class="tags">[% formatted_tags(asset, 'section') %]</li>
+                    <li class="num_comments"><a href="[% asset.url %]#disqus_thread" data-disqus-identifier="[% asset.uuid %]"></a></li>
+                </ul>
+            </div>
+            
+            
+        [% else if asset.type.regex('/article|link/') %]
+        
+        
+            [% if asset_thumbnail('asset':asset) %]
+                <div class="media kh-media"><span class="clip">
+                    [% if !no_image %]
+                        [% if asset.type.regex('/article/i') %]
+                            <img src="[% asset.items('type':'image')[0].resource_url %]" class="[% asset.type %]" />
+                        [% else if asset.type.regex('/youtube|image|link/i') %]
+                            <img src="[% asset.preview([300]).url %]" />
+                        [% end %]
+                    [% end %]
+                </span></div>
+            [% end %]
+            <div class="wrap [% if no_image; 'grid_8 text'; else; 'grid_5'; end; %] alpha omega"> 
+                <h2 class="title [% if asset.title.length < 35; echo 'title_large'; end; %]kh-title">
+                    <a href="[% get_url(asset.url) %]" class="">[% asset.title | tidy %]</a>
+                </h2>
+                <div class="body kh-body">
+                    
+                    [% for asset.content(0,1) as p %]
+                        [% p.autolink.truncate(135, ' ... ') %]
+                    [% end %]
+                    
+                    <ul class="meta kh-meta">
+                        <li class="tags">[% formatted_tags(asset, 'section') %] </li>
+                        <li class="num_comments"><a href="[% asset.url %]#disqus_thread" data-disqus-identifier="[% asset.uuid %]"></a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+            
+            
+        [% end %]
+        <div class="clear"></div>
+    </div></div>   
+[% end %]
+
+
+[% /* ############################################################################## YOUTUBE EMBED */ %]
+
+[% macro youtube_embed(video_id, width='270', height='187') %]
+
+    [% video_opts = "hl=en_US&amp;autohide=1&amp;showinfo=0" %]
+
+    <object width="[% width %]" height="[% height %]">
+        <param name="movie" value="http://www.youtube.com/v/[% video_id %]?version=3&amp;[% video_opts %]"></param>
+        <param name="allowFullScreen" value="true"></param>
+        <param name="allowscriptaccess" value="always"></param>
+        <param name="wmode" value="opaque"></param>
+        <embed src="http://www.youtube.com/v/[% video_id %]?version=3&amp;[% video_opts %]" type="application/x-shockwave-flash" width="[% width %]" height="[% height %]" allowscriptaccess="always" allowfullscreen="true" wmode="opaque"></embed>
+    </object>
+       
+    
+[% end %]
+
+[% /* ############################################################################## MYCAPTURE BUY PHOTO LINK */ %]
+
+[% macro buy_mycapture_photo_link(asset, domain='kearneyhub', photo_vendor='mycapture'); %]
+    [% if asset.type == 'image' && asset.hi_res && !asset.byline.regex('/courtesy/i') && !asset.tags('type':'keyword').contains('#nosale') %]
+        [% buy_url = 'http://' + domain + '.' + photo_vendor + '.com/' + photo_vendor + '/remoteimage.asp?image=' + asset.resource_url; %]
+        <a href="[% buy_url %]" class="buy_photo_link"><span>Buy this photo</span></a>
+    [% end %]
+[% end; %]

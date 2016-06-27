@@ -76,8 +76,8 @@ class TNPackage(object):
         try:
             self.name = props["name"]
         except KeyError as kerr:
-            raise PackageError("Can't get name of package in '{}'. Are you sure it's a package file?"
-                               "".format(zip_file)) from kerr
+            raise PackageError("Can't get name of package in '{}'. Are you sure it's a "
+                               "package file?".format(zip_file)) from kerr
 
         # global skins don't have version or app values
         self.version = props.get("version")
@@ -219,10 +219,7 @@ class TNPackage(object):
             # .meta.json and config.ini both have version, but config.ini is only correct one
             if key not in info or key == 'version':
                 info[key] = config[key]
-            # duplicate warning
-            # elif info[key] != config[key] and info[key] is not None and config[key] is not None:
-                # warn("{}: JSON file has {}: {}, but config.ini has {}: {}"
-                     # "".format(zip_name, key, info[key], key, config[key]))
+
         return info
 
     @property

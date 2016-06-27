@@ -1,0 +1,80 @@
+[%
+macro images_by_presentation(images,types,mode,limit = 0);
+/*
+    images - required: array of images
+    types - required: array of image presentation types
+    mode - optional: include or exclude images of the given types
+        by default this is "include", unless specifically defined as "exclude"
+    limit - optional: the maximum number of assets allowed in the result array
+*/
+
+    filteredImages = [];
+    if mode != "exclude"; mode = "include"; end;
+
+    foreach images as image;
+        if limit == 0 || limit > image|iterpos;
+            if mode == "include"; includeImage=false; else; includeImage=true; end;
+
+            foreach types as type;
+                if image.presentation == type;
+                    if mode == "include"; 
+                        includeImage=true; 
+                    else; 
+                        includeImage=false; 
+                    end;
+                end;
+            end;
+
+            if includeImage; 
+                filteredImages[filteredImages.length+1] = image; 
+            end;
+        else; break; end;
+    end;
+return filteredImages; end;
+
+
+
+macro assets_by_section(cAssets,sections,mode);
+    if mode != "exclude"; mode = "include"; end;
+    filteredAssets = [];
+    foreach cAssets as asset;
+        if mode == "include"; includeAsset = false;    else; includeAsset = true; end;        
+        foreach asset.tags('section') as tag, display;
+            foreach sections as section;
+                if tag == section;
+                    if mode == "include"; includeAsset=true;
+                    else; includeAsset=false;
+                    end;
+                end;
+            end;    
+        end;
+        if includeAsset;
+            filteredAssets[filteredAssets.length + 1] = asset;
+        end;
+    end;
+    return filteredAssets;
+end;
+
+macro assets_by_keyword(cAssets,keywords,mode);
+    if mode != "exclude"; mode = "include"; end;
+    filteredAssets = [];
+    foreach cAssets as asset;
+        if mode == "include"; includeAsset = false;    else; includeAsset = true; end;        
+        foreach asset.tags('keywords') as tag;
+            foreach keywords as keyword;
+                if tag == keyword;
+                    if mode == "include"; includeAsset=true;
+                    else; includeAsset=false;
+                    end;
+                end;
+            end;    
+        end;
+        if includeAsset;
+            filteredAssets[filteredAssets.length + 1] = asset;
+        end;
+    end;
+    return filteredAssets;
+end;
+
+
+%]

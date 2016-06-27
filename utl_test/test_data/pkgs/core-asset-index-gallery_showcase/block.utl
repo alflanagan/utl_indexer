@@ -1,0 +1,127 @@
+[%	/* 	Name: core-asset-index-gallery_showcase
+		Version: v0-4 
+		Updated 3/12/10 ~ cricketts 
+			@ created 'block' variable for this.block
+			  and custom variable for this.block.custom
+			  replaced multiple calls to this.block... 
+			  with the new variable. 
+			@ corrected item_count variable which was 
+			  taking a string from custom properties
+			  and checking for a boolean value in logic.
+			@ corrected count logic to count collections 
+			  and not say '0 items' for all other asset 
+			  types. 
+			@ created a check to echo photo count only
+			  when all collection pieces are type image
+			  else item count is displayed  
+			@ Fixed broken headline logic which was 
+			  echoing nothing. */
+block = this.block;
+custom = block.custom;
+preview_size = this.block.custom.preview_size;
+if !preview_size; preview_size=300; end;
+
+/* only begin work if assets are available */
+if block.assets | length > 0;
+	
+	/* allow a mode to be appended to the asset link */
+	if custom.mode;
+		block_link_mode = custom.mode;
+	end;	
+
+	/* a custom property that allows the item count to be removed. Default is true. */
+	item_count == 'true';
+	if custom.show_count; 
+		item_count = custom.show_count;
+	end;
+
+	/* load base component */
+	if !cms.component.load('core_base_library'); echo '<!--Failed to load core_base_library component.-->'; end;	
+	
+%]
+
+<div class="blox-photo-gallery">
+    [% if this.block.title %]
+        <div class="blox-title">
+            [% core_base_library_rss_link(tBlock : this.block);
+            core_base_library_title(tBlock : this.block) %]
+        </div>
+        [% core_base_library_sublinks(tBlock : this.block) %]
+    [% end %]
+		
+		<div class="clear"></div>
+
+    <ul class="blox-photo-gallery-list">
+		[% foreach block.assets as asset;
+		
+				if asset.preview([preview_size]);
+					photo = asset.preview([preview_size]);					
+				else;
+					photo = asset.items[0].preview([preview_size]);
+				end;
+				
+				/* find photo orientation */
+				if photo.width > photo.height;
+					orientation = 'horizontal';
+				else;
+					orientation = 'vertical';
+				end;
+				
+				%]
+        <li>
+            <a href="[% asset.url; if block_link_mode; echo'/?mode='; block_link_mode; end %]"  [% if asset.new_window then echo 'target="_blank"' %]>
+        	    	<img class="[%- orientation -%]" src="[% photo.url %]" alt="[% photo.title | html | truncate('20','...') %]" />
+            </a>
+            <div class="blox-top-heading">
+
+
+		[%	if item_count != 'false';
+				if asset.type == 'collection' %]
+					<p>[%-	echo asset.items | length; 
+							if (asset.items | length) == (asset.items('type':'image') | length); 
+								echo ' photo'; 
+							else; 
+								echo ' item'; 
+							end; 
+							if asset.items | length > 1; echo 's'; end -%]</p>
+			[%	else %]
+					<p>1 [%	if asset.type == 'youtube' || asset.type == 'vmix'; 
+								echo 'video'; 
+							else if asset.type == 'image';
+								echo 'photo';	
+							else; 
+								echo asset.type; 
+							end; -%]</p>
+			[% 	end;		
+			end; %]
+
+
+
+
+			</div>
+            [% if asset.title; 
+				asset_title = asset.title | strip_tags; %]
+				<div class="blox-bottom-block">
+					<div>
+					<p>
+					<strong>
+					<a href="[% asset.url; if block_link_mode; echo'/?mode='; block_link_mode; end %]"  [% if asset.new_window then echo 'target="_blank"' %]>
+					[%	trunc = custom.custom_truncate;
+						if trunc && ((asset_title | length) > trunc);
+							echo asset_title | truncate(trunc, '...');
+		  				else;
+							echo asset_title | html;
+               			end; -%]
+					</a>
+					</strong>
+					</p>
+					</div>
+				</div>
+			[% end %]
+        </li>
+		[% end %]
+    </ul>
+	<div class="clear"></div>
+	[% core_base_library_more_stories(this.block) %]
+</div>
+[% end %]
