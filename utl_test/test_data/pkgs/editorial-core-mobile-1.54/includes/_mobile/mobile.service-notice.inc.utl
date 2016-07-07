@@ -1,0 +1,50 @@
+<div id="mobile-service-notice" class="ui-widget ui-widget-content ui-corner-all tncms-restricted-notice">
+[%- 
+/* mobile service notice */
+services = core_base_library_subscriptionServices %]
+    <div class="ui-widget-header ui-corner-all">Online Subscribers Only</div>
+    <div class="service-actions">
+       
+        <span class="unauthorized-user"><strong>Current subscribers login now.</strong></span>
+		
+		<a href="[%- cms.url('app': 'user', 'secure': true) | html -%]login/?service_id=[% service.id %]&referer_url=[%- this.url | html -%]&driver=[% service.driver %]&state=mobile_user" class="panel-toggle float-right unauthorized-user jquery-ui-button">login</a>
+		
+        <span class="authorized-user">You are logged in, but need a service from the list below to view this [% this.asset.type %].</span>
+        <br />
+		
+        <ul id="url-services">
+		<li><strong>Available services:</strong></li>
+        [%    foreach services as service;
+                if !service.disabled && !service.deleted %]
+                <li>
+                    <!--<span class="ui-state-default ui-corner-all">
+                        <span class="ui-icon ui-icon-key"></span>
+                    </span>     -->
+                    <a class="jquery-ui-button login-link authorized-user" style="display:none;" href="[%- cms.url('app': 'user', 'secure': true) | html -%]/admin/service/purchase/?service_id=[% service.id %]&referer_url=[%- this.url | html -%]&driver=[% service.driver %]&state=mobile_user">
+                        [% service.name %]
+                    </a>
+                    <a class="jquery-ui-button login-link unauthorized-user" style="display:none;" href="[%- cms.url('app': 'user', 'secure': true) | html -%]signup/?service_id=[% service.id %]&referer_url=[%- this.url | html -%]&driver=[% service.driver %]&state=mobile_user">
+                        [% service.name %]
+                    </a><br />
+					<ul class="service-rates">
+                    [%-	foreach cms.service.get_service(service.id).rates as service_rate;
+							echo '<li class="rate">';
+							if service.driver == 'free';
+								echo 'Free!';
+							else if service_rate;
+								echo '$'+((service_rate.price / 100) | decimal(2))+' for '+service_rate.duration+' day'; 
+								if service_rate.duration > 1; echo 's'; end;
+							else;
+								echo '<span class="no-rates">No additional cost.</span>';
+							end;
+							echo '</li>';
+						end -%]
+					</ul>	
+                    <span class="service-description">[% service.description %]</span>
+                </li>
+            [%    end;
+            end %] 
+        </ul>
+    <div class="clear"></div>
+    </div>
+</div>

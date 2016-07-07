@@ -1,0 +1,7 @@
+<a[% if folder[1]=='mobile' && ! folder[2]; echo ' class="selected"'; end; %] href="[% mobile_url %]/">Home Page</a>
+<a[% if folder[2]=='news'; echo ' class="selected"'; end; %] href="[% mobile_url %]/news/">Top News</a>
+<a[% if folder[2]=='sports'; echo ' class="selected"'; end; %] href="[% mobile_url %]/sports/">Sports</a>
+<a[% if folder[2]=='entertainment'; echo ' class="selected"'; end; %] href="[% mobile_url %]/entertainment/">Entertainment</a>
+<a[% if folder[2]=='business'; echo ' class="selected"'; end; %] href="[% mobile_url %]/business/">Business</a>
+<a[% if folder[2]=='classifieds'; echo ' class="selected"'; end; %] href="[% mobile_url %]/classifieds/">Classifieds</a>
+<a[% if folder[2]=='weather'; echo ' class="selected"'; end; %] href="[% mobile_url %]/weather/">Weather</a>

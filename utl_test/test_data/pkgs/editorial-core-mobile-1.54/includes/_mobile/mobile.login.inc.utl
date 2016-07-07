@@ -1,0 +1,57 @@
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#mobileLoginForm").validate({
+		rules: {
+			username: {
+				required:true,
+				minlength:6
+			},
+			password: {
+				required:true,
+				minlength:6
+			}
+		},
+		messages: {
+			username: "Must be at least 6 characters long.",
+			password: "Must be at least 6 characters long."
+		}
+	});
+});
+</script>
+<div id="mobile-user-tools" style="display:none;">
+	<div class="user-tools">
+		<div class="unauthorized-user">
+		<div id="mobile-login" title="Login">
+			<form id="mobileLoginForm" method="post" action="[%- cms.url('app': 'user', 'secure': true) | html -%]login/?state=mobile_user&amp;referer_url=[%- this.url | html -%]">
+			<fieldset style="display:none">
+			<input type="hidden" name="referer_url" value="[% this.url %]?state=login_success" />
+			</fieldset>
+			<fieldset>
+			<p>	
+			<label for="username">Username:</label>
+				<input type="text" name="username" id="username" class="text ui-widget-content ui-corner-all" />
+			</p>
+			<p>	
+			<label for="password">Password:</label>
+				<input type="password" name="password" id="password" value="" class="text ui-widget-content ui-corner-all" autocomplete="off" />
+			</p>
+			</fieldset>
+			<fieldset>
+				<input type="submit" class="submit" name="submit" value="Submit" />
+			</fieldset>
+			</form>
+			<p>
+			<!--<span class="ui-icon ui-icon-radio-on"></span> -->
+			<a class="mobile-form-link forgot" title="forgot" href="[%- cms.url('app': 'user') | html -%]forgot?state=mobile_user&amp;referer_url=[%- this.url | html -%]">
+				Forgot your password?
+			</a> 
+			<!--<span class="ui-icon ui-icon-radio-on"></span> -->
+			<a class="mobile-form-link register" title="signup" href="[%- cms.url('app': 'user', 'secure': true) | html -%]signup/?state=mobile_user&amp;referer_url=[%- this.url | html -%]">
+				Create an account
+			</a>
+			</p>
+		</div>
+		</div>	
+		<button class="panel-cancel">cancel</button>
+	</div>
+</div>

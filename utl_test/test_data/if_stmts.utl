@@ -50,4 +50,8 @@
 [% if 2 == 3 then "hello" %]
 [%
   if navigation == 'mega' && nav_item.children.length > 0 && item_mega_excluded != "true";  else; parent_none_check="display:none;"; end;
+  if silly == test;
+  else;
+    empty = statement_list;
+  end;
 %]

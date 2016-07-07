@@ -1,0 +1,7 @@
+<script type="text/javascript">
+[% /* for admarket shared content-images */ %]
+$('#main div img').each(function(){
+	this.src = this.src.replace(/http:\/\/[% default_site | replace('.','\.') %]\/shared-content/, 'http://[% w2_site %]/shared-content');
+});
+[% /* enter additional sripts below as needed for gallery etc */ %]
+</script>

@@ -1,0 +1,17 @@
+[%- core_base_library_userPanel;
+/**
+ * To customize link types and text use the layout below as an example
+ */
+/*	core_base_library_userPanel(
+	'panelClass':'standard',
+	'panelLinks':[
+		'anonymous':[
+			'login':'Login',
+			'register':'Signup'],
+		'recognized':[
+			'logout':'Not you?',
+			'login_dashboard':'My Dashboard',
+			'register':'Register'],
+		'authorized':[
+			'logout':'Logout',
+			'dashboard':'My Dashboard']]); */ %]

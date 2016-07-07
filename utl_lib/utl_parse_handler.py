@@ -24,7 +24,8 @@ class FrozenDict(collections.Mapping):
         if somedict is None:
             somedict = {}
         self._dict = dict(somedict)   # make a copy
-        self._hash = None
+        # if values of self._dict are not hashable, we're not hashable. Fail now.
+        self._hash = hash(frozenset(self._dict.items()))
 
     def __getitem__(self, key):
         return self._dict[key]
@@ -36,8 +37,6 @@ class FrozenDict(collections.Mapping):
         return iter(self._dict)
 
     def __hash__(self):
-        if self._hash is None:
-            self._hash = hash(frozenset(self._dict.items()))
         return self._hash
 
     def __eq__(self, other):

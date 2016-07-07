@@ -1,0 +1,35 @@
+[%- 
+include '_mobile/mobile.header.inc.utl';
+include '_ads/mobile-top.inc.utl';%]
+
+
+<div id="blox-left-col" class="grid_[% grid_set_blox_med_span %][% if cms.site.custom.alpha_omega == 'true' %] alpha[% end %]">
+    [% core_base_library_breadcrumbs %]
+    [% cms.region('name':'error') %]
+    <div id="blox-story" class="blox-content">
+        <div id="blox-error" class="ui-state-error ui-corner-all">
+
+            <h1>404 error</h1>
+            <h4>Sorry, the page you requested could not be found. Try searching the site:</h4>
+            <div id="blox-error-search">
+                <form id="blox-search-form" action="/search" method="get">
+                    <div>
+                        <input type="hidden" name="t" value="article" />
+                        <input class="search-bar" type="text" name="q" value="[% cms.search.params.q | html %]" />
+                        <input class="search-submit" type="submit" value="GO" />
+                    </div>
+                </form>
+                <a href="/search?q=&amp;t=article&amp;l=25&amp;d=&amp;d1=&amp;d2=&amp;s=&amp;sd=desc&amp;f=html" class="advanced-search">Or try the advanced search.</a>
+            </div>
+            </div>
+    </div>
+</div>
+        
+<div id="blox-right-col" class="grid_[% grid_set_blox_right %] [% if cms.site.custom.alpha_omega == 'true' %] omega[% end %]">
+        [% include 'sidebar.html.utl' %]
+</div>
+
+
+
+[% include '_ads/mobile-bottom.inc.utl';
+include '_mobile/mobile.footer.inc.utl' %]

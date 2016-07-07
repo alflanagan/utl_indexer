@@ -1,0 +1,7 @@
+[% adowl_view_order_popup_link(
+     'template': 'online_images',
+     'text': 'View',
+     'width': 600,
+     'height': 400,
+     'params': ['image': image], )
+%]

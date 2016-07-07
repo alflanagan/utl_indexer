@@ -64,7 +64,7 @@ class TNSiteMeta(object):
         # TODO: save a backup copy
         if self.modified or not self.file.exists():
             with self.file.open('w') as metaout:
-                json.dump(self.data, metaout)
+                json.dump(self.data, metaout, indent=2)
             print("Wrote meta file {}.".format(self.file))
             self.modified = False
 

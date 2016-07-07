@@ -1,92 +1,232 @@
 {
-  "name": "utldoc",
-  "attributes": {
-    "line": 2,
-    "file": "double_assign.utl",
-    "end": 84,
-    "start": 41
-  },
-  "children": [{
-    "name": "statement_list",
+    "name": "utldoc",
     "attributes": {
-      "line": 2,
-      "start": 41,
-      "end": 84,
-      "file": "double_assign.utl"
+        "file": "double_assign.utl",
+        "start": 3,
+        "end": 84,
+        "line": 1
     },
     "children": [{
-      "name": "statement",
-      "attributes": {
-        "line": 2,
-        "file": "double_assign.utl",
-        "end": 79,
-        "start": 41
-      },
-      "children": [{
-        "name": "expr",
+        "name": "statement_list",
         "attributes": {
-          "operator": ".",
-          "line": 2,
-          "file": "double_assign.utl",
-          "end": 79,
-          "start": 41
+            "file": "double_assign.utl",
+            "start": 3,
+            "end": 84,
+            "line": 1
         },
         "children": [{
-          "name": "expr",
-          "attributes": {
-            "line": 2,
-            "file": "double_assign.utl",
-            "end": 66,
-            "start": 41
-          },
-          "children": [{
-            "name": "id",
+            "name": "statement",
             "attributes": {
-              "line": 2,
-              "symbol": "core_base_library_gridSet",
-              "end": 66,
-              "file": "double_assign.utl",
-              "start": 41
-            }
-          }]
+                "file": "double_assign.utl",
+                "start": 3,
+                "end": 12,
+                "line": 1
+            },
+            "children": [{
+                "name": "expr",
+                "attributes": {
+                    "file": "double_assign.utl",
+                    "start": 3,
+                    "end": 12,
+                    "line": 1,
+                    "operator": "="
+                },
+                "children": [{
+                    "name": "expr",
+                    "attributes": {
+                        "file": "double_assign.utl",
+                        "start": 3,
+                        "end": 4,
+                        "line": 1
+                    },
+                    "children": [{
+                        "name": "id",
+                        "attributes": {
+                            "symbol": "a",
+                            "start": 3,
+                            "end": 4,
+                            "file": "double_assign.utl",
+                            "line": 1
+                        }
+                    }]
+                }, {
+                    "name": "expr",
+                    "attributes": {
+                        "file": "double_assign.utl",
+                        "start": 7,
+                        "end": 12,
+                        "line": 1,
+                        "operator": "="
+                    },
+                    "children": [{
+                        "name": "expr",
+                        "attributes": {
+                            "file": "double_assign.utl",
+                            "start": 7,
+                            "end": 8,
+                            "line": 1
+                        },
+                        "children": [{
+                            "name": "id",
+                            "attributes": {
+                                "symbol": "b",
+                                "start": 7,
+                                "end": 8,
+                                "file": "double_assign.utl",
+                                "line": 1
+                            }
+                        }]
+                    }, {
+                        "name": "expr",
+                        "attributes": {
+                            "file": "double_assign.utl",
+                            "start": 11,
+                            "end": 12,
+                            "line": 1
+                        },
+                        "children": [{
+                            "name": "literal",
+                            "attributes": {
+                                "type": "number",
+                                "value": 5.0,
+                                "file": "double_assign.utl",
+                                "start": 11,
+                                "end": 12,
+                                "line": 1
+                            }
+                        }]
+                    }]
+                }]
+            }]
         }, {
-          "name": "expr",
-          "attributes": {
-            "line": 2,
-            "file": "double_assign.utl",
-            "end": 79,
-            "start": 67
-          },
-          "children": [{
-            "name": "id",
+            "name": "statement",
             "attributes": {
-              "line": 2,
-              "symbol": "right_col_on",
-              "end": 79,
-              "file": "double_assign.utl",
-              "start": 67
-            }
-          }]
+                "file": "double_assign.utl",
+                "start": 14,
+                "end": 79,
+                "line": 2
+            },
+            "children": [{
+                "name": "expr",
+                "attributes": {
+                    "file": "double_assign.utl",
+                    "start": 14,
+                    "end": 79,
+                    "line": 2,
+                    "operator": "="
+                },
+                "children": [{
+                    "name": "expr",
+                    "attributes": {
+                        "file": "double_assign.utl",
+                        "start": 14,
+                        "end": 23,
+                        "line": 2
+                    },
+                    "children": [{
+                        "name": "id",
+                        "attributes": {
+                            "symbol": "right_col",
+                            "start": 14,
+                            "end": 23,
+                            "file": "double_assign.utl",
+                            "line": 2
+                        }
+                    }]
+                }, {
+                    "name": "expr",
+                    "attributes": {
+                        "file": "double_assign.utl",
+                        "start": 26,
+                        "end": 79,
+                        "line": 2,
+                        "operator": "="
+                    },
+                    "children": [{
+                        "name": "expr",
+                        "attributes": {
+                            "file": "double_assign.utl",
+                            "start": 26,
+                            "end": 38,
+                            "line": 2
+                        },
+                        "children": [{
+                            "name": "id",
+                            "attributes": {
+                                "symbol": "right_col_on",
+                                "start": 26,
+                                "end": 38,
+                                "file": "double_assign.utl",
+                                "line": 2
+                            }
+                        }]
+                    }, {
+                        "name": "expr",
+                        "attributes": {
+                            "file": "double_assign.utl",
+                            "start": 41,
+                            "end": 79,
+                            "line": 2,
+                            "operator": "."
+                        },
+                        "children": [{
+                            "name": "expr",
+                            "attributes": {
+                                "file": "double_assign.utl",
+                                "start": 41,
+                                "end": 66,
+                                "line": 2
+                            },
+                            "children": [{
+                                "name": "id",
+                                "attributes": {
+                                    "symbol": "core_base_library_gridSet",
+                                    "start": 41,
+                                    "end": 66,
+                                    "file": "double_assign.utl",
+                                    "line": 2
+                                }
+                            }]
+                        }, {
+                            "name": "expr",
+                            "attributes": {
+                                "file": "double_assign.utl",
+                                "start": 67,
+                                "end": 79,
+                                "line": 2
+                            },
+                            "children": [{
+                                "name": "id",
+                                "attributes": {
+                                    "symbol": "right_col_on",
+                                    "start": 67,
+                                    "end": 79,
+                                    "file": "double_assign.utl",
+                                    "line": 2
+                                }
+                            }]
+                        }]
+                    }]
+                }]
+            }]
+        }, {
+            "name": "statement",
+            "attributes": {
+                "file": "double_assign.utl",
+                "start": 82,
+                "end": 83,
+                "line": 2
+            },
+            "children": [{
+                "name": "document",
+                "attributes": {
+                    "file": "double_assign.utl",
+                    "start": 82,
+                    "text": "\n",
+                    "end": 83,
+                    "line": 2
+                }
+            }]
         }]
-      }]
-    }, {
-      "name": "statement",
-      "attributes": {
-        "line": 2,
-        "file": "double_assign.utl",
-        "end": 83,
-        "start": 82
-      },
-      "children": [{
-        "name": "document",
-        "attributes": {
-          "line": 2,
-          "file": "double_assign.utl",
-          "end": 83,
-          "text": "\n",
-          "start": 82
-        }
-      }]
     }]
-  }]
 }

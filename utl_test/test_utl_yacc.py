@@ -23,6 +23,7 @@ from utl_lib.utl_parse_handler import UTLParseHandler, UTLParseError
 from utl_lib.handler_parse_tree import UTLParseHandlerParseTree
 
 
+# pylint: disable=too-many-public-methods
 class UTLParserTestCase(utl_parse_test.TestCaseUTL):
     """Unit tests for class :py:class:`~utl_lib.utl_yacc.UTLParser`."""
 
@@ -62,12 +63,12 @@ class UTLParserTestCase(utl_parse_test.TestCaseUTL):
         """
         self.assertJSONFileMatches('basic_assign.utl', 'basic_assign.json')
 
-    # def test_double_assigns(self):
-    #     """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with input of assignment
-    #     statements using the operator '=' more than once ([% a = b = c = 5; %]).
+    def test_double_assigns(self):
+        """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with input of assignment
+        statements using the operator '=' more than once ([% a = b = c = 5; %]).
 
-    #     """
-    #     self.assertJSONFileMatches('double_assign.utl', 'double_assign.json')
+        """
+        self.assertJSONFileMatches('double_assign.utl', 'double_assign.json')
 
     def test_print_tokens(self):
         """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with
@@ -280,6 +281,17 @@ class UTLParserTestCase(utl_parse_test.TestCaseUTL):
         parser.restart()
         # and we don't replace handlers
         self.assertIs(parser.handlers[0], handler)
+
+    def test_extra_comma_arg(self):
+        """Unit test on source file with extra trailing comma in arg-list."""
+        handler = UTLParseHandlerParseTree()
+        parser = UTLParser([handler], False)
+        with MockStream().capture_stderr() as fake_stderr:
+            with open(self.data_file("extra_comma_arg.utl"), "r") as sourcein:
+                parser.parse(sourcein.read(), filename="test_data/extra_comma_arg.utl")
+        self.assertEqual(fake_stderr.logged, "")
+        self.assertJSONFileMatches("extra_comma_arg.utl",
+                                   "extra_comma_arg.json")
 
 
 if __name__ == '__main__':

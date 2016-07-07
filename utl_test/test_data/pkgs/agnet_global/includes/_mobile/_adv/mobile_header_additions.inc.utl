@@ -1,0 +1,9 @@
+[% if (cms.site.custom.ndn_id && !this.asset); %]
+<script type="text/javascript" src="http://launch.newsinc.com/js/embed.js" id="_nw2e-js"></script>
+[%- end; -%]
+
+[%
+include ('_ads/oas_head.inc.utl');
+mobile_listpos = "Top2,Frame1,Frame2,Position2,Position3,Position4,Bottom2";
+oas_header("agnet.net", mobile_listpos);
+%]

@@ -1,0 +1,90 @@
+[%-
+call cms.component.load("core_external_jquery");
+call cms.component.load("core_external_jqueryui");
+call cms.component.load("core_external_jquery_plugins"); 
+        core_external_jquery_plugins_cookie;
+call cms.component.load('core_base_library');    
+call cms.component.load('core_advertising'); 
+    
+    url_services = core_base_library_subscriptionServices;
+    
+    if cms.site.custom.mobile_url;
+        mobile_url = cms.site.custom.mobile_url;
+    else;
+        mobile_url = '/mobile';
+    end;
+
+    folder = cms.url.path | splittrim('/'); 
+    
+    if this.asset.title;
+        siteTitle = this.asset.title;
+    else if rTitle != null;
+        siteTitle = rTitle;
+    else if cms.url.path != '/';
+        uriParts = cms.url.path | splittrim('/');
+        uriParts = uriParts | join(" / ");
+        uriParts = uriParts | titlecase;
+        siteTitle = uriParts + ' - ' + cms.site.title;
+    else;
+        siteTitle = cms.site.title;
+    end; -%]
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.2//EN"
+"http://www.openmobilealliance.org/tech/DTD/xhtml-mobile12.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="verify-v1" content="2g27u1oubCX0huPn9y+Tc8jMnW3gHcIelKYF4qEV5Hw=" />
+<meta name="viewport" content="width=device-width" />
+[%-
+core_base_library_advancedMobileRedirect;
+/*    tncms-services cookie creation when redirected from successful purchase */
+if cms.request.param('purchase_success') == 'true';
+    service_id = cms.request.param('service_id');
+    if service_id; %]
+<script type="text/javascript">
+    $.cookie('tncms-services', '[% service_id %]', {path: '/'});
+</script>
+[%    end;
+    end; %]    
+<title>[% siteTitle %]</title>
+[%	cms.page.add_skin_css('mobile-skin.css');
+    cms.page.add_global_css('_site/mobile-site.css'); 
+    include '_mobile/mobile-site-option-one.inc.utl' %]
+</head>
+<body>    
+<div id="mobile-wrapper" class="not-iphone[% if url_services | length > 0 %] has-services[% end %]">
+<div id="scroller">
+<div id="mobile-content">
+<div id="mobile-header">
+    
+	<div class="logo">
+		<a href="[% mobile_url %]/"><h1 class="vcard"></h1></a>	
+    </div>
+	
+	<a href="http://[% cms.system.domain; if this.asset; echo this.url | replace('/mobile/','/'); end %]?TNNoMobile" class="home">View regular site.</a>
+	
+	<a href="[%- cms.url('app': 'user', 'secure': true) | html -%]login/?referer_url=[%- this.url | html -%]&state=mobile_user" class="mobile-header-button jquery-ui-button panel-toggle unauthorized-user">
+		login
+	</a>
+	
+	<button class="mobile-header-button panel-logout authorized-user" onclick="javascript:tncms_logout_mobile();" style="display:none;">
+		logout
+	</button>	
+</div>
+<div id="mobile-search-bar" class="ui-widget-content">
+<form name="search" method="get" action="/[%- mobile_url| regex('/^\/|\/$/','') -%]/search/">
+    <input type="hidden" name="l" value="25" />
+    <input type="hidden" name="s" value="start_time" />
+    <input type="hidden" name="sd" value="desc" />
+    <input type="hidden" name="f" value="html" />
+    <input type="hidden" name="t" value="article" />
+    
+	<fieldset class="search-display">
+	<input type="text" class="column keyword-input" name="q" value="[% cms.search.params.q | html %]" placeholder="keyword search" /> 
+	<input type="submit" class="column search-btn" value="search" />
+	</fieldset>
+
+</form>
+</div>
+<div id="body">
+[% include '_mobile/mobile-site-option-two.inc.utl' %]

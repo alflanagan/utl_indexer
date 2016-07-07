@@ -63,14 +63,22 @@ class TNPackage(object):
 
     def __init__(self, props: dict, is_certified: bool, dependencies: dict, zip_file: Path,
                  site_name=None):
-        """Build package from parts. Usually call :py:meth:TNPackage.load_from instead."""
+        """Build package from parts. Usually call
+        :py:meth:`~utl_lib.TNPackage.load_from` instead.
+
+        """
         self.properties = props
         self.is_certified = is_certified
         self.deps = dependencies
         self.zipfile = zip_file
         self.site = site_name
 
-        self.name = props["name"]
+        try:
+            self.name = props["name"]
+        except KeyError as kerr:
+            raise PackageError("Can't get name of package in '{}'. Are you sure it's a package file?"
+                               "".format(zip_file)) from kerr
+
         # global skins don't have version or app values
         self.version = props.get("version")
         if not self.version:
@@ -102,6 +110,8 @@ class TNPackage(object):
         :return: A new TNPackage instance.
 
         """
+        if not isinstance(directory, Path):
+            directory = Path(str(directory))
         props = cls._read_properties(directory, zip_name)
 
         certified = Path(directory, '.certification').exists()
@@ -157,7 +167,7 @@ class TNPackage(object):
             with config_file.open('r') as propin:
                 for line in propin:
                     key, value = line[:-1].split('=')
-                    config[key] = value[1:-1]
+                    config[key] = value[1:-1]  # drop outer quotes
             if cap_const in config:
                 # change to list to match JSON files
                 if config[cap_const]:
@@ -178,12 +188,13 @@ class TNPackage(object):
         :returns dict: A ditionary of property: value pairs.
 
         """
-        if not hasattr(directory, 'name'):
-            directory = Path(directory)
 
         # ------ Read the 3 possible config files ----------------
-        with (directory / "info.json").open('r') as infoin:
-            info = json.load(infoin)
+        try:
+            with (directory / "info.json").open('r') as infoin:
+                info = json.load(infoin)
+        except FileNotFoundError:
+            info = {}
 
         meta = cls._read_meta_config(directory, zip_name)
         config = cls._read_config_ini(directory)
@@ -194,7 +205,11 @@ class TNPackage(object):
             # print("    {}: {}".format(key, meta[key]))
             if key not in info:
                 info[key] = meta[key]
-            elif info[key] != meta[key] and info[key] is not None and meta[key] is not None:
+            # don't report as error cases where key given value in one file, but empty
+            # in the other.
+            # BUG: currently won't report error if files have different values that
+            # are both falsey, e.g info -> key=0 and meta -> key=[]
+            elif info[key] and meta[key] and info[key] != meta[key]:
                 # one case where different values is apparently normal
                 if not (key == 'type' and info[key] == 'skin' and meta[key] == 'app'):
                     warn("{}: info.json has {}: {} but .metadata.json has {}: {}"
@@ -204,9 +219,10 @@ class TNPackage(object):
             # .meta.json and config.ini both have version, but config.ini is only correct one
             if key not in info or key == 'version':
                 info[key] = config[key]
-            elif info[key] != config[key] and info[key] is not None and config[key] is not None:
-                warn("{}: JSON file has {}: {}, but config.ini has {}: {}"
-                     "".format(zip_name, key, info[key], key, config[key]))
+            # duplicate warning
+            # elif info[key] != config[key] and info[key] is not None and config[key] is not None:
+                # warn("{}: JSON file has {}: {}, but config.ini has {}: {}"
+                     # "".format(zip_name, key, info[key], key, config[key]))
         return info
 
     @property

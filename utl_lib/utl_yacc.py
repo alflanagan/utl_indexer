@@ -59,7 +59,8 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         ('left', 'DOUBLEBAR'),
         ('left', 'AND'),
         ('left', 'DOUBLEAMP'),
-        ('nonassoc', 'ASSIGN', 'ASSIGNOP'),
+        ('right', 'ASSIGN'),
+        ('nonassoc', 'ASSIGNOP'),
         ('nonassoc', 'IS', 'NOT', 'EQ', 'NEQ'),
         ('nonassoc', 'LT', 'GT', 'LTE', 'GTE'),  # relational operators <, >, <=, >=
         ('left', 'PLUS', 'MINUS'),
@@ -102,7 +103,6 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         return self.parser.parse(input=input_text, lexer=self.utl_lexer, debug=debug,
                                  tokenfunc=self._filtered_token, tracking=tracking)
 
-    # TODO: Catch assignment-as-expression here, convert to expression
     # Error rule for syntax errors
     def p_error(self, p):  # pylint: disable=missing-docstring
         # IF top_symbol IS 'expr'
@@ -114,7 +114,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         # END
         self.error_count += 1
         if not self.handlers:
-            sys.stderr.write("Error in statement, line {}! {}\n".format(p.lexer.lineno(), p))
+            sys.stderr.write("{}: Error in statement, line {}! {}\n".format(self.filename, p.lexer.lineno(), p))
         # is there an expr on the stack?
         # if so, remove it, push "ECHO", push expr.
         for handler in self.handlers:
@@ -325,6 +325,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
 
     def p_arg_list(self, p):
         '''arg_list : arg
+                    | arg COMMA
                     | arg COMMA arg_list'''
         self.__set_ctxt(p, 1, 3)
         for handler in self.handlers:
