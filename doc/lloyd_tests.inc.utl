@@ -1,0 +1,102 @@
+[% 
+macro pecho(a_string);
+   echo '<p>' + a_string + '</p>';
+end;
+
+/* empty macro legal? Yep. */
+macro empty;
+end;
+
+echo '<p>starting!</p>';
+/* testing a bunch of PHP operators to see which work in UTL */
+/* answer: only the basics */
+a = 5;
+pecho('a is ' + a);
+if !a;
+  pecho('a is false');
+else;
+  pecho('a is true');
+end;
+
+default d = 3;
+/* not legal, since it doesn't make sense:
+default d += 3;
+*/
+
+if a < b;
+  pecho('b is greater');
+else;
+  pecho('a is >= ' + b);
+end;
+d = c == a;
+e = c != a;
+/* range works */
+for 1..2 as g;
+  pecho('g is ' + g);
+end;
+
+/* boolean ops and English equivalents */
+f = a && b;
+e = a and b;
+c = a || b;
+g = a or b;
+h = a is b;
+i = a is not b;
+j = a % b;
+
+/* op-equals shorthand */
+f += b;
+g -= b;
+h = 3;
+h *= 7;
+pecho('h is ' + h);
+
+arr1 = [,];
+arr2 = [3,4,5,];
+arr3 = [key: 'value', fred: 'wilma',,];
+
+/* operations on strings */
+barney = "This is fred";
+pecho("barney is " + barney);
+barney = barney * 2;
+pecho("barney is " + barney);
+barney = '5';
+barney = barney - 3;
+pecho("barney is " + barney);
+
+macro fred();
+  pecho("called fred()");
+end;
+fred;
+macro sally(arg1);
+   for 1..5;
+     pecho("called sally() with " + arg1);
+     %] <hr> [%
+     break;
+   end;
+   array_data = [1, 2, 3];
+   for array_data as item;
+     if item == 2;
+        continue;
+     end;
+     pecho("item is " + item);
+   end;
+end;
+sally(5);
+
+ array = [1, 2, 'fred', 3.0, wilma(7)|fred];
+ obj = ['one':2, 'two':3];
+ obj.one = 3;
+ obj['two'] = 7;
+pecho('obj is ' + obj);
+if 2 is 2;
+pecho('yes, 2 is 2');
+end;
+if fred = 'sally';
+  pecho('assigned in if stmt: ' + fred);
+end;
+fred = null;
+default fred = 'barney';
+pecho('default assigned in  stmt: ' + fred);
+pecho('script ends');
+%]
