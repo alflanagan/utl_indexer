@@ -21,7 +21,11 @@ def get_args():
 
 
 def main(args):
-    """Main function. Opens file, parses it."""
+    """Main function. Opens file, parses it.
+
+    :param argparse.NameSpace args: The parsed command-line arguments.
+
+    """
     myparser = UTLParser([UTLParseHandler(args.stop_on_error)])
     try:
         if args.stop_on_error:
@@ -33,7 +37,8 @@ def main(args):
         else:
             myparser.parse(args.utl_file.read(), debug=args.debug)
             if myparser.error_count > 0:
-                print("{} contained {} syntax errors!".format(args.utl_file.name, myparser.error_count))
+                print("{} contained {} syntax errors!"
+                      "".format(args.utl_file.name, myparser.error_count))
                 sys.exit(1)
             else:
                 print("{} appears valid.".format(args.utl_file.name))

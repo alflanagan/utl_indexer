@@ -1,19 +1,26 @@
 #!/usr/bin/env python3
+"""Module to test callin a Townnews web service."""
 
-from requests.auth import HTTPBasicAuth
-import requests
 import json
 from pprint import pprint
 
+from requests.auth import HTTPBasicAuth
+import requests
+
+URL_ROOT = "https://certification13-dot-townnews365-dot-com.bloxcms.com/tncms/webservice/v1/"
+RICHMOND_URL = "https://richmond-dot-com.bloxcms-ny1.com/tncms/webservice/v1/"
+
 
 def main():
+    """Retrieve and print current APIs for various services, then retrieve a sample asset.
+
+    """
     # data = {'user': 'ALFlanagan'}
     # login = HTTPBasicAuth('16ED26C62A6711E591E4B3E58BAF2E49', '55A57143E3404')
     # resp = requests.post('https://richmond-dot-com.bloxcms-ny1.com/tncms/webservice/v1/user/get/',
     #                      data=data, auth=login)
     # print(resp.text)
     services = ['business', 'job', 'user', 'editorial', 'eedition', 'classifieds']
-    URL_ROOT = "https://certification13-dot-townnews365-dot-com.bloxcms.com/tncms/webservice/v1/"
     data = {"user": "Flanagan"}
     login = HTTPBasicAuth('089F86E02A6211E5A24353BD6EAA3E6B', '55A568C86DF17')
     for service in services:
@@ -25,7 +32,6 @@ def main():
             for oper in api_desc['operations']:
                 print("    {}: {}".format(oper['httpMethod'], oper['summary']))
 
-    RICHMOND_URL="https://richmond-dot-com.bloxcms-ny1.com/tncms/webservice/v1/"
     # http://www.richmond.com/tncms/webservice/v1/editorial/get/?
     data = {'id': '72c2ab48-2976-11e5-a21b-a7f967e75fca'}
     login = HTTPBasicAuth("16ED26C62A6711E591E4B3E58BAF2E49", "55A57143E3404")

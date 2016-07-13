@@ -23,7 +23,15 @@ def get_args():
 
 
 def do_parse(program_text, args):
-    """Open a file, parse it, return resulting parse."""
+    """Parse code, extract macro references, print them.
+
+    :param str program_text: The source code to parse.
+
+    :param argparse.Namespace args: The namespace containing the parsed
+        command-line arguments.
+
+    """
+
     handler = UTLParseHandlerAST()
     myparser = UTLParser([handler])
     utldoc = myparser.parse(program_text, debug=args.debug, print_tokens=False,
@@ -47,7 +55,12 @@ def do_parse(program_text, args):
 
 
 def main(args):
-    """Main function. Reads file, calls parse routine."""
+    """Main function. Reads file, calls parse routine.
+
+    :param argparse.Namespace args: The namespace object containing
+        values of command-line arguments.
+
+    """
     utl_text = args.utl_file.read()
 
     do_parse(utl_text, args)

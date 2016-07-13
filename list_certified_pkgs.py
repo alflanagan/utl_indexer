@@ -14,8 +14,9 @@ List currently stored Townnews-certified packages.
 import re
 import argparse
 from pathlib import Path
-from utl_lib.tn_package import TNPackage
 from warnings import filterwarnings
+
+from utl_lib.tn_package import TNPackage
 
 DATA_DIR = Path('data/exported/certified')
 BLOCKS_DIR = DATA_DIR / Path('blocks')
@@ -40,6 +41,7 @@ APPS = {'editorial': 'Editorial',
 
 
 def get_args():
+    """Parse command-line arguments."""
     parser = argparse.ArgumentParser(description="Lists certified packages stored in export directories.")
     meg = parser.add_mutually_exclusive_group()
     meg.add_argument('-c', '--components', action="store_true",
@@ -52,7 +54,11 @@ def get_args():
 
 
 def main(args):
-    """Print lists as filtered by command-line arguments"""
+    """Print lists as filtered by command-line arguments,
+
+    :param argparse.Namespace args: Namespace object such as returned from `get_args`.
+
+    """
     filterwarnings("ignore", category=Warning)
     block_data = []
     if not (args.components or args.skins):
@@ -61,9 +67,9 @@ def main(args):
             if block.is_dir():
                 pkg = TNPackage.load_from(block, "{}.zip".format(block.name))
                 block_data.append("{} ({})".format(pkg.properties['title'], pkg.version))
-    block_data.sort(key=lambda x:x.upper())
-    for data in block_data:
-        print(data)
+        block_data.sort(key=lambda x: x.upper())
+        for data in block_data:
+            print(data)
 
     if not(args.blocks or args.skins):
         print("="*8 + " COMPONENTS " + "="*8)

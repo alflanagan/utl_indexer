@@ -38,7 +38,8 @@ class FileWithIncludes(object):
 
     @property
     def included(self):
-        """Returns a list of the files included in this file.
+        """:return: a list of the files included in this file.
+        :rtype: list
 
         :raises FileNotFoundError: if this file does not exist relative to any of
             `args.utl_path`, the global skin, or the application skin.
@@ -97,8 +98,12 @@ class FileWithIncludes(object):
 
         :param str program_text: The text of the file to be parsed.
 
-        :raise FileNotFoundError: if the file does not exist relative to the `args.utl_path`
+        :return: None
+
+        :raises FileNotFoundError: if the file does not exist relative to the `args.utl_path`
             directory, the global skin, or the application skin.
+
+        :raises UTLParseError: if the parse fails and returns nothing.
 
         """
         # build AST tree for later processing

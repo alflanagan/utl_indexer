@@ -7,7 +7,7 @@ ZIP File Names
 ##############
 
 ZIP files are automatically named by the Townnews editor on export. They are prefixed by the main
-section from the Design/Templates editor: global\_, skin\_, component\_, block\_
+section from the Design/Templates editor: global\\_, skin\\_, component\\_, block\\_
 
 * global_(skin_name).zip
 * skin_(application)_(library_name).zip
@@ -76,16 +76,14 @@ import warnings
 import argparse
 import subprocess
 from shutil import rmtree
-import warnings
 
 from utl_lib.tn_package import TNPackage, PackageError
 from utl_lib.tn_site import TNSiteMeta
 
 try:
     from pathlib import Path
-except:
-    this_version = sys.version_info
-    if this_version.major < 3 or (this_version.major == 3 and this_version.minor < 4):
+except ImportError:
+    if sys.version_info.major < 3 or (sys.version_info.major == 3 and sys.version_info.minor < 4):
         sys.stderr.write("Sorry, this program requires standard features from python version 3.4"
                          " or higher.\n")
     else:
@@ -132,6 +130,7 @@ def mktmpdir() -> Path:
     """Create an empty temporary directory.
 
     :returns: Name of the created directory.
+    :rtype: Path
 
     """
     args = ['mktemp', '-d', 'utl_indexer_XXXXXX', '-t']
@@ -167,9 +166,9 @@ def showwarning(message, category, filename, lineno, file=None, line=None):
 
     :param int lineno: The line of file `filename` where the warning occurred.
 
-    :param file: Output file (defaults to :py:attr:`sys.stderr`).
+    :param IOStream file: Output file (defaults to :py:attr:`sys.stderr`).
 
-    :param line: The text of the line where the error was generated (defaults to line number
+    :param str line: The text of the line where the error was generated (defaults to line number
         `lineno` in internal line cache.)
 
     """
@@ -200,7 +199,7 @@ def main(args: argparse.Namespace):
                 unzip_file(zip_file, tmp_dir)
                 try:
                     tmp_pkg = TNPackage.load_from(tmp_dir, zip_file, args.site)
-                except PackageError as perr:
+                except PackageError:
                     warnings.warn("Unable to load '{}'.".format(zip_file))
                 else:
                     new_parent = args.dest_dir / tmp_pkg.install_dir
@@ -218,8 +217,7 @@ def main(args: argparse.Namespace):
                     site_meta.add(tmp_pkg.name, {"version": tmp_pkg.version,
                                                  "certified": "Y" if tmp_pkg.is_certified else "N",
                                                  "last_download": zip_file_time,
-                                                 "zip_name": zip_file.name,
-                                                 })
+                                                 "zip_name": zip_file.name, })
             finally:
                 rmtree(str(tmp_dir))
     finally:
