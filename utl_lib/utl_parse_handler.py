@@ -18,6 +18,9 @@ class FrozenDict(collections.Mapping):
     This allows handlers to return context info in a form that has the goodness of immutability,
     and is hashable.
 
+    :param collections.Mapping somedict: A mapping whose values will be used to initialize the
+        FrozenDict. Note this is the only way to add values!
+
     """
     # TODO: add an .update() method that returns a new FrozenDict
     def __init__(self, somedict=None):
@@ -50,6 +53,14 @@ class FrozenDict(collections.Mapping):
     If E is present and lacks a .keys() method, then does:  for k, v in E: D'[k] = v
     In either case, this is followed by: for k in F:  D'[k] = F[k]
 
+    :param args: one more dictionaries to be combined with this one.
+
+    :param keys: key-value pairs that will be combined with this dictionary.
+
+    :return: A new FrozenDict combining all the keys and values.
+
+    :rtype: FrozenDict
+
     """
         # yes, above is a direct steal from dict.update() docstring.
         newdict = self._dict.copy()
@@ -58,6 +69,11 @@ class FrozenDict(collections.Mapping):
 
     def delkey(self, *args):
         """D.delkey(key [, ...]) -> D' which contains {key:D[key] for key in D if key not in args}
+
+        :param str args: One or more keys to delete.
+
+        :return: A new dictionary without those keys.
+        :rtype: FrozenDict
 
         """
         newdict = self._dict.copy()
@@ -80,7 +96,7 @@ class UTLParseError(Exception):
     pass
 
 
-# pylint: disable=unused-argument,too-many-public-methods
+# pylint: disable=unused-argument,too-many-public-methods,W9003,W9004
 class UTLParseHandler(object):
     """A base class defining an interface for classes which take actions on parse reductions for
     a UTL file. Implementors can inherit this class and only override those reductions where
@@ -161,10 +177,12 @@ class UTLParseHandler(object):
         '''
         return None
 
-    def statement(self, parser, statement):
+    def statement(self, parser, statement, eostmt=None):
         """A single statement, usually terminated with a ';' or a '%]'.
 
         `statement` will be the text of a token, or the result of a production.
+
+        `eostmt` will be the end-of-statement value, if it exists.
 
         Tokens that may be provided include 'continue', 'break', and 'exit'.
 
@@ -286,7 +304,7 @@ class UTLParseHandler(object):
         """
         return None
 
-    def for_stmt(self, parser, expr, as_clause=None, statement_list=None):
+    def for_stmt(self, parser, expr, as_clause=None, eostmt=None, statement_list=None):
         """A for statement, which executes `statement_list` once for each item in the value of
         `expr` (assumed to be a collection). If `as_clause` has one or two children, the current
         item is assigned to a variable of that name (or the current key, value are assigned to
@@ -295,11 +313,14 @@ class UTLParseHandler(object):
         """
         return None
 
-    def if_stmt(self, parser, expr, statement_list=None, elseif_stmts=None, else_stmt=None):
+    def if_stmt(self, parser, expr, eostmt=None, statement_list=None, elseif_stmts=None,
+                else_stmt=None):
         """An if statement.
 
         :param expr: the test expression. `statement_list` is executed only if this resolves to
             :py:attr:`True`.
+
+        :param eostmt: The end-of-statement value separating expr from statement_list
 
         :param statement_list: The statements to execute if the test is true.
 
@@ -341,7 +362,7 @@ class UTLParseHandler(object):
         """
         return None
 
-    def macro_defn(self, parser, macro_decl, statement_list=None):
+    def macro_defn(self, parser, macro_decl, eostmt, statement_list=None):
         """A macro definition with declaration `macro_decl` containing statements
         `statement_list`. `statement_list` can also be :py:attr:`None`, indicating an empty
         macro (which is legal but useless).

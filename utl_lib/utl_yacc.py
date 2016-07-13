@@ -5,6 +5,7 @@ import ply.yacc as yacc
 
 from utl_lib.utl_lex import UTLLexer
 from utl_lib.utl_parse_handler import UTLParseHandler
+# pylint: disable=W9003,W9004
 
 
 class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-instance-attributes
@@ -294,7 +295,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         if p[1]:  # skip empty statements
             self.__set_ctxt(p, 1)
             for handler in self.handlers:
-                value = handler.statement(self, p[1])
+                value = handler.statement(self, p[1], self._(p, 2))
                 if p[0] is None:
                     p[0] = value
 
@@ -492,9 +493,9 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         for handler in self.handlers:
             if len(p) == 8:
                 # account for EACH
-                value = handler.for_stmt(self, p[3], p[4], p[6])
+                value = handler.for_stmt(self, p[3], p[4], p[5], p[6])
             else:
-                value = handler.for_stmt(self, p[2], p[3], p[5])
+                value = handler.for_stmt(self, p[2], p[3], p[4], p[5])
             if p[0] is None:
                 p[0] = value
 
@@ -502,7 +503,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         '''if_stmt : IF expr eostmt statement_list elseif_stmts else_stmt END'''
         self.__set_ctxt(p, 1, 7)
         for handler in self.handlers:
-            value = handler.if_stmt(self, p[2], p[4], p[5], p[6])
+            value = handler.if_stmt(self, p[2], p[3], p[4], p[5], p[6])
             if p[0] is None:
                 p[0] = value
 
@@ -553,7 +554,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         '''macro_defn : macro_decl eostmt statement_list END'''
         self.__set_ctxt(p, 1, 4)
         for handler in self.handlers:
-            value = handler.macro_defn(self, p[1], p[3])
+            value = handler.macro_defn(self, p[1], p[2], p[3])
             if p[0] is None:
                 p[0] = value
 

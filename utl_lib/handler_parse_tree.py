@@ -41,20 +41,25 @@ class UTLParseHandlerParseTree(UTLParseHandler):
                 statement_list.add_first_child(statement)
             return statement_list
 
-    def statement(self, parser, statement):
+    def statement(self, parser, statement, eostmt=None):
         if isinstance(statement, str):
             if statement in UTLLexer.reserved:  # is a keyword (break, return, continue)
-                return ASTNode('statement', parser.context,
-                               [ASTNode(statement, parser.context, [])])
+                kids = [ASTNode(statement, parser.context, [])]
+                if eostmt is not None:
+                    kids.append(eostmt)
+                return ASTNode('statement', parser.context, kids)
             else:
                 doc_attrs = parser.context
                 doc_attrs.update({'text': statement})
-                return ASTNode('statement', parser.context,
-                               [ASTNode('document', doc_attrs, [])])
+                kids = [ASTNode('document', doc_attrs, [])]
+                if eostmt is not None:
+                    kids.append(eostmt)
+                return ASTNode('statement', parser.context, kids)
         elif statement is not None:
-            return ASTNode('statement', parser.context, [statement])
-        # eostmt, for one, doesn't need to appear in output
-        return None
+            kids = [statement]
+            if eostmt is not None:
+                kids.append(eostmt)
+            return ASTNode('statement', parser.context, kids)
 
     # -------------------------------------------------------------------------------------------
     # regular productions
