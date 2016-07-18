@@ -1,7 +1,9 @@
 #!/usr/bin/env dash
+APIDOC_FLAGS="-T -e -o doc/api"
+
 rm doc/api/*
-sphinx-apidoc -T -o doc/api utl_lib
-sphinx-apidoc -T -o doc/api utl_test
+sphinx-apidoc ${APIDOC_FLAGS} utl_lib
+sphinx-apidoc ${APIDOC_FLAGS} utl_test
 cd doc
 make clean
 make html

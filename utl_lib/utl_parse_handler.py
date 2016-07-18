@@ -279,10 +279,14 @@ class UTLParseHandler(object):
 
     def expr(self, parser, first, second=None, third=None):
         """An expression production.
-        first is: not|!|expr|literal|ID|LBRACKET|LPAREN|array_ref
-        second is: expr|PLUS|MINUS|TIMES|DIV|MODULUS|FILTER|DOUBLEBAR|RANGE|NEQ|LTE|OR|LT|EQ|IS|
-                   GT|AND|GTE|DOUBLEAMP|DOT|ASSIGN|ASSIGNOP|COMMA|COLON
-        third is: expr|RBRACKET|RPAREN
+
+        :param [str, ASTNode] first: not|!|expr|literal|ID|LBRACKET|LPAREN|array_ref
+
+        :param [str, ASTNode] second: expr|PLUS|MINUS|TIMES|DIV|MODULUS|FILTER|DOUBLEBAR|RANGE|
+            NEQ|LTE|OR|LT|EQ|IS|GT|AND|GTE|DOUBLEAMP|DOT|ASSIGN|ASSIGNOP|COMMA|COLON
+
+        :param [str, ASTNode] third: expr|RBRACKET|RPAREN
+
         """
         return None
 
@@ -359,7 +363,7 @@ class UTLParseHandler(object):
         :param str param_id: The parameter name.
 
         :param default_value: An expression giving the value to use for the parameter if it is
-        omitted from the method call.
+            omitted from the method call.
 
         """
         return None

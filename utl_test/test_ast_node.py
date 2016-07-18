@@ -297,7 +297,7 @@ class FrozenASTNodeTestCase(unittest_plus.TestCasePlus):
     """
 
     def test_create(self):
-        """Test :py:method:`~utl_lib.ast_node.FrozenASTNode`."""
+        """Test :py:meth:`~utl_lib.ast_node.FrozenASTNode`."""
         source_node = ASTNode("fred", {"pebbles": "wilma", "bam-bam": "betty"},
                               [ASTNode("barney", {"friend": True}, [])])
         frozen_node = FrozenASTNode(source_node)

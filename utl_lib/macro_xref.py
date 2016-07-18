@@ -20,7 +20,7 @@ class UTLMacro(object):
     """A record of a specific UTL macro, including its definition and/or calls.
 
     :param object macro_defn: An instance of ASTNode whose type is 'macro_defn', OR a dictionary
-    containing the fields [name, file, start, end, line, references].
+        containing the fields [name, file, start, end, line, references].
 
     :param str code_text: The source code text of the macro definition.
 
