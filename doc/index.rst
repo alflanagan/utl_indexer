@@ -11,6 +11,7 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+   utl_grammar
    parse_file
    lex_file
    unpack_zip_files

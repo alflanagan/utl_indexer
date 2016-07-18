@@ -202,23 +202,23 @@ class ASTNode(object):
         return result
 
     def walk(self) -> Iterator["ASTNode"]:
-        """Walk the tree rooted at this node, yielding each node in turn.
+        """
+        Walk the tree rooted at this node, yielding each node in turn. Order is parent-first,
+        depth-first.
 
-        Order is parent-first, depth-first.
+        ` node1
+        `  |
+        ` child1      child2   child3
+        `  |           |
+        ` grandchild1 grandchild2
 
-            node1
-             |
-            child1      child2   child3
-             |           |
-            grandchild1 grandchild2
 
-            node1.walk() ==> (node1, child1, grandchild1, child2, grandchild2, child3)
+        ``node1.walk() ==> (node1, child1, grandchild1, child2, grandchild2, child3)``
 
         """
         yield self
         for child in self.children:
             yield from child.walk()
-
 
     # pylint: disable=W9003,W9004
     # appears to be no way to make pylint accept docstring
@@ -318,7 +318,7 @@ class ASTNode(object):
 
 
 class FrozenASTNode(object):
-    """An immutable version of ASTNode, for use with dictionaries, sets, etc.
+    """An immutable version of :py:class:`ASTNode`, for use with dictionaries, sets, etc.
 
     Note equality is defined by children, attributes, and symbol -- but does
     not check parent.
@@ -417,13 +417,13 @@ class FrozenASTNode(object):
 
         Order is parent-first, depth-first.
 
-            node1
-             |
-            child1      child2   child3
-             |           |
-            grandchild1 grandchild2
+        `     node1
+        `      |
+        `     child1      child2   child3
+        `      |           |
+        `     grandchild1 grandchild2
 
-            node1.walk() ==> (node1, child1, grandchild1, child2, grandchild2, child3)
+        ``node1.walk() ==> (node1, child1, grandchild1, child2, grandchild2, child3)``
 
         """
         yield self

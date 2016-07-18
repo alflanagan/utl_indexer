@@ -156,7 +156,7 @@ class UTLParseHandlerAST(UTLParseHandler):
                        [expr, statement_list] if statement_list is not None else [expr])
 
     def expr(self, parser: UTLParser, first: Union[ASTNode, str],
-             second: [ASTNode, str]=None, third: ASTNode=None) -> ASTNode:
+             second: Union[ASTNode, str]=None, third: ASTNode=None) -> ASTNode:
         assert first is not None
         # first possible values:
         #    NOT|EXCLAMATION|PLUS|MINUS|ID|literal|array_ref|macro_call|paren_expr|expr

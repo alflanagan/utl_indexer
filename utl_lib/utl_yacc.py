@@ -115,7 +115,8 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         # END
         self.error_count += 1
         if not self.handlers:
-            sys.stderr.write("{}: Error in statement, line {}! {}\n".format(self.filename, p.lexer.lineno(), p))
+            sys.stderr.write("{}: Error in statement, line {}! {}\n"
+                             "".format(self.filename, p.lexer.lineno(), p))
         # is there an expr on the stack?
         # if so, remove it, push "ECHO", push expr.
         for handler in self.handlers:
@@ -133,11 +134,10 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         """Return the parser to the state it had before any actual parsing was done. This should
         be significantly faster than creating a new parser instance.
 
-        :param list new_handlers: a list of
-        :py:class:`~utl_lib.utl_parse_handler.UTLParseHandler` instances which will be used to
-        process productions in subsequent parses. A value of :py:attr:`None`, or no value at
-        all, will keep the previously set handler list. To clear the list of handlers, pass an
-        empty list.
+        :param list new_handlers: a list of :py:class:`~utl_lib.utl_parse_handler.UTLParseHandler`
+            instances which will be used to process productions in subsequent parses. A value of
+            :py:attr:`None`, or no value at all, will keep the previously set handler list. To
+            clear the list of handlers, pass an empty list.
 
         """
         # parser stacks created on parse, if they don't exist nothing to restart
@@ -159,8 +159,8 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         production.
 
         :raises ValueError: if set to anything other than [], :py:attr:`None` (equiv. to []), or
-        an iterable whose members are all instances of
-        :py:class:`~utl_lib.utl_parse_handler.UTLParseHandler`.
+            an iterable whose members are all instances of
+            :py:class:`~utl_lib.utl_parse_handler.UTLParseHandler`.
 
         """
         # weirdly gets called before __init__

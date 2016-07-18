@@ -36,7 +36,7 @@ class UTLParserTestCase(utl_parse_test.TestCaseUTL):
 
     def assertJSONFileMatches(self, utl_filename, json_filename):  # pylint: disable=W0221
         """Wrapper function that supplies correct handler to
-        :py:meth:`utl_lib.utl_parse_test.assertJSONFileMatches`.
+        :py:meth:`~utl_lib.utl_parse_test.assertJSONFileMatches`.
 
         """
         return super().assertJSONFileMatches(UTLParseHandlerParseTree(),
@@ -57,22 +57,22 @@ class UTLParserTestCase(utl_parse_test.TestCaseUTL):
         self.assertRaises(ValueError, UTLParser, [handler, 'not_a_handler'], debug=False)
 
     def test_assigns(self):
-        """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with input of assignment
+        """Unit test :py:meth:`~utl_lib.utl_yacc.UTLParser.parse` with input of assignment
         statements.
 
         """
         self.assertJSONFileMatches('basic_assign.utl', 'basic_assign.json')
 
     def test_double_assigns(self):
-        """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with input of assignment
+        """Unit test :py:meth:`~utl_lib.utl_yacc.UTLParser.parse` with input of assignment
         statements using the operator '=' more than once ([% a = b = c = 5; %]).
 
         """
         self.assertJSONFileMatches('double_assign.utl', 'double_assign.json')
 
     def test_print_tokens(self):
-        """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with
-        ``print_tokens``=:py:attr:`True`.
+        """Unit test :py:meth:`~utl_lib.utl_yacc.UTLParser.parse` with
+        ``print_tokens`` = :py:attr:`True`.
 
         """
         parser = UTLParser([], debug=False)
@@ -135,53 +135,52 @@ class UTLParserTestCase(utl_parse_test.TestCaseUTL):
                         self.assertEqual(match.group(2), str(expected[ndx][1]))
 
     def test_calls(self):
-        """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with macro calls."""
+        """Unit test :py:meth:`~utl_lib.utl_yacc.UTLParser.parse` with macro calls."""
         self.assertJSONFileMatches('calls.utl', 'calls.json')
 
     def test_for_stmts(self):
-        """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with for statements."""
+        """Unit test :py:meth:`~utl_lib.utl_yacc.UTLParser.parse` with for statements."""
         self.assertJSONFileMatches('for_stmt.utl', 'for_stmt.json')
 
     def test_if_stmts(self):
-        """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with if statements."""
+        """Unit test :py:meth:`~utl_lib.utl_yacc.UTLParser.parse` with if statements."""
         self.assertJSONFileMatches('if_stmts.utl', 'if_stmts.json')
 
     def test_include_stmts(self):
-        """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with include statements."""
+        """Unit test :py:meth:`~utl_lib.utl_yacc.UTLParser.parse` with include statements."""
         self.assertJSONFileMatches('includes.utl', 'includes.json')
 
     def test_keywords(self):
-        """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with various keywords not
+        """Unit test :py:meth:`~utl_lib.utl_yacc.UTLParser.parse` with various keywords not
         otherwise tested.
 
         """
         self.assertJSONFileMatches('keywords.utl', 'keywords.json')
 
     def test_macro(self):
-        """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with macro definitions."""
+        """Unit test :py:meth:`~utl_lib.utl_yacc.UTLParser.parse` with macro definitions."""
         self.assertJSONFileMatches('macros.utl', 'macros.json')
 
     def test_while(self):
-        """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with a while statement."""
+        """Unit test :py:meth:`~utl_lib.utl_yacc.UTLParser.parse` with a while statement."""
         self.assertJSONFileMatches('while.utl', 'while.json')
 
     def test_unary_expr(self):
-        """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with expressions containing
+        """Unit test :py:meth:`~utl_lib.utl_yacc.UTLParser.parse` with expressions containing
         unary operators.
 
         """
         self.assertJSONFileMatches('unary_exprs.utl', 'unary_exprs.json')
 
-
     def test_empty_stmts(self):
-        """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with control structures
+        """Unit test :py:meth:`~utl_lib.utl_yacc.UTLParser.parse` with control structures
         with empty statement lists.
 
         """
         self.assertJSONFileMatches('empty_stmts.utl', 'empty_stmts.json')
 
     def test_syntax_error(self):
-        """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with invalid syntax."""
+        """Unit test :py:meth:`~utl_lib.utl_yacc.UTLParser.parse` with invalid syntax."""
         handler = UTLParseHandlerParseTree(exception_on_error=True)
         parser = UTLParser([handler], debug=False)
         with open(self.data_file('syntax_error.utl'), 'r') as datain:
@@ -190,7 +189,7 @@ class UTLParserTestCase(utl_parse_test.TestCaseUTL):
         self.assertEqual(parser.symstack[0].type, '$end')
 
     def test_syntax_error_stderr(self):
-        """Unit test :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with invalid syntax when no
+        """Unit test :py:meth:`~utl_lib.utl_yacc.UTLParser.parse` with invalid syntax when no
         handlers are defined.
 
         """
@@ -213,7 +212,7 @@ class UTLParserTestCase(utl_parse_test.TestCaseUTL):
         self.assertMatchesJSON(item1, expected)
 
     def test_with_multiple_handlers(self):
-        """Unit test of :py:meth:`utl_lib.utl_yacc.UTLParser.parse` with more than one handler
+        """Unit test of :py:meth:`~utl_lib.utl_yacc.UTLParser.parse` with more than one handler
         attached.
 
         """
