@@ -55,7 +55,8 @@ class UTLParseHandlerAST(UTLParseHandler):
             statement_list.add_first_child(statement)
         return statement_list
 
-    def statement(self, parser: UTLParser, statement: Union[str, ASTNode]) -> ASTNode:
+    def statement(self, parser: UTLParser, statement: Union[str, ASTNode],
+                  eostmt: str=None) -> ASTNode:
         assert statement is not None
         if isinstance(statement, str):
             if statement in UTLLexer.reserved:  # is a keyword - break, continue, exit, etc.
@@ -187,7 +188,7 @@ class UTLParseHandlerAST(UTLParseHandler):
         return ASTNode('expr', attrs, [first, third])
 
     def for_stmt(self, parser: UTLParser, expr: ASTNode, as_clause: Tuple[int]=None,
-                 statement_list: ASTNode=None) -> ASTNode:
+                 eostmt: str=None, statement_list: ASTNode=None) -> ASTNode:
         assert expr is not None
         attrs = parser.context
         if as_clause is not None:
@@ -198,8 +199,9 @@ class UTLParseHandlerAST(UTLParseHandler):
                        [expr, statement_list] if statement_list else [expr])
 
     # pylint: disable=too-many-arguments
-    def if_stmt(self, parser: UTLParser, expr: ASTNode, statement_list: ASTNode=None,
-                elseif_stmts: ASTNode=None, else_stmt: ASTNode=None) -> ASTNode:
+    def if_stmt(self, parser: UTLParser, expr: ASTNode, eostmt: str=None,
+                statement_list: ASTNode=None, elseif_stmts: ASTNode=None,
+                else_stmt: ASTNode=None) -> ASTNode:
         assert expr is not None
         # so 'if' node always looks same, create empty nodes for missing ones
         if statement_list is None:  # pragma: no cover
@@ -264,7 +266,7 @@ class UTLParseHandlerAST(UTLParseHandler):
         return ASTNode('macro_decl', attrs, [param_list] if param_list else [])
 
     def macro_defn(self, parser: UTLParser, macro_decl: ASTNode,
-                   statement_list: ASTNode=None) -> ASTNode:
+                   eostmt: str, statement_list: ASTNode=None) -> ASTNode:
         return ASTNode('macro_defn',
                        parser.context,
                        [macro_decl, statement_list] if statement_list else [macro_decl])
