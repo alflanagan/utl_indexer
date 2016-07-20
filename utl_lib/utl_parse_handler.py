@@ -22,7 +22,6 @@ class FrozenDict(collections.Mapping):
         FrozenDict. Note this is the only way to add values!
 
     """
-    # TODO: add an .update() method that returns a new FrozenDict
     def __init__(self, somedict=None):
         if somedict is None:
             somedict = {}
@@ -62,7 +61,8 @@ class FrozenDict(collections.Mapping):
     :rtype: FrozenDict
 
     """
-        # yes, above is a direct steal from dict.update() docstring.
+        # yes, above is a direct steal from dict.update() docstring. Don't call this update()
+        # because it does not modify-in-place, it returns a new FrozenDict
         newdict = self._dict.copy()
         newdict.update(*args, **keys)
         return FrozenDict(newdict)
