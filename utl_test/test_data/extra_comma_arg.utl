@@ -1,7 +1,9 @@
-[% adowl_view_order_popup_link(
+[% /* this should be legal syntax */
+  adowl_view_order_popup_link(
      'template': 'online_images',
      'text': 'View',
      'width': 600,
      'height': 400,
+     'empty_array': [,],
      'params': ['image': image], )
 %]
