@@ -21,6 +21,11 @@ class UTLPrintProductionsHandler(UTLParseHandler):
         :py:class:`UTLParseError`, which will effectively end processing. Usually
         one wants to continue processing and report all syntax errors
         encountered.
+
+    :param list args: positional arguments passed on to parent.
+
+    :param dict kwargs: keyword arguments passed on to parent.
+
     """
     # -------------------------------------------------------------------------------------------
     # admin stuff
@@ -42,7 +47,7 @@ class UTLPrintProductionsHandler(UTLParseHandler):
         print("statement_list")
         return "statement_list"
 
-    def statement(self, parser, statement):
+    def statement(self, parser, statement, eostmt=None):
         print("statement")
         return "statement"
 
@@ -101,7 +106,7 @@ class UTLPrintProductionsHandler(UTLParseHandler):
         print("elseif_stmts")
         return "elseif_stmts"
 
-    def elseif_stmt(self, parser, expr, statement_list):
+    def elseif_stmt(self, parser, expr, statement_list=None):
         print("elseif_stmt")
         return "elseif_stmt"
 
@@ -113,11 +118,12 @@ class UTLPrintProductionsHandler(UTLParseHandler):
         print("expr")
         return "expr"
 
-    def for_stmt(self, parser, expr, as_clause=None, statement_list=None):
+    def for_stmt(self, parser, expr, as_clause=None, eostmt=None, statement_list=None):
         print("for")
         return "for"
 
-    def if_stmt(self, parser, expr, statement_list=None, elseif_stmts=None, else_stmt=None):
+    def if_stmt(self, parser, expr, eostmt=None, statement_list=None, elseif_stmts=None,
+                else_stmt=None):
         print("if")
         return "if"
 
@@ -137,7 +143,7 @@ class UTLPrintProductionsHandler(UTLParseHandler):
         print("macro_decl")
         return "macro_decl"
 
-    def macro_defn(self, parser, macro_decl, statement_list=None):
+    def macro_defn(self, parser, macro_decl, eostmt, statement_list=None):
         print("macro_defn")
         return "macro_defn"
 
@@ -157,6 +163,6 @@ class UTLPrintProductionsHandler(UTLParseHandler):
         print("return_stmt")
         return "return_stmt"
 
-    def while_stmt(self, parser, expr, statement_list):
+    def while_stmt(self, parser, expr, statement_list=None):
         print("while_stmt")
         return "while_stmt"
