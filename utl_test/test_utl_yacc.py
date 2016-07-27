@@ -29,18 +29,17 @@ class UTLParserTestCase(utl_parse_test.TestCaseUTL):
 
     data_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'test_data')
 
-    @classmethod
-    def data_file(cls, filename):
-        """Returns a full path for test data file named `filename`."""
-        return os.path.join(cls.data_dir, filename)
-
     def assertJSONFileMatches(self, utl_filename, json_filename):  # pylint: disable=W0221
         """Wrapper function that supplies correct handler to
         :py:meth:`~utl_lib.utl_parse_test.assertJSONFileMatches`.
 
+        :param str utl_filename: A UTL file to be processed using `handler`.
+
+        :param str json_filename: A JSON file of expected results.
+
         """
-        return super().assertJSONFileMatches(UTLParseHandlerParseTree(),
-                                             utl_filename, json_filename)
+        super().assertJSONFileMatches(UTLParseHandlerParseTree(),
+                                      utl_filename, json_filename)
 
     def test_create(self):
         """Unit tests for :py:meth:`~utl_lib.utl_yacc.UTLParser`."""
@@ -55,6 +54,12 @@ class UTLParserTestCase(utl_parse_test.TestCaseUTL):
         self.assertIs(parser3.handlers[0], handler)
         self.assertRaises(ValueError, UTLParser, ['not_a_handler'], debug=False)
         self.assertRaises(ValueError, UTLParser, [handler, 'not_a_handler'], debug=False)
+
+    def test_array_literal(self):
+        """Unit test :py:meth:`~utl_lib.utl_yacc.UTLParser.parse` with input of array literal expression.
+
+        """
+        self.assertJSONFileMatches('array_literal.utl', 'array_literal.json')
 
     def test_assigns(self):
         """Unit test :py:meth:`~utl_lib.utl_yacc.UTLParser.parse` with input of assignment
@@ -203,6 +208,10 @@ class UTLParserTestCase(utl_parse_test.TestCaseUTL):
     def _check_multiple_handlers(self, parser, filepart):
         """Helper function: use parser to parse UTL file named `filepart`.utl, compare to JSON
         results in file `filepart`.json.
+
+        :param UTLParser parser: Parser used to parse UTL file.
+
+        :param str filepart: The basename of the UTL file minus the extension.
 
         """
         with open(self.data_file(filepart + '.utl'), 'r') as utlin:

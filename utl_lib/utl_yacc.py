@@ -153,14 +153,16 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
 
     @property
     def handlers(self):
-        """List of :py:class:`~utl_lib.utl_parse_handler.UTLParseHandler` objects. They are
-        called in list order for each production reduced during the parse. The first handler to
-        return a value that is not :py:attr:`None` determines the value assigned to the
-        production.
+        """A list of handlers for the productions. They are called in list order for each
+        production reduced during the parse. The first handler to return a value that is not
+        :py:attr:`None` determines the value assigned to the production.
 
         :raises ValueError: if set to anything other than [], :py:attr:`None` (equiv. to []), or
             an iterable whose members are all instances of
             :py:class:`~utl_lib.utl_parse_handler.UTLParseHandler`.
+
+        :returns: list of :py:class:`~utl_lib.utl_parse_handler.UTLParseHandler` objects.
+        :rtype: list
 
         """
         # weirdly gets called before __init__
@@ -334,15 +336,16 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
             if p[0] is None:
                 p[0] = value
 
+    # NOTE: [,,4,,5,,7,,] is legal, and equivalent to [4, 5, 7]!!
     def p_array_elems(self, p):
         '''array_elems : expr
+                       | COMMA
                        | array_elems COMMA expr'''
         self.__set_ctxt(p, 1, 3)
         for handler in self.handlers:
-            if len(p) == 2:
-                value = handler.array_elems(self, p[1], None)
-            else:
-                value = handler.array_elems(self, p[3], p[1])
+            if len(p) == 2 and p[1] == ',':
+                return
+            value = handler.array_elems(self, p[1], self._(p, 3))
             if p[0] is None:
                 p[0] = value
 

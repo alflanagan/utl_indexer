@@ -1,272 +1,310 @@
 {
     "name": "utldoc",
     "attributes": {
-        "end": 165,
-        "line": 1,
+        "line": 2,
         "file": "extra_comma_arg.utl",
-        "start": 3
+        "start": 39,
+        "end": 226
     },
     "children": [{
         "name": "statement_list",
         "attributes": {
-            "end": 165,
-            "line": 1,
+            "line": 2,
             "file": "extra_comma_arg.utl",
-            "start": 3
+            "start": 39,
+            "end": 226
         },
         "children": [{
             "name": "statement",
             "attributes": {
-                "end": 160,
-                "line": 1,
+                "line": 2,
                 "file": "extra_comma_arg.utl",
-                "start": 3
+                "start": 39,
+                "end": 221
             },
             "children": [{
                 "name": "expr",
                 "attributes": {
-                    "end": 160,
-                    "line": 1,
+                    "line": 2,
                     "file": "extra_comma_arg.utl",
-                    "start": 3
+                    "start": 39,
+                    "end": 221
                 },
                 "children": [{
                     "name": "macro_call",
                     "attributes": {
-                        "end": 160,
-                        "line": 1,
+                        "line": 2,
                         "file": "extra_comma_arg.utl",
-                        "start": 3
+                        "start": 39,
+                        "end": 221
                     },
                     "children": [{
                         "name": "expr",
                         "attributes": {
-                            "end": 30,
-                            "line": 1,
+                            "line": 2,
                             "file": "extra_comma_arg.utl",
-                            "start": 3
+                            "start": 39,
+                            "end": 66
                         },
                         "children": [{
                             "name": "id",
                             "attributes": {
-                                "symbol": "adowl_view_order_popup_link",
-                                "end": 30,
-                                "line": 1,
+                                "line": 2,
                                 "file": "extra_comma_arg.utl",
-                                "start": 3
+                                "start": 39,
+                                "end": 66,
+                                "symbol": "adowl_view_order_popup_link"
                             }
                         }]
                     }, {
                         "name": "arg_list",
                         "attributes": {
-                            "end": 157,
-                            "line": 2,
+                            "line": 3,
                             "file": "extra_comma_arg.utl",
-                            "start": 37
+                            "start": 73,
+                            "end": 218
                         },
                         "children": [{
                             "name": "arg",
                             "attributes": {
-                                "end": 64,
-                                "name": "template",
-                                "line": 2,
-                                "file": "extra_comma_arg.utl",
-                                "start": 37
-                            },
-                            "children": [{
-                                "name": "expr",
-                                "attributes": {
-                                    "end": 64,
-                                    "line": 2,
-                                    "file": "extra_comma_arg.utl",
-                                    "start": 49
-                                },
-                                "children": [{
-                                    "name": "literal",
-                                    "attributes": {
-                                        "end": 64,
-                                        "line": 2,
-                                        "start": 49,
-                                        "value": "online_images",
-                                        "type": "string",
-                                        "file": "extra_comma_arg.utl"
-                                    }
-                                }]
-                            }]
-                        }, {
-                            "name": "arg",
-                            "attributes": {
-                                "end": 85,
-                                "name": "text",
                                 "line": 3,
                                 "file": "extra_comma_arg.utl",
-                                "start": 71
+                                "name": "template",
+                                "start": 73,
+                                "end": 100
                             },
                             "children": [{
                                 "name": "expr",
                                 "attributes": {
-                                    "end": 85,
                                     "line": 3,
                                     "file": "extra_comma_arg.utl",
-                                    "start": 79
+                                    "start": 85,
+                                    "end": 100
                                 },
                                 "children": [{
                                     "name": "literal",
                                     "attributes": {
-                                        "end": 85,
                                         "line": 3,
-                                        "start": 79,
-                                        "value": "View",
-                                        "type": "string",
-                                        "file": "extra_comma_arg.utl"
+                                        "file": "extra_comma_arg.utl",
+                                        "value": "online_images",
+                                        "start": 85,
+                                        "end": 100,
+                                        "type": "string"
                                     }
                                 }]
                             }]
                         }, {
                             "name": "arg",
                             "attributes": {
-                                "end": 104,
-                                "name": "width",
                                 "line": 4,
                                 "file": "extra_comma_arg.utl",
-                                "start": 92
+                                "name": "text",
+                                "start": 107,
+                                "end": 121
                             },
                             "children": [{
                                 "name": "expr",
                                 "attributes": {
-                                    "end": 104,
                                     "line": 4,
                                     "file": "extra_comma_arg.utl",
-                                    "start": 101
+                                    "start": 115,
+                                    "end": 121
                                 },
                                 "children": [{
                                     "name": "literal",
                                     "attributes": {
-                                        "end": 104,
                                         "line": 4,
-                                        "start": 101,
-                                        "value": 600.0,
-                                        "type": "number",
-                                        "file": "extra_comma_arg.utl"
+                                        "file": "extra_comma_arg.utl",
+                                        "value": "View",
+                                        "start": 115,
+                                        "end": 121,
+                                        "type": "string"
                                     }
                                 }]
                             }]
                         }, {
                             "name": "arg",
                             "attributes": {
-                                "end": 124,
-                                "name": "height",
                                 "line": 5,
                                 "file": "extra_comma_arg.utl",
-                                "start": 111
+                                "name": "width",
+                                "start": 128,
+                                "end": 140
                             },
                             "children": [{
                                 "name": "expr",
                                 "attributes": {
-                                    "end": 124,
                                     "line": 5,
                                     "file": "extra_comma_arg.utl",
-                                    "start": 121
+                                    "start": 137,
+                                    "end": 140
                                 },
                                 "children": [{
                                     "name": "literal",
                                     "attributes": {
-                                        "end": 124,
                                         "line": 5,
-                                        "start": 121,
-                                        "value": 400.0,
-                                        "type": "number",
-                                        "file": "extra_comma_arg.utl"
+                                        "file": "extra_comma_arg.utl",
+                                        "value": 600.0,
+                                        "start": 137,
+                                        "end": 140,
+                                        "type": "number"
                                     }
                                 }]
                             }]
                         }, {
                             "name": "arg",
                             "attributes": {
-                                "end": 157,
-                                "name": "params",
                                 "line": 6,
                                 "file": "extra_comma_arg.utl",
-                                "start": 131
+                                "name": "height",
+                                "start": 147,
+                                "end": 160
                             },
                             "children": [{
                                 "name": "expr",
                                 "attributes": {
-                                    "end": 157,
                                     "line": 6,
                                     "file": "extra_comma_arg.utl",
-                                    "start": 141
+                                    "start": 157,
+                                    "end": 160
                                 },
                                 "children": [{
                                     "name": "literal",
                                     "attributes": {
-                                        "end": 157,
                                         "line": 6,
-                                        "start": 141,
+                                        "file": "extra_comma_arg.utl",
+                                        "value": 400.0,
+                                        "start": 157,
+                                        "end": 160,
+                                        "type": "number"
+                                    }
+                                }]
+                            }]
+                        }, {
+                            "name": "arg",
+                            "attributes": {
+                                "line": 7,
+                                "file": "extra_comma_arg.utl",
+                                "name": "empty_array",
+                                "start": 167,
+                                "end": 185
+                            },
+                            "children": [{
+                                "name": "expr",
+                                "attributes": {
+                                    "line": 7,
+                                    "file": "extra_comma_arg.utl",
+                                    "start": 182,
+                                    "end": 185
+                                },
+                                "children": [{
+                                    "name": "literal",
+                                    "attributes": {
+                                        "line": 7,
+                                        "file": "extra_comma_arg.utl",
                                         "value": "[..]",
-                                        "type": "array",
-                                        "file": "extra_comma_arg.utl"
+                                        "start": 182,
+                                        "end": 185,
+                                        "type": "array"
                                     },
                                     "children": [{
                                         "name": "array_literal",
                                         "attributes": {
-                                            "end": 157,
-                                            "line": 6,
+                                            "line": 7,
                                             "file": "extra_comma_arg.utl",
-                                            "start": 141
+                                            "start": 182,
+                                            "end": 185
+                                        }
+                                    }]
+                                }]
+                            }]
+                        }, {
+                            "name": "arg",
+                            "attributes": {
+                                "line": 8,
+                                "file": "extra_comma_arg.utl",
+                                "name": "params",
+                                "start": 192,
+                                "end": 218
+                            },
+                            "children": [{
+                                "name": "expr",
+                                "attributes": {
+                                    "line": 8,
+                                    "file": "extra_comma_arg.utl",
+                                    "start": 202,
+                                    "end": 218
+                                },
+                                "children": [{
+                                    "name": "literal",
+                                    "attributes": {
+                                        "line": 8,
+                                        "file": "extra_comma_arg.utl",
+                                        "value": "[..]",
+                                        "start": 202,
+                                        "end": 218,
+                                        "type": "array"
+                                    },
+                                    "children": [{
+                                        "name": "array_literal",
+                                        "attributes": {
+                                            "line": 8,
+                                            "file": "extra_comma_arg.utl",
+                                            "start": 202,
+                                            "end": 218
                                         },
                                         "children": [{
                                             "name": "array_elems",
                                             "attributes": {
-                                                "end": 156,
-                                                "line": 6,
+                                                "line": 8,
                                                 "file": "extra_comma_arg.utl",
-                                                "start": 142
+                                                "start": 203,
+                                                "end": 217
                                             },
                                             "children": [{
                                                 "name": "expr",
                                                 "attributes": {
-                                                    "end": 156,
-                                                    "operator": ":",
-                                                    "line": 6,
+                                                    "line": 8,
                                                     "file": "extra_comma_arg.utl",
-                                                    "start": 142
+                                                    "start": 203,
+                                                    "operator": ":",
+                                                    "end": 217
                                                 },
                                                 "children": [{
                                                     "name": "expr",
                                                     "attributes": {
-                                                        "end": 149,
-                                                        "line": 6,
+                                                        "line": 8,
                                                         "file": "extra_comma_arg.utl",
-                                                        "start": 142
+                                                        "start": 203,
+                                                        "end": 210
                                                     },
                                                     "children": [{
                                                         "name": "literal",
                                                         "attributes": {
-                                                            "end": 149,
-                                                            "line": 6,
-                                                            "start": 142,
+                                                            "line": 8,
+                                                            "file": "extra_comma_arg.utl",
                                                             "value": "image",
-                                                            "type": "string",
-                                                            "file": "extra_comma_arg.utl"
+                                                            "start": 203,
+                                                            "end": 210,
+                                                            "type": "string"
                                                         }
                                                     }]
                                                 }, {
                                                     "name": "expr",
                                                     "attributes": {
-                                                        "end": 156,
-                                                        "line": 6,
+                                                        "line": 8,
                                                         "file": "extra_comma_arg.utl",
-                                                        "start": 151
+                                                        "start": 212,
+                                                        "end": 217
                                                     },
                                                     "children": [{
                                                         "name": "id",
                                                         "attributes": {
-                                                            "symbol": "image",
-                                                            "end": 156,
-                                                            "line": 6,
+                                                            "line": 8,
                                                             "file": "extra_comma_arg.utl",
-                                                            "start": 151
+                                                            "start": 212,
+                                                            "end": 217,
+                                                            "symbol": "image"
                                                         }
                                                     }]
                                                 }]
@@ -282,19 +320,19 @@
         }, {
             "name": "statement",
             "attributes": {
-                "end": 164,
-                "line": 7,
+                "line": 9,
                 "file": "extra_comma_arg.utl",
-                "start": 163
+                "start": 224,
+                "end": 225
             },
             "children": [{
                 "name": "document",
                 "attributes": {
-                    "end": 164,
-                    "line": 7,
-                    "text": "\n",
+                    "line": 9,
                     "file": "extra_comma_arg.utl",
-                    "start": 163
+                    "text": "\n",
+                    "start": 224,
+                    "end": 225
                 }
             }]
         }]

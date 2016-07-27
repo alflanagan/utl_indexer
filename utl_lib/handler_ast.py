@@ -21,6 +21,10 @@ class UTLParseHandlerAST(UTLParseHandler):
     """A handler class for use with :py:class:`UTLParser` which has the effect of building and
     returning an abstract syntax tree (AST).
 
+    :param list args: plain arguments, passed on to parent constructor.
+
+    :param dict kwargs: named arguments, passed on to parent constructor.
+
     """
 
     # -------------------------------------------------------------------------------------------
@@ -93,14 +97,33 @@ class UTLParseHandlerAST(UTLParseHandler):
             arg_list.attributes = parser.context
             return arg_list
 
-    def array_elems(self, parser: UTLParser, expr: ASTNode, array_elems: ASTNode=None) -> ASTNode:
-        """Elements for a simple array (not key/value pairs)."""
-        assert expr is not None
-        if array_elems is None:
-            return ASTNode('array_elems', parser.context, [expr])
-        array_elems.attributes = parser.context  # parser has updated info now it's seen expr
-        array_elems.add_child(expr)
-        return array_elems
+    def array_elems(self, parser: UTLParser,
+                    first_part: Union[str, ASTNode],
+                    rest: Union[str, ASTNode]=None) -> ASTNode:
+        """Elements for a simple array (not key/value pairs).
+
+        :param UTLParser parser: The caller for this handler.
+
+        :param Union first_part: Either an expression production for the current
+            element value, an array_elems production, or ","
+
+        :param Union rest: Either an array_elems production, ",", or None.
+
+        :returns: AST tree
+        :rtype: ASTNode
+
+        """
+        assert first_part is not None
+        if rest is None:
+            return ASTNode('array_elems', parser.context, [first_part])
+        if first_part == ",":
+            assert rest.symbol == 'array_elems'
+            rest.attributes = parser.context  # parser has updated info now it's seen expr
+            return rest
+        else:
+            assert first_part.symbol == 'array_elems'
+            first_part.attributes = parser.context
+            return first_part
 
     def array_literal(self, parser: UTLParser, elements: ASTNode=None) -> ASTNode:
         attrs = parser.context
@@ -187,6 +210,7 @@ class UTLParseHandlerAST(UTLParseHandler):
         attrs["operator"] = second.lower()
         return ASTNode('expr', attrs, [first, third])
 
+    # pylint: disable=R0913
     def for_stmt(self, parser: UTLParser, expr: ASTNode, as_clause: Tuple[int]=None,
                  eostmt: str=None, statement_list: ASTNode=None) -> ASTNode:
         assert expr is not None

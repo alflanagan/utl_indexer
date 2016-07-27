@@ -66,7 +66,7 @@ class UTLPrintProductionsHandler(UTLParseHandler):
         print("arg_list")
         return "arg_list"
 
-    def array_elems(self, parser, expr, array_elems=None):
+    def array_elems(self, parser, first_part, rest=None):
         print("array_elems")
         return "array_elems"
 

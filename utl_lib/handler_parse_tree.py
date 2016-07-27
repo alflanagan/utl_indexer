@@ -85,13 +85,24 @@ class UTLParseHandlerParseTree(UTLParseHandler):
             arg_list.add_first_child(arg)
             return arg_list
 
-    def array_elems(self, parser, expr, array_elems=None):
-        if array_elems is not None:
-            if expr is not None:
-                array_elems.attributes = parser.context
-                array_elems.add_child(expr)
-            return array_elems
-        return ASTNode('array_elems', parser.context, [expr] if expr is not None else [])
+    def array_elems(self, parser, first_part, rest=None):
+        """A production for a list of 1 to many array elements.
+
+        :param ASTNode first_part: either an 'expr' production, or an 'array_elems' production.
+
+        :param ASTNode rest: either an 'expr' production, or `None`.
+
+        """
+        assert isinstance(first_part, ASTNode)
+        if rest is not None:
+            assert isinstance(rest, ASTNode)
+            assert first_part.symbol == "array_elems"
+            first_part.add_child(rest)
+            first_part.attributes = parser.context
+            return first_part
+        if first_part.symbol == "array_elems":
+            return first_part
+        return ASTNode("array_elems", parser.context, [first_part])
 
     def array_literal(self, parser, elements=None):
         return ASTNode('array_literal', parser.context,
@@ -179,13 +190,13 @@ class UTLParseHandlerParseTree(UTLParseHandler):
 
         :param UTLParser parser: The parser that generated the call.
 
-        :param Union[str, ASTNode] first: not|!|expr|literal|ID|LBRACKET|LPAREN|MINUS|PLUS
+        :param Union first: not|!|expr|literal|ID|LBRACKET|LPAREN|MINUS|PLUS
 
-        :param Union[str, ASTNode] second: expr|PLUS|MINUS|TIMES|DIV|MODULUS|
+        :param Union second: expr|PLUS|MINUS|TIMES|DIV|MODULUS|
             FILTER|DOUBLEBAR|RANGE|NEQ|LTE|OR|LT|EQ|IS|GT|AND|GTE|DOUBLEAMP|
             DOT|ASSIGN|ASSIGNOP|COMMA|COLON
 
-        :param Union[str, ASTNode] third: expr|RBRACKET|RPAREN
+        :param Union third: expr|RBRACKET|RPAREN
 
         :returns: A new node for the parse tree.
 

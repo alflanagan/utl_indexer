@@ -96,7 +96,8 @@ class UTLParseError(Exception):
     pass
 
 
-# pylint: disable=unused-argument,too-many-public-methods,W9003,W9004
+# pylint: disable=too-many-public-methods,unused-argument,missing-type-doc
+# don't document param type because we don't constrain child classes
 class UTLParseHandler(object):
     """A base class defining an interface for classes which take actions on parse reductions for
     a UTL file. Implementors can inherit this class and only override those reductions where
@@ -118,30 +119,32 @@ class UTLParseHandler(object):
     should not store it and expect to retrieve attributes later. Rather the attributes should be
     retrieved and stored during the method call.
 
-    :param boolean exception_on_error: If True, a syntax error will raise a
-        :py:class:`UTLParseError`, which will effectively end processing. Usually
-        one wants to continue processing and report all syntax errors
-        encountered.
+    :param bool exception_on_error: If True, a syntax error will raise a
+        :py:class:`UTLParseError`, which will effectively end processing. Usually one
+        wants to continue processing and report all syntax errors encountered.
 
     """
     # -------------------------------------------------------------------------------------------
     # admin stuff
     # -------------------------------------------------------------------------------------------
-    def __init__(self, exception_on_error=False, *args, **kwargs):
+    def __init__(self, exception_on_error=False):
         """Exists to provide an end point for super() calls."""
-        super().__init__(*args, **kwargs)
+        super().__init__()
         self.exception_on_error = exception_on_error
-
-    def state(self, value, msg=""):
-        """Like assert, but raises a UTLParseError."""
-        if not value:
-            raise UTLParseError("Assertion failed! Internal error in parser." + msg)
 
     def error(self, parser, p):
         """Method called when a syntax error occurs. `p` is a production object with the state
         of the parser at the point where the error was detected.
 
         The default method raises UTLParseError with context information.
+
+        :param UTLParser parser: The parser which called this handler.
+
+        :param list p: The pending productions at time of error. Will be :py:attr:`None` if the
+            error is detected at the end of the document.
+
+        :raises UTLParseError: If ``self.exception_on_error`` is :py:attr:`True`.
+
         """
         if p is None:
             if self.exception_on_error:
@@ -167,12 +170,25 @@ class UTLParseHandler(object):
     # top-level productions
     # -------------------------------------------------------------------------------------------
     def utldoc(self, parser, statement_list):
-        '''The top-level node for a UTL document.'''
+        '''The top-level node for a UTL document.
+
+        :param UTLParser parser: The parser which called this handler.
+
+        :param statement_list: The result of all the productions for this document.
+
+        '''
         return None
 
     def statement_list(self, parser, statement=None, statement_list=None):
-        '''A statement_list production. `statement_list`, if not :py:attr:`None`, is the
-        statement list seen so far; `statement` is the result of the current statement parse.
+        '''A list of 0 to many statments.
+
+        :param UTLParser parser: The parser which called this handler.
+
+        :param statement: result of a statement handler, may be :py:attr:`None` if the statement
+            list is empty.
+
+        :param statement_list: the output of this handler on the statements seen so far, or
+            :py:attr:`None` if this is the first statement seen.
 
         '''
         return None
@@ -219,12 +235,14 @@ class UTLParseHandler(object):
         '''
         return None
 
-    def array_elems(self, parser, expr, array_elems=None):
+    # NOTE: [,,4,,5,,7,,] is legal, and equivalent to [4, 5, 7]!!
+    def array_elems(self, parser, first_part, rest=None):
         """Elements for a simple array (not key/value pairs).
 
-        :param expr: An expression production for the current element value.
+        :param first_part: Either an expression production for the current element value, an
+            *array_elems* production, or ","
 
-        :param array_elems: The result of a previous array_elems production for this array.
+        :param rest: Either an *array_elems* production, ",", or None
 
         """
         return None
