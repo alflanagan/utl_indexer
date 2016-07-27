@@ -1,2 +1,4 @@
 importmagic
 elpy
+autopep8
+yapf
