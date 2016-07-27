@@ -29,7 +29,12 @@ class TestCaseUTL(unittest_plus.TestCasePlus):
 
     @classmethod
     def data_file(cls, filename):
-        """Returns a full path for test data file named `filename`."""
+        """:returns: a full path for test data file.
+        :rtype: str
+
+        :param str filename: The filename for the file, relative to the data directory.
+
+        """
         return os.path.join(cls.data_dir, filename)
 
     def assertMatchesJSON(self, node, expected):  # pylint: disable=invalid-name
@@ -39,6 +44,11 @@ class TestCaseUTL(unittest_plus.TestCasePlus):
 
         The purpose of this assert is to allow us to express expected results in a simple,
         readable format.
+
+        :param ASTNode node: A root node for the tree to be checked.
+
+        :param dict expected: A dictionary whose structure should match the expected node tree.
+
         """
         self.assertIsInstance(node, (ASTNode, FrozenASTNode, ))
         self.assertIsInstance(expected, dict)
@@ -72,7 +82,7 @@ class TestCaseUTL(unittest_plus.TestCasePlus):
         expected_kids = []
         if "children" in expected:
             expected_kids = [kid['name'] for kid in expected["children"]]
-        actual_kids =  [kid.symbol for kid in node.children]
+        actual_kids = [kid.symbol for kid in node.children]
         self.assertListEqual(actual_kids, expected_kids)
         for index, child in enumerate(node.children):
             # try:
@@ -85,9 +95,16 @@ class TestCaseUTL(unittest_plus.TestCasePlus):
             #         self.printed = True  # pylint: disable=W0201
             #     raise
 
-    def assertJSONFileMatches(self, handler, utl_filename, json_filename):  # pylint: disable=invalid-name
+    # pylint: disable=invalid-name
+    def assertJSONFileMatches(self, handler, utl_filename, json_filename):
         """Asserts :py:meth:`assertMatchesJSON` on the contents of ``utl_filename`` and
         ``json_filename``, which must exist in our test data directory.
+
+        :param UTLParseHandler handler: The handler which should create test output.
+
+        :param str utl_filename: A UTL file to be processed using `handler`.
+
+        :param str json_filename: A JSON file of expected results.
 
         """
         parser = UTLParser([handler], debug=False)
