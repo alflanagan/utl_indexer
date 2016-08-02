@@ -196,9 +196,11 @@ class UTLParseHandler(object):
     def statement(self, parser, statement, eostmt=None):
         """A single statement, usually terminated with a ';' or a '%]'.
 
-        `statement` will be the text of a token, or the result of a production.
+        :param UTLParser parser: The parser which called this handler.
 
-        `eostmt` will be the end-of-statement value, if it exists.
+        :param statement: the text of a token, or the result of a production.
+
+        :param eostmt: will be the end-of-statement value, if it exists.
 
         Tokens that may be provided include 'continue', 'break', and 'exit'.
 
@@ -212,12 +214,20 @@ class UTLParseHandler(object):
         """A shortcut if statement, which executes the single statement `statement` if `expr`
         evaluates as true.
 
+        :param UTLParser parser: The parser which called this handler.
+
+        :param expr: The value of the expression evaluated.
+
+        :param statement: The statement to be executed.
+
         """
         return None
 
     def arg(self, parser, expr, name=None):
         """An argument, as in a macro call. Arguments can be in two formats, either a plain
         expression or a key-value pair (separated by ':')
+
+        :param UTLParser parser: The parser which called this handler.
 
         :param expr: the result of an expression production for the argument
 
@@ -230,43 +240,78 @@ class UTLParseHandler(object):
         '''An argument list, as in a macro call. `arg` is an argument (see :py:meth:`arg`), or
         None for a call with no arguments.
 
-        `arg_list`, if not None, is the output of previous processing of this argument list.
+        :param UTLParser parser: The parser which called this handler.
+
+        :param arg: The production result for an argument in the list.
+
+        :param arg_list: None, or the output of previous processing of this argument list.
 
         '''
         return None
 
     # NOTE: [,,4,,5,,7,,] is legal, and equivalent to [4, 5, 7]!!
-    def array_elems(self, parser, first_part, rest=None):
+    def array_elems(self, parser, first_part=None, maybe_comma=None, rest=None):
         """Elements for a simple array (not key/value pairs).
 
-        :param first_part: Either an expression production for the current element value, an
-            *array_elems* production, or ","
+        :param UTLParser parser: The parser that called this method.
 
-        :param rest: Either an *array_elems* production, ",", or None
+        :param Any first_part: One of:
+
+            * :py:attr:`None`
+            * "expr" production (:py:class:`ASTNode`)
+            * "array_elems" production (:py:class:`ASTNode`)
+            * a comma (',')
+
+        :param str maybe_comma: either "," or None
+
+        :param Any rest: either an "expr" production (:py:class:`ASTNode`) or
+            :py:attr:`None`
+
+        :note: it is an error if both ``first_part`` and ``rest`` are :py:attr:`None`.
 
         """
         return None
 
     def array_literal(self, parser, elements=None):
-        """An array literal, like [1, 2, 3] or [1:2, 3:4, 5:6]. `elements`, if present, is the
-        result of the expansion of the elements inside the [].
+        """An array literal, like [1, 2, 3] or [1:2, 3:4, 5:6].
+
+        :param UTLParser parser: The parser which called this handler.
+
+        :param elements: :py:attr:`None`, or the result of the production of the elements inside
+            the [].
 
         """
         return None
 
     def array_ref(self, parser, variable, index):
-        """An array reference of the form variable[index]."""
+        """An array reference of the form variable[index].
+
+        :param UTLParser parser: The parser which called this handler.
+
+        :param variable: expression value identifying the array.
+
+        :param index: expression value identifying the member referenced.
+
+        """
         return None
 
     def as_clause(self, parser, var1, var2=None):
         """The AS clause of a FOR statement, providing one or two variable names to hold
         successive values from the collection being iterated.
 
+        :param UTLParser parser: The parser which called this handler.
+
+        :param var1: The ID of the first variable specified.
+
+        :param var2: The ID of the second variable specified, or :py:attr:`None`.
+
         """
         return None
 
     def call_stmt(self, parser, macro_call):
         """A call statement, with the keyword call preceding a method call.
+
+        :param UTLParser parser: The parser which called this handler.
 
         :param macro_call: An expression production, which should resolve to a macro call.
 
@@ -276,6 +321,8 @@ class UTLParseHandler(object):
     def default_assignment(self, parser, assignment):
         """Assignment with a preceding DEFAULT keyword.
 
+        :param UTLParser parser: The parser which called this handler.
+
         :param assignment: The result of an assignment production (as expression).
 
         """
@@ -284,37 +331,73 @@ class UTLParseHandler(object):
     def dotted_id(self, parser, this_id, id_suffix=None):
         """An id made of a name, or two or more names separated by dots.
 
-        `id_suffix` will be :py:attr:`None`, if `this_id` is the first part of the id, or the
-        result of productions of the parts of the id previous to `this_id`.
+        :param UTLParser parser: The parser which called this handler.
+
+        :param str this_id: a string which is an ID or part of an ID.
+
+        :param str id_suffix: None (if `this_id` is the first part of the id), or the result of
+            previous calls to :py:meth:`dotted_id`.
 
         """
         return None
 
     def echo_stmt(self, parser, expr):
-        """An echo statement. `expr` is the object to be echoed, or :py:attr:`None`."""
+        """An echo statement.
+
+        :param UTLParser parser: The parser which called this handler.
+
+        :param expr: The object to be displayed: :py:attr:`None`, or the result of a previous
+            call to :py:meth:`expr`.
+
+        """
         return None
 
     def else_stmt(self, parser, statement_list):
-        """An else clause."""
+        """An else clause.
+
+        :param UTLParser parser: The parser which called this handler.
+
+        :param statement_list: The body of the else clause, the result of a previous call to
+            :py:meth:`statement_list`.
+
+        """
         return None
 
     def elseif_stmts(self, parser, elseif_stmt, elseif_stmts=None):
-        """A production for elseif statements (can also be written 'else if')"""
+        """A production for elseif statements (can also be written 'else if')
+
+        :param UTLParser parser: The parser which called this handler.
+
+        :param elseif_stmt: The result of a previous call to :py:meth:`elseif_stmt`, or
+            :py:attr:`None` if the elseif clause is empty (which is permitted by the grammar).
+
+        """
         return None
 
     def elseif_stmt(self, parser, expr, statement_list=None):
         """An elseif clause, with a `statement_list` to be executed if `expr` is
         :py:attr:`True`.
 
+        :param UTLParser parser: The parser which called this handler.
+
         """
         return None
 
     def eostmt(self, parser, marker_text):
-        """End statement marker. Unlikely to be useful, but if you need it, it's here."""
+        """End statement marker. Unlikely to be useful, but if you need it, it's here.
+
+        :param UTLParser parser: The parser which called this handler.
+
+        :param str marker_text: The actual text of the end-of-statement marker. '' (end of file),
+            ';', or '%]'.
+
+        """
         return None
 
     def expr(self, parser, first, second=None, third=None):
         """An expression production.
+
+        :param UTLParser parser: The parser which called this handler.
 
         :param [str, ASTNode] first: not|!|expr|literal|ID|LBRACKET|LPAREN|array_ref
 
@@ -332,12 +415,16 @@ class UTLParseHandler(object):
         item is assigned to a variable of that name (or the current key, value are assigned to
         variables of those names) for each loop.
 
+        :param UTLParser parser: The parser which called this handler.
+
         """
         return None
 
     def if_stmt(self, parser, expr, eostmt=None, statement_list=None, elseif_stmts=None,
                 else_stmt=None):
         """An if statement.
+
+        :param UTLParser parser: The parser which called this handler.
 
         :param expr: the test expression. `statement_list` is executed only if this resolves to
             :py:attr:`True`.
@@ -356,6 +443,8 @@ class UTLParseHandler(object):
     def include_stmt(self, parser, filename):
         """An include statement to insert the contents of file `filename`.
 
+        :param UTLParser parser: The parser which called this handler.
+
         :param filename: The result of an expression production, which may or may not be a
             simple string.
 
@@ -363,11 +452,17 @@ class UTLParseHandler(object):
         return None
 
     def literal(self, parser, literal):
-        """A literal value: either a string, a number, or an array literal."""
+        """A literal value: either a string, a number, or an array literal.
+
+        :param UTLParser parser: The parser which called this handler.
+
+        """
         return None
 
     def macro_call(self, parser, macro_expr, arg_list=None):
         """A macro procedure call.
+
+        :param UTLParser parser: The parser which called this handler.
 
         :param ASTNode macro_expr: An expression, either an ID with the macro name or some
             expression that resolves to a macro reference.
@@ -381,6 +476,8 @@ class UTLParseHandler(object):
         """A macro definition. `macro_name` is the name of the macro, `param_list` is the list
         of formal parameters, or :py:attr:`None`.
 
+        :param UTLParser parser: The parser which called this handler.
+
         """
         return None
 
@@ -389,15 +486,23 @@ class UTLParseHandler(object):
         `statement_list`. `statement_list` can also be :py:attr:`None`, indicating an empty
         macro (which is legal but useless).
 
+        :param UTLParser parser: The parser which called this handler.
+
         """
         return None
 
     def number_literal(self, parser, literal):
-        """A numeric literal."""
+        """A numeric literal.
+
+        :param UTLParser parser: The parser which called this handler.
+
+        """
         return None
 
     def param_decl(self, parser, param_id, default_value=None):
         """A parameter declaration.
+
+        :param UTLParser parser: The parser which called this handler.
 
         :param str param_id: The parameter name.
 
@@ -410,6 +515,8 @@ class UTLParseHandler(object):
     def param_list(self, parser, param_decl, param_list=None):
         '''A list of parameters for a macro definition.
 
+        :param UTLParser parser: The parser which called this handler.
+
         :param param_decl: A parameter declaration.
 
         :param param_list: The parameter list of which `param_decl` is a part, if this is not
@@ -419,17 +526,33 @@ class UTLParseHandler(object):
         return None
 
     def paren_expr(self, parser, expr):
-        '''An expr enclosed in parentheses.'''
+        '''An expr enclosed in parentheses.
+
+        :param UTLParser parser: The parser which called this handler.
+
+        '''
         return None
 
     def return_stmt(self, parser, expr=None):
-        """A return statement. If `expr` is not :py:attr:`None`, it is the return value."""
+        """A return statement. If `expr` is not :py:attr:`None`, it is the return value.
+
+        :param UTLParser parser: The parser which called this handler.
+
+        """
         return None
 
     def string_literal(self, parser, literal):
-        """A literal string, enclosed in quotation marks."""
+        """A literal string, enclosed in quotation marks.
+
+        :param UTLParser parser: The parser which called this handler.
+
+        """
         return None
 
     def while_stmt(self, parser, expr, statement_list=None):
-        """A while statement, where `expr` is the test and `statement_list` is the body."""
+        """A while statement, where `expr` is the test and `statement_list` is the body.
+
+        :param UTLParser parser: The parser which called this handler.
+
+        """
         return None

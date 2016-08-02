@@ -14,12 +14,16 @@ class UTLParseHandlerParseTree(UTLParseHandler):
 
     This makes it particularly useful for debugging the parsing process.
 
+    :param bool exception_on_error: If True, a syntax error will raise a
+        :py:class:`UTLParseError`, which will effectively end processing. Usually one
+        wants to continue processing and report all syntax errors encountered.
+
     """
     # -------------------------------------------------------------------------------------------
     # admin stuff
     # -------------------------------------------------------------------------------------------
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, exception_on_error=False):
+        super().__init__(exception_on_error)
 
     # -------------------------------------------------------------------------------------------
     # top-level productions
@@ -85,24 +89,47 @@ class UTLParseHandlerParseTree(UTLParseHandler):
             arg_list.add_first_child(arg)
             return arg_list
 
-    def array_elems(self, parser, first_part, rest=None):
+    def array_elems(self, parser, first_part=None, maybe_comma=None, rest=None):
         """A production for a list of 1 to many array elements.
 
-        :param ASTNode first_part: either an 'expr' production, or an 'array_elems' production.
+        :param UTLParser parser: The parser that called this method.
 
-        :param ASTNode rest: either an 'expr' production, or `None`.
+        :param Any first_part: One of:
+
+            * :py:attr:`None`
+            * "expr" production (:py:class:`ASTNode`)
+            * "array_elems" production (:py:class:`ASTNode`)
+            * a comma (',')
+
+        :param str maybe_comma: either "," or None
+
+        :param Any rest: either an "array_elems" production (:py:class:`ASTNode`) or
+            :py:attr:`None`
+
+        :note: it is an error if both ``first_part`` and ``rest`` are :py:attr:`None`.
+
+        :returns: An "array_elems" node.
+
+        :rtype: ASTNode
 
         """
-        assert isinstance(first_part, ASTNode)
-        if rest is not None:
+        if rest is not None and first_part is not None:
+            # we can ignore comma
             assert isinstance(rest, ASTNode)
             assert first_part.symbol == "array_elems"
             first_part.add_child(rest)
             first_part.attributes = parser.context
             return first_part
-        if first_part.symbol == "array_elems":
-            return first_part
-        return ASTNode("array_elems", parser.context, [first_part])
+        if first_part is not None:
+            if hasattr(first_part, "symbol"):
+                if first_part.symbol == "array_elems":
+                    first_part.attributes = first_part.attributes.combine(parser.context)
+                    return first_part
+                elif first_part != ',':
+                    assert first_part.symbol == 'expr'
+                    return ASTNode("array_elems", parser.context, [first_part])
+        # array element with no items
+        return ASTNode("array_elems", parser.context, [])
 
     def array_literal(self, parser, elements=None):
         return ASTNode('array_literal', parser.context,
@@ -114,8 +141,6 @@ class UTLParseHandlerParseTree(UTLParseHandler):
         return ASTNode('array_ref', parser.context, [variable, index])
 
     def as_clause(self, parser, var1, var2=None):
-        # TODO: Modify parser so ID has its own production, and context, so
-        # we don't have to do this arithmetic here
         assert var1 is not None
         attrs = parser.context
         attrs["symbol"] = var1

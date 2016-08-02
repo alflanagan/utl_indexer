@@ -2,7 +2,7 @@
   "name": "utldoc",
   "attributes": {
     "file": "array_literal.utl",
-    "end": 50,
+    "end": 56,
     "start": 3,
     "line": 1
   },
@@ -10,7 +10,7 @@
     "name": "statement_list",
     "attributes": {
       "file": "array_literal.utl",
-      "end": 50,
+      "end": 56,
       "start": 3,
       "line": 1
     },
@@ -18,7 +18,7 @@
         "name": "statement",
         "attributes": {
           "file": "array_literal.utl",
-          "end": 45,
+          "end": 51,
           "start": 3,
           "line": 1
         },
@@ -26,7 +26,7 @@
           "name": "expr",
           "attributes": {
             "file": "array_literal.utl",
-            "end": 45,
+            "end": 51,
             "start": 3,
             "line": 1,
             "operator": "="
@@ -54,7 +54,7 @@
               "name": "expr",
               "attributes": {
                 "file": "array_literal.utl",
-                "end": 45,
+                "end": 51,
                 "start": 11,
                 "line": 1
               },
@@ -63,7 +63,7 @@
                 "attributes": {
                   "file": "array_literal.utl",
                   "type": "array",
-                  "end": 45,
+                  "end": 51,
                   "value": "[..]",
                   "line": 1,
                   "start": 11
@@ -72,7 +72,7 @@
                   "name": "array_literal",
                   "attributes": {
                     "file": "array_literal.utl",
-                    "end": 45,
+                    "end": 51,
                     "start": 11,
                     "line": 1
                   },
@@ -80,7 +80,7 @@
                     "name": "array_elems",
                     "attributes": {
                       "file": "array_literal.utl",
-                      "end": 44,
+                      "end": 50,
                       "start": 12,
                       "line": 1
                     },
@@ -88,8 +88,8 @@
                       "name": "expr",
                       "attributes": {
                         "file": "array_literal.utl",
-                        "end": 13,
-                        "start": 12,
+                        "end": 15,
+                        "start": 14,
                         "line": 1
                       },
                       "children": [{
@@ -97,18 +97,18 @@
                         "attributes": {
                           "file": "array_literal.utl",
                           "type": "number",
-                          "end": 13,
+                          "end": 15,
                           "value": 1.0,
                           "line": 1,
-                          "start": 12
+                          "start": 14
                         }
                       }]
                     }, {
                       "name": "expr",
                       "attributes": {
                         "file": "array_literal.utl",
-                        "end": 16,
-                        "start": 15,
+                        "end": 18,
+                        "start": 17,
                         "line": 1
                       },
                       "children": [{
@@ -116,18 +116,18 @@
                         "attributes": {
                           "file": "array_literal.utl",
                           "type": "number",
-                          "end": 16,
+                          "end": 18,
                           "value": 2.0,
                           "line": 1,
-                          "start": 15
+                          "start": 17
                         }
                       }]
                     }, {
                       "name": "expr",
                       "attributes": {
                         "file": "array_literal.utl",
-                        "end": 24,
-                        "start": 18,
+                        "end": 26,
+                        "start": 20,
                         "line": 1
                       },
                       "children": [{
@@ -135,18 +135,18 @@
                         "attributes": {
                           "file": "array_literal.utl",
                           "type": "string",
-                          "end": 24,
+                          "end": 26,
                           "value": "fred",
                           "line": 1,
-                          "start": 18
+                          "start": 20
                         }
                       }]
                     }, {
                       "name": "expr",
                       "attributes": {
                         "file": "array_literal.utl",
-                        "end": 29,
-                        "start": 26,
+                        "end": 32,
+                        "start": 29,
                         "line": 1
                       },
                       "children": [{
@@ -154,10 +154,10 @@
                         "attributes": {
                           "file": "array_literal.utl",
                           "type": "number",
-                          "end": 29,
+                          "end": 32,
                           "value": 3.0,
                           "line": 1,
-                          "start": 26
+                          "start": 29
                         }
                       }]
                     }, {
@@ -165,40 +165,40 @@
                       "attributes": {
                         "file": "array_literal.utl",
                         "operator": "|",
-                        "end": 44,
+                        "end": 47,
                         "line": 1,
-                        "start": 31
+                        "start": 34
                       },
                       "children": [{
                         "name": "expr",
                         "attributes": {
-                          "start": 31,
+                          "start": 34,
                           "line": 1,
-                          "end": 39,
+                          "end": 42,
                           "file": "array_literal.utl"
                         },
                         "children": [{
                           "name": "macro_call",
                           "attributes": {
-                            "start": 31,
+                            "start": 34,
                             "line": 1,
-                            "end": 39,
+                            "end": 42,
                             "file": "array_literal.utl"
                           },
                           "children": [{
                               "name": "expr",
                               "attributes": {
-                                "start": 31,
+                                "start": 34,
                                 "line": 1,
-                                "end": 36,
+                                "end": 39,
                                 "file": "array_literal.utl"
                               },
                               "children": [{
                                 "name": "id",
                                 "attributes": {
-                                  "start": 31,
+                                  "start": 34,
                                   "line": 1,
-                                  "end": 36,
+                                  "end": 39,
                                   "symbol": "wilma",
                                   "file": "array_literal.utl"
                                 }
@@ -207,25 +207,25 @@
                             {
                               "name": "arg_list",
                               "attributes": {
-                                "start": 37,
+                                "start": 40,
                                 "line": 1,
-                                "end": 38,
+                                "end": 41,
                                 "file": "array_literal.utl"
                               },
                               "children": [{
                                 "name": "arg",
                                 "attributes": {
-                                  "start": 37,
+                                  "start": 40,
                                   "line": 1,
-                                  "end": 38,
+                                  "end": 41,
                                   "file": "array_literal.utl"
                                 },
                                 "children": [{
                                   "name": "expr",
                                   "attributes": {
-                                    "start": 37,
+                                    "start": 40,
                                     "line": 1,
-                                    "end": 38,
+                                    "end": 41,
                                     "file": "array_literal.utl"
                                   },
                                   "children": [{
@@ -234,9 +234,9 @@
                                       "line": 1,
                                       "value": 7.0,
                                       "file": "array_literal.utl",
-                                      "start": 37,
+                                      "start": 40,
                                       "type": "number",
-                                      "end": 38
+                                      "end": 41
                                     }
                                   }]
                                 }]
@@ -247,17 +247,17 @@
                       }, {
                         "name": "expr",
                         "attributes": {
-                          "start": 40,
+                          "start": 43,
                           "line": 1,
-                          "end": 44,
+                          "end": 47,
                           "file": "array_literal.utl"
                         },
                         "children": [{
                           "name": "id",
                           "attributes": {
-                            "start": 40,
+                            "start": 43,
                             "line": 1,
-                            "end": 44,
+                            "end": 47,
                             "symbol": "fred",
                             "file": "array_literal.utl"
                           }

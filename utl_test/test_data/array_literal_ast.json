@@ -1,0 +1,166 @@
+{
+  "name": "statement_list",
+  "attributes": {
+    "line": 1,
+    "end": 56,
+    "file": "array_literal.utl",
+    "start": 3
+  },
+  "children": [{
+    "name": "expr",
+    "attributes": {
+      "line": 1,
+      "end": 51,
+      "operator": "=",
+      "file": "array_literal.utl",
+      "start": 3
+    },
+    "children": [{
+        "name": "id",
+        "attributes": {
+          "line": 1,
+          "end": 8,
+          "file": "array_literal.utl",
+          "symbol": "array",
+          "start": 3
+        }
+      },
+      {
+        "name": "array_literal",
+        "attributes": {
+          "value": "[...]",
+          "type": "array",
+          "start": 11,
+          "file": "array_literal.utl",
+          "line": 1,
+          "end": 51
+        },
+        "children": [{
+          "name": "array_elems",
+          "attributes": {
+            "line": 1,
+            "end": 50,
+            "file": "array_literal.utl",
+            "start": 12
+          },
+          "children": [{
+              "name": "literal",
+              "attributes": {
+                "value": 1.0,
+                "type": "number",
+                "start": 14,
+                "file": "array_literal.utl",
+                "line": 1,
+                "end": 15
+              }
+            },
+            {
+              "name": "literal",
+              "attributes": {
+                "value": 2.0,
+                "type": "number",
+                "start": 17,
+                "file": "array_literal.utl",
+                "line": 1,
+                "end": 18
+              }
+            },
+            {
+              "name": "literal",
+              "attributes": {
+                "value": "fred",
+                "type": "string",
+                "start": 20,
+                "file": "array_literal.utl",
+                "line": 1,
+                "end": 26
+              }
+            },
+            {
+              "name": "literal",
+              "attributes": {
+                "value": 3.0,
+                "type": "number",
+                "start": 29,
+                "file": "array_literal.utl",
+                "line": 1,
+                "end": 32
+              }
+            },
+            {
+              "name": "expr",
+              "attributes": {
+                "line": 1,
+                "end": 47,
+                "operator": "|",
+                "file": "array_literal.utl",
+                "start": 34
+              },
+              "children": [{
+                  "name": "macro_call",
+                  "attributes": {
+                    "line": 1,
+                    "macro_expr": "wilma",
+                    "end": 42,
+                    "file": "array_literal.utl",
+                    "start": 34
+                  },
+                  "children": [{
+                      "name": "id",
+                      "attributes": {
+                        "line": 1,
+                        "end": 39,
+                        "file": "array_literal.utl",
+                        "symbol": "wilma",
+                        "start": 34
+                      }
+                    },
+                    {
+                      "name": "arg_list",
+                      "attributes": {
+                        "line": 1,
+                        "end": 41,
+                        "file": "array_literal.utl",
+                        "start": 40
+                      },
+                      "children": [{
+                        "name": "arg",
+                        "attributes": {
+                          "line": 1,
+                          "end": 41,
+                          "file": "array_literal.utl",
+                          "start": 40
+                        },
+                        "children": [{
+                          "name": "literal",
+                          "attributes": {
+                            "value": 7.0,
+                            "type": "number",
+                            "start": 40,
+                            "file": "array_literal.utl",
+                            "line": 1,
+                            "end": 41
+                          }
+                        }]
+                      }]
+                    }
+                  ]
+                },
+                {
+                  "name": "id",
+                  "attributes": {
+                    "line": 1,
+                    "end": 47,
+                    "file": "array_literal.utl",
+                    "symbol": "fred",
+                    "start": 43
+                  }
+                }
+              ]
+            }
+          ]
+        }]
+      }
+    ]
+  }]
+}

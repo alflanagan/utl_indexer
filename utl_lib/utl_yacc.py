@@ -217,8 +217,10 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         """
         # turns out a lot of productions have a case where end_p == start_p, and that case
         # is shorter than all the other potential values of end_p
-        if end_p is None or end_p > len(p) - 1:
+        if end_p is None:
             end_p = start_p
+        elif  end_p > len(p) - 1:
+            end_p = len(p) - 1
 
         if start_p > len(p) - 1:
             # oops, null production
@@ -340,12 +342,11 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
     def p_array_elems(self, p):
         '''array_elems : expr
                        | COMMA
+                       | array_elems COMMA
                        | array_elems COMMA expr'''
         self.__set_ctxt(p, 1, 3)
         for handler in self.handlers:
-            if len(p) == 2 and p[1] == ',':
-                return
-            value = handler.array_elems(self, p[1], self._(p, 3))
+            value = handler.array_elems(self, p[1], self._(p, 2), self._(p, 3))
             if p[0] is None:
                 p[0] = value
 

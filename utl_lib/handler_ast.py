@@ -98,32 +98,44 @@ class UTLParseHandlerAST(UTLParseHandler):
             return arg_list
 
     def array_elems(self, parser: UTLParser,
-                    first_part: Union[str, ASTNode],
-                    rest: Union[str, ASTNode]=None) -> ASTNode:
+                    first_part: Union[str, ASTNode]=None,
+                    maybe_comma: str=None,
+                    rest: ASTNode=None) -> ASTNode:
         """Elements for a simple array (not key/value pairs).
 
-        :param UTLParser parser: The caller for this handler.
+        :param UTLParser parser: The parser that called this method.
 
-        :param Union first_part: Either an expression production for the current
-            element value, an array_elems production, or ","
+        :param Union first_part: One of:
 
-        :param Union rest: Either an array_elems production, ",", or None.
+            * :py:attr:`None`
+            * "expr" production (:py:class:`ASTNode`)
+            * "array_elems" production (:py:class:`ASTNode`)
+            * a comma (',')
 
-        :returns: AST tree
-        :rtype: ASTNode
+        :param str maybe_comma: either "," or None
+
+        :param ASTNode rest: either an "expr" production or :py:attr:`None`
+
+        :note: it is an error if both ``first_part`` and ``rest`` are :py:attr:`None`.
+
+        :return: "array_elems" node.
+        :rtype: :py:class:`~utl_lib.ast_node.ASTNode`
 
         """
-        assert first_part is not None
-        if rest is None:
-            return ASTNode('array_elems', parser.context, [first_part])
-        if first_part == ",":
-            assert rest.symbol == 'array_elems'
-            rest.attributes = parser.context  # parser has updated info now it's seen expr
-            return rest
-        else:
-            assert first_part.symbol == 'array_elems'
+        if rest is not None and first_part is not None:
+            assert isinstance(rest, ASTNode)
+            assert first_part.symbol == "array_elems"
+            first_part.add_child(rest)
             first_part.attributes = parser.context
             return first_part
+        if first_part is not None and first_part != ',':
+            if first_part.symbol == "array_elems":
+                # update context for possible extra comma, etc.
+                first_part.attributes = parser.context
+                return first_part
+            else:
+                return ASTNode("array_elems", parser.context, [first_part])
+        return ASTNode("array_elems", parser.context, [])
 
     def array_literal(self, parser: UTLParser, elements: ASTNode=None) -> ASTNode:
         attrs = parser.context
@@ -181,34 +193,22 @@ class UTLParseHandlerAST(UTLParseHandler):
 
     def expr(self, parser: UTLParser, first: Union[ASTNode, str],
              second: Union[ASTNode, str]=None, third: ASTNode=None) -> ASTNode:
-        assert first is not None
-        # first possible values:
-        #    NOT|EXCLAMATION|PLUS|MINUS|ID|literal|array_ref|macro_call|paren_expr|expr
         attrs = parser.context
-        if isinstance(first, str):
-            if second is not None:
-                attrs["operator"] = first.lower()
-                return ASTNode('expr', attrs, [second])
+        if second is None:
+            # literal ID array_ref macro_call paren_expr
+            if hasattr(first, "symbol"):
+                return first
             else:
                 attrs["symbol"] = first
                 return ASTNode("id", attrs, [])
-        elif second is None:
-            return first
-
-        # special case: reduce dotted ID expressions
-        # if second == '.':
-        #     if first.symbol == 'id' and third.symbol == 'id':
-        #         parts = [first.attributes["symbol"], third.attributes["symbol"]]
-        #         attrs = {"symbol": ".".join(parts)}
-        #         # lexer context here is for 2nd symbol, so override "start" to include first
-        #         attrs["start"] = first.attributes["start"]
-        #         return ASTNode("id", self._context(parser: UTLParser, attrs), [])
-
-        # if we got this far, it's a binary op
-        assert third is not None
-        assert isinstance(second, str)
-        attrs["operator"] = second.lower()
-        return ASTNode('expr', attrs, [first, third])
+        elif third is None:
+            # NOT expr |  EXCLAMATION expr | PLUS expr |  MINUS expr
+            attrs["operator"] = first.lower()
+            return ASTNode('expr', attrs, [second])
+        else:
+            # expr OP expr
+            attrs["operator"] = second
+            return ASTNode('expr', attrs, [first, third])
 
     # pylint: disable=R0913
     def for_stmt(self, parser: UTLParser, expr: ASTNode, as_clause: Tuple[int]=None,

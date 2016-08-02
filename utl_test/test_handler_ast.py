@@ -26,10 +26,18 @@ class UTLParseHandlerASTTestCase(utl_parse_test.TestCaseUTL):
         utldoc = handler.utldoc(parser, ASTNode('statement_list', {}, []))
         self.assertEqual(utldoc, ASTNode('statement_list', {}, []))
 
-    def assertJSONFileMatches(self, utl_filename, json_filename, output_filename=""):  # pylint: disable=W0221
+    # pylint: disable=W0221
+    def assertJSONFileMatches(self, utl_filename, json_filename, output_filename=""):
         """Wrapper function that supplies correct handler to
         :py:meth:`utl_lib.utl_parse_test.assertJSONFileMatches`, and optionally writes the AST
         to a file for later inspection.
+
+        :param str utl_filename: A UTL file to be processed using `handler`.
+
+        :param str json_filename: A JSON file of expected results.
+
+        :param str output_filename: Optional. If present, AST is written to this file in JSON
+            format. Mostly useful for debugging.
 
         """
         if output_filename:
@@ -39,6 +47,12 @@ class UTLParseHandlerASTTestCase(utl_parse_test.TestCaseUTL):
                     jsonout.write(parser.parse(utlin.read(), filename=utl_filename).json_format())
         super().assertJSONFileMatches(UTLParseHandlerAST(),
                                       utl_filename, json_filename)
+
+    def test_array_literal(self):
+        """Unit test :py:meth:`~utl_lib.utl_yacc.UTLParser.parse` with input of array literal expression.
+
+        """
+        self.assertJSONFileMatches('array_literal.utl', 'array_literal_ast.json')
 
     def test_basic_assign(self):
         """Unit test of :py:class:`~utl_lib.handler_ast.UTLParseHandlerAST` with simple
