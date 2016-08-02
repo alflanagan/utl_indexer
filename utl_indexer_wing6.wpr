@@ -5,7 +5,13 @@
 ##################################################################
 [project attributes]
 proj.directory-list = [{'dirloc': loc('.'),
-                        'excludes': [u'utl_test/test_data/pkgs'],
+                        'excludes': [u'utl_test/htmlcov',
+                                     u'doc/_build',
+                                     u'doc/api',
+                                     u'utl_test/test_data/pkgs',
+                                     u'node_modules',
+                                     u'external',
+                                     u'data'],
                         'filter': '*',
                         'include_hidden': False,
                         'recursive': True,
