@@ -39,4 +39,7 @@ macro core_base_library_relatedAssets(
       echo "related";
     end;
 end;
-  %]
+
+thumb = core_base_library_assetthumb('asset':asset,'sizearray':100,,tryLogo=false);
+
+%]
