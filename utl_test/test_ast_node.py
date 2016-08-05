@@ -14,7 +14,7 @@ import json
 from testplus import unittest_plus
 
 from utl_lib.ast_node import ASTNode, FrozenASTNode, ASTNodeError
-from utl_lib.utl_parse_handler import FrozenDict
+from utl_lib.immutable import FrozenDict
 
 
 class ASTNodeTestCase(unittest_plus.TestCasePlus):

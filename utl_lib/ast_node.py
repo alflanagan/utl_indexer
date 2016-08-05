@@ -12,7 +12,7 @@ to implement parse tree as well, name is historical accident.
 
 """
 from typing import Mapping, Any, Iterable, MutableMapping, Sequence, Optional, Iterator
-from utl_lib.utl_parse_handler import FrozenDict
+from utl_lib.immutable import FrozenDict
 
 
 class ASTNodeError(Exception):
