@@ -66,7 +66,7 @@ class UTLPrintProductionsHandler(UTLParseHandler):
         print("arg_list")
         return "arg_list"
 
-    def array_elems(self, parser, first_part=None, rest=None):
+    def array_elems(self, parser, first_part=None, maybe_comma=None, rest=None):
         print("array_elems")
         return "array_elems"
 
@@ -147,6 +147,10 @@ class UTLPrintProductionsHandler(UTLParseHandler):
         print("macro_defn")
         return "macro_defn"
 
+    def number_literal(self, parser, literal):
+        print("number_literal")
+        return "number_literal"
+
     def param_decl(self, parser, param_id, default_value=None):
         print("param_decl")
         return "param_decl"
@@ -162,6 +166,10 @@ class UTLPrintProductionsHandler(UTLParseHandler):
     def return_stmt(self, parser, expr=None):
         print("return_stmt")
         return "return_stmt"
+
+    def string_literal(self, parser, literal):
+        print("string_literal")
+        return "string_literal"
 
     def while_stmt(self, parser, expr, statement_list=None):
         print("while_stmt")

@@ -1,0 +1,13 @@
+[% /* there were so many if statements the test files became hard to deal with, so I divided them up */ %]
+<div id="blox-left-col" class="grid_[% grid_set_blox_med_span %][% if cms.site.custom.alpha_omega == 'true' %] alpha[% end %]">
+<div id="blox-front" class="blox-content">
+[%
+  if !cms.component.load("core_services_manager") then echo "<!-- error loading Services Component -->";
+  if !cms.component.load("core_services_manager"); echo "<!-- error loading Services Component -->"; end;
+  if aInfo['bTracker'] && !(cms.request.param('mode') == 'jqm');
+      aInfo['sServiceClass'] = 'managed-service';
+  end;
+  if show_flags == true %]
+    <li>[% core_base_library_assetFlags(target : asset) %]</li>
+  [% end;
+%]

@@ -1,0 +1,28 @@
+[%
+thumb = core_base_library_assetthumb('asset':asset,'sizearray':100,,tryLogo=false);
+
+extra_commas = this_macro(,,,,);
+
+macro callwithparams(a, b, c=100);
+  pecho('called with a = ' + a + ', b = ' + b + ', c = ' + c);
+end;
+
+/* call by position */
+callwithparams(1, 2, 3);
+
+/* call by keyword */
+callwithparams(a: 3, b: 6, c: 9);
+/* any order is ok */
+callwithparams(c: 3, a: 6, b: 9);
+/* accept quotes around keyword */
+callwithparams('c': 3, 'a': 6, 'b': 9);
+
+/* weird cases */
+/* looks like keyword call, but is two exprs passed by position */
+callwithparams(c=15, a=5); /* equiv. to callwithparams(1, 1) */
+
+/* should put array in a, fail because b not provided */
+/* actual output: 100345 */ /* ???? */
+callwithparams([a: 3, b: 4, c: 5]);
+
+%]

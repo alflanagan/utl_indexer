@@ -166,6 +166,10 @@ class UTLParserTestCase(utl_parse_test.TestCaseUTL):
         """Unit test :py:meth:`~utl_lib.utl_yacc.UTLParser.parse` with macro definitions."""
         self.assertJSONFileMatches('macros.utl', 'macros.json')
 
+    def test_macro_calls(self):
+        """Unit test :py:meth:`~utl_lib.utl_yacc.UTLParser.parse` on macro call expressions."""
+        self.assertJSONFileMatches('macro_calls.utl', 'macro_calls.json')
+
     def test_while(self):
         """Unit test :py:meth:`~utl_lib.utl_yacc.UTLParser.parse` with a while statement."""
         self.assertJSONFileMatches('while.utl', 'while.json')

@@ -18,7 +18,7 @@
         "name": "statement",
         "attributes": {
           "file": "array_literal.utl",
-          "end": 51,
+          "end": 52,
           "start": 3,
           "line": 1
         },
@@ -269,7 +269,36 @@
               }]
             }
           ]
+        }, {
+          "name": "eostmt",
+          "attributes": {
+            "text": ";",
+            "end": 52,
+            "line": 1,
+            "file": "array_literal.utl",
+            "start": 51
+          }
         }]
-      }]
+      },
+      {
+        "name": "statement",
+        "attributes": {
+          "end": 55,
+          "start": 53,
+          "line": 1,
+          "file": "array_literal.utl"
+        },
+        "children": [{
+          "name": "eostmt",
+          "attributes": {
+            "end": 55,
+            "start": 53,
+            "line": 1,
+            "text": "%]",
+            "file": "array_literal.utl"
+          }
+        }]
+      }
+    ]
   }]
 }

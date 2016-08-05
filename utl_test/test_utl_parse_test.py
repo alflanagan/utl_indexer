@@ -31,7 +31,7 @@ class TestCaseUTLTestCase(utl_parse_test.TestCaseUTL):
                         [])
         expected2 = {"name": "expr",
                      "attributes": {"value": {"name": "literal",
-                                              "attributes": {"value": 5}},},}
+                                              "attributes": {"value": 5}}, }, }
         self.assertMatchesJSON(node2, expected2)
         expected3 = {"name": "fred"}
         node3 = ASTNode('fred', {}, [])

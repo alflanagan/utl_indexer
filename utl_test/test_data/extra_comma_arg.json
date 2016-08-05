@@ -20,7 +20,7 @@
         "line": 2,
         "file": "extra_comma_arg.utl",
         "start": 39,
-        "end": 221
+        "end": 224
       },
       "children": [{
         "name": "expr",
@@ -71,7 +71,7 @@
                 "file": "extra_comma_arg.utl",
                 "name": "template",
                 "start": 73,
-                "end": 100
+                "end": 101
               },
               "children": [{
                 "name": "expr",
@@ -100,7 +100,7 @@
                 "file": "extra_comma_arg.utl",
                 "name": "text",
                 "start": 107,
-                "end": 121
+                "end": 122
               },
               "children": [{
                 "name": "expr",
@@ -129,7 +129,7 @@
                 "file": "extra_comma_arg.utl",
                 "name": "width",
                 "start": 128,
-                "end": 140
+                "end": 141
               },
               "children": [{
                 "name": "expr",
@@ -158,7 +158,7 @@
                 "file": "extra_comma_arg.utl",
                 "name": "height",
                 "start": 147,
-                "end": 160
+                "end": 161
               },
               "children": [{
                 "name": "expr",
@@ -187,7 +187,7 @@
                 "file": "extra_comma_arg.utl",
                 "name": "empty_array",
                 "start": 167,
-                "end": 185
+                "end": 186
               },
               "children": [{
                 "name": "expr",
@@ -234,7 +234,7 @@
                 "file": "extra_comma_arg.utl",
                 "name": "params",
                 "start": 192,
-                "end": 218
+                "end": 219
               },
               "children": [{
                 "name": "expr",
@@ -325,7 +325,17 @@
             }]
           }]
         }]
-      }]
+      },
+          {
+            "name": "eostmt",
+            "attributes": {
+              "text": "%]",
+              "file": "extra_comma_arg.utl",
+              "start": 222,
+              "line": 9,
+              "end": 224
+            }
+          }]
     }, {
       "name": "statement",
       "attributes": {

@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """A parse handler to construct a parse tree from a UTL document."""
+from typing import Union
 
 from utl_lib.ast_node import ASTNode
+from utl_lib.utl_yacc import UTLParser
 from utl_lib.utl_parse_handler import UTLParseHandler
 from utl_lib.utl_lex import UTLLexer
 # pylint: disable=too-many-public-methods,missing-docstring
@@ -56,10 +58,17 @@ class UTLParseHandlerParseTree(UTLParseHandler):
                 doc_attrs = parser.context
                 doc_attrs.update({'text': statement})
                 kids = [ASTNode('document', doc_attrs, [])]
-                if eostmt is not None:
-                    kids.append(eostmt)
                 return ASTNode('statement', parser.context, kids)
-        elif statement is not None:
+        elif statement is None:
+            # yikes, empty statement
+            return None
+        elif statement.symbol == "eostmt":
+            if statement.attributes["text"]:
+                return ASTNode('statement', parser.context, [statement])
+            else:
+                # no statement, no text ==> end of file
+                return None
+        else:
             kids = [statement]
             if eostmt is not None:
                 kids.append(eostmt)
@@ -80,14 +89,55 @@ class UTLParseHandlerParseTree(UTLParseHandler):
             attrs['name'] = name
         return ASTNode('arg', attrs, [expr])
 
-    def arg_list(self, parser, arg, arg_list=None):
-        assert arg is not None
-        if arg_list is None:
-            return ASTNode('arg_list', parser.context, [arg])
+    def arg_list(self, parser: UTLParser, arg_or_list: Union[ASTNode, str],
+                 arg: Union[ASTNode, str, None]=None):
+        # arg_list : arg | COMMA | arg_list arg | arg_list COMMA
+        assert arg_or_list is not None
+        if arg is None:
+            if arg_or_list == ',':
+                # intiial, empty comma: my_macro(,)
+                arg = ASTNode("arg", parser.context, [])
+                new_arg_list = ASTNode("arg_list", parser.context, [arg])
+            else:
+                # normal argument
+                assert arg_or_list.symbol == "arg"
+                new_arg_list = ASTNode("arg_list", parser.context, [arg_or_list])
         else:
-            arg_list.attributes = parser.context
-            arg_list.add_first_child(arg)
-            return arg_list
+            assert arg_or_list.symbol == "arg_list"
+            new_attrs = dict(arg_or_list.attributes)
+            new_attrs["end"] = parser.context["end"]
+            if arg == ",":
+                # this is an empty argument
+                # new_arg = ASTNode("arg", parser.context, [])
+                arg_or_list.attributes = new_attrs
+                # arg_or_list.add_child(new_arg)
+            else:
+                assert arg.symbol == "arg"
+                # normal argument
+                arg_or_list.attributes = new_attrs
+                arg_or_list.add_child(arg)
+            new_arg_list = arg_or_list
+        assert new_arg_list.symbol == "arg_list"
+        return new_arg_list
+
+        # if arg_or_list == ",":
+            # # use empty argument -- position may be significant
+            # arg_or_list = ASTNode('arg', parser.context, [])
+        # if arg is None:
+            # assert arg_or_list.symbol == 'arg'
+            # return ASTNode('arg_list', parser.context, [arg_or_list])
+        # else:
+            # if arg == ',' and arg_or_list.symbol == 'arg_list':
+                # arg = ASTNode('arg', parser.context, [])
+            # # if arg == ',' here, it's an expected separator
+            # if arg != ',':
+                # assert arg.symbol == 'arg'
+                # arg_or_list.add_child(arg)
+            # # whatever arg is, it's part of arg_list, so update context
+            # attrs = arg_or_list.attributes._dict
+            # attrs["end"] = parser.context["end"]
+            # arg_or_list.attributes = attrs
+            # return arg_or_list
 
     def array_elems(self, parser, first_part=None, maybe_comma=None, rest=None):
         """A production for a list of 1 to many array elements.
@@ -198,6 +248,11 @@ class UTLParseHandlerParseTree(UTLParseHandler):
             # child is dummy entry, don't give context info
             statement_list = ASTNode('statement_list', {}, [])
         return ASTNode('elseif_stmt', parser.context, [expr, statement_list])
+
+    def eostmt(self, parser, marker_text):
+        attrs = parser.context
+        attrs["text"] = marker_text
+        return ASTNode('eostmt', attrs, [])
 
     def error(self, parser, p):
         if len(parser.symstack) >= 4:

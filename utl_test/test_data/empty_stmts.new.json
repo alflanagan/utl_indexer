@@ -1,0 +1,501 @@
+{
+  "name": "utldoc",
+  "attributes": {
+    "file": "empty_stmts.utl",
+    "line": 1,
+    "end": 103,
+    "start": 3
+  },
+  "children": [{
+    "name": "statement_list",
+    "attributes": {
+      "file": "empty_stmts.utl",
+      "line": 1,
+      "end": 103,
+      "start": 3
+    },
+    "children": [{
+        "name": "statement",
+        "attributes": {
+          "file": "empty_stmts.utl",
+          "line": 1,
+          "end": 39,
+          "start": 3
+        },
+        "children": [{
+            "name": "if_stmt",
+            "attributes": {
+              "file": "empty_stmts.utl",
+              "line": 1,
+              "end": 38,
+              "start": 3
+            },
+            "children": [{
+                "name": "expr",
+                "attributes": {
+                  "file": "empty_stmts.utl",
+                  "line": 1,
+                  "operator": "==",
+                  "end": 12,
+                  "start": 6
+                },
+                "children": [{
+                    "name": "expr",
+                    "attributes": {
+                      "file": "empty_stmts.utl",
+                      "line": 1,
+                      "end": 7,
+                      "start": 6
+                    },
+                    "children": [{
+                      "name": "id",
+                      "attributes": {
+                        "file": "empty_stmts.utl",
+                        "line": 1,
+                        "end": 7,
+                        "start": 6,
+                        "symbol": "a"
+                      }
+                    }]
+                  },
+                  {
+                    "name": "expr",
+                    "attributes": {
+                      "file": "empty_stmts.utl",
+                      "line": 1,
+                      "end": 12,
+                      "start": 11
+                    },
+                    "children": [{
+                      "name": "id",
+                      "attributes": {
+                        "file": "empty_stmts.utl",
+                        "line": 1,
+                        "end": 12,
+                        "start": 11,
+                        "symbol": "b"
+                      }
+                    }]
+                  }
+                ]
+              },
+              {
+                "name": "statement_list",
+                "attributes": {
+                  "file": "empty_stmts.utl",
+                  "line": 1,
+                  "end": 13,
+                  "start": 13
+                }
+              },
+              {
+                "name": "elseif_stmts",
+                "attributes": {
+                  "file": "empty_stmts.utl",
+                  "line": 2,
+                  "end": 28,
+                  "start": 14
+                },
+                "children": [{
+                  "name": "elseif_stmt",
+                  "attributes": {
+                    "file": "empty_stmts.utl",
+                    "line": 2,
+                    "end": 28,
+                    "start": 14
+                  },
+                  "children": [{
+                      "name": "expr",
+                      "attributes": {
+                        "file": "empty_stmts.utl",
+                        "line": 2,
+                        "operator": "==",
+                        "end": 27,
+                        "start": 21
+                      },
+                      "children": [{
+                          "name": "expr",
+                          "attributes": {
+                            "file": "empty_stmts.utl",
+                            "line": 2,
+                            "end": 22,
+                            "start": 21
+                          },
+                          "children": [{
+                            "name": "id",
+                            "attributes": {
+                              "file": "empty_stmts.utl",
+                              "line": 2,
+                              "end": 22,
+                              "start": 21,
+                              "symbol": "d"
+                            }
+                          }]
+                        },
+                        {
+                          "name": "expr",
+                          "attributes": {
+                            "file": "empty_stmts.utl",
+                            "line": 2,
+                            "end": 27,
+                            "start": 26
+                          },
+                          "children": [{
+                            "name": "id",
+                            "attributes": {
+                              "file": "empty_stmts.utl",
+                              "line": 2,
+                              "end": 27,
+                              "start": 26,
+                              "symbol": "c"
+                            }
+                          }]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "statement_list",
+                      "attributes": {
+                        "file": "empty_stmts.utl",
+                        "line": 2,
+                        "end": 28,
+                        "start": 27
+                      },
+                      "children": [{
+                        "name": "statement",
+                        "attributes": {
+                          "file": "empty_stmts.utl",
+                          "line": 2,
+                          "end": 28,
+                          "start": 27
+                        },
+                        "children": [{
+                          "name": "eostmt",
+                          "attributes": {
+                            "file": "empty_stmts.utl",
+                            "line": 2,
+                            "end": 28,
+                            "start": 27,
+                            "text": ";"
+                          }
+                        }]
+                      }]
+                    }
+                  ]
+                }]
+              },
+              {
+                "name": "else_stmt",
+                "attributes": {
+                  "file": "empty_stmts.utl",
+                  "line": 3,
+                  "end": 34,
+                  "start": 29
+                },
+                "children": [{
+                  "name": "statement_list",
+                  "attributes": {
+                    "file": "empty_stmts.utl",
+                    "line": 3,
+                    "end": 34,
+                    "start": 33
+                  },
+                  "children": [{
+                    "name": "statement",
+                    "attributes": {
+                      "file": "empty_stmts.utl",
+                      "line": 3,
+                      "end": 34,
+                      "start": 33
+                    },
+                    "children": [{
+                      "name": "eostmt",
+                      "attributes": {
+                        "file": "empty_stmts.utl",
+                        "line": 3,
+                        "end": 34,
+                        "start": 33,
+                        "text": ";"
+                      }
+                    }]
+                  }]
+                }]
+              }
+            ]
+          },
+          {
+            "name": "eostmt",
+            "attributes": {
+              "file": "empty_stmts.utl",
+              "line": 4,
+              "end": 39,
+              "start": 38,
+              "text": ";"
+            }
+          }
+        ]
+      },
+      {
+        "name": "statement",
+        "attributes": {
+          "file": "empty_stmts.utl",
+          "line": 5,
+          "end": 66,
+          "start": 40
+        },
+        "children": [{
+            "name": "for_stmt",
+            "attributes": {
+              "file": "empty_stmts.utl",
+              "line": 5,
+              "end": 65,
+              "start": 40
+            },
+            "children": [{
+                "name": "expr",
+                "attributes": {
+                  "file": "empty_stmts.utl",
+                  "line": 5,
+                  "end": 53,
+                  "start": 49
+                },
+                "children": [{
+                  "name": "id",
+                  "attributes": {
+                    "file": "empty_stmts.utl",
+                    "line": 5,
+                    "end": 53,
+                    "start": 49,
+                    "symbol": "kids"
+                  }
+                }]
+              },
+              {
+                "name": "as_clause",
+                "attributes": {
+                  "file": "empty_stmts.utl",
+                  "line": 5,
+                  "end": 60,
+                  "start": 54
+                },
+                "children": [{
+                  "name": "id",
+                  "attributes": {
+                    "file": "empty_stmts.utl",
+                    "line": 5,
+                    "end": 60,
+                    "start": 57,
+                    "symbol": "kid"
+                  }
+                }]
+              },
+              {
+                "name": "statement_list",
+                "attributes": {
+                  "file": "empty_stmts.utl",
+                  "line": 5,
+                  "end": 61,
+                  "start": 61
+                }
+              }
+            ]
+          },
+          {
+            "name": "eostmt",
+            "attributes": {
+              "file": "empty_stmts.utl",
+              "line": 6,
+              "end": 66,
+              "start": 65,
+              "text": ";"
+            }
+          }
+        ]
+      },
+      {
+        "name": "statement",
+        "attributes": {
+          "file": "empty_stmts.utl",
+          "line": 7,
+          "end": 85,
+          "start": 67
+        },
+        "children": [{
+            "name": "while_stmt",
+            "attributes": {
+              "file": "empty_stmts.utl",
+              "line": 7,
+              "end": 84,
+              "start": 67
+            },
+            "children": [{
+                "name": "expr",
+                "attributes": {
+                  "file": "empty_stmts.utl",
+                  "line": 7,
+                  "operator": "==",
+                  "end": 79,
+                  "start": 73
+                },
+                "children": [{
+                    "name": "expr",
+                    "attributes": {
+                      "file": "empty_stmts.utl",
+                      "line": 7,
+                      "end": 74,
+                      "start": 73
+                    },
+                    "children": [{
+                      "name": "id",
+                      "attributes": {
+                        "file": "empty_stmts.utl",
+                        "line": 7,
+                        "end": 74,
+                        "start": 73,
+                        "symbol": "e"
+                      }
+                    }]
+                  },
+                  {
+                    "name": "expr",
+                    "attributes": {
+                      "file": "empty_stmts.utl",
+                      "line": 7,
+                      "end": 79,
+                      "start": 78
+                    },
+                    "children": [{
+                      "name": "id",
+                      "attributes": {
+                        "file": "empty_stmts.utl",
+                        "line": 7,
+                        "end": 79,
+                        "start": 78,
+                        "symbol": "f"
+                      }
+                    }]
+                  }
+                ]
+              },
+              {
+                "name": "statement_list",
+                "attributes": {
+                  "file": "empty_stmts.utl",
+                  "line": 7,
+                  "end": 80,
+                  "start": 79
+                },
+                "children": [{
+                  "name": "statement",
+                  "attributes": {
+                    "file": "empty_stmts.utl",
+                    "line": 7,
+                    "end": 80,
+                    "start": 79
+                  },
+                  "children": [{
+                    "name": "eostmt",
+                    "attributes": {
+                      "file": "empty_stmts.utl",
+                      "line": 7,
+                      "end": 80,
+                      "start": 79,
+                      "text": ";"
+                    }
+                  }]
+                }]
+              }
+            ]
+          },
+          {
+            "name": "eostmt",
+            "attributes": {
+              "file": "empty_stmts.utl",
+              "line": 8,
+              "end": 85,
+              "start": 84,
+              "text": ";"
+            }
+          }
+        ]
+      },
+      {
+        "name": "statement",
+        "attributes": {
+          "file": "empty_stmts.utl",
+          "line": 9,
+          "end": 101,
+          "start": 86
+        },
+        "children": [{
+            "name": "macro_defn",
+            "attributes": {
+              "file": "empty_stmts.utl",
+              "line": 9,
+              "end": 98,
+              "start": 86
+            },
+            "children": [{
+                "name": "macro_decl",
+                "attributes": {
+                  "file": "empty_stmts.utl",
+                  "line": 9,
+                  "end": 93,
+                  "start": 86
+                },
+                "children": [{
+                  "name": "id",
+                  "attributes": {
+                    "file": "empty_stmts.utl",
+                    "line": 9,
+                    "end": 93,
+                    "start": 92,
+                    "symbol": "g"
+                  }
+                }]
+              },
+              {
+                "name": "statement_list",
+                "attributes": {
+                  "file": "empty_stmts.utl",
+                  "line": 9,
+                  "end": 94,
+                  "start": 94
+                }
+              }
+            ]
+          },
+          {
+            "name": "eostmt",
+            "attributes": {
+              "file": "empty_stmts.utl",
+              "line": 10,
+              "end": 101,
+              "start": 99,
+              "text": "%]"
+            }
+          }
+        ]
+      },
+      {
+        "name": "statement",
+        "attributes": {
+          "file": "empty_stmts.utl",
+          "line": 10,
+          "end": 102,
+          "start": 101
+        },
+        "children": [{
+          "name": "document",
+          "attributes": {
+            "file": "empty_stmts.utl",
+            "line": 10,
+            "end": 102,
+            "start": 101,
+            "text": "\n"
+          }
+        }]
+      }
+    ]
+  }]
+}

@@ -14,7 +14,7 @@ from utl_lib.ast_node import ASTNode
 from utl_lib.utl_yacc import UTLParser
 from utl_lib.utl_parse_handler import UTLParseHandler, UTLParseError
 from utl_lib.utl_lex import UTLLexer
-# pylint: disable=too-many-public-methods,missing-docstring
+# pylint: disable=too-many-public-methods,missing-docstring,too-many-arguments
 
 
 class UTLParseHandlerAST(UTLParseHandler):
@@ -88,14 +88,25 @@ class UTLParseHandlerAST(UTLParseHandler):
             attrs['keyword'] = name
         return ASTNode('arg', attrs, [expr])
 
-    def arg_list(self, parser: UTLParser, arg: ASTNode, arg_list: ASTNode=None) -> ASTNode:
-        assert arg is not None
-        if arg_list is None:
-            return ASTNode('arg_list', parser.context, [arg])
+    def arg_list(self, parser: UTLParser, arg_or_list: Union[ASTNode, str],
+                 arg: [ASTNode, str, None]=None) -> ASTNode:
+        assert arg_or_list is not None
+        if arg_or_list == ",":
+            # use empty argument -- position may be significant
+            arg_or_list = ASTNode('arg', parser.context, [])
+        if arg is None:
+            assert arg_or_list.symbol == 'arg'
+            return ASTNode('arg_list', parser.context, [arg_or_list])
         else:
-            arg_list.add_first_child(arg)
-            arg_list.attributes = parser.context
-            return arg_list
+            assert arg_or_list.symbol == 'arg_list'
+            if arg == ',':
+                arg = ASTNode('arg', parser.context, [])
+            assert arg.symbol == 'arg'
+            arg_or_list.add_child(arg)
+            attrs = arg_or_list.attributes.attr_copy
+            attrs["end"] = parser.context["end"]
+            arg_or_list.attributes = attrs
+            return arg_or_list
 
     def array_elems(self, parser: UTLParser,
                     first_part: Union[str, ASTNode]=None,
@@ -210,7 +221,6 @@ class UTLParseHandlerAST(UTLParseHandler):
             attrs["operator"] = second
             return ASTNode('expr', attrs, [first, third])
 
-    # pylint: disable=R0913
     def for_stmt(self, parser: UTLParser, expr: ASTNode, as_clause: Tuple[int]=None,
                  eostmt: str=None, statement_list: ASTNode=None) -> ASTNode:
         assert expr is not None
@@ -222,7 +232,6 @@ class UTLParseHandlerAST(UTLParseHandler):
         return ASTNode('for', attrs,
                        [expr, statement_list] if statement_list else [expr])
 
-    # pylint: disable=too-many-arguments
     def if_stmt(self, parser: UTLParser, expr: ASTNode, eostmt: str=None,
                 statement_list: ASTNode=None, elseif_stmts: ASTNode=None,
                 else_stmt: ASTNode=None) -> ASTNode:

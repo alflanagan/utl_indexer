@@ -219,7 +219,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
         # is shorter than all the other potential values of end_p
         if end_p is None:
             end_p = start_p
-        elif  end_p > len(p) - 1:
+        elif end_p > len(p) - 1:
             end_p = len(p) - 1
 
         if start_p > len(p) - 1:
@@ -297,7 +297,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                      | CONTINUE eostmt
                      | EXIT eostmt'''
         if p[1]:  # skip empty statements
-            self.__set_ctxt(p, 1)
+            self.__set_ctxt(p, 1, 2)
             for handler in self.handlers:
                 value = handler.statement(self, p[1], self._(p, 2))
                 if p[0] is None:
@@ -315,13 +315,16 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                 p[0] = value
 
     def p_arg(self, p):
-        '''arg : expr
-               | STRING COLON expr %prec RBRACKET
-               | ID COLON expr %prec RBRACKET'''
+        '''arg : expr COMMA %prec RBRACKET
+               | STRING COLON expr COMMA %prec RBRACKET
+               | ID COLON expr COMMA %prec RBRACKET
+               | expr
+               | STRING COLON expr
+               | ID COLON expr'''
         # shift/reduce between expr->STRING, expr->ID, and STRING COLON, ID COLON
-        self.__set_ctxt(p, 1, 3)
+        self.__set_ctxt(p, 1, 4)
         for handler in self.handlers:
-            if len(p) == 4:
+            if len(p) >= 4:
                 value = handler.arg(self, p[3], p[1])
             else:
                 value = handler.arg(self, p[1], None)
@@ -330,11 +333,12 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
 
     def p_arg_list(self, p):
         '''arg_list : arg
-                    | arg COMMA
-                    | arg COMMA arg_list'''
-        self.__set_ctxt(p, 1, 3)
+                    | COMMA
+                    | arg_list arg
+                    | arg_list COMMA'''
+        self.__set_ctxt(p, 1, 2)
         for handler in self.handlers:
-            value = handler.arg_list(self, p[1], self._(p, 3))
+            value = handler.arg_list(self, p[1], self._(p, 2))
             if p[0] is None:
                 p[0] = value
 
