@@ -275,6 +275,7 @@ class ASTNodeTestCase(unittest_plus.TestCasePlus):
         barney.children = [barney.children[0]]
 
     def test_walk(self):
+        """Unit tests of :py:meth:`~utl_lib.ast_node.ASTNode.walk`."""
         item1 = ASTNode('fred', {}, [])
         self.assertListEqual(list(item1.walk()), [item1])
         item2 = ASTNode('wilma', {}, [])
@@ -358,12 +359,12 @@ class FrozenASTNodeTestCase(unittest_plus.TestCasePlus):
         source_node = ASTNode("id", {"symbol": "abcd", }, [])
         frozen5 = FrozenASTNode(source_node)
         self.assertEqual(str(frozen5), "id: abcd")
-        source_node = ASTNode("document", {"text": "fred",}, [])
+        source_node = ASTNode("document", {"text": "fred", }, [])
         frozen6 = FrozenASTNode(source_node)
         self.assertEqual(str(frozen6), "document: 'fred'")
 
     def test_repr(self):
-        """"""
+        """Unit tests for :py:meth:`~utl_lib.ast_node.FrozenASTNode.__repr__`."""
         source_node = ASTNode("fred", {"pebbles": "wilma", "bam-bam": "betty"},
                               [ASTNode("barney", {"friend": True}, [])])
         frozen1 = FrozenASTNode(source_node)
@@ -387,18 +388,19 @@ class FrozenASTNodeTestCase(unittest_plus.TestCasePlus):
         frozen5 = FrozenASTNode(source_node)
         self.assertEqual(repr(frozen5), 'FrozenASTNode("id", ..., [])')
 
-        source_node = ASTNode("document", {"text": "fred",}, [])
+        source_node = ASTNode("document", {"text": "fred", }, [])
         frozen6 = FrozenASTNode(source_node)
         self.assertEqual(repr(frozen6), 'FrozenASTNode("document", ..., [])')
 
         source_node = ASTNode("barney", {},
                               [ASTNode("bam-bam", {"sex": "male"},
                                        [ASTNode("John Snow", {}, []), ]),
-                               ASTNode("id", {"value": "JFK",}, [])])
+                               ASTNode("id", {"value": "JFK", }, [])])
         frozen3 = FrozenASTNode(source_node)
         self.assertEqual(repr(frozen3), 'FrozenASTNode("barney", ..., [bam-bam, id])')
 
     def test_walk(self):
+        """Unit tests of :py:meth:`~utl_lib.ast_node.FrozenASTNode.walk`."""
         item1 = ASTNode('fred', {}, [])
         item2 = ASTNode('wilma', {}, [])
         item1.add_child(item2)
