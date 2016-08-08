@@ -77,6 +77,15 @@
               }]
             }]
           }, {
+            "name": "eostmt",
+            "attributes": {
+              "start": 12,
+              "end": 13,
+              "line": 1,
+              "text": ";",
+              "file": "empty_stmts.utl"
+            }
+          }, {
             "name": "statement_list",
             "attributes": {
               "start": 13,
@@ -362,7 +371,7 @@
         }, {
           "name": "statement_list",
           "attributes": {
-            "start": 80,
+            "start": 79,
             "end": 80,
             "line": 7,
             "file": "empty_stmts.utl"
@@ -387,12 +396,22 @@
             }]
           }]
         }]
-      }]
+      },
+          {
+            "name": "eostmt",
+            "attributes": {
+              "file": "empty_stmts.utl",
+              "line": 8,
+              "end": 85,
+              "start": 84,
+              "text": ";"
+            }
+          }]
     }, {
       "name": "statement",
       "attributes": {
         "start": 86,
-        "end": 98,
+        "end": 101,
         "line": 9,
         "file": "empty_stmts.utl"
       },
@@ -431,6 +450,15 @@
             "file": "empty_stmts.utl"
           }
         }]
+      }, {
+          "name": "eostmt",
+          "attributes": {
+            "start": 99,
+            "end": 101,
+            "line": 10,
+            "text": "%]",
+            "file": "empty_stmts.utl"
+          }
       }]
     }, {
       "name": "statement",

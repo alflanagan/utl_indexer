@@ -149,7 +149,10 @@ class UTLParserTestCase(utl_parse_test.TestCaseUTL):
 
     def test_if_stmts(self):
         """Unit test :py:meth:`~utl_lib.utl_yacc.UTLParser.parse` with if statements."""
-        self.assertJSONFileMatches('if_stmts.utl', 'if_stmts.json')
+        self.assertJSONFileMatches('if_stmts1.utl', 'if_stmts1.json')
+        self.assertJSONFileMatches('if_stmts2.utl', 'if_stmts2.json')
+        self.assertJSONFileMatches('if_stmts3.utl', 'if_stmts3.json')
+        self.assertJSONFileMatches('if_stmts4.utl', 'if_stmts4.json')
 
     def test_include_stmts(self):
         """Unit test :py:meth:`~utl_lib.utl_yacc.UTLParser.parse` with include statements."""
@@ -242,7 +245,7 @@ class UTLParserTestCase(utl_parse_test.TestCaseUTL):
         parser.restart()
         self._check_multiple_handlers(parser, 'for_stmt')
         parser.restart()
-        self._check_multiple_handlers(parser, 'if_stmts')
+        self._check_multiple_handlers(parser, 'if_stmts1')
         parser.restart()
         self._check_multiple_handlers(parser, 'includes')
         parser.restart()

@@ -335,7 +335,7 @@ class UTLParseHandler(object):
         """
         return None
 
-    def for_stmt(self, parser, expr, as_clause=None, eostmt=None, statement_list=None):
+    def for_stmt(self, parser, expr, as_clause, eostmt, statement_list):
         """A for statement, which executes ``statement_list`` once for each item in the value of
         ``expr`` (assumed to be a collection). If ``as_clause`` has one or two children, the current
         item is assigned to a variable of that name (or the current key, value are assigned to

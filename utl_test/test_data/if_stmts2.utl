@@ -1,15 +1,4 @@
-<div id="blox-left-col" class="grid_[% grid_set_blox_med_span %][% if cms.site.custom.alpha_omega == 'true' %] alpha[% end %]">
-<div id="blox-front" class="blox-content">
-[%
-  if !cms.component.load("core_services_manager") then echo "<!-- error loading Services Component -->";
-  if !cms.component.load("core_services_manager"); echo "<!-- error loading Services Component -->"; end;
-  if aInfo['bTracker'] && !(cms.request.param('mode') == 'jqm');
-      aInfo['sServiceClass'] = 'managed-service';
-  end;
-  if show_flags == true %]
-    <li>[% core_base_library_assetFlags(target : asset) %]</li>
-  [% end;
-    if cms.request.param('q') then site_keywords += ',' + cms.request.param('q') | replace(' ',',') | html;
+[% if cms.request.param('q') then site_keywords += ',' + cms.request.param('q') | replace(' ',',') | html;
 
   if assign = expr;
     echo 'probably an error but legal';
@@ -30,28 +19,4 @@
      array_of_methods[12](47);
   else;
      print('goodbye');
-  end;
-  if (myCapturePreviewImage.width/myCapturePreviewImage.height) - (asset.hi_res.width/asset.hi_res.height) < 1/100 && (myCapturePreviewImage.width/myCapturePreviewImage.height) - (asset.hi_res.width/asset.hi_res.height) > 1/100;
-     echo "wtf?";
-     end;
-  if assignee = assigned;
-    this_is_legal();
-  end;
-  if fred == wilma %]
-          </div>
-  [%    else if pixel_sub_grid_on == true %]
-    </dt>
-    [% end
-%]
-[% if fred != wilma;
-   echo "oops";
-   elseif fred == betty;
-   end; %]
-[% if 2 == 3 then "hello" %]
-[%
-  if navigation == 'mega' && nav_item.children.length > 0 && item_mega_excluded != "true";  else; parent_none_check="display:none;"; end;
-  if silly == test;
-  else;
-    empty = statement_list;
-  end;
-%]
+  end; %]

@@ -299,20 +299,23 @@ class UTLParseHandlerParseTree(UTLParseHandler):
         id_node = ASTNode('id', attrs, [])
         return ASTNode('expr', parser.context, [id_node])
 
-    def for_stmt(self, parser, expr, as_clause=None, eostmt=None, statement_list=None):
+    def for_stmt(self, parser, expr, as_clause, eostmt, statement_list):
         assert expr is not None
+        assert eostmt is not None  # see eostmt()
         if as_clause is None:
             as_clause = ASTNode('as_clause', {}, [])
         if statement_list is None:
             statement_list = ASTNode('statement_list', {}, [])
-        return ASTNode('for_stmt', parser.context, [expr, as_clause, statement_list])
+        return ASTNode('for_stmt', parser.context, [expr, as_clause, eostmt, statement_list])
+
 
     def if_stmt(self, parser, expr, eostmt=None, statement_list=None, elseif_stmts=None,
                 else_stmt=None):
         assert expr is not None
+        assert eostmt is not None
         if statement_list is None:  # yes, oddly this is valid
             statement_list = ASTNode("statement_list", {}, [])
-        kids = [expr, statement_list]
+        kids = [expr, eostmt, statement_list]
         if elseif_stmts is not None:
             kids.append(elseif_stmts)
         if else_stmt is not None:

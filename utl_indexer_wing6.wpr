@@ -4,6 +4,22 @@
 # Wing IDE project file                                          #
 ##################################################################
 [project attributes]
+debug.launch-configs = (2,
+                        {'launch-8UNwuPCxx5Rn6tWQ': ({},
+        {'buildcmd': ('project',
+                      None),
+         'env': ('project',
+                 [u'']),
+         'name': 'python_shell',
+         'pyexec': ('project',
+                    u''),
+         'pypath': ('project',
+                    ''),
+         'pyrunargs': ('project',
+                       '-u'),
+         'runargs': u'',
+         'rundir': ('custom',
+                    u'/mnt/extra/Devel/utl_indexer/')})})
 proj.directory-list = [{'dirloc': loc('.'),
                         'excludes': [u'utl_test/htmlcov',
                                      u'doc/_build',
@@ -18,8 +34,8 @@ proj.directory-list = [{'dirloc': loc('.'),
                         'watch_for_changes': True}]
 proj.file-type = 'shared'
 proj.launch-config = {loc('utl_test/test_utl_yacc.py'): ('project',
-        (u'UTLParserTestCase.test_empty_stmts',
-         ''))}
+        (u'UTLParserTestCase.test_include_stmts',
+         'launch-8UNwuPCxx5Rn6tWQ'))}
 proj.main-file = loc('utl_test/test_utl_yacc.py')
 testing.auto-test-file-specs = (('glob',
                                  'utl_test/test_*.py'),)
