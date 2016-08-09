@@ -99,8 +99,7 @@ class UTLParseHandlerParseTree(UTLParseHandler):
         if arg is None:
             if arg_or_list == ',':
                 # intiial, empty comma: my_macro(,)
-                arg = ASTNode("arg", parser.context, [])
-                new_arg_list = ASTNode("arg_list", parser.context, [arg])
+                new_arg_list = ASTNode("arg_list", parser.context, [])
             else:
                 # normal argument
                 assert arg_or_list.symbol == "arg"
@@ -111,9 +110,8 @@ class UTLParseHandlerParseTree(UTLParseHandler):
             new_attrs["end"] = parser.context["end"]
             if arg == ",":
                 # this is an empty argument
-                # new_arg = ASTNode("arg", parser.context, [])
+                # which UTL just ignores
                 arg_or_list.attributes = new_attrs
-                # arg_or_list.add_child(new_arg)
             else:
                 assert arg.symbol == "arg"
                 # normal argument
@@ -324,10 +322,10 @@ class UTLParseHandlerParseTree(UTLParseHandler):
             attrs.update({'type': 'array', 'value': '[..]'})
             return ASTNode('literal', attrs, [literal])
 
-    def macro_call(self, parser, macro_expr, arg_list=None):
-        assert macro_expr
+    def macro_call(self, parser, macro_expr, arg_list):
+        assert macro_expr and arg_list
         return ASTNode('macro_call', parser.context,
-                       [macro_expr, arg_list] if arg_list is not None else [macro_expr])
+                       [macro_expr, arg_list])
 
     def macro_decl(self, parser, macro_name, param_list=None):
         assert macro_name

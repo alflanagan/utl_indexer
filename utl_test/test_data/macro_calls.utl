@@ -21,8 +21,11 @@ callwithparams('c': 3, 'a': 6, 'b': 9);
 /* looks like keyword call, but is two exprs passed by position */
 callwithparams(c=15, a=5); /* equiv. to callwithparams(1, 1) */
 
-/* should put array in a, fail because b not provided */
+/* should put array in a, set b==null/undefined/whatever */
 /* actual output: 100345 */ /* ???? */
 callwithparams([a: 3, b: 4, c: 5]);
+
+/* empty commas act as though they aren't there. this will set a==5, b==6 */
+callwithparams(,,,5,,,,6,,);
 
 %]

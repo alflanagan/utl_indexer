@@ -4,7 +4,7 @@
     "file": "macro_calls.utl",
     "line": 2,
     "start": 3,
-    "end": 749
+    "end": 859
   },
   "children": [{
     "name": "statement_list",
@@ -12,7 +12,7 @@
       "file": "macro_calls.utl",
       "line": 2,
       "start": 3,
-      "end": 749
+      "end": 859
     },
     "children": [{
         "name": "statement",
@@ -20,7 +20,7 @@
           "file": "macro_calls.utl",
           "line": 2,
           "start": 3,
-          "end": 85
+          "end": 86
         },
         "children": [{
           "name": "expr",
@@ -100,7 +100,7 @@
                           "line": 2,
                           "start": 40,
                           "name": "asset",
-                          "end": 53
+                          "end": 54
                         },
                         "children": [{
                           "name": "expr",
@@ -129,7 +129,7 @@
                           "line": 2,
                           "start": 54,
                           "name": "sizearray",
-                          "end": 69
+                          "end": 70
                         },
                         "children": [{
                           "name": "expr",
@@ -217,6 +217,15 @@
               }]
             }
           ]
+        }, {
+          "name": "eostmt",
+          "attributes": {
+            "text": ";",
+            "start": 85,
+            "end": 86,
+            "line": 2,
+            "file": "macro_calls.utl"
+          }
         }]
       },
       {
@@ -225,7 +234,7 @@
           "file": "macro_calls.utl",
           "line": 4,
           "start": 88,
-          "end": 119
+          "end": 120
         },
         "children": [{
           "name": "expr",
@@ -289,10 +298,27 @@
                       "end": 113
                     }
                   }]
+                }, {
+                  "name": "arg_list",
+                  "attributes": {
+                    "file": "macro_calls.utl",
+                    "line": 4,
+                    "end": 118,
+                    "start": 114
+                  }
                 }]
               }]
             }
           ]
+        }, {
+          "name": "eostmt",
+          "attributes": {
+            "text": ";",
+            "start": 119,
+            "end": 120,
+            "line": 4,
+            "file": "macro_calls.utl"
+          }
         }]
       },
       {
@@ -301,7 +327,7 @@
           "file": "macro_calls.utl",
           "line": 6,
           "start": 122,
-          "end": 223
+          "end": 224
         },
         "children": [{
           "name": "macro_defn",
@@ -394,7 +420,7 @@
                 "file": "macro_calls.utl",
                 "line": 7,
                 "start": 159,
-                "end": 218
+                "end": 219
               },
               "children": [{
                 "name": "statement",
@@ -402,7 +428,7 @@
                   "file": "macro_calls.utl",
                   "line": 7,
                   "start": 159,
-                  "end": 218
+                  "end": 219
                 },
                 "children": [{
                   "name": "expr",
@@ -631,10 +657,28 @@
                       }
                     ]
                   }]
+                }, {
+                  "name": "eostmt",
+                  "attributes": {
+                    "text": ";",
+                    "start": 218,
+                    "end": 219,
+                    "line": 7,
+                    "file": "macro_calls.utl"
+                  }
                 }]
               }]
             }
           ]
+        }, {
+          "name": "eostmt",
+          "attributes": {
+            "text": ";",
+            "start": 223,
+            "end": 224,
+            "line": 8,
+            "file": "macro_calls.utl"
+          }
         }]
       },
       {
@@ -643,7 +687,7 @@
           "file": "macro_calls.utl",
           "line": 11,
           "start": 249,
-          "end": 272
+          "end": 273
         },
         "children": [{
           "name": "expr",
@@ -694,7 +738,7 @@
                       "file": "macro_calls.utl",
                       "line": 11,
                       "start": 264,
-                      "end": 265
+                      "end": 266
                     },
                     "children": [{
                       "name": "expr",
@@ -723,7 +767,7 @@
                       "file": "macro_calls.utl",
                       "line": 11,
                       "start": 267,
-                      "end": 268
+                      "end": 269
                     },
                     "children": [{
                       "name": "expr",
@@ -779,6 +823,15 @@
               }
             ]
           }]
+        }, {
+          "name": "eostmt",
+          "attributes": {
+            "text": ";",
+            "start": 272,
+            "end": 273,
+            "line": 11,
+            "file": "macro_calls.utl"
+          }
         }]
       },
       {
@@ -787,7 +840,7 @@
           "file": "macro_calls.utl",
           "line": 14,
           "start": 297,
-          "end": 329
+          "end": 330
         },
         "children": [{
           "name": "expr",
@@ -839,7 +892,7 @@
                       "line": 14,
                       "start": 312,
                       "name": "a",
-                      "end": 316
+                      "end": 317
                     },
                     "children": [{
                       "name": "expr",
@@ -869,7 +922,7 @@
                       "line": 14,
                       "start": 318,
                       "name": "b",
-                      "end": 322
+                      "end": 323
                     },
                     "children": [{
                       "name": "expr",
@@ -926,6 +979,15 @@
               }
             ]
           }]
+        }, {
+          "name": "eostmt",
+          "attributes": {
+            "text": ";",
+            "start": 329,
+            "end": 330,
+            "line": 14,
+            "file": "macro_calls.utl"
+          }
         }]
       },
       {
@@ -934,7 +996,7 @@
           "file": "macro_calls.utl",
           "line": 16,
           "start": 353,
-          "end": 385
+          "end": 386
         },
         "children": [{
           "name": "expr",
@@ -986,7 +1048,7 @@
                       "line": 16,
                       "start": 368,
                       "name": "c",
-                      "end": 372
+                      "end": 373
                     },
                     "children": [{
                       "name": "expr",
@@ -1016,7 +1078,7 @@
                       "line": 16,
                       "start": 374,
                       "name": "a",
-                      "end": 378
+                      "end": 379
                     },
                     "children": [{
                       "name": "expr",
@@ -1073,6 +1135,15 @@
               }
             ]
           }]
+        }, {
+          "name": "eostmt",
+          "attributes": {
+            "text": ";",
+            "start": 385,
+            "end": 386,
+            "line": 16,
+            "file": "macro_calls.utl"
+          }
         }]
       },
       {
@@ -1081,7 +1152,7 @@
           "file": "macro_calls.utl",
           "line": 18,
           "start": 422,
-          "end": 460
+          "end": 461
         },
         "children": [{
           "name": "expr",
@@ -1133,7 +1204,7 @@
                       "line": 18,
                       "start": 437,
                       "name": "c",
-                      "end": 443
+                      "end": 444
                     },
                     "children": [{
                       "name": "expr",
@@ -1163,7 +1234,7 @@
                       "line": 18,
                       "start": 445,
                       "name": "a",
-                      "end": 451
+                      "end": 452
                     },
                     "children": [{
                       "name": "expr",
@@ -1220,6 +1291,15 @@
               }
             ]
           }]
+        }, {
+          "name": "eostmt",
+          "attributes": {
+            "text": ";",
+            "start": 460,
+            "end": 461,
+            "line": 18,
+            "file": "macro_calls.utl"
+          }
         }]
       },
       {
@@ -1228,7 +1308,7 @@
           "file": "macro_calls.utl",
           "line": 22,
           "start": 548,
-          "end": 573
+          "end": 574
         },
         "children": [{
           "name": "expr",
@@ -1279,7 +1359,7 @@
                       "file": "macro_calls.utl",
                       "line": 22,
                       "start": 563,
-                      "end": 567
+                      "end": 568
                     },
                     "children": [{
                       "name": "expr",
@@ -1395,6 +1475,15 @@
               }
             ]
           }]
+        }, {
+          "name": "eostmt",
+          "attributes": {
+            "text": ";",
+            "start": 573,
+            "end": 574,
+            "line": 22,
+            "file": "macro_calls.utl"
+          }
         }]
       },
       {
@@ -1402,32 +1491,32 @@
         "attributes": {
           "file": "macro_calls.utl",
           "line": 26,
-          "start": 709,
-          "end": 743
+          "start": 712,
+          "end": 747
         },
         "children": [{
           "name": "expr",
           "attributes": {
             "file": "macro_calls.utl",
             "line": 26,
-            "start": 709,
-            "end": 743
+            "start": 712,
+            "end": 746
           },
           "children": [{
             "name": "macro_call",
             "attributes": {
               "file": "macro_calls.utl",
               "line": 26,
-              "start": 709,
-              "end": 743
+              "start": 712,
+              "end": 746
             },
             "children": [{
                 "name": "expr",
                 "attributes": {
                   "file": "macro_calls.utl",
                   "line": 26,
-                  "start": 709,
-                  "end": 723
+                  "start": 712,
+                  "end": 726
                 },
                 "children": [{
                   "name": "id",
@@ -1435,8 +1524,8 @@
                     "file": "macro_calls.utl",
                     "line": 26,
                     "symbol": "callwithparams",
-                    "start": 709,
-                    "end": 723
+                    "start": 712,
+                    "end": 726
                   }
                 }]
               },
@@ -1445,50 +1534,50 @@
                 "attributes": {
                   "file": "macro_calls.utl",
                   "line": 26,
-                  "start": 724,
-                  "end": 742
+                  "start": 727,
+                  "end": 745
                 },
                 "children": [{
                   "name": "arg",
                   "attributes": {
                     "file": "macro_calls.utl",
                     "line": 26,
-                    "start": 724,
-                    "end": 742
+                    "start": 727,
+                    "end": 745
                   },
                   "children": [{
                     "name": "expr",
                     "attributes": {
                       "file": "macro_calls.utl",
                       "line": 26,
-                      "start": 724,
-                      "end": 742
+                      "start": 727,
+                      "end": 745
                     },
                     "children": [{
                       "name": "literal",
                       "attributes": {
                         "line": 26,
-                        "start": 724,
+                        "start": 727,
                         "type": "array",
                         "file": "macro_calls.utl",
                         "value": "[..]",
-                        "end": 742
+                        "end": 745
                       },
                       "children": [{
                         "name": "array_literal",
                         "attributes": {
                           "file": "macro_calls.utl",
                           "line": 26,
-                          "start": 724,
-                          "end": 742
+                          "start": 727,
+                          "end": 745
                         },
                         "children": [{
                           "name": "array_elems",
                           "attributes": {
                             "file": "macro_calls.utl",
                             "line": 26,
-                            "start": 725,
-                            "end": 741
+                            "start": 728,
+                            "end": 744
                           },
                           "children": [{
                               "name": "expr",
@@ -1496,29 +1585,10 @@
                                 "file": "macro_calls.utl",
                                 "line": 26,
                                 "operator": ":",
-                                "start": 725,
-                                "end": 729
+                                "start": 728,
+                                "end": 732
                               },
                               "children": [{
-                                  "name": "expr",
-                                  "attributes": {
-                                    "file": "macro_calls.utl",
-                                    "line": 26,
-                                    "start": 725,
-                                    "end": 726
-                                  },
-                                  "children": [{
-                                    "name": "id",
-                                    "attributes": {
-                                      "file": "macro_calls.utl",
-                                      "line": 26,
-                                      "symbol": "a",
-                                      "start": 725,
-                                      "end": 726
-                                    }
-                                  }]
-                                },
-                                {
                                   "name": "expr",
                                   "attributes": {
                                     "file": "macro_calls.utl",
@@ -1527,29 +1597,17 @@
                                     "end": 729
                                   },
                                   "children": [{
-                                    "name": "literal",
+                                    "name": "id",
                                     "attributes": {
-                                      "line": 26,
-                                      "start": 728,
-                                      "type": "number",
                                       "file": "macro_calls.utl",
-                                      "value": 3.0,
+                                      "line": 26,
+                                      "symbol": "a",
+                                      "start": 728,
                                       "end": 729
                                     }
                                   }]
-                                }
-                              ]
-                            },
-                            {
-                              "name": "expr",
-                              "attributes": {
-                                "file": "macro_calls.utl",
-                                "line": 26,
-                                "operator": ":",
-                                "start": 731,
-                                "end": 735
-                              },
-                              "children": [{
+                                },
+                                {
                                   "name": "expr",
                                   "attributes": {
                                     "file": "macro_calls.utl",
@@ -1558,33 +1616,14 @@
                                     "end": 732
                                   },
                                   "children": [{
-                                    "name": "id",
-                                    "attributes": {
-                                      "file": "macro_calls.utl",
-                                      "line": 26,
-                                      "symbol": "b",
-                                      "start": 731,
-                                      "end": 732
-                                    }
-                                  }]
-                                },
-                                {
-                                  "name": "expr",
-                                  "attributes": {
-                                    "file": "macro_calls.utl",
-                                    "line": 26,
-                                    "start": 734,
-                                    "end": 735
-                                  },
-                                  "children": [{
                                     "name": "literal",
                                     "attributes": {
                                       "line": 26,
-                                      "start": 734,
+                                      "start": 731,
                                       "type": "number",
                                       "file": "macro_calls.utl",
-                                      "value": 4.0,
-                                      "end": 735
+                                      "value": 3.0,
+                                      "end": 732
                                     }
                                   }]
                                 }
@@ -1596,25 +1635,25 @@
                                 "file": "macro_calls.utl",
                                 "line": 26,
                                 "operator": ":",
-                                "start": 737,
-                                "end": 741
+                                "start": 734,
+                                "end": 738
                               },
                               "children": [{
                                   "name": "expr",
                                   "attributes": {
                                     "file": "macro_calls.utl",
                                     "line": 26,
-                                    "start": 737,
-                                    "end": 738
+                                    "start": 734,
+                                    "end": 735
                                   },
                                   "children": [{
                                     "name": "id",
                                     "attributes": {
                                       "file": "macro_calls.utl",
                                       "line": 26,
-                                      "symbol": "c",
-                                      "start": 737,
-                                      "end": 738
+                                      "symbol": "b",
+                                      "start": 734,
+                                      "end": 735
                                     }
                                   }]
                                 },
@@ -1623,18 +1662,68 @@
                                   "attributes": {
                                     "file": "macro_calls.utl",
                                     "line": 26,
-                                    "start": 740,
-                                    "end": 741
+                                    "start": 737,
+                                    "end": 738
                                   },
                                   "children": [{
                                     "name": "literal",
                                     "attributes": {
                                       "line": 26,
+                                      "start": 737,
+                                      "type": "number",
+                                      "file": "macro_calls.utl",
+                                      "value": 4.0,
+                                      "end": 738
+                                    }
+                                  }]
+                                }
+                              ]
+                            },
+                            {
+                              "name": "expr",
+                              "attributes": {
+                                "file": "macro_calls.utl",
+                                "line": 26,
+                                "operator": ":",
+                                "start": 740,
+                                "end": 744
+                              },
+                              "children": [{
+                                  "name": "expr",
+                                  "attributes": {
+                                    "file": "macro_calls.utl",
+                                    "line": 26,
+                                    "start": 740,
+                                    "end": 741
+                                  },
+                                  "children": [{
+                                    "name": "id",
+                                    "attributes": {
+                                      "file": "macro_calls.utl",
+                                      "line": 26,
+                                      "symbol": "c",
                                       "start": 740,
+                                      "end": 741
+                                    }
+                                  }]
+                                },
+                                {
+                                  "name": "expr",
+                                  "attributes": {
+                                    "file": "macro_calls.utl",
+                                    "line": 26,
+                                    "start": 743,
+                                    "end": 744
+                                  },
+                                  "children": [{
+                                    "name": "literal",
+                                    "attributes": {
+                                      "line": 26,
+                                      "start": 743,
                                       "type": "number",
                                       "file": "macro_calls.utl",
                                       "value": 5.0,
-                                      "end": 741
+                                      "end": 744
                                     }
                                   }]
                                 }
@@ -1649,6 +1738,157 @@
               }
             ]
           }]
+        }, {
+          "name": "eostmt",
+          "attributes": {
+            "text": ";",
+            "start": 746,
+            "end": 747,
+            "line": 26,
+            "file": "macro_calls.utl"
+          }
+        }]
+      },
+      {
+        "name": "statement",
+        "attributes": {
+          "file": "macro_calls.utl",
+          "line": 29,
+          "start": 826,
+          "end": 854
+        },
+        "children": [{
+          "name": "expr",
+          "attributes": {
+            "file": "macro_calls.utl",
+            "line": 29,
+            "start": 826,
+            "end": 853
+          },
+          "children": [{
+            "name": "macro_call",
+            "attributes": {
+              "file": "macro_calls.utl",
+              "line": 29,
+              "start": 826,
+              "end": 853
+            },
+            "children": [{
+                "name": "expr",
+                "attributes": {
+                  "file": "macro_calls.utl",
+                  "line": 29,
+                  "start": 826,
+                  "end": 840
+                },
+                "children": [{
+                  "name": "id",
+                  "attributes": {
+                    "file": "macro_calls.utl",
+                    "line": 29,
+                    "symbol": "callwithparams",
+                    "start": 826,
+                    "end": 840
+                  }
+                }]
+              },
+              {
+                "name": "arg_list",
+                "attributes": {
+                  "file": "macro_calls.utl",
+                  "line": 29,
+                  "start": 841,
+                  "end": 852
+                },
+                "children": [{
+                    "name": "arg",
+                    "attributes": {
+                      "file": "macro_calls.utl",
+                      "line": 29,
+                      "start": 844,
+                      "end": 846
+                    },
+                    "children": [{
+                      "name": "expr",
+                      "attributes": {
+                        "file": "macro_calls.utl",
+                        "line": 29,
+                        "start": 844,
+                        "end": 845
+                      },
+                      "children": [{
+                        "name": "literal",
+                        "attributes": {
+                          "line": 29,
+                          "start": 844,
+                          "type": "number",
+                          "file": "macro_calls.utl",
+                          "value": 5.0,
+                          "end": 845
+                        }
+                      }]
+                    }]
+                  },
+                  {
+                    "name": "arg",
+                    "attributes": {
+                      "file": "macro_calls.utl",
+                      "line": 29,
+                      "start": 849,
+                      "end": 851
+                    },
+                    "children": [{
+                      "name": "expr",
+                      "attributes": {
+                        "file": "macro_calls.utl",
+                        "line": 29,
+                        "start": 849,
+                        "end": 850
+                      },
+                      "children": [{
+                        "name": "literal",
+                        "attributes": {
+                          "line": 29,
+                          "start": 849,
+                          "type": "number",
+                          "file": "macro_calls.utl",
+                          "value": 6.0,
+                          "end": 850
+                        }
+                      }]
+                    }]
+                  }
+                ]
+              }
+            ]
+          }]
+        }, {
+          "name": "eostmt",
+          "attributes": {
+            "text": ";",
+            "start": 853,
+            "end": 854,
+            "line": 29,
+            "file": "macro_calls.utl"
+          }
+        }]
+      }, {
+        "name": "statement",
+        "attributes": {
+          "start": 856,
+          "end": 858,
+          "line": 31,
+          "file": "macro_calls.utl"
+        },
+        "children": [{
+          "name": "eostmt",
+          "attributes": {
+            "text": "%]",
+            "start": 856,
+            "end": 858,
+            "line": 31,
+            "file": "macro_calls.utl"
+          }
         }]
       }
     ]
