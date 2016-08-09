@@ -17,7 +17,7 @@
     "children": [{
       "name": "statement",
       "attributes": {
-        "end": 21,
+        "end": 22,
         "start": 3,
         "line": 2,
         "file": "includes.utl"
@@ -50,11 +50,20 @@
             }
           }]
         }]
+      }, {
+        "name": "eostmt",
+        "attributes": {
+          "text": ";",
+          "start": 21,
+          "end": 22,
+          "line": 2,
+          "file": "includes.utl"
+        }
       }]
     }, {
       "name": "statement",
       "attributes": {
-        "end": 40,
+        "end": 41,
         "start": 23,
         "line": 3,
         "file": "includes.utl"
@@ -86,11 +95,20 @@
             }
           }]
         }]
+      }, {
+        "name": "eostmt",
+        "attributes": {
+          "text": ";",
+          "start": 40,
+          "end": 41,
+          "line": 3,
+          "file": "includes.utl"
+        }
       }]
     }, {
       "name": "statement",
       "attributes": {
-        "end": 87,
+        "end": 90,
         "start": 42,
         "line": 4,
         "file": "includes.utl"
@@ -219,6 +237,15 @@
             }]
           }]
         }]
+      }, {
+        "name": "eostmt",
+        "attributes": {
+          "text": "%]",
+          "start": 88,
+          "end": 90,
+          "line": 5,
+          "file": "includes.utl"
+        }
       }]
     }]
   }]
