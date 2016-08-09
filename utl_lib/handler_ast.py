@@ -340,6 +340,6 @@ class UTLParseHandlerAST(UTLParseHandler):
         attrs.update({'type': 'string', 'value': literal})
         return ASTNode('literal', attrs, [])
 
-    def while_stmt(self, parser: UTLParser, expr: ASTNode,
+    def while_stmt(self, parser: UTLParser, expr: ASTNode, eostmt: ASTNode,
                    statement_list: ASTNode=None) -> ASTNode:
         return ASTNode('while', parser.context, [expr, statement_list])

@@ -20,7 +20,7 @@
         "line": 1,
         "file": "while.utl",
         "start": 3,
-        "end": 43
+        "end": 44
       },
       "children": [{
         "name": "while_stmt",
@@ -77,6 +77,15 @@
             }]
           }]
         }, {
+          "name": "eostmt",
+          "attributes": {
+            "text": "%]",
+            "start": 20,
+            "end": 22,
+            "line": 1,
+            "file": "while.utl"
+          }
+        }, {
           "name": "statement_list",
           "attributes": {
             "line": 1,
@@ -104,6 +113,15 @@
             }]
           }]
         }]
+      }, {
+        "name": "eostmt",
+        "attributes": {
+          "text": ";",
+          "start": 43,
+          "end": 44,
+          "line": 3,
+          "file": "while.utl"
+        }
       }]
     }, {
       "name": "statement",
@@ -111,7 +129,7 @@
         "line": 4,
         "file": "while.utl",
         "start": 45,
-        "end": 60
+        "end": 63
       },
       "children": [{
         "name": "while_stmt",
@@ -141,6 +159,15 @@
             }
           }]
         }, {
+          "name": "eostmt",
+          "attributes": {
+            "text": ";",
+            "start": 55,
+            "end": 56,
+            "line": 4,
+            "file": "while.utl"
+          }
+        }, {
           "name": "statement_list",
           "attributes": {
             "line": 4,
@@ -149,6 +176,15 @@
             "end": 56
           }
         }]
+      }, {
+        "name": "eostmt",
+        "attributes": {
+          "text": "%]",
+          "file": "while.utl",
+          "end": 63,
+          "line": 5,
+          "start": 61
+        }
       }]
     }, {
       "name": "statement",

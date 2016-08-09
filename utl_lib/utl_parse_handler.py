@@ -504,12 +504,14 @@ class UTLParseHandler(object):
         """
         return None
 
-    def while_stmt(self, parser, expr, statement_list=None):
+    def while_stmt(self, parser, expr, eostmt, statement_list=None):
         """A while statement.
 
         :param parser: The parser which called this handler.
 
         :param expr: An "expr" production, which is to be evaluated to true/false.
+
+        :param eostmt: An "eostmt" production.
 
         :param statement_list: A "statement_list" production for the body of the loop, or
             ``None`` if no body was given.

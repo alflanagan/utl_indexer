@@ -50,7 +50,10 @@ class UTLParseHandlerParseTree(UTLParseHandler):
     def statement(self, parser, statement, eostmt=None):
         if isinstance(statement, str):
             if statement in UTLLexer.reserved:  # is a keyword (break, return, continue)
-                kids = [ASTNode(statement, parser.context, [])]
+                attrs = parser.context
+                if eostmt and eostmt.attributes["text"]:
+                    attrs["end"] = attrs["end"] - len(eostmt.attributes["text"])
+                kids = [ASTNode(statement, attrs, [])]
                 if eostmt is not None:
                     kids.append(eostmt)
                 return ASTNode('statement', parser.context, kids)
@@ -119,25 +122,6 @@ class UTLParseHandlerParseTree(UTLParseHandler):
             new_arg_list = arg_or_list
         assert new_arg_list.symbol == "arg_list"
         return new_arg_list
-
-        # if arg_or_list == ",":
-            # # use empty argument -- position may be significant
-            # arg_or_list = ASTNode('arg', parser.context, [])
-        # if arg is None:
-            # assert arg_or_list.symbol == 'arg'
-            # return ASTNode('arg_list', parser.context, [arg_or_list])
-        # else:
-            # if arg == ',' and arg_or_list.symbol == 'arg_list':
-                # arg = ASTNode('arg', parser.context, [])
-            # # if arg == ',' here, it's an expected separator
-            # if arg != ',':
-                # assert arg.symbol == 'arg'
-                # arg_or_list.add_child(arg)
-            # # whatever arg is, it's part of arg_list, so update context
-            # attrs = arg_or_list.attributes._dict
-            # attrs["end"] = parser.context["end"]
-            # arg_or_list.attributes = attrs
-            # return arg_or_list
 
     def array_elems(self, parser, first_part=None, maybe_comma=None, rest=None):
         """A production for a list of 1 to many array elements.
@@ -308,7 +292,6 @@ class UTLParseHandlerParseTree(UTLParseHandler):
             statement_list = ASTNode('statement_list', {}, [])
         return ASTNode('for_stmt', parser.context, [expr, as_clause, eostmt, statement_list])
 
-
     def if_stmt(self, parser, expr, eostmt=None, statement_list=None, elseif_stmts=None,
                 else_stmt=None):
         assert expr is not None
@@ -394,8 +377,8 @@ class UTLParseHandlerParseTree(UTLParseHandler):
         attrs.update({'type': 'string', 'value': literal})
         return ASTNode('literal', attrs, [])
 
-    def while_stmt(self, parser, expr, statement_list=None):
+    def while_stmt(self, parser, expr, eostmt, statement_list=None):
         assert expr is not None
         if statement_list is None:
             statement_list = ASTNode('statement_list', {}, [])
-        return ASTNode('while_stmt', parser.context, [expr, statement_list])
+        return ASTNode('while_stmt', parser.context, [expr, eostmt, statement_list])

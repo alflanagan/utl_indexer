@@ -19,7 +19,7 @@
       "attributes": {
         "file": "keywords.utl",
         "start": 3,
-        "end": 11,
+        "end": 12,
         "line": 1
       },
       "children": [{
@@ -50,13 +50,22 @@
             }
           }]
         }]
+      }, {
+        "name": "eostmt",
+        "attributes": {
+          "text": ";",
+          "start": 11,
+          "end": 12,
+          "line": 1,
+          "file": "keywords.utl"
+        }
       }]
     }, {
       "name": "statement",
       "attributes": {
         "file": "keywords.utl",
         "start": 13,
-        "end": 30,
+        "end": 31,
         "line": 2
       },
       "children": [{
@@ -145,13 +154,22 @@
             }]
           }]
         }]
+      }, {
+        "name": "eostmt",
+        "attributes": {
+          "text": ";",
+          "start": 30,
+          "end": 31,
+          "line": 2,
+          "file": "keywords.utl"
+        }
       }]
     }, {
       "name": "statement",
       "attributes": {
         "file": "keywords.utl",
         "start": 32,
-        "end": 38,
+        "end": 39,
         "line": 3
       },
       "children": [{
@@ -162,13 +180,22 @@
           "end": 38,
           "line": 3
         }
+      }, {
+        "name": "eostmt",
+        "attributes": {
+          "text": ";",
+          "start": 38,
+          "end": 39,
+          "line": 3,
+          "file": "keywords.utl"
+        }
       }]
     }, {
       "name": "statement",
       "attributes": {
         "file": "keywords.utl",
         "start": 40,
-        "end": 65,
+        "end": 66,
         "line": 4
       },
       "children": [{
@@ -199,11 +226,20 @@
             }
           }]
         }, {
+        "name": "eostmt",
+        "attributes": {
+          "text": ";",
+          "start": 50,
+          "end": 51,
+          "line": 4,
+          "file": "keywords.utl"
+        }
+      }, {
           "name": "statement_list",
           "attributes": {
             "file": "keywords.utl",
             "start": 55,
-            "end": 60,
+            "end": 61,
             "line": 5
           },
           "children": [{
@@ -211,7 +247,7 @@
             "attributes": {
               "file": "keywords.utl",
               "start": 55,
-              "end": 60,
+              "end": 61,
               "line": 5
             },
             "children": [{
@@ -222,16 +258,34 @@
                 "end": 60,
                 "line": 5
               }
+            }, {
+              "name": "eostmt",
+              "attributes": {
+                "text": ";",
+                "start": 60,
+                "end": 61,
+                "line": 5,
+                "file": "keywords.utl"
+              }
             }]
           }]
         }]
+      }, {
+        "name": "eostmt",
+        "attributes": {
+          "text": ";",
+          "start": 65,
+          "end": 66,
+          "line": 6,
+          "file": "keywords.utl"
+        }
       }]
     }, {
       "name": "statement",
       "attributes": {
         "file": "keywords.utl",
         "start": 67,
-        "end": 75,
+        "end": 76,
         "line": 7
       },
       "children": [{
@@ -241,6 +295,33 @@
           "start": 67,
           "end": 75,
           "line": 7
+        }
+      }, {
+        "name": "eostmt",
+        "attributes": {
+          "text": ";",
+          "start": 75,
+          "end": 76,
+          "line": 7,
+          "file": "keywords.utl"
+        }
+      }]
+    }, {
+      "name": "statement",
+      "attributes": {
+        "start": 77,
+        "end": 79,
+        "line": 8,
+        "file": "keywords.utl"
+      },
+      "children": [{
+        "name": "eostmt",
+        "attributes": {
+          "start": 77,
+          "end": 79,
+          "line": 8,
+          "file": "keywords.utl",
+          "text": "%]"
         }
       }]
     }, {

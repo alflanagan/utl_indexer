@@ -626,9 +626,9 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                 p[0] = value
 
     def p_while_stmt(self, p):
-        '''while_stmt : WHILE expr statement_list END'''
-        self.__set_ctxt(p, 1, 4)
+        '''while_stmt : WHILE expr eostmt statement_list END'''
+        self.__set_ctxt(p, 1, 5)
         for handler in self.handlers:
-            value = handler.while_stmt(self, p[2], p[3])
+            value = handler.while_stmt(self, p[2], p[3], p[4])
             if p[0] is None:
                 p[0] = value

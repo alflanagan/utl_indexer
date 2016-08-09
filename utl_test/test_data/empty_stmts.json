@@ -286,6 +286,15 @@
               }
             }]
           }, {
+            "name": "eostmt",
+            "attributes": {
+              "text": ";",
+              "start": 60,
+              "end": 61,
+              "line": 5,
+              "file": "empty_stmts.utl"
+            }
+          }, {
             "name": "statement_list",
             "attributes": {
               "start": 61,
@@ -315,19 +324,10 @@
         "file": "empty_stmts.utl"
       },
       "children": [{
-        "name": "while_stmt",
-        "attributes": {
-          "start": 67,
-          "end": 84,
-          "line": 7,
-          "file": "empty_stmts.utl"
-        },
-        "children": [{
-          "name": "expr",
+          "name": "while_stmt",
           "attributes": {
-            "start": 73,
-            "operator": "==",
-            "end": 79,
+            "start": 67,
+            "end": 84,
             "line": 7,
             "file": "empty_stmts.utl"
           },
@@ -335,78 +335,78 @@
             "name": "expr",
             "attributes": {
               "start": 73,
-              "end": 74,
-              "line": 7,
-              "file": "empty_stmts.utl"
-            },
-            "children": [{
-              "name": "id",
-              "attributes": {
-                "start": 73,
-                "file": "empty_stmts.utl",
-                "symbol": "e",
-                "line": 7,
-                "end": 74
-              }
-            }]
-          }, {
-            "name": "expr",
-            "attributes": {
-              "start": 78,
+              "operator": "==",
               "end": 79,
               "line": 7,
               "file": "empty_stmts.utl"
             },
             "children": [{
-              "name": "id",
+              "name": "expr",
+              "attributes": {
+                "start": 73,
+                "end": 74,
+                "line": 7,
+                "file": "empty_stmts.utl"
+              },
+              "children": [{
+                "name": "id",
+                "attributes": {
+                  "start": 73,
+                  "file": "empty_stmts.utl",
+                  "symbol": "e",
+                  "line": 7,
+                  "end": 74
+                }
+              }]
+            }, {
+              "name": "expr",
               "attributes": {
                 "start": 78,
-                "file": "empty_stmts.utl",
-                "symbol": "f",
+                "end": 79,
                 "line": 7,
-                "end": 79
-              }
+                "file": "empty_stmts.utl"
+              },
+              "children": [{
+                "name": "id",
+                "attributes": {
+                  "start": 78,
+                  "file": "empty_stmts.utl",
+                  "symbol": "f",
+                  "line": 7,
+                  "end": 79
+                }
+              }]
             }]
-          }]
-        }, {
-          "name": "statement_list",
-          "attributes": {
-            "start": 79,
-            "end": 80,
-            "line": 7,
-            "file": "empty_stmts.utl"
-          },
-          "children": [{
-            "name": "statement",
+          }, {
+        "name": "eostmt",
+        "attributes": {
+          "text": ";",
+          "start": 79,
+          "end": 80,
+          "line": 7,
+          "file": "empty_stmts.utl"
+        }
+      }, {
+            "name": "statement_list",
             "attributes": {
-              "file": "empty_stmts.utl",
-              "line": 7,
+              "start": 80,
               "end": 80,
-              "start": 79
-            },
-            "children": [{
-              "name": "eostmt",
-              "attributes": {
-                "file": "empty_stmts.utl",
-                "line": 7,
-                "end": 80,
-                "start": 79,
-                "text": ";"
-              }
-            }]
-          }]
-        }]
-      },
-          {
-            "name": "eostmt",
-            "attributes": {
-              "file": "empty_stmts.utl",
-              "line": 8,
-              "end": 85,
-              "start": 84,
-              "text": ";"
+              "line": 7,
+              "file": "empty_stmts.utl"
             }
           }]
+        },
+        {
+          "name": "eostmt",
+          "attributes": {
+            "file": "empty_stmts.utl",
+            "line": 8,
+            "end": 85,
+            "start": 84,
+            "text": ";"
+          }
+        }
+      ]
     }, {
       "name": "statement",
       "attributes": {
@@ -451,14 +451,14 @@
           }
         }]
       }, {
-          "name": "eostmt",
-          "attributes": {
-            "start": 99,
-            "end": 101,
-            "line": 10,
-            "text": "%]",
-            "file": "empty_stmts.utl"
-          }
+        "name": "eostmt",
+        "attributes": {
+          "start": 99,
+          "end": 101,
+          "line": 10,
+          "text": "%]",
+          "file": "empty_stmts.utl"
+        }
       }]
     }, {
       "name": "statement",
