@@ -1,0 +1,878 @@
+{
+  "name": "statement_list",
+  "attributes": {
+    "line": 1,
+    "end": 718,
+    "start": 106,
+    "file": "if_stmts1.utl"
+  },
+  "children": [{
+      "name": "document",
+      "attributes": {
+        "text": "\n<div id=&quot;blox-left-col&quot; class=&quot;grid_",
+        "line": 1,
+        "end": 143,
+        "start": 106,
+        "file": "if_stmts1.utl"
+      }
+    },
+    {
+      "name": "id",
+      "attributes": {
+        "symbol": "grid_set_blox_med_span",
+        "line": 2,
+        "end": 168,
+        "start": 146,
+        "file": "if_stmts1.utl"
+      }
+    },
+    {
+      "name": "if",
+      "attributes": {
+        "line": 2,
+        "end": 229,
+        "start": 174,
+        "file": "if_stmts1.utl"
+      },
+      "children": [{
+          "name": "expr",
+          "attributes": {
+            "line": 2,
+            "operator": "==",
+            "end": 214,
+            "start": 177,
+            "file": "if_stmts1.utl"
+          },
+          "children": [{
+              "name": "expr",
+              "attributes": {
+                "line": 2,
+                "operator": ".",
+                "end": 204,
+                "start": 177,
+                "file": "if_stmts1.utl"
+              },
+              "children": [{
+                  "name": "id",
+                  "attributes": {
+                    "symbol": "cms",
+                    "line": 2,
+                    "end": 180,
+                    "start": 177,
+                    "file": "if_stmts1.utl"
+                  }
+                },
+                {
+                  "name": "expr",
+                  "attributes": {
+                    "line": 2,
+                    "operator": ".",
+                    "end": 204,
+                    "start": 181,
+                    "file": "if_stmts1.utl"
+                  },
+                  "children": [{
+                      "name": "id",
+                      "attributes": {
+                        "symbol": "site",
+                        "line": 2,
+                        "end": 185,
+                        "start": 181,
+                        "file": "if_stmts1.utl"
+                      }
+                    },
+                    {
+                      "name": "expr",
+                      "attributes": {
+                        "line": 2,
+                        "operator": ".",
+                        "end": 204,
+                        "start": 186,
+                        "file": "if_stmts1.utl"
+                      },
+                      "children": [{
+                          "name": "id",
+                          "attributes": {
+                            "symbol": "custom",
+                            "line": 2,
+                            "end": 192,
+                            "start": 186,
+                            "file": "if_stmts1.utl"
+                          }
+                        },
+                        {
+                          "name": "id",
+                          "attributes": {
+                            "symbol": "alpha_omega",
+                            "line": 2,
+                            "end": 204,
+                            "start": 193,
+                            "file": "if_stmts1.utl"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "literal",
+              "attributes": {
+                "type": "string",
+                "start": 208,
+                "value": "true",
+                "line": 2,
+                "end": 214,
+                "file": "if_stmts1.utl"
+              }
+            }
+          ]
+        },
+        {
+          "name": "statement_list",
+          "attributes": {
+            "line": 2,
+            "end": 223,
+            "start": 218,
+            "file": "if_stmts1.utl"
+          },
+          "children": [{
+            "name": "document",
+            "attributes": {
+              "text": "alpha",
+              "line": 2,
+              "end": 223,
+              "start": 218,
+              "file": "if_stmts1.utl"
+            }
+          }]
+        },
+        {
+          "name": "elseif_stmts",
+          "attributes": {
+            "line": 2,
+            "end": 0,
+            "start": 0,
+            "file": "if_stmts1.utl"
+          }
+        },
+        {
+          "name": "else",
+          "attributes": {
+            "line": 2,
+            "end": 0,
+            "start": 0,
+            "file": "if_stmts1.utl"
+          }
+        }
+      ]
+    },
+    {
+      "name": "document",
+      "attributes": {
+        "text": "&quot;>\n<div id=&quot;blox-front&quot; class=&quot;blox-content&quot;>\n",
+        "line": 2,
+        "end": 278,
+        "start": 232,
+        "file": "if_stmts1.utl"
+      }
+    },
+    {
+      "name": "if",
+      "attributes": {
+        "line": 5,
+        "end": 384,
+        "start": 283,
+        "file": "if_stmts1.utl"
+      },
+      "children": [{
+          "name": "expr",
+          "attributes": {
+            "line": 5,
+            "operator": "!",
+            "end": 330,
+            "start": 286,
+            "file": "if_stmts1.utl"
+          },
+          "children": [{
+            "name": "macro_call",
+            "attributes": {
+              "macro_expr": "cms.component.load",
+              "line": 5,
+              "end": 330,
+              "start": 287,
+              "file": "if_stmts1.utl"
+            },
+            "children": [{
+                "name": "expr",
+                "attributes": {
+                  "line": 5,
+                  "operator": ".",
+                  "end": 305,
+                  "start": 287,
+                  "file": "if_stmts1.utl"
+                },
+                "children": [{
+                    "name": "id",
+                    "attributes": {
+                      "symbol": "cms",
+                      "line": 5,
+                      "end": 290,
+                      "start": 287,
+                      "file": "if_stmts1.utl"
+                    }
+                  },
+                  {
+                    "name": "expr",
+                    "attributes": {
+                      "line": 5,
+                      "operator": ".",
+                      "end": 305,
+                      "start": 291,
+                      "file": "if_stmts1.utl"
+                    },
+                    "children": [{
+                        "name": "id",
+                        "attributes": {
+                          "symbol": "component",
+                          "line": 5,
+                          "end": 300,
+                          "start": 291,
+                          "file": "if_stmts1.utl"
+                        }
+                      },
+                      {
+                        "name": "id",
+                        "attributes": {
+                          "symbol": "load",
+                          "line": 5,
+                          "end": 305,
+                          "start": 301,
+                          "file": "if_stmts1.utl"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "arg_list",
+                "attributes": {
+                  "line": 5,
+                  "end": 329,
+                  "start": 306,
+                  "file": "if_stmts1.utl"
+                },
+                "children": [{
+                  "name": "arg",
+                  "attributes": {
+                    "line": 5,
+                    "end": 329,
+                    "start": 306,
+                    "file": "if_stmts1.utl"
+                  },
+                  "children": [{
+                    "name": "literal",
+                    "attributes": {
+                      "type": "string",
+                      "start": 306,
+                      "value": "core_services_manager",
+                      "line": 5,
+                      "end": 329,
+                      "file": "if_stmts1.utl"
+                    }
+                  }]
+                }]
+              }
+            ]
+          }]
+        },
+        {
+          "name": "statement_list",
+          "attributes": {
+            "line": 5,
+            "end": 384,
+            "start": 336,
+            "file": "if_stmts1.utl"
+          },
+          "children": [{
+            "name": "echo",
+            "attributes": {
+              "line": 5,
+              "end": 384,
+              "start": 336,
+              "file": "if_stmts1.utl"
+            },
+            "children": [{
+              "name": "literal",
+              "attributes": {
+                "type": "string",
+                "start": 341,
+                "value": "<!-- error loading Services Component -->",
+                "line": 5,
+                "end": 384,
+                "file": "if_stmts1.utl"
+              }
+            }]
+          }]
+        }
+      ]
+    },
+    {
+      "name": "if",
+      "attributes": {
+        "line": 6,
+        "end": 490,
+        "start": 388,
+        "file": "if_stmts1.utl"
+      },
+      "children": [{
+          "name": "expr",
+          "attributes": {
+            "line": 6,
+            "operator": "!",
+            "end": 435,
+            "start": 391,
+            "file": "if_stmts1.utl"
+          },
+          "children": [{
+            "name": "macro_call",
+            "attributes": {
+              "macro_expr": "cms.component.load",
+              "line": 6,
+              "end": 435,
+              "start": 392,
+              "file": "if_stmts1.utl"
+            },
+            "children": [{
+                "name": "expr",
+                "attributes": {
+                  "line": 6,
+                  "operator": ".",
+                  "end": 410,
+                  "start": 392,
+                  "file": "if_stmts1.utl"
+                },
+                "children": [{
+                    "name": "id",
+                    "attributes": {
+                      "symbol": "cms",
+                      "line": 6,
+                      "end": 395,
+                      "start": 392,
+                      "file": "if_stmts1.utl"
+                    }
+                  },
+                  {
+                    "name": "expr",
+                    "attributes": {
+                      "line": 6,
+                      "operator": ".",
+                      "end": 410,
+                      "start": 396,
+                      "file": "if_stmts1.utl"
+                    },
+                    "children": [{
+                        "name": "id",
+                        "attributes": {
+                          "symbol": "component",
+                          "line": 6,
+                          "end": 405,
+                          "start": 396,
+                          "file": "if_stmts1.utl"
+                        }
+                      },
+                      {
+                        "name": "id",
+                        "attributes": {
+                          "symbol": "load",
+                          "line": 6,
+                          "end": 410,
+                          "start": 406,
+                          "file": "if_stmts1.utl"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "arg_list",
+                "attributes": {
+                  "line": 6,
+                  "end": 434,
+                  "start": 411,
+                  "file": "if_stmts1.utl"
+                },
+                "children": [{
+                  "name": "arg",
+                  "attributes": {
+                    "line": 6,
+                    "end": 434,
+                    "start": 411,
+                    "file": "if_stmts1.utl"
+                  },
+                  "children": [{
+                    "name": "literal",
+                    "attributes": {
+                      "type": "string",
+                      "start": 411,
+                      "value": "core_services_manager",
+                      "line": 6,
+                      "end": 434,
+                      "file": "if_stmts1.utl"
+                    }
+                  }]
+                }]
+              }
+            ]
+          }]
+        },
+        {
+          "name": "statement_list",
+          "attributes": {
+            "line": 6,
+            "end": 485,
+            "start": 437,
+            "file": "if_stmts1.utl"
+          },
+          "children": [{
+            "name": "echo",
+            "attributes": {
+              "line": 6,
+              "end": 485,
+              "start": 437,
+              "file": "if_stmts1.utl"
+            },
+            "children": [{
+              "name": "literal",
+              "attributes": {
+                "type": "string",
+                "start": 442,
+                "value": "<!-- error loading Services Component -->",
+                "line": 6,
+                "end": 485,
+                "file": "if_stmts1.utl"
+              }
+            }]
+          }]
+        },
+        {
+          "name": "elseif_stmts",
+          "attributes": {
+            "line": 6,
+            "end": 0,
+            "start": 0,
+            "file": "if_stmts1.utl"
+          }
+        },
+        {
+          "name": "else",
+          "attributes": {
+            "line": 6,
+            "end": 0,
+            "start": 0,
+            "file": "if_stmts1.utl"
+          }
+        }
+      ]
+    },
+    {
+      "name": "if",
+      "attributes": {
+        "line": 7,
+        "end": 612,
+        "start": 494,
+        "file": "if_stmts1.utl"
+      },
+      "children": [{
+          "name": "expr",
+          "attributes": {
+            "line": 7,
+            "operator": "&&",
+            "end": 554,
+            "start": 497,
+            "file": "if_stmts1.utl"
+          },
+          "children": [{
+              "name": "array_ref",
+              "attributes": {
+                "line": 7,
+                "end": 514,
+                "start": 497,
+                "file": "if_stmts1.utl"
+              },
+              "children": [{
+                  "name": "id",
+                  "attributes": {
+                    "symbol": "aInfo",
+                    "line": 7,
+                    "end": 502,
+                    "start": 497,
+                    "file": "if_stmts1.utl"
+                  }
+                },
+                {
+                  "name": "literal",
+                  "attributes": {
+                    "type": "string",
+                    "start": 503,
+                    "value": "bTracker",
+                    "line": 7,
+                    "end": 513,
+                    "file": "if_stmts1.utl"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "expr",
+              "attributes": {
+                "line": 7,
+                "operator": "!",
+                "end": 554,
+                "start": 518,
+                "file": "if_stmts1.utl"
+              },
+              "children": [{
+                "name": "expr",
+                "attributes": {
+                  "line": 7,
+                  "operator": "==",
+                  "end": 554,
+                  "start": 520,
+                  "file": "if_stmts1.utl"
+                },
+                "children": [{
+                    "name": "macro_call",
+                    "attributes": {
+                      "macro_expr": "cms.request.param",
+                      "line": 7,
+                      "end": 545,
+                      "start": 520,
+                      "file": "if_stmts1.utl"
+                    },
+                    "children": [{
+                        "name": "expr",
+                        "attributes": {
+                          "line": 7,
+                          "operator": ".",
+                          "end": 537,
+                          "start": 520,
+                          "file": "if_stmts1.utl"
+                        },
+                        "children": [{
+                            "name": "id",
+                            "attributes": {
+                              "symbol": "cms",
+                              "line": 7,
+                              "end": 523,
+                              "start": 520,
+                              "file": "if_stmts1.utl"
+                            }
+                          },
+                          {
+                            "name": "expr",
+                            "attributes": {
+                              "line": 7,
+                              "operator": ".",
+                              "end": 537,
+                              "start": 524,
+                              "file": "if_stmts1.utl"
+                            },
+                            "children": [{
+                                "name": "id",
+                                "attributes": {
+                                  "symbol": "request",
+                                  "line": 7,
+                                  "end": 531,
+                                  "start": 524,
+                                  "file": "if_stmts1.utl"
+                                }
+                              },
+                              {
+                                "name": "id",
+                                "attributes": {
+                                  "symbol": "param",
+                                  "line": 7,
+                                  "end": 537,
+                                  "start": 532,
+                                  "file": "if_stmts1.utl"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "arg_list",
+                        "attributes": {
+                          "line": 7,
+                          "end": 544,
+                          "start": 538,
+                          "file": "if_stmts1.utl"
+                        },
+                        "children": [{
+                          "name": "arg",
+                          "attributes": {
+                            "line": 7,
+                            "end": 544,
+                            "start": 538,
+                            "file": "if_stmts1.utl"
+                          },
+                          "children": [{
+                            "name": "literal",
+                            "attributes": {
+                              "type": "string",
+                              "start": 538,
+                              "value": "mode",
+                              "line": 7,
+                              "end": 544,
+                              "file": "if_stmts1.utl"
+                            }
+                          }]
+                        }]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "literal",
+                    "attributes": {
+                      "type": "string",
+                      "start": 549,
+                      "value": "jqm",
+                      "line": 7,
+                      "end": 554,
+                      "file": "if_stmts1.utl"
+                    }
+                  }
+                ]
+              }]
+            }
+          ]
+        },
+        {
+          "name": "statement_list",
+          "attributes": {
+            "line": 8,
+            "end": 605,
+            "start": 563,
+            "file": "if_stmts1.utl"
+          },
+          "children": [{
+            "name": "expr",
+            "attributes": {
+              "line": 8,
+              "operator": "=",
+              "end": 605,
+              "start": 563,
+              "file": "if_stmts1.utl"
+            },
+            "children": [{
+                "name": "array_ref",
+                "attributes": {
+                  "line": 8,
+                  "end": 585,
+                  "start": 563,
+                  "file": "if_stmts1.utl"
+                },
+                "children": [{
+                    "name": "id",
+                    "attributes": {
+                      "symbol": "aInfo",
+                      "line": 8,
+                      "end": 568,
+                      "start": 563,
+                      "file": "if_stmts1.utl"
+                    }
+                  },
+                  {
+                    "name": "literal",
+                    "attributes": {
+                      "type": "string",
+                      "start": 569,
+                      "value": "sServiceClass",
+                      "line": 8,
+                      "end": 584,
+                      "file": "if_stmts1.utl"
+                    }
+                  }
+                ]
+              },
+              {
+                "name": "literal",
+                "attributes": {
+                  "type": "string",
+                  "start": 588,
+                  "value": "managed-service",
+                  "line": 8,
+                  "end": 605,
+                  "file": "if_stmts1.utl"
+                }
+              }
+            ]
+          }]
+        },
+        {
+          "name": "elseif_stmts",
+          "attributes": {
+            "line": 7,
+            "end": 0,
+            "start": 0,
+            "file": "if_stmts1.utl"
+          }
+        },
+        {
+          "name": "else",
+          "attributes": {
+            "line": 7,
+            "end": 0,
+            "start": 0,
+            "file": "if_stmts1.utl"
+          }
+        }
+      ]
+    },
+    {
+      "name": "if",
+      "attributes": {
+        "line": 10,
+        "end": 713,
+        "start": 616,
+        "file": "if_stmts1.utl"
+      },
+      "children": [{
+          "name": "expr",
+          "attributes": {
+            "line": 10,
+            "operator": "==",
+            "end": 637,
+            "start": 619,
+            "file": "if_stmts1.utl"
+          },
+          "children": [{
+              "name": "id",
+              "attributes": {
+                "symbol": "show_flags",
+                "line": 10,
+                "end": 629,
+                "start": 619,
+                "file": "if_stmts1.utl"
+              }
+            },
+            {
+              "name": "literal",
+              "attributes": {
+                "type": "boolean",
+                "start": 633,
+                "value": true,
+                "line": 10,
+                "end": 637,
+                "file": "if_stmts1.utl"
+              }
+            }
+          ]
+        },
+        {
+          "name": "statement_list",
+          "attributes": {
+            "line": 10,
+            "end": 707,
+            "start": 640,
+            "file": "if_stmts1.utl"
+          },
+          "children": [{
+              "name": "document",
+              "attributes": {
+                "text": "\n    <li>",
+                "line": 10,
+                "end": 649,
+                "start": 640,
+                "file": "if_stmts1.utl"
+              }
+            },
+            {
+              "name": "macro_call",
+              "attributes": {
+                "macro_expr": "core_base_library_assetFlags",
+                "line": 11,
+                "end": 696,
+                "start": 652,
+                "file": "if_stmts1.utl"
+              },
+              "children": [{
+                  "name": "id",
+                  "attributes": {
+                    "symbol": "core_base_library_assetFlags",
+                    "line": 11,
+                    "end": 680,
+                    "start": 652,
+                    "file": "if_stmts1.utl"
+                  }
+                },
+                {
+                  "name": "arg_list",
+                  "attributes": {
+                    "line": 11,
+                    "end": 695,
+                    "start": 681,
+                    "file": "if_stmts1.utl"
+                  },
+                  "children": [{
+                    "name": "arg",
+                    "attributes": {
+                      "keyword": "target",
+                      "line": 11,
+                      "file": "if_stmts1.utl",
+                      "start": 681,
+                      "end": 695
+                    },
+                    "children": [{
+                      "name": "id",
+                      "attributes": {
+                        "symbol": "asset",
+                        "line": 11,
+                        "end": 695,
+                        "start": 690,
+                        "file": "if_stmts1.utl"
+                      }
+                    }]
+                  }]
+                }
+              ]
+            },
+            {
+              "name": "document",
+              "attributes": {
+                "text": "</li>\n  ",
+                "line": 11,
+                "end": 707,
+                "start": 699,
+                "file": "if_stmts1.utl"
+              }
+            }
+          ]
+        },
+        {
+          "name": "elseif_stmts",
+          "attributes": {
+            "line": 10,
+            "end": 0,
+            "start": 0,
+            "file": "if_stmts1.utl"
+          }
+        },
+        {
+          "name": "else",
+          "attributes": {
+            "line": 10,
+            "end": 0,
+            "start": 0,
+            "file": "if_stmts1.utl"
+          }
+        }
+      ]
+    }
+  ]
+}

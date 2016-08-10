@@ -103,7 +103,7 @@ class UTLParseHandlerAST(UTLParseHandler):
                 arg = ASTNode('arg', parser.context, [])
             assert arg.symbol == 'arg'
             arg_or_list.add_child(arg)
-            attrs = arg_or_list.attributes.attr_copy
+            attrs = dict(arg_or_list.attributes)
             attrs["end"] = parser.context["end"]
             arg_or_list.attributes = attrs
             return arg_or_list
@@ -183,7 +183,7 @@ class UTLParseHandlerAST(UTLParseHandler):
     def echo_stmt(self, parser: UTLParser, expr: Optional[ASTNode]) -> ASTNode:
         return ASTNode('echo', parser.context, [expr] if expr is not None else [])
 
-    def else_stmt(self, parser: UTLParser, statement_list: Optional[ASTNode]) -> ASTNode:
+    def else_stmt(self, parser: UTLParser, eostmt: None, statement_list: Optional[ASTNode]) -> ASTNode:
         return ASTNode('else', parser.context,
                        [statement_list] if statement_list is not None else [])
 
@@ -197,7 +197,7 @@ class UTLParseHandlerAST(UTLParseHandler):
             elseif_stmts = ASTNode('elseif_stmts', elseif_stmt.attributes, [elseif_stmt])
         return elseif_stmts
 
-    def elseif_stmt(self, parser: UTLParser, expr: ASTNode,
+    def elseif_stmt(self, parser: UTLParser, expr: ASTNode, eostmt: None,
                     statement_list: ASTNode=None) -> ASTNode:
         return ASTNode('elseif', parser.context,
                        [expr, statement_list] if statement_list is not None else [expr])

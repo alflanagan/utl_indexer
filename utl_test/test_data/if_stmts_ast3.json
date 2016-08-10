@@ -1,0 +1,801 @@
+{
+  "name": "statement_list",
+  "attributes": {
+    "line": 1,
+    "end": 421,
+    "start": 4,
+    "file": "if_stmts3.utl"
+  },
+  "children": [{
+      "name": "if",
+      "attributes": {
+        "line": 1,
+        "end": 257,
+        "start": 4,
+        "file": "if_stmts3.utl"
+      },
+      "children": [{
+          "name": "expr",
+          "attributes": {
+            "line": 1,
+            "end": 229,
+            "start": 8,
+            "operator": "&&",
+            "file": "if_stmts3.utl"
+          },
+          "children": [{
+              "name": "expr",
+              "attributes": {
+                "line": 1,
+                "end": 116,
+                "start": 8,
+                "operator": "<",
+                "file": "if_stmts3.utl"
+              },
+              "children": [{
+                  "name": "expr",
+                  "attributes": {
+                    "line": 1,
+                    "end": 107,
+                    "start": 8,
+                    "operator": "-",
+                    "file": "if_stmts3.utl"
+                  },
+                  "children": [{
+                      "name": "expr",
+                      "attributes": {
+                        "line": 1,
+                        "end": 64,
+                        "start": 8,
+                        "operator": "/",
+                        "file": "if_stmts3.utl"
+                      },
+                      "children": [{
+                          "name": "expr",
+                          "attributes": {
+                            "line": 1,
+                            "end": 35,
+                            "start": 8,
+                            "operator": ".",
+                            "file": "if_stmts3.utl"
+                          },
+                          "children": [{
+                              "name": "id",
+                              "attributes": {
+                                "line": 1,
+                                "end": 29,
+                                "start": 8,
+                                "symbol": "myCapturePreviewImage",
+                                "file": "if_stmts3.utl"
+                              }
+                            },
+                            {
+                              "name": "id",
+                              "attributes": {
+                                "line": 1,
+                                "end": 35,
+                                "start": 30,
+                                "symbol": "width",
+                                "file": "if_stmts3.utl"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "name": "expr",
+                          "attributes": {
+                            "line": 1,
+                            "end": 64,
+                            "start": 36,
+                            "operator": ".",
+                            "file": "if_stmts3.utl"
+                          },
+                          "children": [{
+                              "name": "id",
+                              "attributes": {
+                                "line": 1,
+                                "end": 57,
+                                "start": 36,
+                                "symbol": "myCapturePreviewImage",
+                                "file": "if_stmts3.utl"
+                              }
+                            },
+                            {
+                              "name": "id",
+                              "attributes": {
+                                "line": 1,
+                                "end": 64,
+                                "start": 58,
+                                "symbol": "height",
+                                "file": "if_stmts3.utl"
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "expr",
+                      "attributes": {
+                        "line": 1,
+                        "end": 107,
+                        "start": 69,
+                        "operator": "/",
+                        "file": "if_stmts3.utl"
+                      },
+                      "children": [{
+                          "name": "expr",
+                          "attributes": {
+                            "line": 1,
+                            "end": 87,
+                            "start": 69,
+                            "operator": ".",
+                            "file": "if_stmts3.utl"
+                          },
+                          "children": [{
+                              "name": "id",
+                              "attributes": {
+                                "line": 1,
+                                "end": 74,
+                                "start": 69,
+                                "symbol": "asset",
+                                "file": "if_stmts3.utl"
+                              }
+                            },
+                            {
+                              "name": "expr",
+                              "attributes": {
+                                "line": 1,
+                                "end": 87,
+                                "start": 75,
+                                "operator": ".",
+                                "file": "if_stmts3.utl"
+                              },
+                              "children": [{
+                                  "name": "id",
+                                  "attributes": {
+                                    "line": 1,
+                                    "end": 81,
+                                    "start": 75,
+                                    "symbol": "hi_res",
+                                    "file": "if_stmts3.utl"
+                                  }
+                                },
+                                {
+                                  "name": "id",
+                                  "attributes": {
+                                    "line": 1,
+                                    "end": 87,
+                                    "start": 82,
+                                    "symbol": "width",
+                                    "file": "if_stmts3.utl"
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "expr",
+                          "attributes": {
+                            "line": 1,
+                            "end": 107,
+                            "start": 88,
+                            "operator": ".",
+                            "file": "if_stmts3.utl"
+                          },
+                          "children": [{
+                              "name": "id",
+                              "attributes": {
+                                "line": 1,
+                                "end": 93,
+                                "start": 88,
+                                "symbol": "asset",
+                                "file": "if_stmts3.utl"
+                              }
+                            },
+                            {
+                              "name": "expr",
+                              "attributes": {
+                                "line": 1,
+                                "end": 107,
+                                "start": 94,
+                                "operator": ".",
+                                "file": "if_stmts3.utl"
+                              },
+                              "children": [{
+                                  "name": "id",
+                                  "attributes": {
+                                    "line": 1,
+                                    "end": 100,
+                                    "start": 94,
+                                    "symbol": "hi_res",
+                                    "file": "if_stmts3.utl"
+                                  }
+                                },
+                                {
+                                  "name": "id",
+                                  "attributes": {
+                                    "line": 1,
+                                    "end": 107,
+                                    "start": 101,
+                                    "symbol": "height",
+                                    "file": "if_stmts3.utl"
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "expr",
+                  "attributes": {
+                    "line": 1,
+                    "end": 116,
+                    "start": 111,
+                    "operator": "/",
+                    "file": "if_stmts3.utl"
+                  },
+                  "children": [{
+                      "name": "literal",
+                      "attributes": {
+                        "line": 1,
+                        "end": 112,
+                        "value": 1.0,
+                        "file": "if_stmts3.utl",
+                        "type": "number",
+                        "start": 111
+                      }
+                    },
+                    {
+                      "name": "literal",
+                      "attributes": {
+                        "line": 1,
+                        "end": 116,
+                        "value": 100.0,
+                        "file": "if_stmts3.utl",
+                        "type": "number",
+                        "start": 113
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "expr",
+              "attributes": {
+                "line": 1,
+                "end": 229,
+                "start": 121,
+                "operator": ">",
+                "file": "if_stmts3.utl"
+              },
+              "children": [{
+                  "name": "expr",
+                  "attributes": {
+                    "line": 1,
+                    "end": 220,
+                    "start": 121,
+                    "operator": "-",
+                    "file": "if_stmts3.utl"
+                  },
+                  "children": [{
+                      "name": "expr",
+                      "attributes": {
+                        "line": 1,
+                        "end": 177,
+                        "start": 121,
+                        "operator": "/",
+                        "file": "if_stmts3.utl"
+                      },
+                      "children": [{
+                          "name": "expr",
+                          "attributes": {
+                            "line": 1,
+                            "end": 148,
+                            "start": 121,
+                            "operator": ".",
+                            "file": "if_stmts3.utl"
+                          },
+                          "children": [{
+                              "name": "id",
+                              "attributes": {
+                                "line": 1,
+                                "end": 142,
+                                "start": 121,
+                                "symbol": "myCapturePreviewImage",
+                                "file": "if_stmts3.utl"
+                              }
+                            },
+                            {
+                              "name": "id",
+                              "attributes": {
+                                "line": 1,
+                                "end": 148,
+                                "start": 143,
+                                "symbol": "width",
+                                "file": "if_stmts3.utl"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "name": "expr",
+                          "attributes": {
+                            "line": 1,
+                            "end": 177,
+                            "start": 149,
+                            "operator": ".",
+                            "file": "if_stmts3.utl"
+                          },
+                          "children": [{
+                              "name": "id",
+                              "attributes": {
+                                "line": 1,
+                                "end": 170,
+                                "start": 149,
+                                "symbol": "myCapturePreviewImage",
+                                "file": "if_stmts3.utl"
+                              }
+                            },
+                            {
+                              "name": "id",
+                              "attributes": {
+                                "line": 1,
+                                "end": 177,
+                                "start": 171,
+                                "symbol": "height",
+                                "file": "if_stmts3.utl"
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "expr",
+                      "attributes": {
+                        "line": 1,
+                        "end": 220,
+                        "start": 182,
+                        "operator": "/",
+                        "file": "if_stmts3.utl"
+                      },
+                      "children": [{
+                          "name": "expr",
+                          "attributes": {
+                            "line": 1,
+                            "end": 200,
+                            "start": 182,
+                            "operator": ".",
+                            "file": "if_stmts3.utl"
+                          },
+                          "children": [{
+                              "name": "id",
+                              "attributes": {
+                                "line": 1,
+                                "end": 187,
+                                "start": 182,
+                                "symbol": "asset",
+                                "file": "if_stmts3.utl"
+                              }
+                            },
+                            {
+                              "name": "expr",
+                              "attributes": {
+                                "line": 1,
+                                "end": 200,
+                                "start": 188,
+                                "operator": ".",
+                                "file": "if_stmts3.utl"
+                              },
+                              "children": [{
+                                  "name": "id",
+                                  "attributes": {
+                                    "line": 1,
+                                    "end": 194,
+                                    "start": 188,
+                                    "symbol": "hi_res",
+                                    "file": "if_stmts3.utl"
+                                  }
+                                },
+                                {
+                                  "name": "id",
+                                  "attributes": {
+                                    "line": 1,
+                                    "end": 200,
+                                    "start": 195,
+                                    "symbol": "width",
+                                    "file": "if_stmts3.utl"
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "expr",
+                          "attributes": {
+                            "line": 1,
+                            "end": 220,
+                            "start": 201,
+                            "operator": ".",
+                            "file": "if_stmts3.utl"
+                          },
+                          "children": [{
+                              "name": "id",
+                              "attributes": {
+                                "line": 1,
+                                "end": 206,
+                                "start": 201,
+                                "symbol": "asset",
+                                "file": "if_stmts3.utl"
+                              }
+                            },
+                            {
+                              "name": "expr",
+                              "attributes": {
+                                "line": 1,
+                                "end": 220,
+                                "start": 207,
+                                "operator": ".",
+                                "file": "if_stmts3.utl"
+                              },
+                              "children": [{
+                                  "name": "id",
+                                  "attributes": {
+                                    "line": 1,
+                                    "end": 213,
+                                    "start": 207,
+                                    "symbol": "hi_res",
+                                    "file": "if_stmts3.utl"
+                                  }
+                                },
+                                {
+                                  "name": "id",
+                                  "attributes": {
+                                    "line": 1,
+                                    "end": 220,
+                                    "start": 214,
+                                    "symbol": "height",
+                                    "file": "if_stmts3.utl"
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "expr",
+                  "attributes": {
+                    "line": 1,
+                    "end": 229,
+                    "start": 224,
+                    "operator": "/",
+                    "file": "if_stmts3.utl"
+                  },
+                  "children": [{
+                      "name": "literal",
+                      "attributes": {
+                        "line": 1,
+                        "end": 225,
+                        "value": 1.0,
+                        "file": "if_stmts3.utl",
+                        "type": "number",
+                        "start": 224
+                      }
+                    },
+                    {
+                      "name": "literal",
+                      "attributes": {
+                        "line": 1,
+                        "end": 229,
+                        "value": 100.0,
+                        "file": "if_stmts3.utl",
+                        "type": "number",
+                        "start": 226
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "statement_list",
+          "attributes": {
+            "line": 2,
+            "end": 247,
+            "start": 236,
+            "file": "if_stmts3.utl"
+          },
+          "children": [{
+            "name": "echo",
+            "attributes": {
+              "line": 2,
+              "end": 247,
+              "start": 236,
+              "file": "if_stmts3.utl"
+            },
+            "children": [{
+              "name": "literal",
+              "attributes": {
+                "line": 2,
+                "end": 247,
+                "value": "wtf?",
+                "file": "if_stmts3.utl",
+                "type": "string",
+                "start": 241
+              }
+            }]
+          }]
+        },
+        {
+          "name": "elseif_stmts",
+          "attributes": {
+            "line": 1,
+            "end": 0,
+            "start": 0,
+            "file": "if_stmts3.utl"
+          }
+        },
+        {
+          "name": "else",
+          "attributes": {
+            "line": 1,
+            "end": 0,
+            "start": 0,
+            "file": "if_stmts3.utl"
+          }
+        }
+      ]
+    },
+    {
+      "name": "if",
+      "attributes": {
+        "line": 4,
+        "end": 311,
+        "start": 261,
+        "file": "if_stmts3.utl"
+      },
+      "children": [{
+          "name": "expr",
+          "attributes": {
+            "line": 4,
+            "end": 283,
+            "start": 264,
+            "operator": "=",
+            "file": "if_stmts3.utl"
+          },
+          "children": [{
+              "name": "id",
+              "attributes": {
+                "line": 4,
+                "end": 272,
+                "start": 264,
+                "symbol": "assignee",
+                "file": "if_stmts3.utl"
+              }
+            },
+            {
+              "name": "id",
+              "attributes": {
+                "line": 4,
+                "end": 283,
+                "start": 275,
+                "symbol": "assigned",
+                "file": "if_stmts3.utl"
+              }
+            }
+          ]
+        },
+        {
+          "name": "statement_list",
+          "attributes": {
+            "line": 5,
+            "end": 304,
+            "start": 289,
+            "file": "if_stmts3.utl"
+          },
+          "children": [{
+            "name": "macro_call",
+            "attributes": {
+              "line": 5,
+              "end": 304,
+              "start": 289,
+              "file": "if_stmts3.utl",
+              "macro_expr": "this_is_legal"
+            },
+            "children": [{
+                "name": "id",
+                "attributes": {
+                  "line": 5,
+                  "end": 302,
+                  "start": 289,
+                  "symbol": "this_is_legal",
+                  "file": "if_stmts3.utl"
+                }
+              },
+              {
+                "name": "arg_list",
+                "attributes": {
+                  "line": 5,
+                  "end": 0,
+                  "start": 0,
+                  "file": "if_stmts3.utl"
+                }
+              }
+            ]
+          }]
+        },
+        {
+          "name": "elseif_stmts",
+          "attributes": {
+            "line": 4,
+            "end": 0,
+            "start": 0,
+            "file": "if_stmts3.utl"
+          }
+        },
+        {
+          "name": "else",
+          "attributes": {
+            "line": 4,
+            "end": 0,
+            "start": 0,
+            "file": "if_stmts3.utl"
+          }
+        }
+      ]
+    },
+    {
+      "name": "if",
+      "attributes": {
+        "line": 7,
+        "end": 417,
+        "start": 315,
+        "file": "if_stmts3.utl"
+      },
+      "children": [{
+          "name": "expr",
+          "attributes": {
+            "line": 7,
+            "end": 331,
+            "start": 318,
+            "operator": "==",
+            "file": "if_stmts3.utl"
+          },
+          "children": [{
+              "name": "id",
+              "attributes": {
+                "line": 7,
+                "end": 322,
+                "start": 318,
+                "symbol": "fred",
+                "file": "if_stmts3.utl"
+              }
+            },
+            {
+              "name": "id",
+              "attributes": {
+                "line": 7,
+                "end": 331,
+                "start": 326,
+                "symbol": "wilma",
+                "file": "if_stmts3.utl"
+              }
+            }
+          ]
+        },
+        {
+          "name": "statement_list",
+          "attributes": {
+            "line": 7,
+            "end": 354,
+            "start": 334,
+            "file": "if_stmts3.utl"
+          },
+          "children": [{
+            "name": "document",
+            "attributes": {
+              "line": 7,
+              "text": "\n          </div>\n  ",
+              "start": 334,
+              "end": 354,
+              "file": "if_stmts3.utl"
+            }
+          }]
+        },
+        {
+          "name": "elseif_stmts",
+          "attributes": {
+            "line": 9,
+            "end": 411,
+            "start": 360,
+            "file": "if_stmts3.utl"
+          },
+          "children": [{
+            "name": "elseif",
+            "attributes": {
+              "line": 9,
+              "end": 411,
+              "start": 360,
+              "file": "if_stmts3.utl"
+            },
+            "children": [{
+                "name": "expr",
+                "attributes": {
+                  "line": 9,
+                  "end": 393,
+                  "start": 368,
+                  "operator": "==",
+                  "file": "if_stmts3.utl"
+                },
+                "children": [{
+                    "name": "id",
+                    "attributes": {
+                      "line": 9,
+                      "end": 385,
+                      "start": 368,
+                      "symbol": "pixel_sub_grid_on",
+                      "file": "if_stmts3.utl"
+                    }
+                  },
+                  {
+                    "name": "literal",
+                    "attributes": {
+                      "line": 9,
+                      "end": 393,
+                      "value": true,
+                      "file": "if_stmts3.utl",
+                      "type": "boolean",
+                      "start": 389
+                    }
+                  }
+                ]
+              },
+              {
+                "name": "statement_list",
+                "attributes": {
+                  "line": 9,
+                  "end": 411,
+                  "start": 396,
+                  "file": "if_stmts3.utl"
+                },
+                "children": [{
+                  "name": "document",
+                  "attributes": {
+                    "line": 9,
+                    "text": "\n    </dt>\n    ",
+                    "start": 396,
+                    "end": 411,
+                    "file": "if_stmts3.utl"
+                  }
+                }]
+              }
+            ]
+          }]
+        },
+        {
+          "name": "else",
+          "attributes": {
+            "line": 7,
+            "end": 0,
+            "start": 0,
+            "file": "if_stmts3.utl"
+          }
+        }
+      ]
+    }
+  ]
+}

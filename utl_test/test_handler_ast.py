@@ -71,7 +71,10 @@ class UTLParseHandlerASTTestCase(utl_parse_test.TestCaseUTL):
 
     def test_if_stmts(self):
         """Unit test :py:meth:`utl_lib.handler_ast.UTLParseHandlerAST` with if statements."""
-        self.assertJSONFileMatches('if_stmts.utl', 'if_stmts_ast.json')
+        self.assertJSONFileMatches('if_stmts1.utl', 'if_stmts_ast1.json')
+        self.assertJSONFileMatches('if_stmts2.utl', 'if_stmts_ast2.json')
+        self.assertJSONFileMatches('if_stmts3.utl', 'if_stmts_ast3.json')
+        self.assertJSONFileMatches('if_stmts4.utl', 'if_stmts_ast4.json')
 
     def test_macros(self):
         """Unit test :py:meth:`utl_lib.handler_ast.UTLParseHandlerAST` with macro defns/calls."""

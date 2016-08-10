@@ -33,7 +33,10 @@ proj.directory-list = [{'dirloc': loc('.'),
                         'recursive': True,
                         'watch_for_changes': True}]
 proj.file-type = 'shared'
-proj.launch-config = {loc('utl_test/test_utl_yacc.py'): ('project',
+proj.launch-config = {loc('utl_test/test_handler_ast.py'): ('project',
+        (u'',
+         'launch-8UNwuPCxx5Rn6tWQ')),
+                      loc('utl_test/test_utl_yacc.py'): ('project',
         (u'',
          'launch-8UNwuPCxx5Rn6tWQ'))}
 testing.auto-test-file-specs = (('glob',
