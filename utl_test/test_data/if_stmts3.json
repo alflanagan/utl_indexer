@@ -1184,34 +1184,24 @@
                           }]
                         }
                       ]
-                    },
-                    {
-                      "name": "statement_list",
+                    }, {
+                      "name": "eostmt",
                       "attributes": {
                         "start": 394,
+                        "file": "if_stmts3.utl",
+                        "text": "%]",
+                        "end": 396,
+                        "line": 9
+                      }
+                    }, {
+                      "name": "statement_list",
+                      "attributes": {
+                        "start": 396,
                         "file": "if_stmts3.utl",
                         "end": 411,
                         "line": 9
                       },
-                      "children": [{
-                          "name": "statement",
-                          "attributes": {
-                            "start": 394,
-                            "file": "if_stmts3.utl",
-                            "end": 396,
-                            "line": 9
-                          },
-                          "children": [{
-                            "name": "eostmt",
-                            "attributes": {
-                              "start": 394,
-                              "file": "if_stmts3.utl",
-                              "text": "%]",
-                              "end": 396,
-                              "line": 9
-                            }
-                          }]
-                        },
+                      "children": [
                         {
                           "name": "statement",
                           "attributes": {

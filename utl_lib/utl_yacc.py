@@ -296,6 +296,7 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                      | BREAK eostmt
                      | CONTINUE eostmt
                      | EXIT eostmt'''
+        # abbrev_if_stmt expansion ends with statement, so no eostmt reqd.
         if p[1]:  # skip empty statements
             self.__set_ctxt(p, 1, 2)
             for handler in self.handlers:
@@ -420,11 +421,11 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
 
     def p_else_stmt(self, p):
         '''else_stmt :
-                     | ELSE statement_list'''
+                     | ELSE eostmt statement_list'''
         if len(p) > 1:
-            self.__set_ctxt(p, 1, 2)
+            self.__set_ctxt(p, 1, 3)
             for handler in self.handlers:
-                value = handler.else_stmt(self, p[2])
+                value = handler.else_stmt(self, p[2], p[3])
                 if p[0] is None:
                     p[0] = value
 
@@ -439,10 +440,10 @@ class UTLParser(object):  # pylint: disable=too-many-public-methods,too-many-ins
                     p[0] = value
 
     def p_elseif_stmt(self, p):
-        '''elseif_stmt : ELSEIF expr statement_list'''
-        self.__set_ctxt(p, 1, 3)
+        '''elseif_stmt : ELSEIF expr eostmt statement_list'''
+        self.__set_ctxt(p, 1, 4)
         for handler in self.handlers:
-            value = handler.elseif_stmt(self, p[2], p[3])
+            value = handler.elseif_stmt(self, p[2], p[3], p[4])
             if p[0] is None:
                 p[0] = value
 

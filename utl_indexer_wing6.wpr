@@ -34,8 +34,7 @@ proj.directory-list = [{'dirloc': loc('.'),
                         'watch_for_changes': True}]
 proj.file-type = 'shared'
 proj.launch-config = {loc('utl_test/test_utl_yacc.py'): ('project',
-        (u'UTLParserTestCase.test_include_stmts',
+        (u'',
          'launch-8UNwuPCxx5Rn6tWQ'))}
-proj.main-file = loc('utl_test/test_utl_yacc.py')
 testing.auto-test-file-specs = (('glob',
                                  'utl_test/test_*.py'),)

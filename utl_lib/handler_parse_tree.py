@@ -211,9 +211,9 @@ class UTLParseHandlerParseTree(UTLParseHandler):
     def echo_stmt(self, parser, expr):
         return ASTNode('echo', parser.context, [expr] if expr is not None else [])
 
-    def else_stmt(self, parser, statement_list):
+    def else_stmt(self, parser, eostmt, statement_list):
         assert statement_list is not None
-        return ASTNode('else_stmt', parser.context, [statement_list])
+        return ASTNode('else_stmt', parser.context, [eostmt, statement_list])
 
     def elseif_stmts(self, parser, elseif_stmt, elseif_stmts=None):
         assert elseif_stmt is not None
@@ -224,12 +224,12 @@ class UTLParseHandlerParseTree(UTLParseHandler):
             elseif_stmts = ASTNode('elseif_stmts', elseif_stmt.attributes, [elseif_stmt])
         return elseif_stmts
 
-    def elseif_stmt(self, parser, expr, statement_list=None):
+    def elseif_stmt(self, parser, expr, eostmt, statement_list=None):
         assert expr is not None
         if statement_list is None:
             # child is dummy entry, don't give context info
             statement_list = ASTNode('statement_list', {}, [])
-        return ASTNode('elseif_stmt', parser.context, [expr, statement_list])
+        return ASTNode('elseif_stmt', parser.context, [expr, eostmt, statement_list])
 
     def eostmt(self, parser, marker_text):
         attrs = parser.context
@@ -322,10 +322,11 @@ class UTLParseHandlerParseTree(UTLParseHandler):
             attrs.update({'type': 'array', 'value': '[..]'})
             return ASTNode('literal', attrs, [literal])
 
-    def macro_call(self, parser, macro_expr, arg_list):
-        assert macro_expr and arg_list
+    def macro_call(self, parser, macro_expr, arg_list=None):
+        # arg_list may be none: macro_name();
+        assert macro_expr
         return ASTNode('macro_call', parser.context,
-                       [macro_expr, arg_list])
+                       [macro_expr, arg_list] if arg_list is not None else [macro_expr])
 
     def macro_decl(self, parser, macro_name, param_list=None):
         assert macro_name

@@ -273,10 +273,12 @@ class UTLParseHandler(object):
         """
         return None
 
-    def else_stmt(self, parser, statement_list):
+    def else_stmt(self, parser, eostmt, statement_list):
         """An else clause.
 
         :param parser: The parser which called this handler.
+
+        :param eostmt: The "eostmt" production after the "else" keyword.
 
         :param statement_list: The body of the else clause, the result of a previous call to
             :py:meth:`statement_list`.
@@ -297,12 +299,14 @@ class UTLParseHandler(object):
         """
         return None
 
-    def elseif_stmt(self, parser, expr, statement_list):
+    def elseif_stmt(self, parser, expr, eostmt, statement_list):
         """An elseif clause, with a `statement_list` to be executed if `expr` is :py:attr:`True`.
 
         :param parser: The parser which called this handler.
 
         :param expr: An "expr" production.
+
+        :param eostmt: An "eostmt" production.
 
         :param statement_list: A "statement_list" production.
 

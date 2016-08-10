@@ -156,32 +156,22 @@
                   }]
                 }]
               }, {
+                "name": "eostmt",
+                "attributes": {
+                  "file": "empty_stmts.utl",
+                  "line": 2,
+                  "end": 28,
+                  "start": 27,
+                  "text": ";"
+                }
+              }, {
                 "name": "statement_list",
                 "attributes": {
-                  "start": 27,
+                  "start": 28,
                   "end": 28,
                   "line": 2,
                   "file": "empty_stmts.utl"
-                },
-                "children": [{
-                  "name": "statement",
-                  "attributes": {
-                    "file": "empty_stmts.utl",
-                    "line": 2,
-                    "end": 28,
-                    "start": 27
-                  },
-                  "children": [{
-                    "name": "eostmt",
-                    "attributes": {
-                      "file": "empty_stmts.utl",
-                      "line": 2,
-                      "end": 28,
-                      "start": 27,
-                      "text": ";"
-                    }
-                  }]
-                }]
+                }
               }]
             }]
           }, {
@@ -193,32 +183,22 @@
               "file": "empty_stmts.utl"
             },
             "children": [{
+              "name": "eostmt",
+              "attributes": {
+                "file": "empty_stmts.utl",
+                "line": 3,
+                "end": 34,
+                "start": 33,
+                "text": ";"
+              }
+            }, {
               "name": "statement_list",
               "attributes": {
-                "start": 33,
+                "start": 34,
                 "end": 34,
                 "line": 3,
                 "file": "empty_stmts.utl"
-              },
-              "children": [{
-                "name": "statement",
-                "attributes": {
-                  "file": "empty_stmts.utl",
-                  "line": 3,
-                  "end": 34,
-                  "start": 33
-                },
-                "children": [{
-                  "name": "eostmt",
-                  "attributes": {
-                    "file": "empty_stmts.utl",
-                    "line": 3,
-                    "end": 34,
-                    "start": 33,
-                    "text": ";"
-                  }
-                }]
-              }]
+              }
             }]
           }]
         },

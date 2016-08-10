@@ -683,133 +683,120 @@
                     "file": "if_stmts2.utl"
                   },
                   "children": [{
-                      "name": "expr",
-                      "attributes": {
-                        "operator": "=",
-                        "end": 197,
-                        "line": 5,
-                        "start": 178,
-                        "file": "if_stmts2.utl"
-                      },
-                      "children": [{
-                          "name": "expr",
+                    "name": "expr",
+                    "attributes": {
+                      "operator": "=",
+                      "end": 197,
+                      "line": 5,
+                      "start": 178,
+                      "file": "if_stmts2.utl"
+                    },
+                    "children": [{
+                        "name": "expr",
+                        "attributes": {
+                          "end": 190,
+                          "line": 5,
+                          "start": 178,
+                          "file": "if_stmts2.utl"
+                        },
+                        "children": [{
+                          "name": "id",
                           "attributes": {
                             "end": 190,
                             "line": 5,
+                            "symbol": "other_assign",
                             "start": 178,
                             "file": "if_stmts2.utl"
-                          },
-                          "children": [{
-                            "name": "id",
-                            "attributes": {
-                              "end": 190,
-                              "line": 5,
-                              "symbol": "other_assign",
-                              "start": 178,
-                              "file": "if_stmts2.utl"
-                            }
-                          }]
+                          }
+                        }]
+                      },
+                      {
+                        "name": "expr",
+                        "attributes": {
+                          "end": 197,
+                          "line": 5,
+                          "start": 193,
+                          "file": "if_stmts2.utl"
                         },
-                        {
-                          "name": "expr",
+                        "children": [{
+                          "name": "id",
                           "attributes": {
                             "end": 197,
                             "line": 5,
+                            "symbol": "expr",
                             "start": 193,
                             "file": "if_stmts2.utl"
-                          },
-                          "children": [{
-                            "name": "id",
-                            "attributes": {
-                              "end": 197,
-                              "line": 5,
-                              "symbol": "expr",
-                              "start": 193,
-                              "file": "if_stmts2.utl"
-                            }
-                          }]
-                        }
-                      ]
+                          }
+                        }]
+                      }
+                    ]
+                  }, {
+                    "name": "eostmt",
+                    "attributes": {
+                      "start": 197,
+                      "end": 198,
+                      "text": ";",
+                      "line": 5,
+                      "file": "if_stmts2.utl"
+                    }
+                  }, {
+                    "name": "statement_list",
+                    "attributes": {
+                      "end": 222,
+                      "line": 6,
+                      "start": 203,
+                      "file": "if_stmts2.utl"
                     },
-                    {
-                      "name": "statement_list",
+                    "children": [{
+                      "name": "statement",
                       "attributes": {
                         "end": 222,
-                        "line": 5,
-                        "start": 197,
+                        "line": 6,
+                        "start": 203,
                         "file": "if_stmts2.utl"
                       },
                       "children": [{
-                          "name": "statement",
+                          "name": "echo",
                           "attributes": {
-                            "end": 198,
-                            "line": 5,
-                            "start": 197,
-                            "file": "if_stmts2.utl"
-                          },
-                          "children": [{
-                            "name": "eostmt",
-                            "attributes": {
-                              "end": 198,
-                              "line": 5,
-                              "text": ";",
-                              "start": 197,
-                              "file": "if_stmts2.utl"
-                            }
-                          }]
-                        },
-                        {
-                          "name": "statement",
-                          "attributes": {
-                            "end": 222,
+                            "end": 221,
                             "line": 6,
                             "start": 203,
                             "file": "if_stmts2.utl"
                           },
                           "children": [{
-                              "name": "echo",
+                            "name": "expr",
+                            "attributes": {
+                              "end": 221,
+                              "line": 6,
+                              "start": 208,
+                              "file": "if_stmts2.utl"
+                            },
+                            "children": [{
+                              "name": "literal",
                               "attributes": {
+                                "type": "string",
+                                "value": "still_legal",
+                                "start": 208,
                                 "end": 221,
                                 "line": 6,
-                                "start": 203,
-                                "file": "if_stmts2.utl"
-                              },
-                              "children": [{
-                                "name": "expr",
-                                "attributes": {
-                                  "end": 221,
-                                  "line": 6,
-                                  "start": 208,
-                                  "file": "if_stmts2.utl"
-                                },
-                                "children": [{
-                                  "name": "literal",
-                                  "attributes": {
-                                    "type": "string",
-                                    "value": "still_legal",
-                                    "start": 208,
-                                    "end": 221,
-                                    "line": 6,
-                                    "file": "if_stmts2.utl"
-                                  }
-                                }]
-                              }]
-                            },
-                            {
-                              "name": "eostmt",
-                              "attributes": {
-                                "end": 222,
-                                "line": 6,
-                                "text": ";",
-                                "start": 221,
                                 "file": "if_stmts2.utl"
                               }
-                            }
-                          ]
+                            }]
+                          }]
+                        },
+                        {
+                          "name": "eostmt",
+                          "attributes": {
+                            "end": 222,
+                            "line": 6,
+                            "text": ";",
+                            "start": 221,
+                            "file": "if_stmts2.utl"
+                          }
                         }
                       ]
-                    }
-                  ]
+                    }]
+                  }]
                 }]
               }
             ]
@@ -1229,249 +1216,236 @@
                       "file": "if_stmts2.utl"
                     },
                     "children": [{
+                      "name": "expr",
+                      "attributes": {
+                        "end": 330,
+                        "line": 14,
+                        "start": 322,
+                        "file": "if_stmts2.utl"
+                      },
+                      "children": [{
                         "name": "expr",
                         "attributes": {
+                          "operator": "==",
                           "end": 330,
                           "line": 14,
                           "start": 322,
                           "file": "if_stmts2.utl"
                         },
                         "children": [{
-                          "name": "expr",
-                          "attributes": {
-                            "operator": "==",
-                            "end": 330,
-                            "line": 14,
-                            "start": 322,
-                            "file": "if_stmts2.utl"
-                          },
-                          "children": [{
-                              "name": "expr",
-                              "attributes": {
-                                "end": 324,
-                                "line": 14,
-                                "start": 323,
-                                "file": "if_stmts2.utl"
-                              },
-                              "children": [{
-                                "name": "id",
-                                "attributes": {
-                                  "end": 324,
-                                  "line": 14,
-                                  "symbol": "a",
-                                  "start": 323,
-                                  "file": "if_stmts2.utl"
-                                }
-                              }]
-                            },
-                            {
-                              "name": "expr",
-                              "attributes": {
-                                "end": 329,
-                                "line": 14,
-                                "start": 328,
-                                "file": "if_stmts2.utl"
-                              },
-                              "children": [{
-                                "name": "literal",
-                                "attributes": {
-                                  "type": "number",
-                                  "value": 5.0,
-                                  "start": 328,
-                                  "end": 329,
-                                  "line": 14,
-                                  "file": "if_stmts2.utl"
-                                }
-                              }]
-                            }
-                          ]
-                        }]
-                      },
-                      {
-                        "name": "statement_list",
-                        "attributes": {
-                          "end": 363,
-                          "line": 14,
-                          "start": 330,
-                          "file": "if_stmts2.utl"
-                        },
-                        "children": [{
-                            "name": "statement",
+                            "name": "expr",
                             "attributes": {
-                              "end": 331,
+                              "end": 324,
                               "line": 14,
-                              "start": 330,
+                              "start": 323,
                               "file": "if_stmts2.utl"
                             },
                             "children": [{
-                              "name": "eostmt",
+                              "name": "id",
                               "attributes": {
-                                "end": 331,
+                                "end": 324,
                                 "line": 14,
-                                "text": ";",
-                                "start": 330,
+                                "symbol": "a",
+                                "start": 323,
                                 "file": "if_stmts2.utl"
                               }
                             }]
                           },
                           {
-                            "name": "statement",
+                            "name": "expr",
                             "attributes": {
-                              "end": 363,
+                              "end": 329,
+                              "line": 14,
+                              "start": 328,
+                              "file": "if_stmts2.utl"
+                            },
+                            "children": [{
+                              "name": "literal",
+                              "attributes": {
+                                "type": "number",
+                                "value": 5.0,
+                                "start": 328,
+                                "end": 329,
+                                "line": 14,
+                                "file": "if_stmts2.utl"
+                              }
+                            }]
+                          }
+                        ]
+                      }]
+                    }, {
+                      "name": "eostmt",
+                      "attributes": {
+                        "end": 331,
+                        "line": 14,
+                        "text": ";",
+                        "start": 330,
+                        "file": "if_stmts2.utl"
+                      }
+                    }, {
+                      "name": "statement_list",
+                      "attributes": {
+                        "end": 363,
+                        "line": 15,
+                        "start": 337,
+                        "file": "if_stmts2.utl"
+                      },
+                      "children": [{
+                        "name": "statement",
+                        "attributes": {
+                          "end": 363,
+                          "line": 15,
+                          "start": 337,
+                          "file": "if_stmts2.utl"
+                        },
+                        "children": [{
+                            "name": "expr",
+                            "attributes": {
+                              "end": 362,
                               "line": 15,
                               "start": 337,
                               "file": "if_stmts2.utl"
                             },
                             "children": [{
-                                "name": "expr",
-                                "attributes": {
-                                  "end": 362,
-                                  "line": 15,
-                                  "start": 337,
-                                  "file": "if_stmts2.utl"
-                                },
-                                "children": [{
-                                  "name": "macro_call",
+                              "name": "macro_call",
+                              "attributes": {
+                                "end": 362,
+                                "line": 15,
+                                "start": 337,
+                                "file": "if_stmts2.utl"
+                              },
+                              "children": [{
+                                  "name": "expr",
                                   "attributes": {
-                                    "end": 362,
+                                    "end": 352,
                                     "line": 15,
                                     "start": 337,
                                     "file": "if_stmts2.utl"
                                   },
                                   "children": [{
-                                      "name": "expr",
+                                    "name": "id",
+                                    "attributes": {
+                                      "end": 352,
+                                      "line": 15,
+                                      "symbol": "scream_in_panic",
+                                      "start": 337,
+                                      "file": "if_stmts2.utl"
+                                    }
+                                  }]
+                                },
+                                {
+                                  "name": "arg_list",
+                                  "attributes": {
+                                    "end": 361,
+                                    "line": 15,
+                                    "start": 353,
+                                    "file": "if_stmts2.utl"
+                                  },
+                                  "children": [{
+                                      "name": "arg",
                                       "attributes": {
-                                        "end": 352,
-                                        "line": 15,
-                                        "start": 337,
-                                        "file": "if_stmts2.utl"
-                                      },
-                                      "children": [{
-                                        "name": "id",
-                                        "attributes": {
-                                          "end": 352,
-                                          "line": 15,
-                                          "symbol": "scream_in_panic",
-                                          "start": 337,
-                                          "file": "if_stmts2.utl"
-                                        }
-                                      }]
-                                    },
-                                    {
-                                      "name": "arg_list",
-                                      "attributes": {
-                                        "end": 361,
+                                        "end": 355,
                                         "line": 15,
                                         "start": 353,
                                         "file": "if_stmts2.utl"
                                       },
                                       "children": [{
-                                          "name": "arg",
+                                        "name": "expr",
+                                        "attributes": {
+                                          "end": 354,
+                                          "line": 15,
+                                          "start": 353,
+                                          "file": "if_stmts2.utl"
+                                        },
+                                        "children": [{
+                                          "name": "literal",
                                           "attributes": {
-                                            "end": 355,
-                                            "line": 15,
+                                            "type": "number",
+                                            "value": 7.0,
                                             "start": 353,
-                                            "file": "if_stmts2.utl"
-                                          },
-                                          "children": [{
-                                            "name": "expr",
-                                            "attributes": {
-                                              "end": 354,
-                                              "line": 15,
-                                              "start": 353,
-                                              "file": "if_stmts2.utl"
-                                            },
-                                            "children": [{
-                                              "name": "literal",
-                                              "attributes": {
-                                                "type": "number",
-                                                "value": 7.0,
-                                                "start": 353,
-                                                "end": 354,
-                                                "line": 15,
-                                                "file": "if_stmts2.utl"
-                                              }
-                                            }]
-                                          }]
-                                        },
-                                        {
-                                          "name": "arg",
-                                          "attributes": {
-                                            "end": 359,
+                                            "end": 354,
                                             "line": 15,
-                                            "start": 356,
                                             "file": "if_stmts2.utl"
-                                          },
-                                          "children": [{
-                                            "name": "expr",
-                                            "attributes": {
-                                              "end": 358,
-                                              "line": 15,
-                                              "start": 356,
-                                              "file": "if_stmts2.utl"
-                                            },
-                                            "children": [{
-                                              "name": "literal",
-                                              "attributes": {
-                                                "type": "number",
-                                                "value": 12.0,
-                                                "start": 356,
-                                                "end": 358,
-                                                "line": 15,
-                                                "file": "if_stmts2.utl"
-                                              }
-                                            }]
-                                          }]
+                                          }
+                                        }]
+                                      }]
+                                    },
+                                    {
+                                      "name": "arg",
+                                      "attributes": {
+                                        "end": 359,
+                                        "line": 15,
+                                        "start": 356,
+                                        "file": "if_stmts2.utl"
+                                      },
+                                      "children": [{
+                                        "name": "expr",
+                                        "attributes": {
+                                          "end": 358,
+                                          "line": 15,
+                                          "start": 356,
+                                          "file": "if_stmts2.utl"
                                         },
-                                        {
-                                          "name": "arg",
+                                        "children": [{
+                                          "name": "literal",
                                           "attributes": {
+                                            "type": "number",
+                                            "value": 12.0,
+                                            "start": 356,
+                                            "end": 358,
+                                            "line": 15,
+                                            "file": "if_stmts2.utl"
+                                          }
+                                        }]
+                                      }]
+                                    },
+                                    {
+                                      "name": "arg",
+                                      "attributes": {
+                                        "end": 361,
+                                        "line": 15,
+                                        "start": 360,
+                                        "file": "if_stmts2.utl"
+                                      },
+                                      "children": [{
+                                        "name": "expr",
+                                        "attributes": {
+                                          "end": 361,
+                                          "line": 15,
+                                          "start": 360,
+                                          "file": "if_stmts2.utl"
+                                        },
+                                        "children": [{
+                                          "name": "literal",
+                                          "attributes": {
+                                            "type": "number",
+                                            "value": 2.0,
+                                            "start": 360,
                                             "end": 361,
                                             "line": 15,
-                                            "start": 360,
                                             "file": "if_stmts2.utl"
-                                          },
-                                          "children": [{
-                                            "name": "expr",
-                                            "attributes": {
-                                              "end": 361,
-                                              "line": 15,
-                                              "start": 360,
-                                              "file": "if_stmts2.utl"
-                                            },
-                                            "children": [{
-                                              "name": "literal",
-                                              "attributes": {
-                                                "type": "number",
-                                                "value": 2.0,
-                                                "start": 360,
-                                                "end": 361,
-                                                "line": 15,
-                                                "file": "if_stmts2.utl"
-                                              }
-                                            }]
-                                          }]
-                                        }
-                                      ]
+                                          }
+                                        }]
+                                      }]
                                     }
                                   ]
-                                }]
-                              },
-                              {
-                                "name": "eostmt",
-                                "attributes": {
-                                  "end": 363,
-                                  "line": 15,
-                                  "text": ";",
-                                  "start": 362,
-                                  "file": "if_stmts2.utl"
                                 }
-                              }
-                            ]
+                              ]
+                            }]
+                          },
+                          {
+                            "name": "eostmt",
+                            "attributes": {
+                              "end": 363,
+                              "line": 15,
+                              "text": ";",
+                              "start": 362,
+                              "file": "if_stmts2.utl"
+                            }
                           }
                         ]
-                      }
-                    ]
+                      }]
+                    }]
                   },
                   {
                     "name": "elseif_stmt",
@@ -1482,65 +1456,73 @@
                       "file": "if_stmts2.utl"
                     },
                     "children": [{
-                        "name": "expr",
-                        "attributes": {
-                          "operator": ">=",
-                          "end": 401,
-                          "line": 16,
-                          "start": 374,
-                          "file": "if_stmts2.utl"
-                        },
-                        "children": [{
-                            "name": "expr",
-                            "attributes": {
-                              "operator": ".",
-                              "end": 385,
-                              "line": 16,
-                              "start": 374,
-                              "file": "if_stmts2.utl"
-                            },
-                            "children": [{
-                                "name": "expr",
+                      "name": "expr",
+                      "attributes": {
+                        "operator": ">=",
+                        "end": 401,
+                        "line": 16,
+                        "start": 374,
+                        "file": "if_stmts2.utl"
+                      },
+                      "children": [{
+                          "name": "expr",
+                          "attributes": {
+                            "operator": ".",
+                            "end": 385,
+                            "line": 16,
+                            "start": 374,
+                            "file": "if_stmts2.utl"
+                          },
+                          "children": [{
+                              "name": "expr",
+                              "attributes": {
+                                "end": 379,
+                                "line": 16,
+                                "start": 374,
+                                "file": "if_stmts2.utl"
+                              },
+                              "children": [{
+                                "name": "id",
                                 "attributes": {
                                   "end": 379,
                                   "line": 16,
+                                  "symbol": "photo",
                                   "start": 374,
                                   "file": "if_stmts2.utl"
-                                },
-                                "children": [{
-                                  "name": "id",
-                                  "attributes": {
-                                    "end": 379,
-                                    "line": 16,
-                                    "symbol": "photo",
-                                    "start": 374,
-                                    "file": "if_stmts2.utl"
-                                  }
-                                }]
+                                }
+                              }]
+                            },
+                            {
+                              "name": "expr",
+                              "attributes": {
+                                "end": 385,
+                                "line": 16,
+                                "start": 380,
+                                "file": "if_stmts2.utl"
                               },
-                              {
-                                "name": "expr",
+                              "children": [{
+                                "name": "id",
                                 "attributes": {
                                   "end": 385,
                                   "line": 16,
+                                  "symbol": "width",
                                   "start": 380,
                                   "file": "if_stmts2.utl"
-                                },
-                                "children": [{
-                                  "name": "id",
-                                  "attributes": {
-                                    "end": 385,
-                                    "line": 16,
-                                    "symbol": "width",
-                                    "start": 380,
-                                    "file": "if_stmts2.utl"
-                                  }
-                                }]
-                              }
-                            ]
+                                }
+                              }]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "expr",
+                          "attributes": {
+                            "end": 401,
+                            "line": 16,
+                            "start": 389,
+                            "file": "if_stmts2.utl"
                           },
-                          {
-                            "name": "expr",
+                          "children": [{
+                            "name": "array_ref",
                             "attributes": {
                               "end": 401,
                               "line": 16,
@@ -1548,88 +1530,78 @@
                               "file": "if_stmts2.utl"
                             },
                             "children": [{
-                              "name": "array_ref",
-                              "attributes": {
-                                "end": 401,
-                                "line": 16,
-                                "start": 389,
-                                "file": "if_stmts2.utl"
-                              },
-                              "children": [{
-                                  "name": "expr",
+                                "name": "expr",
+                                "attributes": {
+                                  "end": 398,
+                                  "line": 16,
+                                  "start": 389,
+                                  "file": "if_stmts2.utl"
+                                },
+                                "children": [{
+                                  "name": "id",
                                   "attributes": {
                                     "end": 398,
                                     "line": 16,
+                                    "symbol": "sizeArray",
                                     "start": 389,
                                     "file": "if_stmts2.utl"
-                                  },
-                                  "children": [{
-                                    "name": "id",
-                                    "attributes": {
-                                      "end": 398,
-                                      "line": 16,
-                                      "symbol": "sizeArray",
-                                      "start": 389,
-                                      "file": "if_stmts2.utl"
-                                    }
-                                  }]
+                                  }
+                                }]
+                              },
+                              {
+                                "name": "expr",
+                                "attributes": {
+                                  "end": 400,
+                                  "line": 16,
+                                  "start": 399,
+                                  "file": "if_stmts2.utl"
                                 },
-                                {
-                                  "name": "expr",
+                                "children": [{
+                                  "name": "literal",
                                   "attributes": {
+                                    "type": "number",
+                                    "value": 0.0,
+                                    "start": 399,
                                     "end": 400,
                                     "line": 16,
-                                    "start": 399,
                                     "file": "if_stmts2.utl"
-                                  },
-                                  "children": [{
-                                    "name": "literal",
-                                    "attributes": {
-                                      "type": "number",
-                                      "value": 0.0,
-                                      "start": 399,
-                                      "end": 400,
-                                      "line": 16,
-                                      "file": "if_stmts2.utl"
-                                    }
-                                  }]
-                                }
-                              ]
-                            }]
-                          }
-                        ]
+                                  }
+                                }]
+                              }
+                            ]
+                          }]
+                        }
+                      ]
+                    }, {
+                      "name": "eostmt",
+                      "attributes": {
+                        "end": 402,
+                        "line": 16,
+                        "text": ";",
+                        "start": 401,
+                        "file": "if_stmts2.utl"
+                      }
+                    }, {
+                      "name": "statement_list",
+                      "attributes": {
+                        "end": 432,
+                        "line": 17,
+                        "start": 408,
+                        "file": "if_stmts2.utl"
                       },
-                      {
-                        "name": "statement_list",
+                      "children": [{
+                        "name": "statement",
                         "attributes": {
                           "end": 432,
-                          "line": 16,
-                          "start": 401,
+                          "line": 17,
+                          "start": 408,
                           "file": "if_stmts2.utl"
                         },
                         "children": [{
-                            "name": "statement",
+                            "name": "expr",
                             "attributes": {
-                              "end": 402,
-                              "line": 16,
-                              "start": 401,
-                              "file": "if_stmts2.utl"
-                            },
-                            "children": [{
-                              "name": "eostmt",
-                              "attributes": {
-                                "end": 402,
-                                "line": 16,
-                                "text": ";",
-                                "start": 401,
-                                "file": "if_stmts2.utl"
-                              }
-                            }]
-                          },
-                          {
-                            "name": "statement",
-                            "attributes": {
-                              "end": 432,
+                              "operator": "=",
+                              "end": 431,
                               "line": 17,
                               "start": 408,
                               "file": "if_stmts2.utl"
@@ -1637,68 +1609,57 @@
                             "children": [{
                                 "name": "expr",
                                 "attributes": {
-                                  "operator": "=",
-                                  "end": 431,
+                                  "end": 421,
                                   "line": 17,
                                   "start": 408,
                                   "file": "if_stmts2.utl"
                                 },
                                 "children": [{
-                                    "name": "expr",
-                                    "attributes": {
-                                      "end": 421,
-                                      "line": 17,
-                                      "start": 408,
-                                      "file": "if_stmts2.utl"
-                                    },
-                                    "children": [{
-                                      "name": "id",
-                                      "attributes": {
-                                        "end": 421,
-                                        "line": 17,
-                                        "symbol": "compared_size",
-                                        "start": 408,
-                                        "file": "if_stmts2.utl"
-                                      }
-                                    }]
-                                  },
-                                  {
-                                    "name": "expr",
-                                    "attributes": {
-                                      "end": 431,
-                                      "line": 17,
-                                      "start": 424,
-                                      "file": "if_stmts2.utl"
-                                    },
-                                    "children": [{
-                                      "name": "literal",
-                                      "attributes": {
-                                        "type": "string",
-                                        "value": "large",
-                                        "start": 424,
-                                        "end": 431,
-                                        "line": 17,
-                                        "file": "if_stmts2.utl"
-                                      }
-                                    }]
+                                  "name": "id",
+                                  "attributes": {
+                                    "end": 421,
+                                    "line": 17,
+                                    "symbol": "compared_size",
+                                    "start": 408,
+                                    "file": "if_stmts2.utl"
                                   }
-                                ]
+                                }]
                               },
                               {
-                                "name": "eostmt",
+                                "name": "expr",
                                 "attributes": {
-                                  "end": 432,
+                                  "end": 431,
                                   "line": 17,
-                                  "text": ";",
-                                  "start": 431,
+                                  "start": 424,
                                   "file": "if_stmts2.utl"
-                                }
+                                },
+                                "children": [{
+                                  "name": "literal",
+                                  "attributes": {
+                                    "type": "string",
+                                    "value": "large",
+                                    "start": 424,
+                                    "end": 431,
+                                    "line": 17,
+                                    "file": "if_stmts2.utl"
+                                  }
+                                }]
                               }
                             ]
+                          },
+                          {
+                            "name": "eostmt",
+                            "attributes": {
+                              "end": 432,
+                              "line": 17,
+                              "text": ";",
+                              "start": 431,
+                              "file": "if_stmts2.utl"
+                            }
                           }
                         ]
-                      }
-                    ]
+                      }]
+                    }]
                   },
                   {
                     "name": "elseif_stmt",
@@ -1709,65 +1670,73 @@
                       "file": "if_stmts2.utl"
                     },
                     "children": [{
-                        "name": "expr",
-                        "attributes": {
-                          "operator": "<=",
-                          "end": 492,
-                          "line": 18,
-                          "start": 443,
-                          "file": "if_stmts2.utl"
-                        },
-                        "children": [{
-                            "name": "expr",
-                            "attributes": {
-                              "operator": ".",
-                              "end": 454,
-                              "line": 18,
-                              "start": 443,
-                              "file": "if_stmts2.utl"
-                            },
-                            "children": [{
-                                "name": "expr",
+                      "name": "expr",
+                      "attributes": {
+                        "operator": "<=",
+                        "end": 492,
+                        "line": 18,
+                        "start": 443,
+                        "file": "if_stmts2.utl"
+                      },
+                      "children": [{
+                          "name": "expr",
+                          "attributes": {
+                            "operator": ".",
+                            "end": 454,
+                            "line": 18,
+                            "start": 443,
+                            "file": "if_stmts2.utl"
+                          },
+                          "children": [{
+                              "name": "expr",
+                              "attributes": {
+                                "end": 448,
+                                "line": 18,
+                                "start": 443,
+                                "file": "if_stmts2.utl"
+                              },
+                              "children": [{
+                                "name": "id",
                                 "attributes": {
                                   "end": 448,
                                   "line": 18,
+                                  "symbol": "photo",
                                   "start": 443,
                                   "file": "if_stmts2.utl"
-                                },
-                                "children": [{
-                                  "name": "id",
-                                  "attributes": {
-                                    "end": 448,
-                                    "line": 18,
-                                    "symbol": "photo",
-                                    "start": 443,
-                                    "file": "if_stmts2.utl"
-                                  }
-                                }]
+                                }
+                              }]
+                            },
+                            {
+                              "name": "expr",
+                              "attributes": {
+                                "end": 454,
+                                "line": 18,
+                                "start": 449,
+                                "file": "if_stmts2.utl"
                               },
-                              {
-                                "name": "expr",
+                              "children": [{
+                                "name": "id",
                                 "attributes": {
                                   "end": 454,
                                   "line": 18,
+                                  "symbol": "width",
                                   "start": 449,
                                   "file": "if_stmts2.utl"
-                                },
-                                "children": [{
-                                  "name": "id",
-                                  "attributes": {
-                                    "end": 454,
-                                    "line": 18,
-                                    "symbol": "width",
-                                    "start": 449,
-                                    "file": "if_stmts2.utl"
-                                  }
-                                }]
-                              }
-                            ]
+                                }
+                              }]
+                            }
+                          ]
+                        },
+                        {
+                          "name": "expr",
+                          "attributes": {
+                            "end": 492,
+                            "line": 18,
+                            "start": 458,
+                            "file": "if_stmts2.utl"
                           },
-                          {
-                            "name": "expr",
+                          "children": [{
+                            "name": "array_ref",
                             "attributes": {
                               "end": 492,
                               "line": 18,
@@ -1775,15 +1744,15 @@
                               "file": "if_stmts2.utl"
                             },
                             "children": [{
-                              "name": "array_ref",
-                              "attributes": {
-                                "end": 492,
-                                "line": 18,
-                                "start": 458,
-                                "file": "if_stmts2.utl"
-                              },
-                              "children": [{
-                                  "name": "expr",
+                                "name": "expr",
+                                "attributes": {
+                                  "end": 489,
+                                  "line": 18,
+                                  "start": 458,
+                                  "file": "if_stmts2.utl"
+                                },
+                                "children": [{
+                                  "name": "macro_call",
                                   "attributes": {
                                     "end": 489,
                                     "line": 18,
@@ -1791,94 +1760,94 @@
                                     "file": "if_stmts2.utl"
                                   },
                                   "children": [{
-                                    "name": "macro_call",
-                                    "attributes": {
-                                      "end": 489,
-                                      "line": 18,
-                                      "start": 458,
-                                      "file": "if_stmts2.utl"
-                                    },
-                                    "children": [{
-                                        "name": "expr",
-                                        "attributes": {
-                                          "operator": ".",
-                                          "end": 477,
-                                          "line": 18,
-                                          "start": 458,
-                                          "file": "if_stmts2.utl"
-                                        },
-                                        "children": [{
-                                            "name": "expr",
+                                      "name": "expr",
+                                      "attributes": {
+                                        "operator": ".",
+                                        "end": 477,
+                                        "line": 18,
+                                        "start": 458,
+                                        "file": "if_stmts2.utl"
+                                      },
+                                      "children": [{
+                                          "name": "expr",
+                                          "attributes": {
+                                            "end": 462,
+                                            "line": 18,
+                                            "start": 458,
+                                            "file": "if_stmts2.utl"
+                                          },
+                                          "children": [{
+                                            "name": "id",
                                             "attributes": {
                                               "end": 462,
                                               "line": 18,
+                                              "symbol": "fred",
                                               "start": 458,
                                               "file": "if_stmts2.utl"
-                                            },
-                                            "children": [{
-                                              "name": "id",
-                                              "attributes": {
-                                                "end": 462,
-                                                "line": 18,
-                                                "symbol": "fred",
-                                                "start": 458,
-                                                "file": "if_stmts2.utl"
-                                              }
-                                            }]
+                                            }
+                                          }]
+                                        },
+                                        {
+                                          "name": "expr",
+                                          "attributes": {
+                                            "operator": ".",
+                                            "end": 477,
+                                            "line": 18,
+                                            "start": 463,
+                                            "file": "if_stmts2.utl"
                                           },
-                                          {
-                                            "name": "expr",
-                                            "attributes": {
-                                              "operator": ".",
-                                              "end": 477,
-                                              "line": 18,
-                                              "start": 463,
-                                              "file": "if_stmts2.utl"
-                                            },
-                                            "children": [{
-                                                "name": "expr",
+                                          "children": [{
+                                              "name": "expr",
+                                              "attributes": {
+                                                "end": 470,
+                                                "line": 18,
+                                                "start": 463,
+                                                "file": "if_stmts2.utl"
+                                              },
+                                              "children": [{
+                                                "name": "id",
                                                 "attributes": {
                                                   "end": 470,
                                                   "line": 18,
+                                                  "symbol": "mymacro",
                                                   "start": 463,
                                                   "file": "if_stmts2.utl"
-                                                },
-                                                "children": [{
-                                                  "name": "id",
-                                                  "attributes": {
-                                                    "end": 470,
-                                                    "line": 18,
-                                                    "symbol": "mymacro",
-                                                    "start": 463,
-                                                    "file": "if_stmts2.utl"
-                                                  }
-                                                }]
+                                                }
+                                              }]
+                                            },
+                                            {
+                                              "name": "expr",
+                                              "attributes": {
+                                                "end": 477,
+                                                "line": 18,
+                                                "start": 471,
+                                                "file": "if_stmts2.utl"
                                               },
-                                              {
-                                                "name": "expr",
+                                              "children": [{
+                                                "name": "id",
                                                 "attributes": {
                                                   "end": 477,
                                                   "line": 18,
+                                                  "symbol": "mycall",
                                                   "start": 471,
                                                   "file": "if_stmts2.utl"
-                                                },
-                                                "children": [{
-                                                  "name": "id",
-                                                  "attributes": {
-                                                    "end": 477,
-                                                    "line": 18,
-                                                    "symbol": "mycall",
-                                                    "start": 471,
-                                                    "file": "if_stmts2.utl"
-                                                  }
-                                                }]
-                                              }
-                                            ]
-                                          }
-                                        ]
+                                                }
+                                              }]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "arg_list",
+                                      "attributes": {
+                                        "end": 488,
+                                        "line": 18,
+                                        "start": 478,
+                                        "file": "if_stmts2.utl"
                                       },
-                                      {
-                                        "name": "arg_list",
+                                      "children": [{
+                                        "name": "arg",
                                         "attributes": {
                                           "end": 488,
                                           "line": 18,
@@ -1886,269 +1855,86 @@
                                           "file": "if_stmts2.utl"
                                         },
                                         "children": [{
-                                          "name": "arg",
+                                          "name": "expr",
                                           "attributes": {
+                                            "operator": "-",
                                             "end": 488,
                                             "line": 18,
                                             "start": 478,
                                             "file": "if_stmts2.utl"
                                           },
                                           "children": [{
-                                            "name": "expr",
-                                            "attributes": {
-                                              "operator": "-",
-                                              "end": 488,
-                                              "line": 18,
-                                              "start": 478,
-                                              "file": "if_stmts2.utl"
-                                            },
-                                            "children": [{
-                                                "name": "expr",
-                                                "attributes": {
-                                                  "operator": "*",
-                                                  "end": 484,
-                                                  "line": 18,
-                                                  "start": 478,
-                                                  "file": "if_stmts2.utl"
-                                                },
-                                                "children": [{
-                                                    "name": "expr",
+                                              "name": "expr",
+                                              "attributes": {
+                                                "operator": "*",
+                                                "end": 484,
+                                                "line": 18,
+                                                "start": 478,
+                                                "file": "if_stmts2.utl"
+                                              },
+                                              "children": [{
+                                                  "name": "expr",
+                                                  "attributes": {
+                                                    "end": 480,
+                                                    "line": 18,
+                                                    "start": 478,
+                                                    "file": "if_stmts2.utl"
+                                                  },
+                                                  "children": [{
+                                                    "name": "literal",
                                                     "attributes": {
+                                                      "type": "number",
+                                                      "value": 12.0,
+                                                      "start": 478,
                                                       "end": 480,
                                                       "line": 18,
-                                                      "start": 478,
                                                       "file": "if_stmts2.utl"
-                                                    },
-                                                    "children": [{
-                                                      "name": "literal",
-                                                      "attributes": {
-                                                        "type": "number",
-                                                        "value": 12.0,
-                                                        "start": 478,
-                                                        "end": 480,
-                                                        "line": 18,
-                                                        "file": "if_stmts2.utl"
-                                                      }
-                                                    }]
+                                                    }
+                                                  }]
+                                                },
+                                                {
+                                                  "name": "expr",
+                                                  "attributes": {
+                                                    "end": 484,
+                                                    "line": 18,
+                                                    "start": 483,
+                                                    "file": "if_stmts2.utl"
                                                   },
-                                                  {
-                                                    "name": "expr",
+                                                  "children": [{
+                                                    "name": "literal",
                                                     "attributes": {
+                                                      "type": "number",
+                                                      "value": 3.0,
+                                                      "start": 483,
                                                       "end": 484,
                                                       "line": 18,
-                                                      "start": 483,
                                                       "file": "if_stmts2.utl"
-                                                    },
-                                                    "children": [{
-                                                      "name": "literal",
-                                                      "attributes": {
-                                                        "type": "number",
-                                                        "value": 3.0,
-                                                        "start": 483,
-                                                        "end": 484,
-                                                        "line": 18,
-                                                        "file": "if_stmts2.utl"
-                                                      }
-                                                    }]
-                                                  }
-                                                ]
+                                                    }
+                                                  }]
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "name": "expr",
+                                              "attributes": {
+                                                "end": 488,
+                                                "line": 18,
+                                                "start": 487,
+                                                "file": "if_stmts2.utl"
                                               },
-                                              {
-                                                "name": "expr",
+                                              "children": [{
+                                                "name": "literal",
                                                 "attributes": {
+                                                  "type": "number",
+                                                  "value": 4.0,
+                                                  "start": 487,
                                                   "end": 488,
                                                   "line": 18,
-                                                  "start": 487,
                                                   "file": "if_stmts2.utl"
-                                                },
-                                                "children": [{
-                                                  "name": "literal",
-                                                  "attributes": {
-                                                    "type": "number",
-                                                    "value": 4.0,
-                                                    "start": 487,
-                                                    "end": 488,
-                                                    "line": 18,
-                                                    "file": "if_stmts2.utl"
-                                                  }
-                                                }]
-                                              }
-                                            ]
-                                          }]
-                                        }]
-                                      }
-                                    ]
-                                  }]
-                                },
-                                {
-                                  "name": "expr",
-                                  "attributes": {
-                                    "end": 491,
-                                    "line": 18,
-                                    "start": 490,
-                                    "file": "if_stmts2.utl"
-                                  },
-                                  "children": [{
-                                    "name": "literal",
-                                    "attributes": {
-                                      "type": "number",
-                                      "value": 3.0,
-                                      "start": 490,
-                                      "end": 491,
-                                      "line": 18,
-                                      "file": "if_stmts2.utl"
-                                    }
-                                  }]
-                                }
-                              ]
-                            }]
-                          }
-                        ]
-                      },
-                      {
-                        "name": "statement_list",
-                        "attributes": {
-                          "end": 524,
-                          "line": 18,
-                          "start": 492,
-                          "file": "if_stmts2.utl"
-                        },
-                        "children": [{
-                            "name": "statement",
-                            "attributes": {
-                              "end": 493,
-                              "line": 18,
-                              "start": 492,
-                              "file": "if_stmts2.utl"
-                            },
-                            "children": [{
-                              "name": "eostmt",
-                              "attributes": {
-                                "end": 493,
-                                "line": 18,
-                                "text": ";",
-                                "start": 492,
-                                "file": "if_stmts2.utl"
-                              }
-                            }]
-                          },
-                          {
-                            "name": "statement",
-                            "attributes": {
-                              "end": 524,
-                              "line": 19,
-                              "start": 499,
-                              "file": "if_stmts2.utl"
-                            },
-                            "children": [{
-                                "name": "expr",
-                                "attributes": {
-                                  "end": 523,
-                                  "line": 19,
-                                  "start": 499,
-                                  "file": "if_stmts2.utl"
-                                },
-                                "children": [{
-                                  "name": "macro_call",
-                                  "attributes": {
-                                    "end": 523,
-                                    "line": 19,
-                                    "start": 499,
-                                    "file": "if_stmts2.utl"
-                                  },
-                                  "children": [{
-                                      "name": "expr",
-                                      "attributes": {
-                                        "end": 519,
-                                        "line": 19,
-                                        "start": 499,
-                                        "file": "if_stmts2.utl"
-                                      },
-                                      "children": [{
-                                        "name": "array_ref",
-                                        "attributes": {
-                                          "end": 519,
-                                          "line": 19,
-                                          "start": 499,
-                                          "file": "if_stmts2.utl"
-                                        },
-                                        "children": [{
-                                            "name": "expr",
-                                            "attributes": {
-                                              "end": 515,
-                                              "line": 19,
-                                              "start": 499,
-                                              "file": "if_stmts2.utl"
-                                            },
-                                            "children": [{
-                                              "name": "id",
-                                              "attributes": {
-                                                "end": 515,
-                                                "line": 19,
-                                                "symbol": "array_of_methods",
-                                                "start": 499,
-                                                "file": "if_stmts2.utl"
-                                              }
-                                            }]
-                                          },
-                                          {
-                                            "name": "expr",
-                                            "attributes": {
-                                              "end": 518,
-                                              "line": 19,
-                                              "start": 516,
-                                              "file": "if_stmts2.utl"
-                                            },
-                                            "children": [{
-                                              "name": "literal",
-                                              "attributes": {
-                                                "type": "number",
-                                                "value": 12.0,
-                                                "start": 516,
-                                                "end": 518,
-                                                "line": 19,
-                                                "file": "if_stmts2.utl"
-                                              }
-                                            }]
-                                          }
-                                        ]
-                                      }]
-                                    },
-                                    {
-                                      "name": "arg_list",
-                                      "attributes": {
-                                        "end": 522,
-                                        "line": 19,
-                                        "start": 520,
-                                        "file": "if_stmts2.utl"
-                                      },
-                                      "children": [{
-                                        "name": "arg",
-                                        "attributes": {
-                                          "end": 522,
-                                          "line": 19,
-                                          "start": 520,
-                                          "file": "if_stmts2.utl"
-                                        },
-                                        "children": [{
-                                          "name": "expr",
-                                          "attributes": {
-                                            "end": 522,
-                                            "line": 19,
-                                            "start": 520,
-                                            "file": "if_stmts2.utl"
-                                          },
-                                          "children": [{
-                                            "name": "literal",
-                                            "attributes": {
-                                              "type": "number",
-                                              "value": 47.0,
-                                              "start": 520,
-                                              "end": 522,
-                                              "line": 19,
-                                              "file": "if_stmts2.utl"
+                                                }
+                                              }]
                                             }
-                                          }]
+                                          ]
                                         }]
                                       }]
                                     }
@@ -2156,20 +1942,182 @@
                                 }]
                               },
                               {
-                                "name": "eostmt",
+                                "name": "expr",
                                 "attributes": {
-                                  "end": 524,
-                                  "line": 19,
-                                  "text": ";",
-                                  "start": 523,
+                                  "end": 491,
+                                  "line": 18,
+                                  "start": 490,
                                   "file": "if_stmts2.utl"
-                                }
+                                },
+                                "children": [{
+                                  "name": "literal",
+                                  "attributes": {
+                                    "type": "number",
+                                    "value": 3.0,
+                                    "start": 490,
+                                    "end": 491,
+                                    "line": 18,
+                                    "file": "if_stmts2.utl"
+                                  }
+                                }]
                               }
                             ]
+                          }]
+                        }
+                      ]
+                    }, {
+                      "name": "eostmt",
+                      "attributes": {
+                        "end": 493,
+                        "line": 18,
+                        "text": ";",
+                        "start": 492,
+                        "file": "if_stmts2.utl"
+                      }
+                    }, {
+                      "name": "statement_list",
+                      "attributes": {
+                        "end": 524,
+                        "line": 19,
+                        "start": 499,
+                        "file": "if_stmts2.utl"
+                      },
+                      "children": [{
+                        "name": "statement",
+                        "attributes": {
+                          "end": 524,
+                          "line": 19,
+                          "start": 499,
+                          "file": "if_stmts2.utl"
+                        },
+                        "children": [{
+                            "name": "expr",
+                            "attributes": {
+                              "end": 523,
+                              "line": 19,
+                              "start": 499,
+                              "file": "if_stmts2.utl"
+                            },
+                            "children": [{
+                              "name": "macro_call",
+                              "attributes": {
+                                "end": 523,
+                                "line": 19,
+                                "start": 499,
+                                "file": "if_stmts2.utl"
+                              },
+                              "children": [{
+                                  "name": "expr",
+                                  "attributes": {
+                                    "end": 519,
+                                    "line": 19,
+                                    "start": 499,
+                                    "file": "if_stmts2.utl"
+                                  },
+                                  "children": [{
+                                    "name": "array_ref",
+                                    "attributes": {
+                                      "end": 519,
+                                      "line": 19,
+                                      "start": 499,
+                                      "file": "if_stmts2.utl"
+                                    },
+                                    "children": [{
+                                        "name": "expr",
+                                        "attributes": {
+                                          "end": 515,
+                                          "line": 19,
+                                          "start": 499,
+                                          "file": "if_stmts2.utl"
+                                        },
+                                        "children": [{
+                                          "name": "id",
+                                          "attributes": {
+                                            "end": 515,
+                                            "line": 19,
+                                            "symbol": "array_of_methods",
+                                            "start": 499,
+                                            "file": "if_stmts2.utl"
+                                          }
+                                        }]
+                                      },
+                                      {
+                                        "name": "expr",
+                                        "attributes": {
+                                          "end": 518,
+                                          "line": 19,
+                                          "start": 516,
+                                          "file": "if_stmts2.utl"
+                                        },
+                                        "children": [{
+                                          "name": "literal",
+                                          "attributes": {
+                                            "type": "number",
+                                            "value": 12.0,
+                                            "start": 516,
+                                            "end": 518,
+                                            "line": 19,
+                                            "file": "if_stmts2.utl"
+                                          }
+                                        }]
+                                      }
+                                    ]
+                                  }]
+                                },
+                                {
+                                  "name": "arg_list",
+                                  "attributes": {
+                                    "end": 522,
+                                    "line": 19,
+                                    "start": 520,
+                                    "file": "if_stmts2.utl"
+                                  },
+                                  "children": [{
+                                    "name": "arg",
+                                    "attributes": {
+                                      "end": 522,
+                                      "line": 19,
+                                      "start": 520,
+                                      "file": "if_stmts2.utl"
+                                    },
+                                    "children": [{
+                                      "name": "expr",
+                                      "attributes": {
+                                        "end": 522,
+                                        "line": 19,
+                                        "start": 520,
+                                        "file": "if_stmts2.utl"
+                                      },
+                                      "children": [{
+                                        "name": "literal",
+                                        "attributes": {
+                                          "type": "number",
+                                          "value": 47.0,
+                                          "start": 520,
+                                          "end": 522,
+                                          "line": 19,
+                                          "file": "if_stmts2.utl"
+                                        }
+                                      }]
+                                    }]
+                                  }]
+                                }
+                              ]
+                            }]
+                          },
+                          {
+                            "name": "eostmt",
+                            "attributes": {
+                              "end": 524,
+                              "line": 19,
+                              "text": ";",
+                              "start": 523,
+                              "file": "if_stmts2.utl"
+                            }
                           }
                         ]
-                      }
-                    ]
+                      }]
+                    }]
                   }
                 ]
               },
@@ -2182,33 +2130,23 @@
                   "file": "if_stmts2.utl"
                 },
                 "children": [{
+                  "name": "eostmt",
+                  "attributes": {
+                    "end": 532,
+                    "line": 20,
+                    "text": ";",
+                    "start": 531,
+                    "file": "if_stmts2.utl"
+                  }
+                }, {
                   "name": "statement_list",
                   "attributes": {
                     "end": 555,
-                    "line": 20,
-                    "start": 531,
+                    "line": 21,
+                    "start": 538,
                     "file": "if_stmts2.utl"
                   },
                   "children": [{
-                      "name": "statement",
-                      "attributes": {
-                        "end": 532,
-                        "line": 20,
-                        "start": 531,
-                        "file": "if_stmts2.utl"
-                      },
-                      "children": [{
-                        "name": "eostmt",
-                        "attributes": {
-                          "end": 532,
-                          "line": 20,
-                          "text": ";",
-                          "start": 531,
-                          "file": "if_stmts2.utl"
-                        }
-                      }]
-                    },
-                    {
                       "name": "statement",
                       "attributes": {
                         "end": 555,

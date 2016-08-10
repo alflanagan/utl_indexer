@@ -211,34 +211,23 @@
                           }]
                         }
                       ]
-                    },
-                    {
-                      "name": "statement_list",
+                    },{
+                      "name": "eostmt",
                       "attributes": {
                         "end": 61,
                         "start": 60,
                         "line": 3,
+                        "file": "if_stmts4.utl",
+                        "text": ";"
+                      }
+                    }, {
+                      "name": "statement_list",
+                      "attributes": {
+                        "end": 61,
+                        "start": 61,
+                        "line": 3,
                         "file": "if_stmts4.utl"
-                      },
-                      "children": [{
-                        "name": "statement",
-                        "attributes": {
-                          "end": 61,
-                          "start": 60,
-                          "line": 3,
-                          "file": "if_stmts4.utl"
-                        },
-                        "children": [{
-                          "name": "eostmt",
-                          "attributes": {
-                            "end": 61,
-                            "start": 60,
-                            "line": 3,
-                            "file": "if_stmts4.utl",
-                            "text": ";"
-                          }
-                        }]
-                      }]
+                      }
                     }
                   ]
                 }]
@@ -700,33 +689,23 @@
                   "file": "if_stmts4.utl"
                 },
                 "children": [{
+                  "name": "eostmt",
+                  "attributes": {
+                    "end": 202,
+                    "start": 201,
+                    "line": 7,
+                    "file": "if_stmts4.utl",
+                    "text": ";"
+                  }
+                }, {
                   "name": "statement_list",
                   "attributes": {
                     "end": 237,
-                    "start": 201,
+                    "start": 203,
                     "line": 7,
                     "file": "if_stmts4.utl"
                   },
                   "children": [{
-                      "name": "statement",
-                      "attributes": {
-                        "end": 202,
-                        "start": 201,
-                        "line": 7,
-                        "file": "if_stmts4.utl"
-                      },
-                      "children": [{
-                        "name": "eostmt",
-                        "attributes": {
-                          "end": 202,
-                          "start": 201,
-                          "line": 7,
-                          "file": "if_stmts4.utl",
-                          "text": ";"
-                        }
-                      }]
-                    },
-                    {
                       "name": "statement",
                       "attributes": {
                         "end": 237,
@@ -906,33 +885,23 @@
                   "file": "if_stmts4.utl"
                 },
                 "children": [{
+                  "name": "eostmt",
+                  "attributes": {
+                    "end": 270,
+                    "start": 269,
+                    "line": 9,
+                    "file": "if_stmts4.utl",
+                    "text": ";"
+                  }
+                }, {
                   "name": "statement_list",
                   "attributes": {
                     "end": 298,
-                    "start": 269,
-                    "line": 9,
+                    "start": 275,
+                    "line": 10,
                     "file": "if_stmts4.utl"
                   },
                   "children": [{
-                      "name": "statement",
-                      "attributes": {
-                        "end": 270,
-                        "start": 269,
-                        "line": 9,
-                        "file": "if_stmts4.utl"
-                      },
-                      "children": [{
-                        "name": "eostmt",
-                        "attributes": {
-                          "end": 270,
-                          "start": 269,
-                          "line": 9,
-                          "file": "if_stmts4.utl",
-                          "text": ";"
-                        }
-                      }]
-                    },
-                    {
                       "name": "statement",
                       "attributes": {
                         "end": 298,
