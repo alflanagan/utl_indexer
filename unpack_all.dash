@@ -1,0 +1,27 @@
+#!/usr/bin/env dash
+
+# Example commands to unpack richmond.com ZIP files to a directory structure, then run an
+# included files report. mainly so i don't have to remember the things.
+
+UTL_IND_DIR=/mnt/extra/Devel/utl_indexer
+DEST_DIR=${UTL_IND_DIR}/data/exported
+ZIPS_DIR=${UTL_IND_DIR}/data/export_zips
+
+cd ${UTL_IND_DIR}
+if [ $(pwd) != ${UTL_IND_DIR} ]; then
+    echo "Unable to change to directory ${UTL_IND_DIR}"
+    exit 1
+fi
+
+for SITE_DIR in ${ZIPS_DIR}/*
+do
+    SITE_NAME=$(basename ${SITE_DIR})
+    SITE_DEST=${DEST_DIR}/${SITE_NAME}
+    
+    ${UTL_IND_DIR}/unpack_zip_files.py ${SITE_NAME} ${SITE_DIR} ${DEST_DIR}
+    ERR=$?
+    if [ ${ERR} -ne 0 ]; then
+        echo "ERROR in unpack_zip_files.py, exit code ${ERR}"
+        exit ${ERR}
+    fi
+done
