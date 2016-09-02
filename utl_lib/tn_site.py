@@ -78,6 +78,7 @@ class TNSiteMeta(object):
         """
         # convert key to string just to be sure
         self.data[str(key)] = value
+        self.modified = True
 
 # Local Variables:
 # python-indent-offset: 4
