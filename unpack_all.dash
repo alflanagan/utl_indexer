@@ -3,9 +3,20 @@
 # Example commands to unpack richmond.com ZIP files to a directory structure, then run an
 # included files report. mainly so i don't have to remember the things.
 
-UTL_IND_DIR=/mnt/extra/Devel/utl_indexer
+check_dir () {
+    if [ ! -d $1 ]; then
+        echo "Can't find directory $1"
+        exit 1
+    fi
+}
+
+UTL_IND_DIR=~/Devel/utl_indexer
 DEST_DIR=${UTL_IND_DIR}/data/exported
 ZIPS_DIR=${UTL_IND_DIR}/data/export_zips
+
+check_dir ${UTL_IND_DIR}
+check_dir ${DEST_DIR}
+check_dir ${ZIPS_DIR}
 
 cd ${UTL_IND_DIR}
 if [ $(pwd) != ${UTL_IND_DIR} ]; then

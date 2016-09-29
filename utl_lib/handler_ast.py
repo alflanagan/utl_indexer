@@ -89,7 +89,7 @@ class UTLParseHandlerAST(UTLParseHandler):
         return ASTNode('arg', attrs, [expr])
 
     def arg_list(self, parser: UTLParser, arg_or_list: Union[ASTNode, str],
-                 arg: [ASTNode, str, None]=None) -> ASTNode:
+                 arg: Union[ASTNode, str, None]=None) -> ASTNode:
         assert arg_or_list is not None
         if arg_or_list == ",":
             # use empty argument -- position may be significant

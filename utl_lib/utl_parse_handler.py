@@ -199,7 +199,7 @@ class UTLParseHandler(object):
         :param elements: An "array_elems" production, or ``None`` (if literal is '[]').
 
         :note: Currently the grammar does not call anything for trailing commas in the literal
-        expression.
+            expression.
 
         """
         return None
