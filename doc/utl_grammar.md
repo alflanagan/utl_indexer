@@ -41,7 +41,7 @@ reverse-engineered from a combination of the
 [Townnews documentation](http://docs.townnews.com/kbpublisher/155/)
 and examination of working code.
 
-## operator precedence
+## Operator Precedence
 
 Operator precedence isn't documented well. I started with the precedence for [PHP](https://secure.php.net/manual/en/language.operators.precedence.php) and modified it until it parsed actual expressions correctly.
 
@@ -61,7 +61,7 @@ Operator precedence isn't documented well. I started with the precedence for [PH
 <tr><td> * / %  </td><td> left  </td></tr>
 <tr><td> + -    </td><td> left  </td></tr>
 <tr><td> < > <= >= </td><td> none  </td></tr>
-<tr><td> is not eq neq </td><td> none  </td></tr>
+<tr><td> is not eq neq == != </td><td> none  </td></tr>
 <tr><td> =      </td><td> right </td></tr>
 <tr><td> += -= *= /= %= </td><td> none  </td></tr>
 <tr><td> &&     </td><td> left  </td></tr>

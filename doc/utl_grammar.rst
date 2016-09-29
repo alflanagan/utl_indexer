@@ -11,29 +11,28 @@ Operator Precedence
 
 Operator precedence isn't documented well. I started with the precedence for `PHP <https://secure.php.net/manual/en/language.operators.precedence.php>`_ and modified it until it parsed actual expressions correctly.
 
-=============== ==================================
-operator        associativity
-=============== ==================================
-.               right
-) ]             left
-( [             right
-*unary* -       right
-,               left
-\|              left
-\... :          none
-!               right
-\* / %          left
-\+ -            left
-< > <= >=       none
-is not eq neq   none
-=               right
-+= -= \*= /= %= none
-&&              left
-and             left
-||              left
-or              left
-=============== ==================================
-
+==================== ==================================
+operator             associativity
+==================== ==================================
+.                    right
+) ]                  left
+( [                  right
+*unary* -            right
+,                    left
+\|                   left
+\... :               none
+!                    right
+\* / %               left
+\+ -                 left
+< > <= >=            none
+is not eq neq == !=  none
+=                    right
++= -= \*= /= %=      none
+&&                   left
+and                  left
+||                   left
+or                   left
+==================== ==================================
 
 Associativity:
 
